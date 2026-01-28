@@ -82,6 +82,17 @@ final class Plugin {
         // SSO
         require_once UNPATTI_CORE_PATH . 'includes/sso/class-sso-auth.php';
         ( new \UNPATTI\Core\SSO\SSO_Auth() )->init();
+
+        // Security
+        require_once UNPATTI_CORE_PATH . 'includes/security/class-hardening.php';
+        require_once UNPATTI_CORE_PATH . 'includes/security/class-content-scanner.php';
+        require_once UNPATTI_CORE_PATH . 'includes/security/class-file-integrity.php';
+        require_once UNPATTI_CORE_PATH . 'includes/security/class-activity-log.php';
+
+        ( new \UNPATTI\Core\Security\Hardening() )->init();
+        ( new \UNPATTI\Core\Security\Content_Scanner() )->init();
+        ( new \UNPATTI\Core\Security\File_Integrity() )->init();
+        ( new \UNPATTI\Core\Security\Activity_Log() )->init();
     }
 
     private function init_hooks() {

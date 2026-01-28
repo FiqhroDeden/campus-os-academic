@@ -20,6 +20,20 @@ define( 'UNPATTI_CORE_URL', plugin_dir_url( __FILE__ ) );
 
 require_once UNPATTI_CORE_PATH . 'includes/class-plugin.php';
 
+register_activation_hook( __FILE__, function() {
+    require_once UNPATTI_CORE_PATH . 'includes/security/class-file-integrity.php';
+    require_once UNPATTI_CORE_PATH . 'includes/security/class-activity-log.php';
+
+    ( new UNPATTI\Core\Security\File_Integrity() )->generate_hashes();
+    ( new UNPATTI\Core\Security\Activity_Log() )->maybe_create_table();
+} );
+
+register_deactivation_hook( __FILE__, function() {
+    wp_clear_scheduled_hook( 'unpatti_content_scan' );
+    wp_clear_scheduled_hook( 'unpatti_file_integrity_check' );
+    wp_clear_scheduled_hook( 'unpatti_activity_log_cleanup' );
+} );
+
 function unpatti_core() {
     return UNPATTI\Core\Plugin::instance();
 }
