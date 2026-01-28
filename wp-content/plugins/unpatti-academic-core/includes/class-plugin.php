@@ -93,6 +93,16 @@ final class Plugin {
         ( new \UNPATTI\Core\Security\Content_Scanner() )->init();
         ( new \UNPATTI\Core\Security\File_Integrity() )->init();
         ( new \UNPATTI\Core\Security\Activity_Log() )->init();
+
+        // API Integrations
+        require_once UNPATTI_CORE_PATH . 'includes/integrations/class-api-connector.php';
+        require_once UNPATTI_CORE_PATH . 'includes/integrations/class-siakad-connector.php';
+        require_once UNPATTI_CORE_PATH . 'includes/integrations/class-sigap-connector.php';
+        require_once UNPATTI_CORE_PATH . 'includes/integrations/class-shortcode-data.php';
+        require_once UNPATTI_CORE_PATH . 'includes/integrations/class-api-ajax.php';
+
+        ( new \UNPATTI\Core\Integrations\Shortcode_Data() )->init();
+        ( new \UNPATTI\Core\Integrations\API_Ajax() )->init();
     }
 
     private function init_hooks() {
