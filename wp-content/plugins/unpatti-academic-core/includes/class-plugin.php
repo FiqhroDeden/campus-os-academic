@@ -78,6 +78,10 @@ final class Plugin {
         // Admin settings
         require_once UNPATTI_CORE_PATH . 'includes/admin/class-admin-settings.php';
         ( new \UNPATTI\Core\Admin\Admin_Settings() )->register();
+
+        // SSO
+        require_once UNPATTI_CORE_PATH . 'includes/sso/class-sso-auth.php';
+        ( new \UNPATTI\Core\SSO\SSO_Auth() )->init();
     }
 
     private function init_hooks() {
