@@ -79,6 +79,18 @@ final class Plugin {
         require_once UNPATTI_CORE_PATH . 'includes/admin/class-admin-settings.php';
         ( new \UNPATTI\Core\Admin\Admin_Settings() )->register();
 
+        // Export/Import
+        require_once UNPATTI_CORE_PATH . 'includes/export-import/class-exporter.php';
+        require_once UNPATTI_CORE_PATH . 'includes/export-import/class-importer.php';
+        ( new \UNPATTI\Core\ExportImport\Exporter() )->init();
+        ( new \UNPATTI\Core\ExportImport\Importer() )->init();
+
+        // Updater
+        require_once UNPATTI_CORE_PATH . 'includes/updater/class-theme-updater.php';
+        require_once UNPATTI_CORE_PATH . 'includes/updater/class-plugin-updater.php';
+        ( new \UNPATTI\Core\Updater\Theme_Updater() )->init();
+        ( new \UNPATTI\Core\Updater\Plugin_Updater() )->init();
+
         // SSO
         require_once UNPATTI_CORE_PATH . 'includes/sso/class-sso-auth.php';
         ( new \UNPATTI\Core\SSO\SSO_Auth() )->init();

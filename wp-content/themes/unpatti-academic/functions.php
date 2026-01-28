@@ -44,6 +44,10 @@ add_action( 'wp_enqueue_scripts', function() {
     wp_add_inline_style( 'unpatti-academic', $css );
 } );
 
+// Setup wizard
+require_once UNPATTI_THEME_PATH . '/inc/setup-wizard/class-setup-wizard.php';
+new \UNPATTI_Setup_Wizard();
+
 require_once UNPATTI_THEME_PATH . '/inc/customizer/customizer.php';
 require_once UNPATTI_THEME_PATH . '/inc/template-functions.php';
 

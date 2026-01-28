@@ -258,17 +258,35 @@ class Admin_Settings {
     }
 
     private function render_tab_export() {
+        if ( ! empty( $_GET['import_success'] ) ) {
+            echo '<div class="notice notice-success"><p>' . sprintf( esc_html__( 'Import berhasil! %d item diproses.', 'unpatti-academic' ), absint( $_GET['import_success'] ) ) . '</p></div>';
+        }
+        if ( ! empty( $_GET['import_error'] ) ) {
+            $errors = [
+                'no_file'      => __( 'Tidak ada file yang diupload.', 'unpatti-academic' ),
+                'invalid_file' => __( 'File harus berformat JSON.', 'unpatti-academic' ),
+                'empty_file'   => __( 'File kosong.', 'unpatti-academic' ),
+            ];
+            $msg = $errors[ $_GET['import_error'] ] ?? __( 'Terjadi kesalahan.', 'unpatti-academic' );
+            echo '<div class="notice notice-error"><p>' . esc_html( $msg ) . '</p></div>';
+        }
         ?>
         <h3><?php esc_html_e( 'Export Data Situs', 'unpatti-academic' ); ?></h3>
         <p><?php esc_html_e( 'Export semua data situs (settings, CPT data, pages, menu) ke file JSON.', 'unpatti-academic' ); ?></p>
-        <p><button type="button" class="button button-secondary" disabled><?php esc_html_e( 'Export JSON', 'unpatti-academic' ); ?></button>
-        <span class="description"><?php esc_html_e( '(Segera tersedia)', 'unpatti-academic' ); ?></span></p>
+        <p><a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=unpatti_export' ), 'unpatti_export' ) ); ?>" class="button button-secondary"><?php esc_html_e( 'Export JSON', 'unpatti-academic' ); ?></a></p>
 
         <hr/>
         <h3><?php esc_html_e( 'Import Data Situs', 'unpatti-academic' ); ?></h3>
         <p><?php esc_html_e( 'Import data dari file JSON yang sebelumnya di-export.', 'unpatti-academic' ); ?></p>
-        <p><button type="button" class="button button-secondary" disabled><?php esc_html_e( 'Import JSON', 'unpatti-academic' ); ?></button>
-        <span class="description"><?php esc_html_e( '(Segera tersedia)', 'unpatti-academic' ); ?></span></p>
+        </form>
+        <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" enctype="multipart/form-data">
+            <?php wp_nonce_field( 'unpatti_import' ); ?>
+            <input type="hidden" name="action" value="unpatti_import" />
+            <p><input type="file" name="import_file" accept=".json" /></p>
+            <p><?php submit_button( __( 'Import JSON', 'unpatti-academic' ), 'secondary', 'submit', false ); ?></p>
+        </form>
+        <form method="post" action="options.php">
+            <?php settings_fields( 'unpatti_settings_group' ); ?>
 
         <hr/>
         <h3><?php esc_html_e( 'Update Server', 'unpatti-academic' ); ?></h3>
