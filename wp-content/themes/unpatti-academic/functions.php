@@ -43,3 +43,6 @@ add_action( 'wp_enqueue_scripts', function() {
     }";
     wp_add_inline_style( 'unpatti-academic', $css );
 } );
+
+require_once UNPATTI_THEME_PATH . '/inc/customizer/customizer.php';
+require_once UNPATTI_THEME_PATH . '/inc/template-functions.php';
