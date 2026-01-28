@@ -438,3 +438,221 @@ h3 { font-size: 1.25rem; }
 @media (max-width: 480px) {
     .posts-grid { grid-template-columns: 1fr; }
 }
+
+/* ============================================
+   Template-Specific Styles
+   ============================================ */
+
+/* --- Timeline (Sejarah) --- */
+.timeline {
+    position: relative;
+    padding: 2rem 0;
+    margin-top: 2rem;
+}
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 40px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--unpatti-primary);
+}
+.timeline-item {
+    position: relative;
+    padding-left: 80px;
+    margin-bottom: 2rem;
+}
+.timeline-year {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 80px;
+    text-align: center;
+    background: var(--unpatti-primary);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.875rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    z-index: 1;
+}
+.timeline-content {
+    background: var(--unpatti-bg-alt, #f9fafb);
+    border: 1px solid var(--unpatti-border);
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+}
+
+/* --- Profile Grid & Cards (Pimpinan, Tenaga Pendidik) --- */
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+.profile-card {
+    background: #fff;
+    border: 1px solid var(--unpatti-border);
+    border-radius: 6px;
+    overflow: hidden;
+    text-align: center;
+    transition: box-shadow 0.2s;
+}
+.profile-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.profile-photo img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+.profile-info { padding: 1rem; }
+.profile-name {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+.profile-meta {
+    font-size: 0.8125rem;
+    color: var(--unpatti-text-light, #6b7280);
+}
+.profile-meta p { margin-bottom: 0.25rem; }
+.profile-meta a { color: var(--unpatti-primary); }
+
+/* --- Stat Grid (Statistik) --- */
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+.stat-item {
+    background: #fff;
+    border: 1px solid var(--unpatti-border);
+    border-radius: 6px;
+    padding: 2rem 1rem;
+    text-align: center;
+    transition: box-shadow 0.2s;
+}
+.stat-item:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--unpatti-primary);
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+}
+.stat-label {
+    font-size: 0.875rem;
+    color: var(--unpatti-text-light, #6b7280);
+}
+
+/* --- Document List (Dokumen) --- */
+.document-list { margin-top: 1rem; }
+.document-list h2 {
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--unpatti-primary);
+}
+.doc-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--unpatti-border);
+}
+.doc-title { font-size: 0.9375rem; }
+.doc-download {
+    flex-shrink: 0;
+    margin-left: 1rem;
+    font-size: 0.8125rem;
+    padding: 0.4rem 0.75rem;
+}
+
+/* --- Sambutan Grid --- */
+.sambutan-grid {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    align-items: start;
+}
+.sambutan-foto img {
+    width: 100%;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+}
+.sambutan-foto h3 { margin-bottom: 0.25rem; }
+.sambutan-jabatan {
+    font-size: 0.875rem;
+    color: var(--unpatti-text-light, #6b7280);
+}
+
+/* --- Akreditasi Badge --- */
+.akreditasi-badge {
+    display: inline-block;
+    background: var(--unpatti-primary);
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 700;
+    padding: 1rem 2rem;
+    border-radius: 6px;
+    margin-bottom: 2rem;
+}
+
+/* --- UKT Table --- */
+.ukt-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+}
+.ukt-table th,
+.ukt-table td {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--unpatti-border);
+    text-align: left;
+    font-size: 0.9375rem;
+}
+.ukt-table thead th {
+    background: var(--unpatti-primary);
+    color: #fff;
+    font-weight: 600;
+}
+.ukt-table tbody tr:nth-child(even) {
+    background: var(--unpatti-bg-alt, #f9fafb);
+}
+
+/* --- VMTS Sections (Visi Misi, CPL) --- */
+.vmts-section {
+    margin-bottom: 2rem;
+}
+.vmts-section h2 {
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--unpatti-primary);
+}
+.vmts-section ol {
+    list-style: decimal;
+    margin-left: 1.5rem;
+}
+.vmts-section ol li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+/* --- Template Responsive --- */
+@media (max-width: 1024px) {
+    .profile-grid { grid-template-columns: repeat(2, 1fr); }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+    .sambutan-grid { grid-template-columns: 1fr; }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+    .profile-grid { grid-template-columns: 1fr; }
+    .stat-grid { grid-template-columns: 1fr; }
+    .doc-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    .doc-download { margin-left: 0; }
+}
