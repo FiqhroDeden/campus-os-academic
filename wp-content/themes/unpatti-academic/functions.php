@@ -46,3 +46,15 @@ add_action( 'wp_enqueue_scripts', function() {
 
 require_once UNPATTI_THEME_PATH . '/inc/customizer/customizer.php';
 require_once UNPATTI_THEME_PATH . '/inc/template-functions.php';
+
+// Register sidebar
+add_action( 'widgets_init', function() {
+    register_sidebar( [
+        'name'          => __( 'Sidebar', 'unpatti-academic' ),
+        'id'            => 'sidebar-1',
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h3 class="widget-title">',
+        'after_title'   => '</h3>',
+    ] );
+} );
