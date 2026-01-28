@@ -74,6 +74,10 @@ final class Plugin {
         ( new \UNPATTI\Core\Admin\MetaBoxes\MB_Biaya_UKT() )->register();
         ( new \UNPATTI\Core\Admin\MetaBoxes\MB_Statistik() )->register();
         ( new \UNPATTI\Core\Admin\MetaBoxes\MB_Tracer_Study() )->register();
+
+        // Admin settings
+        require_once UNPATTI_CORE_PATH . 'includes/admin/class-admin-settings.php';
+        ( new \UNPATTI\Core\Admin\Admin_Settings() )->register();
     }
 
     private function init_hooks() {
