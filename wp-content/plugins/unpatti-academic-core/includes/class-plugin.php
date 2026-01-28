@@ -119,9 +119,64 @@ final class Plugin {
 
     private function init_hooks() {
         add_action( 'init', [ $this, 'load_textdomain' ] );
+        add_action( 'wp_dashboard_setup', [ $this, 'add_dashboard_widget' ] );
     }
 
     public function load_textdomain() {
         load_plugin_textdomain( 'unpatti-academic', false, dirname( plugin_basename( UNPATTI_CORE_PATH . 'unpatti-academic-core.php' ) ) . '/languages' );
+    }
+
+    public function add_dashboard_widget() {
+        wp_add_dashboard_widget(
+            'unpatti_dashboard_widget',
+            __( 'UNPATTI Academic', 'unpatti-academic' ),
+            [ $this, 'render_dashboard_widget' ]
+        );
+    }
+
+    public function render_dashboard_widget() {
+        $mode = get_theme_mod( 'unpatti_site_mode', 'prodi' );
+        $name = get_theme_mod( 'unpatti_institution_name', get_bloginfo( 'name' ) );
+        $settings = get_option( 'unpatti_settings', [] );
+
+        echo '<div class="unpatti-dashboard">';
+        echo '<p><strong>' . esc_html( $name ) . '</strong> — ' . ( $mode === 'fakultas' ? 'Fakultas' : 'Program Studi' ) . '</p>';
+        echo '<hr/>';
+
+        // CPT counts
+        $cpts = [
+            'pimpinan'        => __( 'Pimpinan', 'unpatti-academic' ),
+            'tenaga_pendidik' => __( 'Tenaga Pendidik', 'unpatti-academic' ),
+            'kerjasama'       => __( 'Kerjasama', 'unpatti-academic' ),
+            'fasilitas'       => __( 'Fasilitas', 'unpatti-academic' ),
+            'prestasi'        => __( 'Prestasi', 'unpatti-academic' ),
+            'dokumen'         => __( 'Dokumen', 'unpatti-academic' ),
+            'agenda'          => __( 'Agenda', 'unpatti-academic' ),
+            'faq'             => __( 'FAQ', 'unpatti-academic' ),
+            'publikasi'       => __( 'Publikasi', 'unpatti-academic' ),
+            'galeri'          => __( 'Galeri', 'unpatti-academic' ),
+        ];
+        echo '<table style="width:100%;font-size:13px;">';
+        foreach ( $cpts as $slug => $label ) {
+            $count = wp_count_posts( $slug );
+            $published = $count->publish ?? 0;
+            echo '<tr><td>' . esc_html( $label ) . '</td><td style="text-align:right;"><strong>' . (int) $published . '</strong></td></tr>';
+        }
+        echo '</table>';
+        echo '<hr/>';
+
+        // Security status
+        $last_scan = get_option( 'unpatti_last_scan', [] );
+        if ( $last_scan ) {
+            echo '<p>' . esc_html__( 'Scan terakhir:', 'unpatti-academic' ) . ' ' . esc_html( $last_scan['time'] ?? '-' ) . ' — ';
+            echo esc_html( ( $last_scan['flagged'] ?? 0 ) . ' konten ditandai' ) . '</p>';
+        }
+
+        // SSO status
+        $sso = ! empty( $settings['sso_enabled'] ) ? __( 'Aktif', 'unpatti-academic' ) : __( 'Nonaktif', 'unpatti-academic' );
+        echo '<p>SSO: <strong>' . esc_html( $sso ) . '</strong></p>';
+
+        echo '<p><a href="' . esc_url( admin_url( 'admin.php?page=unpatti-academic' ) ) . '" class="button">' . esc_html__( 'Pengaturan', 'unpatti-academic' ) . '</a></p>';
+        echo '</div>';
     }
 }
