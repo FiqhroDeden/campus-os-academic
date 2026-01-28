@@ -47,6 +47,17 @@ add_action( 'wp_enqueue_scripts', function() {
 require_once UNPATTI_THEME_PATH . '/inc/customizer/customizer.php';
 require_once UNPATTI_THEME_PATH . '/inc/template-functions.php';
 
+// Elementor integration
+if ( did_action( 'elementor/loaded' ) || class_exists( '\Elementor\Plugin' ) ) {
+    require_once UNPATTI_THEME_PATH . '/inc/elementor/elementor-init.php';
+} else {
+    add_action( 'plugins_loaded', function() {
+        if ( did_action( 'elementor/loaded' ) ) {
+            require_once UNPATTI_THEME_PATH . '/inc/elementor/elementor-init.php';
+        }
+    } );
+}
+
 // Register sidebar
 add_action( 'widgets_init', function() {
     register_sidebar( [
