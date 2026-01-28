@@ -19,7 +19,37 @@ final class Plugin {
     }
 
     private function load_dependencies() {
-        // Will load CPTs, admin, security, etc. as we build them
+        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-base.php';
+        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-pimpinan.php';
+        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-tenaga-pendidik.php';
+        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-kerjasama.php';
+        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-fasilitas.php';
+        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-prestasi.php';
+        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-dokumen.php';
+        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-agenda.php';
+        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-faq.php';
+        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-mata-kuliah.php';
+        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-organisasi-mhs.php';
+        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-mitra-industri.php';
+        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-publikasi.php';
+        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-beasiswa.php';
+        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-galeri.php';
+
+        // Register all CPTs
+        ( new \UNPATTI\Core\CPT\CPT_Pimpinan() )->register();
+        ( new \UNPATTI\Core\CPT\CPT_Tenaga_Pendidik() )->register();
+        ( new \UNPATTI\Core\CPT\CPT_Kerjasama() )->register();
+        ( new \UNPATTI\Core\CPT\CPT_Fasilitas() )->register();
+        ( new \UNPATTI\Core\CPT\CPT_Prestasi() )->register();
+        ( new \UNPATTI\Core\CPT\CPT_Dokumen() )->register();
+        ( new \UNPATTI\Core\CPT\CPT_Agenda() )->register();
+        ( new \UNPATTI\Core\CPT\CPT_Faq() )->register();
+        ( new \UNPATTI\Core\CPT\CPT_Mata_Kuliah() )->register();
+        ( new \UNPATTI\Core\CPT\CPT_Organisasi_Mhs() )->register();
+        ( new \UNPATTI\Core\CPT\CPT_Mitra_Industri() )->register();
+        ( new \UNPATTI\Core\CPT\CPT_Publikasi() )->register();
+        ( new \UNPATTI\Core\CPT\CPT_Beasiswa() )->register();
+        ( new \UNPATTI\Core\CPT\CPT_Galeri() )->register();
     }
 
     private function init_hooks() {
