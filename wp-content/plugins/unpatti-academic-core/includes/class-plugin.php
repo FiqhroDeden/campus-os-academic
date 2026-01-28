@@ -50,6 +50,30 @@ final class Plugin {
         ( new \UNPATTI\Core\CPT\CPT_Publikasi() )->register();
         ( new \UNPATTI\Core\CPT\CPT_Beasiswa() )->register();
         ( new \UNPATTI\Core\CPT\CPT_Galeri() )->register();
+
+        // Meta boxes
+        require_once UNPATTI_CORE_PATH . 'includes/admin/meta-boxes/class-mb-base.php';
+        require_once UNPATTI_CORE_PATH . 'includes/admin/meta-boxes/class-mb-sejarah.php';
+        require_once UNPATTI_CORE_PATH . 'includes/admin/meta-boxes/class-mb-visi-misi.php';
+        require_once UNPATTI_CORE_PATH . 'includes/admin/meta-boxes/class-mb-struktur-org.php';
+        require_once UNPATTI_CORE_PATH . 'includes/admin/meta-boxes/class-mb-sambutan.php';
+        require_once UNPATTI_CORE_PATH . 'includes/admin/meta-boxes/class-mb-akreditasi.php';
+        require_once UNPATTI_CORE_PATH . 'includes/admin/meta-boxes/class-mb-cpl.php';
+        require_once UNPATTI_CORE_PATH . 'includes/admin/meta-boxes/class-mb-penerimaan.php';
+        require_once UNPATTI_CORE_PATH . 'includes/admin/meta-boxes/class-mb-biaya-ukt.php';
+        require_once UNPATTI_CORE_PATH . 'includes/admin/meta-boxes/class-mb-statistik.php';
+        require_once UNPATTI_CORE_PATH . 'includes/admin/meta-boxes/class-mb-tracer-study.php';
+
+        ( new \UNPATTI\Core\Admin\MetaBoxes\MB_Sejarah() )->register();
+        ( new \UNPATTI\Core\Admin\MetaBoxes\MB_Visi_Misi() )->register();
+        ( new \UNPATTI\Core\Admin\MetaBoxes\MB_Struktur_Org() )->register();
+        ( new \UNPATTI\Core\Admin\MetaBoxes\MB_Sambutan() )->register();
+        ( new \UNPATTI\Core\Admin\MetaBoxes\MB_Akreditasi() )->register();
+        ( new \UNPATTI\Core\Admin\MetaBoxes\MB_CPL() )->register();
+        ( new \UNPATTI\Core\Admin\MetaBoxes\MB_Penerimaan() )->register();
+        ( new \UNPATTI\Core\Admin\MetaBoxes\MB_Biaya_UKT() )->register();
+        ( new \UNPATTI\Core\Admin\MetaBoxes\MB_Statistik() )->register();
+        ( new \UNPATTI\Core\Admin\MetaBoxes\MB_Tracer_Study() )->register();
     }
 
     private function init_hooks() {
