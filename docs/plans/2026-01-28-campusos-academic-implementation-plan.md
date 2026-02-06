@@ -1,14 +1,14 @@
-# UNPATTI Academic Theme - Implementation Plan
+# CampusOS Academic Theme - Implementation Plan
 
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
-**Goal:** Build a single WordPress theme + companion plugin for all 115 faculty/study program websites at Universitas Pattimura.
+**Goal:** Build a single WordPress theme + companion plugin for all 115 faculty/study program websites at Perguruan Tinggi.
 
-**Architecture:** Classic WordPress theme (`unpatti-academic`) for presentation + companion plugin (`unpatti-academic-core`) for data/logic. Elementor for page building. OAuth2 SSO via Laravel Passport. Single-site installs with auto-update mechanism.
+**Architecture:** Classic WordPress theme (`campusos-academic`) for presentation + companion plugin (`campusos-academic-core`) for data/logic. Elementor for page building. OAuth2 SSO via Laravel Passport. Single-site installs with auto-update mechanism.
 
 **Tech Stack:** WordPress 6.9, PHP 8.x, Elementor, vanilla CSS (custom properties), vanilla JS, OAuth2/Laravel Passport SSO
 
-**Design Doc:** `docs/plans/2026-01-28-unpatti-academic-theme-design.md`
+**Design Doc:** `docs/plans/2026-01-28-campusos-academic-theme-design.md`
 
 ---
 
@@ -17,19 +17,19 @@
 ### Task 1.1: Create Companion Plugin Bootstrap
 
 **Files:**
-- Create: `wp-content/plugins/unpatti-academic-core/unpatti-academic-core.php`
-- Create: `wp-content/plugins/unpatti-academic-core/includes/class-plugin.php`
+- Create: `wp-content/plugins/campusos-academic-core/campusos-academic-core.php`
+- Create: `wp-content/plugins/campusos-academic-core/includes/class-plugin.php`
 
 **Step 1: Create plugin main file**
 
 ```php
 <?php
 /**
- * Plugin Name: UNPATTI Academic Core
- * Description: Core data and functionality for UNPATTI Academic theme
+ * Plugin Name: CampusOS Academic Core
+ * Description: Core data and functionality for CampusOS Academic theme
  * Version: 1.0.0
- * Author: UNPATTI Developer Team
- * Text Domain: unpatti-academic
+ * Author: CampusOS Team
+ * Text Domain: campusos-academic
  * Domain Path: /languages
  * Requires at least: 6.0
  * Requires PHP: 8.0
@@ -39,24 +39,24 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'UNPATTI_CORE_VERSION', '1.0.0' );
-define( 'UNPATTI_CORE_PATH', plugin_dir_path( __FILE__ ) );
-define( 'UNPATTI_CORE_URL', plugin_dir_url( __FILE__ ) );
+define( 'CampusOS_CORE_VERSION', '1.0.0' );
+define( 'CampusOS_CORE_PATH', plugin_dir_path( __FILE__ ) );
+define( 'CampusOS_CORE_URL', plugin_dir_url( __FILE__ ) );
 
-require_once UNPATTI_CORE_PATH . 'includes/class-plugin.php';
+require_once CampusOS_CORE_PATH . 'includes/class-plugin.php';
 
-function unpatti_core() {
-    return UNPATTI\Core\Plugin::instance();
+function campusos_core() {
+    return CampusOS\Core\Plugin::instance();
 }
 
-unpatti_core();
+campusos_core();
 ```
 
 **Step 2: Create main plugin class**
 
 ```php
 <?php
-namespace UNPATTI\Core;
+namespace CampusOS\Core;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -85,7 +85,7 @@ final class Plugin {
     }
 
     public function load_textdomain() {
-        load_plugin_textdomain( 'unpatti-academic', false, dirname( plugin_basename( UNPATTI_CORE_PATH ) ) . '/languages' );
+        load_plugin_textdomain( 'campusos-academic', false, dirname( plugin_basename( CampusOS_CORE_PATH ) ) . '/languages' );
     }
 
     public function register_post_types() {
@@ -97,7 +97,7 @@ final class Plugin {
 **Step 3: Create directory structure**
 
 ```bash
-mkdir -p wp-content/plugins/unpatti-academic-core/{includes/{cpt,admin/meta-boxes,security,sso,integrations,updater,export-import},languages}
+mkdir -p wp-content/plugins/campusos-academic-core/{includes/{cpt,admin/meta-boxes,security,sso,integrations,updater,export-import},languages}
 ```
 
 **Step 4: Activate plugin in WordPress admin and verify no errors**
@@ -105,8 +105,8 @@ mkdir -p wp-content/plugins/unpatti-academic-core/{includes/{cpt,admin/meta-boxe
 **Step 5: Commit**
 
 ```bash
-git add wp-content/plugins/unpatti-academic-core/
-git commit -m "feat: scaffold companion plugin unpatti-academic-core"
+git add wp-content/plugins/campusos-academic-core/
+git commit -m "feat: scaffold companion plugin campusos-academic-core"
 ```
 
 ---
@@ -116,28 +116,28 @@ git commit -m "feat: scaffold companion plugin unpatti-academic-core"
 ### Task 2.1: Create Theme Base Files
 
 **Files:**
-- Create: `wp-content/themes/unpatti-academic/style.css`
-- Create: `wp-content/themes/unpatti-academic/functions.php`
-- Create: `wp-content/themes/unpatti-academic/theme.json`
-- Create: `wp-content/themes/unpatti-academic/index.php`
-- Create: `wp-content/themes/unpatti-academic/screenshot.png` (placeholder)
+- Create: `wp-content/themes/campusos-academic/style.css`
+- Create: `wp-content/themes/campusos-academic/functions.php`
+- Create: `wp-content/themes/campusos-academic/theme.json`
+- Create: `wp-content/themes/campusos-academic/index.php`
+- Create: `wp-content/themes/campusos-academic/screenshot.png` (placeholder)
 
 **Step 1: Create style.css with theme header**
 
 ```css
 /*
-Theme Name: UNPATTI Academic
-Theme URI: https://unpatti.ac.id
-Author: UNPATTI Developer Team
-Author URI: https://unpatti.ac.id
-Description: Tema WordPress untuk Fakultas dan Program Studi Universitas Pattimura. Clean, modern, dan aman.
+Theme Name: CampusOS Academic
+Theme URI: https://campusos.ac.id
+Author: CampusOS Team
+Author URI: https://campusos.ac.id
+Description: Tema WordPress untuk Fakultas dan Program Studi Perguruan Tinggi. Clean, modern, dan aman.
 Version: 1.0.0
 Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 8.0
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: unpatti-academic
+Text Domain: campusos-academic
 Domain Path: /languages
 */
 ```
@@ -183,9 +183,9 @@ Domain Path: /languages
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'UNPATTI_THEME_VERSION', '1.0.0' );
-define( 'UNPATTI_THEME_PATH', get_template_directory() );
-define( 'UNPATTI_THEME_URI', get_template_directory_uri() );
+define( 'CampusOS_THEME_VERSION', '1.0.0' );
+define( 'CampusOS_THEME_PATH', get_template_directory() );
+define( 'CampusOS_THEME_URI', get_template_directory_uri() );
 
 // Theme setup
 add_action( 'after_setup_theme', function() {
@@ -203,34 +203,34 @@ add_action( 'after_setup_theme', function() {
     add_theme_support( 'wp-block-styles' );
 
     register_nav_menus( [
-        'primary'   => __( 'Menu Utama', 'unpatti-academic' ),
-        'footer'    => __( 'Menu Footer', 'unpatti-academic' ),
+        'primary'   => __( 'Menu Utama', 'campusos-academic' ),
+        'footer'    => __( 'Menu Footer', 'campusos-academic' ),
     ] );
 
     // Image sizes
-    add_image_size( 'unpatti-card', 400, 300, true );
-    add_image_size( 'unpatti-hero', 1920, 600, true );
-    add_image_size( 'unpatti-profile', 300, 300, true );
+    add_image_size( 'campusos-card', 400, 300, true );
+    add_image_size( 'campusos-hero', 1920, 600, true );
+    add_image_size( 'campusos-profile', 300, 300, true );
 } );
 
 // Enqueue styles and scripts
 add_action( 'wp_enqueue_scripts', function() {
-    wp_enqueue_style( 'unpatti-academic', UNPATTI_THEME_URI . '/assets/css/main.css', [], UNPATTI_THEME_VERSION );
-    wp_enqueue_script( 'unpatti-academic', UNPATTI_THEME_URI . '/assets/js/main.js', [], UNPATTI_THEME_VERSION, true );
+    wp_enqueue_style( 'campusos-academic', CampusOS_THEME_URI . '/assets/css/main.css', [], CampusOS_THEME_VERSION );
+    wp_enqueue_script( 'campusos-academic', CampusOS_THEME_URI . '/assets/js/main.js', [], CampusOS_THEME_VERSION, true );
 
     // Pass dynamic CSS variables from Customizer
-    $primary = get_theme_mod( 'unpatti_primary_color', '#003d82' );
-    $secondary = get_theme_mod( 'unpatti_secondary_color', '#e67e22' );
+    $primary = get_theme_mod( 'campusos_primary_color', '#003d82' );
+    $secondary = get_theme_mod( 'campusos_secondary_color', '#e67e22' );
     $css = ":root {
-        --unpatti-primary: {$primary};
-        --unpatti-secondary: {$secondary};
+        --campusos-primary: {$primary};
+        --campusos-secondary: {$secondary};
     }";
-    wp_add_inline_style( 'unpatti-academic', $css );
+    wp_add_inline_style( 'campusos-academic', $css );
 } );
 
 // Load includes
-require_once UNPATTI_THEME_PATH . '/inc/customizer/customizer.php';
-require_once UNPATTI_THEME_PATH . '/inc/template-functions.php';
+require_once CampusOS_THEME_PATH . '/inc/customizer/customizer.php';
+require_once CampusOS_THEME_PATH . '/inc/template-functions.php';
 ```
 
 **Step 4: Create minimal index.php**
@@ -251,14 +251,14 @@ require_once UNPATTI_THEME_PATH . '/inc/template-functions.php';
 **Step 5: Create directory structure**
 
 ```bash
-mkdir -p wp-content/themes/unpatti-academic/{inc/{customizer,elementor/widgets,setup-wizard},templates,template-parts/{header,footer,content,sidebar},assets/{css,js,images,fonts},languages}
+mkdir -p wp-content/themes/campusos-academic/{inc/{customizer,elementor/widgets,setup-wizard},templates,template-parts/{header,footer,content,sidebar},assets/{css,js,images,fonts},languages}
 ```
 
 **Step 6: Commit**
 
 ```bash
-git add wp-content/themes/unpatti-academic/
-git commit -m "feat: scaffold unpatti-academic theme with base files"
+git add wp-content/themes/campusos-academic/
+git commit -m "feat: scaffold campusos-academic theme with base files"
 ```
 
 ---
@@ -266,7 +266,7 @@ git commit -m "feat: scaffold unpatti-academic theme with base files"
 ### Task 2.2: Create Customizer Settings (Color, Site Mode)
 
 **Files:**
-- Create: `wp-content/themes/unpatti-academic/inc/customizer/customizer.php`
+- Create: `wp-content/themes/campusos-academic/inc/customizer/customizer.php`
 
 **Step 1: Create Customizer with color pickers and site mode**
 
@@ -276,120 +276,120 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 add_action( 'customize_register', function( $wp_customize ) {
 
-    // --- Panel: UNPATTI Settings ---
-    $wp_customize->add_panel( 'unpatti_settings', [
-        'title'    => __( 'UNPATTI Academic', 'unpatti-academic' ),
+    // --- Panel: CampusOS Settings ---
+    $wp_customize->add_panel( 'campusos_settings', [
+        'title'    => __( 'CampusOS Academic', 'campusos-academic' ),
         'priority' => 10,
     ] );
 
     // --- Section: Site Identity ---
-    $wp_customize->add_section( 'unpatti_identity', [
-        'title' => __( 'Identitas Situs', 'unpatti-academic' ),
-        'panel' => 'unpatti_settings',
+    $wp_customize->add_section( 'campusos_identity', [
+        'title' => __( 'Identitas Situs', 'campusos-academic' ),
+        'panel' => 'campusos_settings',
     ] );
 
     // Site Mode
-    $wp_customize->add_setting( 'unpatti_site_mode', [
+    $wp_customize->add_setting( 'campusos_site_mode', [
         'default'           => 'prodi',
         'sanitize_callback' => function( $val ) {
             return in_array( $val, [ 'fakultas', 'prodi' ], true ) ? $val : 'prodi';
         },
     ] );
-    $wp_customize->add_control( 'unpatti_site_mode', [
-        'label'   => __( 'Mode Situs', 'unpatti-academic' ),
-        'section' => 'unpatti_identity',
+    $wp_customize->add_control( 'campusos_site_mode', [
+        'label'   => __( 'Mode Situs', 'campusos-academic' ),
+        'section' => 'campusos_identity',
         'type'    => 'radio',
         'choices' => [
-            'fakultas' => __( 'Fakultas', 'unpatti-academic' ),
-            'prodi'    => __( 'Program Studi', 'unpatti-academic' ),
+            'fakultas' => __( 'Fakultas', 'campusos-academic' ),
+            'prodi'    => __( 'Program Studi', 'campusos-academic' ),
         ],
     ] );
 
     // Institution name
-    $wp_customize->add_setting( 'unpatti_institution_name', [
+    $wp_customize->add_setting( 'campusos_institution_name', [
         'default'           => '',
         'sanitize_callback' => 'sanitize_text_field',
     ] );
-    $wp_customize->add_control( 'unpatti_institution_name', [
-        'label'   => __( 'Nama Fakultas / Program Studi', 'unpatti-academic' ),
-        'section' => 'unpatti_identity',
+    $wp_customize->add_control( 'campusos_institution_name', [
+        'label'   => __( 'Nama Fakultas / Program Studi', 'campusos-academic' ),
+        'section' => 'campusos_identity',
         'type'    => 'text',
     ] );
 
     // Parent link (for prodi → link to faculty, for faculty → link to university)
-    $wp_customize->add_setting( 'unpatti_parent_url', [
-        'default'           => 'https://unpatti.ac.id',
+    $wp_customize->add_setting( 'campusos_parent_url', [
+        'default'           => 'https://campusos.ac.id',
         'sanitize_callback' => 'esc_url_raw',
     ] );
-    $wp_customize->add_control( 'unpatti_parent_url', [
-        'label'       => __( 'URL Induk (Fakultas / Universitas)', 'unpatti-academic' ),
-        'section'     => 'unpatti_identity',
+    $wp_customize->add_control( 'campusos_parent_url', [
+        'label'       => __( 'URL Induk (Fakultas / Universitas)', 'campusos-academic' ),
+        'section'     => 'campusos_identity',
         'type'        => 'url',
     ] );
 
     // Address
-    $wp_customize->add_setting( 'unpatti_address', [
+    $wp_customize->add_setting( 'campusos_address', [
         'default'           => '',
         'sanitize_callback' => 'sanitize_textarea_field',
     ] );
-    $wp_customize->add_control( 'unpatti_address', [
-        'label'   => __( 'Alamat', 'unpatti-academic' ),
-        'section' => 'unpatti_identity',
+    $wp_customize->add_control( 'campusos_address', [
+        'label'   => __( 'Alamat', 'campusos-academic' ),
+        'section' => 'campusos_identity',
         'type'    => 'textarea',
     ] );
 
     // Phone
-    $wp_customize->add_setting( 'unpatti_phone', [
+    $wp_customize->add_setting( 'campusos_phone', [
         'default'           => '',
         'sanitize_callback' => 'sanitize_text_field',
     ] );
-    $wp_customize->add_control( 'unpatti_phone', [
-        'label'   => __( 'Telepon', 'unpatti-academic' ),
-        'section' => 'unpatti_identity',
+    $wp_customize->add_control( 'campusos_phone', [
+        'label'   => __( 'Telepon', 'campusos-academic' ),
+        'section' => 'campusos_identity',
         'type'    => 'text',
     ] );
 
     // Email
-    $wp_customize->add_setting( 'unpatti_email', [
+    $wp_customize->add_setting( 'campusos_email', [
         'default'           => '',
         'sanitize_callback' => 'sanitize_email',
     ] );
-    $wp_customize->add_control( 'unpatti_email', [
-        'label'   => __( 'Email', 'unpatti-academic' ),
-        'section' => 'unpatti_identity',
+    $wp_customize->add_control( 'campusos_email', [
+        'label'   => __( 'Email', 'campusos-academic' ),
+        'section' => 'campusos_identity',
         'type'    => 'email',
     ] );
 
     // --- Section: Colors ---
-    $wp_customize->add_section( 'unpatti_colors', [
-        'title' => __( 'Warna Tema', 'unpatti-academic' ),
-        'panel' => 'unpatti_settings',
+    $wp_customize->add_section( 'campusos_colors', [
+        'title' => __( 'Warna Tema', 'campusos-academic' ),
+        'panel' => 'campusos_settings',
     ] );
 
     // Primary color
-    $wp_customize->add_setting( 'unpatti_primary_color', [
+    $wp_customize->add_setting( 'campusos_primary_color', [
         'default'           => '#003d82',
         'sanitize_callback' => 'sanitize_hex_color',
     ] );
-    $wp_customize->add_control( new \WP_Customize_Color_Control( $wp_customize, 'unpatti_primary_color', [
-        'label'   => __( 'Warna Primary', 'unpatti-academic' ),
-        'section' => 'unpatti_colors',
+    $wp_customize->add_control( new \WP_Customize_Color_Control( $wp_customize, 'campusos_primary_color', [
+        'label'   => __( 'Warna Primary', 'campusos-academic' ),
+        'section' => 'campusos_colors',
     ] ) );
 
     // Secondary color
-    $wp_customize->add_setting( 'unpatti_secondary_color', [
+    $wp_customize->add_setting( 'campusos_secondary_color', [
         'default'           => '#e67e22',
         'sanitize_callback' => 'sanitize_hex_color',
     ] );
-    $wp_customize->add_control( new \WP_Customize_Color_Control( $wp_customize, 'unpatti_secondary_color', [
-        'label'   => __( 'Warna Secondary', 'unpatti-academic' ),
-        'section' => 'unpatti_colors',
+    $wp_customize->add_control( new \WP_Customize_Color_Control( $wp_customize, 'campusos_secondary_color', [
+        'label'   => __( 'Warna Secondary', 'campusos-academic' ),
+        'section' => 'campusos_colors',
     ] ) );
 
     // --- Section: Social Media ---
-    $wp_customize->add_section( 'unpatti_social', [
-        'title' => __( 'Media Sosial', 'unpatti-academic' ),
-        'panel' => 'unpatti_settings',
+    $wp_customize->add_section( 'campusos_social', [
+        'title' => __( 'Media Sosial', 'campusos-academic' ),
+        'panel' => 'campusos_settings',
     ] );
 
     $socials = [
@@ -400,30 +400,30 @@ add_action( 'customize_register', function( $wp_customize ) {
         'tiktok'    => 'TikTok URL',
     ];
     foreach ( $socials as $key => $label ) {
-        $wp_customize->add_setting( "unpatti_social_{$key}", [
+        $wp_customize->add_setting( "campusos_social_{$key}", [
             'default'           => '',
             'sanitize_callback' => 'esc_url_raw',
         ] );
-        $wp_customize->add_control( "unpatti_social_{$key}", [
+        $wp_customize->add_control( "campusos_social_{$key}", [
             'label'   => $label,
-            'section' => 'unpatti_social',
+            'section' => 'campusos_social',
             'type'    => 'url',
         ] );
     }
 
     // --- Section: Footer ---
-    $wp_customize->add_section( 'unpatti_footer', [
-        'title' => __( 'Footer', 'unpatti-academic' ),
-        'panel' => 'unpatti_settings',
+    $wp_customize->add_section( 'campusos_footer', [
+        'title' => __( 'Footer', 'campusos-academic' ),
+        'panel' => 'campusos_settings',
     ] );
 
-    $wp_customize->add_setting( 'unpatti_footer_text', [
-        'default'           => '© ' . date('Y') . ' Universitas Pattimura',
+    $wp_customize->add_setting( 'campusos_footer_text', [
+        'default'           => '© ' . date('Y') . ' Perguruan Tinggi',
         'sanitize_callback' => 'wp_kses_post',
     ] );
-    $wp_customize->add_control( 'unpatti_footer_text', [
-        'label'   => __( 'Teks Footer', 'unpatti-academic' ),
-        'section' => 'unpatti_footer',
+    $wp_customize->add_control( 'campusos_footer_text', [
+        'label'   => __( 'Teks Footer', 'campusos-academic' ),
+        'section' => 'campusos_footer',
         'type'    => 'textarea',
     ] );
 } );
@@ -435,33 +435,33 @@ add_action( 'customize_register', function( $wp_customize ) {
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-function unpatti_is_fakultas() {
-    return get_theme_mod( 'unpatti_site_mode', 'prodi' ) === 'fakultas';
+function campusos_is_fakultas() {
+    return get_theme_mod( 'campusos_site_mode', 'prodi' ) === 'fakultas';
 }
 
-function unpatti_is_prodi() {
-    return get_theme_mod( 'unpatti_site_mode', 'prodi' ) === 'prodi';
+function campusos_is_prodi() {
+    return get_theme_mod( 'campusos_site_mode', 'prodi' ) === 'prodi';
 }
 
-function unpatti_get_institution_name() {
-    return get_theme_mod( 'unpatti_institution_name', get_bloginfo( 'name' ) );
+function campusos_get_institution_name() {
+    return get_theme_mod( 'campusos_institution_name', get_bloginfo( 'name' ) );
 }
 
-function unpatti_primary_color() {
-    return get_theme_mod( 'unpatti_primary_color', '#003d82' );
+function campusos_primary_color() {
+    return get_theme_mod( 'campusos_primary_color', '#003d82' );
 }
 
-function unpatti_secondary_color() {
-    return get_theme_mod( 'unpatti_secondary_color', '#e67e22' );
+function campusos_secondary_color() {
+    return get_theme_mod( 'campusos_secondary_color', '#e67e22' );
 }
 ```
 
-**Step 3: Verify in Customizer — colors and site mode should appear under "UNPATTI Academic" panel**
+**Step 3: Verify in Customizer — colors and site mode should appear under "CampusOS Academic" panel**
 
 **Step 4: Commit**
 
 ```bash
-git add wp-content/themes/unpatti-academic/inc/
+git add wp-content/themes/campusos-academic/inc/
 git commit -m "feat: add Customizer settings for colors, site mode, identity"
 ```
 
@@ -470,12 +470,12 @@ git commit -m "feat: add Customizer settings for colors, site mode, identity"
 ### Task 2.3: Create Header & Footer Template Parts
 
 **Files:**
-- Create: `wp-content/themes/unpatti-academic/header.php`
-- Create: `wp-content/themes/unpatti-academic/footer.php`
-- Create: `wp-content/themes/unpatti-academic/template-parts/header/site-header.php`
-- Create: `wp-content/themes/unpatti-academic/template-parts/footer/site-footer.php`
-- Create: `wp-content/themes/unpatti-academic/assets/css/main.css`
-- Create: `wp-content/themes/unpatti-academic/assets/js/main.js`
+- Create: `wp-content/themes/campusos-academic/header.php`
+- Create: `wp-content/themes/campusos-academic/footer.php`
+- Create: `wp-content/themes/campusos-academic/template-parts/header/site-header.php`
+- Create: `wp-content/themes/campusos-academic/template-parts/footer/site-footer.php`
+- Create: `wp-content/themes/campusos-academic/assets/css/main.css`
+- Create: `wp-content/themes/campusos-academic/assets/js/main.js`
 
 **Step 1: Create header.php**
 
@@ -519,7 +519,7 @@ Base styles using CSS custom properties:
 **Step 6: Commit**
 
 ```bash
-git add wp-content/themes/unpatti-academic/
+git add wp-content/themes/campusos-academic/
 git commit -m "feat: add header, footer, base CSS, and JS"
 ```
 
@@ -528,13 +528,13 @@ git commit -m "feat: add header, footer, base CSS, and JS"
 ### Task 2.4: Create Page Templates (Single, Archive, 404, Search)
 
 **Files:**
-- Create: `wp-content/themes/unpatti-academic/single.php`
-- Create: `wp-content/themes/unpatti-academic/archive.php`
-- Create: `wp-content/themes/unpatti-academic/page.php`
-- Create: `wp-content/themes/unpatti-academic/404.php`
-- Create: `wp-content/themes/unpatti-academic/search.php`
-- Create: `wp-content/themes/unpatti-academic/sidebar.php`
-- Create: `wp-content/themes/unpatti-academic/templates/template-fullwidth.php`
+- Create: `wp-content/themes/campusos-academic/single.php`
+- Create: `wp-content/themes/campusos-academic/archive.php`
+- Create: `wp-content/themes/campusos-academic/page.php`
+- Create: `wp-content/themes/campusos-academic/404.php`
+- Create: `wp-content/themes/campusos-academic/search.php`
+- Create: `wp-content/themes/campusos-academic/sidebar.php`
+- Create: `wp-content/themes/campusos-academic/templates/template-fullwidth.php`
 
 **Step 1:** Create each template using get_header/get_footer, the_content, standard WordPress loop. `template-fullwidth.php` has Template Name header comment and no sidebar. `page.php` checks for Elementor and renders accordingly.
 
@@ -543,7 +543,7 @@ git commit -m "feat: add header, footer, base CSS, and JS"
 **Step 3: Commit**
 
 ```bash
-git add wp-content/themes/unpatti-academic/
+git add wp-content/themes/campusos-academic/
 git commit -m "feat: add single, archive, page, 404, search templates"
 ```
 
@@ -554,13 +554,13 @@ git commit -m "feat: add single, archive, page, 404, search templates"
 ### Task 3.1: Create CPT Registration Base Class
 
 **Files:**
-- Create: `wp-content/plugins/unpatti-academic-core/includes/cpt/class-cpt-base.php`
+- Create: `wp-content/plugins/campusos-academic-core/includes/cpt/class-cpt-base.php`
 
 **Step 1: Create abstract base class for CPT registration**
 
 ```php
 <?php
-namespace UNPATTI\Core\CPT;
+namespace CampusOS\Core\CPT;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -583,7 +583,7 @@ abstract class CPT_Base {
     public function add_meta_boxes() {
         add_meta_box(
             $this->get_slug() . '_details',
-            __( 'Detail', 'unpatti-academic' ),
+            __( 'Detail', 'campusos-academic' ),
             [ $this, 'render_meta_box' ],
             $this->get_slug(),
             'normal',
@@ -603,7 +603,7 @@ abstract class CPT_Base {
     protected function render_field( array $field, $value ) {
         $id = esc_attr( $field['id'] );
         $label = esc_html( $field['label'] );
-        echo '<div class="unpatti-field" style="margin-bottom:15px;">';
+        echo '<div class="campusos-field" style="margin-bottom:15px;">';
         echo "<label for='{$id}' style='display:block;font-weight:600;margin-bottom:4px;'>{$label}</label>";
 
         switch ( $field['type'] ) {
@@ -628,19 +628,19 @@ abstract class CPT_Base {
                 break;
             case 'image':
                 $img_url = $value ? wp_get_attachment_url( $value ) : '';
-                echo "<div class='unpatti-image-field'>";
+                echo "<div class='campusos-image-field'>";
                 echo "<input type='hidden' id='{$id}' name='{$id}' value='" . esc_attr($value) . "' />";
                 echo "<img src='" . esc_url($img_url) . "' style='max-width:200px;display:" . ($img_url ? 'block' : 'none') . ";margin-bottom:8px;' id='{$id}_preview' />";
-                echo "<button type='button' class='button unpatti-upload-btn' data-target='{$id}'>" . __('Pilih Gambar', 'unpatti-academic') . "</button> ";
-                echo "<button type='button' class='button unpatti-remove-btn' data-target='{$id}' style='display:" . ($img_url ? 'inline-block' : 'none') . ";'>" . __('Hapus', 'unpatti-academic') . "</button>";
+                echo "<button type='button' class='button campusos-upload-btn' data-target='{$id}'>" . __('Pilih Gambar', 'campusos-academic') . "</button> ";
+                echo "<button type='button' class='button campusos-remove-btn' data-target='{$id}' style='display:" . ($img_url ? 'inline-block' : 'none') . ";'>" . __('Hapus', 'campusos-academic') . "</button>";
                 echo "</div>";
                 break;
             case 'file':
                 $file_url = $value ? wp_get_attachment_url( $value ) : '';
                 echo "<input type='hidden' id='{$id}' name='{$id}' value='" . esc_attr($value) . "' />";
                 echo "<span id='{$id}_name'>" . ($file_url ? basename($file_url) : '') . "</span> ";
-                echo "<button type='button' class='button unpatti-upload-btn' data-target='{$id}' data-type='file'>" . __('Pilih File', 'unpatti-academic') . "</button> ";
-                echo "<button type='button' class='button unpatti-remove-btn' data-target='{$id}' style='display:" . ($value ? 'inline-block' : 'none') . ";'>" . __('Hapus', 'unpatti-academic') . "</button>";
+                echo "<button type='button' class='button campusos-upload-btn' data-target='{$id}' data-type='file'>" . __('Pilih File', 'campusos-academic') . "</button> ";
+                echo "<button type='button' class='button campusos-remove-btn' data-target='{$id}' style='display:" . ($value ? 'inline-block' : 'none') . ";'>" . __('Hapus', 'campusos-academic') . "</button>";
                 break;
             case 'date':
                 $val = esc_attr( $value );
@@ -694,11 +694,11 @@ abstract class CPT_Base {
 
 **Step 2: Create admin JS for media uploader**
 
-Create `wp-content/plugins/unpatti-academic-core/assets/js/admin-media.js`:
+Create `wp-content/plugins/campusos-academic-core/assets/js/admin-media.js`:
 
 ```js
 (function($) {
-    $(document).on('click', '.unpatti-upload-btn', function(e) {
+    $(document).on('click', '.campusos-upload-btn', function(e) {
         e.preventDefault();
         var btn = $(this);
         var targetId = btn.data('target');
@@ -716,12 +716,12 @@ Create `wp-content/plugins/unpatti-academic-core/assets/js/admin-media.js`:
             } else {
                 $('#' + targetId + '_preview').attr('src', attachment.url).show();
             }
-            btn.siblings('.unpatti-remove-btn').show();
+            btn.siblings('.campusos-remove-btn').show();
         });
         frame.open();
     });
 
-    $(document).on('click', '.unpatti-remove-btn', function(e) {
+    $(document).on('click', '.campusos-remove-btn', function(e) {
         e.preventDefault();
         var targetId = $(this).data('target');
         $('#' + targetId).val('');
@@ -737,7 +737,7 @@ Enqueue in Plugin class: `add_action('admin_enqueue_scripts', ...)` → enqueue 
 **Step 3: Commit**
 
 ```bash
-git add wp-content/plugins/unpatti-academic-core/
+git add wp-content/plugins/campusos-academic-core/
 git commit -m "feat: add CPT base class with meta box rendering and media upload"
 ```
 
@@ -746,21 +746,21 @@ git commit -m "feat: add CPT base class with meta box rendering and media upload
 ### Task 3.2: Register All 14 Custom Post Types
 
 **Files:**
-- Create: `wp-content/plugins/unpatti-academic-core/includes/cpt/class-cpt-pimpinan.php`
-- Create: `wp-content/plugins/unpatti-academic-core/includes/cpt/class-cpt-tenaga-pendidik.php`
-- Create: `wp-content/plugins/unpatti-academic-core/includes/cpt/class-cpt-kerjasama.php`
-- Create: `wp-content/plugins/unpatti-academic-core/includes/cpt/class-cpt-fasilitas.php`
-- Create: `wp-content/plugins/unpatti-academic-core/includes/cpt/class-cpt-prestasi.php`
-- Create: `wp-content/plugins/unpatti-academic-core/includes/cpt/class-cpt-dokumen.php`
-- Create: `wp-content/plugins/unpatti-academic-core/includes/cpt/class-cpt-agenda.php`
-- Create: `wp-content/plugins/unpatti-academic-core/includes/cpt/class-cpt-faq.php`
-- Create: `wp-content/plugins/unpatti-academic-core/includes/cpt/class-cpt-mata-kuliah.php`
-- Create: `wp-content/plugins/unpatti-academic-core/includes/cpt/class-cpt-organisasi-mhs.php`
-- Create: `wp-content/plugins/unpatti-academic-core/includes/cpt/class-cpt-mitra-industri.php`
-- Create: `wp-content/plugins/unpatti-academic-core/includes/cpt/class-cpt-publikasi.php`
-- Create: `wp-content/plugins/unpatti-academic-core/includes/cpt/class-cpt-beasiswa.php`
-- Create: `wp-content/plugins/unpatti-academic-core/includes/cpt/class-cpt-galeri.php`
-- Modify: `wp-content/plugins/unpatti-academic-core/includes/class-plugin.php` — load all CPTs
+- Create: `wp-content/plugins/campusos-academic-core/includes/cpt/class-cpt-pimpinan.php`
+- Create: `wp-content/plugins/campusos-academic-core/includes/cpt/class-cpt-tenaga-pendidik.php`
+- Create: `wp-content/plugins/campusos-academic-core/includes/cpt/class-cpt-kerjasama.php`
+- Create: `wp-content/plugins/campusos-academic-core/includes/cpt/class-cpt-fasilitas.php`
+- Create: `wp-content/plugins/campusos-academic-core/includes/cpt/class-cpt-prestasi.php`
+- Create: `wp-content/plugins/campusos-academic-core/includes/cpt/class-cpt-dokumen.php`
+- Create: `wp-content/plugins/campusos-academic-core/includes/cpt/class-cpt-agenda.php`
+- Create: `wp-content/plugins/campusos-academic-core/includes/cpt/class-cpt-faq.php`
+- Create: `wp-content/plugins/campusos-academic-core/includes/cpt/class-cpt-mata-kuliah.php`
+- Create: `wp-content/plugins/campusos-academic-core/includes/cpt/class-cpt-organisasi-mhs.php`
+- Create: `wp-content/plugins/campusos-academic-core/includes/cpt/class-cpt-mitra-industri.php`
+- Create: `wp-content/plugins/campusos-academic-core/includes/cpt/class-cpt-publikasi.php`
+- Create: `wp-content/plugins/campusos-academic-core/includes/cpt/class-cpt-beasiswa.php`
+- Create: `wp-content/plugins/campusos-academic-core/includes/cpt/class-cpt-galeri.php`
+- Modify: `wp-content/plugins/campusos-academic-core/includes/class-plugin.php` — load all CPTs
 
 **Step 1:** Create each CPT class extending `CPT_Base`. Each implements:
 - `get_slug()` — e.g. `'pimpinan'`
@@ -810,7 +810,7 @@ Full field list per CPT — follow the table from design doc section 3.1:
 **Step 5: Commit**
 
 ```bash
-git add wp-content/plugins/unpatti-academic-core/
+git add wp-content/plugins/campusos-academic-core/
 git commit -m "feat: register all 14 custom post types with meta fields"
 ```
 
@@ -819,9 +819,9 @@ git commit -m "feat: register all 14 custom post types with meta fields"
 ### Task 3.3: Create Page Meta Boxes for Structured Pages
 
 **Files:**
-- Create: `wp-content/plugins/unpatti-academic-core/includes/admin/meta-boxes/class-mb-base.php`
+- Create: `wp-content/plugins/campusos-academic-core/includes/admin/meta-boxes/class-mb-base.php`
 - Create: 10 meta box files (sejarah, visi-misi, struktur-org, sambutan, akreditasi, cpl, penerimaan, biaya-ukt, statistik, tracer-study)
-- Modify: `wp-content/plugins/unpatti-academic-core/includes/class-plugin.php`
+- Modify: `wp-content/plugins/campusos-academic-core/includes/class-plugin.php`
 
 **Step 1: Create meta box base class**
 
@@ -850,7 +850,7 @@ Key meta boxes:
 
 **Step 3: Create admin JS for repeater fields**
 
-`wp-content/plugins/unpatti-academic-core/assets/js/admin-repeater.js`:
+`wp-content/plugins/campusos-academic-core/assets/js/admin-repeater.js`:
 - Clone hidden template row
 - Remove row
 - Re-index field names on add/remove
@@ -860,7 +860,7 @@ Key meta boxes:
 **Step 5: Commit**
 
 ```bash
-git add wp-content/plugins/unpatti-academic-core/
+git add wp-content/plugins/campusos-academic-core/
 git commit -m "feat: add structured page meta boxes with repeater fields"
 ```
 
@@ -869,9 +869,9 @@ git commit -m "feat: add structured page meta boxes with repeater fields"
 ### Task 3.4: Create Admin Settings Page
 
 **Files:**
-- Create: `wp-content/plugins/unpatti-academic-core/includes/admin/class-admin-settings.php`
+- Create: `wp-content/plugins/campusos-academic-core/includes/admin/class-admin-settings.php`
 
-**Step 1:** Register admin menu page under Settings: "UNPATTI Academic".
+**Step 1:** Register admin menu page under Settings: "CampusOS Academic".
 
 Tabs:
 - **Umum**: Site mode display (read from Customizer), quick links to Customizer
@@ -887,7 +887,7 @@ Use WordPress Settings API (`register_setting`, `add_settings_section`, `add_set
 **Step 3: Commit**
 
 ```bash
-git add wp-content/plugins/unpatti-academic-core/includes/admin/
+git add wp-content/plugins/campusos-academic-core/includes/admin/
 git commit -m "feat: add admin settings page with tabs"
 ```
 
@@ -898,16 +898,16 @@ git commit -m "feat: add admin settings page with tabs"
 ### Task 4.1: Create Frontend Templates for CPTs and Structured Pages
 
 **Files:**
-- Create: `wp-content/themes/unpatti-academic/templates/template-sejarah.php`
-- Create: `wp-content/themes/unpatti-academic/templates/template-visi-misi.php`
-- Create: `wp-content/themes/unpatti-academic/templates/template-struktur-organisasi.php`
-- Create: `wp-content/themes/unpatti-academic/templates/template-pimpinan.php`
-- Create: `wp-content/themes/unpatti-academic/templates/template-tenaga-pendidik.php`
-- Create: `wp-content/themes/unpatti-academic/templates/template-kerjasama.php`
-- Create: `wp-content/themes/unpatti-academic/templates/template-fasilitas.php`
-- Create: `wp-content/themes/unpatti-academic/templates/template-akreditasi.php`
-- Create: `wp-content/themes/unpatti-academic/templates/template-dokumen.php`
-- Create: `wp-content/themes/unpatti-academic/templates/template-statistik.php`
+- Create: `wp-content/themes/campusos-academic/templates/template-sejarah.php`
+- Create: `wp-content/themes/campusos-academic/templates/template-visi-misi.php`
+- Create: `wp-content/themes/campusos-academic/templates/template-struktur-organisasi.php`
+- Create: `wp-content/themes/campusos-academic/templates/template-pimpinan.php`
+- Create: `wp-content/themes/campusos-academic/templates/template-tenaga-pendidik.php`
+- Create: `wp-content/themes/campusos-academic/templates/template-kerjasama.php`
+- Create: `wp-content/themes/campusos-academic/templates/template-fasilitas.php`
+- Create: `wp-content/themes/campusos-academic/templates/template-akreditasi.php`
+- Create: `wp-content/themes/campusos-academic/templates/template-dokumen.php`
+- Create: `wp-content/themes/campusos-academic/templates/template-statistik.php`
 - Create: CPT archive & single templates in theme root (`archive-pimpinan.php`, `single-tenaga_pendidik.php`, etc.)
 
 **Step 1:** Each page template reads meta box data and renders it in clean HTML using CSS classes tied to the design system. Uses `get_post_meta()` for static pages, `WP_Query` for CPT listing pages.
@@ -933,7 +933,7 @@ Add to `assets/css/main.css`:
 **Step 4: Commit**
 
 ```bash
-git add wp-content/themes/unpatti-academic/
+git add wp-content/themes/campusos-academic/
 git commit -m "feat: add frontend page templates and CPT templates"
 ```
 
@@ -944,18 +944,18 @@ git commit -m "feat: add frontend page templates and CPT templates"
 ### Task 5.1: Register Elementor Widget Category and Base
 
 **Files:**
-- Create: `wp-content/themes/unpatti-academic/inc/elementor/elementor-init.php`
-- Create: `wp-content/themes/unpatti-academic/inc/elementor/class-widget-base.php`
+- Create: `wp-content/themes/campusos-academic/inc/elementor/elementor-init.php`
+- Create: `wp-content/themes/campusos-academic/inc/elementor/class-widget-base.php`
 
-**Step 1:** Check if Elementor is active. Register custom widget category "UNPATTI Academic". Create abstract base widget class.
+**Step 1:** Check if Elementor is active. Register custom widget category "CampusOS Academic". Create abstract base widget class.
 
 ```php
 add_action( 'elementor/widgets/register', function( $widgets_manager ) {
     // Register each custom widget
 });
 add_action( 'elementor/elements/categories_registered', function( $elements_manager ) {
-    $elements_manager->add_category( 'unpatti-academic', [
-        'title' => 'UNPATTI Academic',
+    $elements_manager->add_category( 'campusos-academic', [
+        'title' => 'CampusOS Academic',
         'icon'  => 'fa fa-university',
     ] );
 } );
@@ -964,7 +964,7 @@ add_action( 'elementor/elements/categories_registered', function( $elements_mana
 **Step 2: Commit**
 
 ```bash
-git add wp-content/themes/unpatti-academic/inc/elementor/
+git add wp-content/themes/campusos-academic/inc/elementor/
 git commit -m "feat: register Elementor widget category"
 ```
 
@@ -973,7 +973,7 @@ git commit -m "feat: register Elementor widget category"
 ### Task 5.2: Create All 11 Elementor Widgets
 
 **Files:**
-- Create 11 widget files in `wp-content/themes/unpatti-academic/inc/elementor/widgets/`
+- Create 11 widget files in `wp-content/themes/campusos-academic/inc/elementor/widgets/`
 
 **Step 1: Implement each widget** with `_register_controls()` (Elementor controls for admin) and `render()` (frontend HTML). Each widget:
 
@@ -1004,7 +1004,7 @@ git commit -m "feat: register Elementor widget category"
 **Step 3: Commit**
 
 ```bash
-git add wp-content/themes/unpatti-academic/inc/elementor/
+git add wp-content/themes/campusos-academic/inc/elementor/
 git commit -m "feat: add all 11 custom Elementor widgets"
 ```
 
@@ -1013,7 +1013,7 @@ git commit -m "feat: add all 11 custom Elementor widgets"
 ### Task 5.3: Create Elementor Template Kit
 
 **Files:**
-- Create: `wp-content/themes/unpatti-academic/inc/elementor/templates/` (JSON template files)
+- Create: `wp-content/themes/campusos-academic/inc/elementor/templates/` (JSON template files)
 
 **Step 1:** Create Elementor template JSON exports for:
 - Homepage (Prodi variant)
@@ -1026,7 +1026,7 @@ These are pre-built page layouts using the custom widgets above, importable via 
 **Step 3: Commit**
 
 ```bash
-git add wp-content/themes/unpatti-academic/inc/elementor/templates/
+git add wp-content/themes/campusos-academic/inc/elementor/templates/
 git commit -m "feat: add Elementor starter template kit"
 ```
 
@@ -1037,13 +1037,13 @@ git commit -m "feat: add Elementor starter template kit"
 ### Task 6.1: WordPress Hardening
 
 **Files:**
-- Create: `wp-content/plugins/unpatti-academic-core/includes/security/class-hardening.php`
+- Create: `wp-content/plugins/campusos-academic-core/includes/security/class-hardening.php`
 
 **Step 1:** Implement all Layer 1 and Layer 3 security measures:
 
 ```php
 <?php
-namespace UNPATTI\Core\Security;
+namespace CampusOS\Core\Security;
 
 class Hardening {
     public function init() {
@@ -1093,11 +1093,11 @@ class Hardening {
     public function check_login_rate_limit( $user, $username, $password ) {
         if ( empty( $username ) ) return $user;
         $ip = $_SERVER['REMOTE_ADDR'] ?? '';
-        $key = 'unpatti_login_attempts_' . md5( $ip );
+        $key = 'campusos_login_attempts_' . md5( $ip );
         $attempts = (int) get_transient( $key );
         if ( $attempts >= 5 ) {
             return new \WP_Error( 'too_many_attempts',
-                __( 'Terlalu banyak percobaan login. Silakan coba lagi dalam 15 menit.', 'unpatti-academic' )
+                __( 'Terlalu banyak percobaan login. Silakan coba lagi dalam 15 menit.', 'campusos-academic' )
             );
         }
         return $user;
@@ -1105,7 +1105,7 @@ class Hardening {
 
     public function record_failed_login( $username ) {
         $ip = $_SERVER['REMOTE_ADDR'] ?? '';
-        $key = 'unpatti_login_attempts_' . md5( $ip );
+        $key = 'campusos_login_attempts_' . md5( $ip );
         $attempts = (int) get_transient( $key );
         set_transient( $key, $attempts + 1, 15 * MINUTE_IN_SECONDS );
     }
@@ -1115,7 +1115,7 @@ class Hardening {
 **Step 2: Commit**
 
 ```bash
-git add wp-content/plugins/unpatti-academic-core/includes/security/
+git add wp-content/plugins/campusos-academic-core/includes/security/
 git commit -m "feat: add WordPress hardening and security headers"
 ```
 
@@ -1124,13 +1124,13 @@ git commit -m "feat: add WordPress hardening and security headers"
 ### Task 6.2: Content Scanner (Anti Judi Online)
 
 **Files:**
-- Create: `wp-content/plugins/unpatti-academic-core/includes/security/class-content-scanner.php`
+- Create: `wp-content/plugins/campusos-academic-core/includes/security/class-content-scanner.php`
 
 **Step 1:** Implement scheduled scanner:
 
 ```php
 <?php
-namespace UNPATTI\Core\Security;
+namespace CampusOS\Core\Security;
 
 class Content_Scanner {
     private $keywords = [
@@ -1142,16 +1142,16 @@ class Content_Scanner {
 
     public function init() {
         // Schedule cron
-        add_action( 'unpatti_content_scan', [ $this, 'run_scan' ] );
-        if ( ! wp_next_scheduled( 'unpatti_content_scan' ) ) {
-            wp_schedule_event( time(), 'six_hours', 'unpatti_content_scan' );
+        add_action( 'campusos_content_scan', [ $this, 'run_scan' ] );
+        if ( ! wp_next_scheduled( 'campusos_content_scan' ) ) {
+            wp_schedule_event( time(), 'six_hours', 'campusos_content_scan' );
         }
 
         // Register custom cron interval
         add_filter( 'cron_schedules', function( $schedules ) {
             $schedules['six_hours'] = [
                 'interval' => 6 * HOUR_IN_SECONDS,
-                'display'  => __( 'Setiap 6 Jam', 'unpatti-academic' ),
+                'display'  => __( 'Setiap 6 Jam', 'campusos-academic' ),
             ];
             return $schedules;
         } );
@@ -1177,9 +1177,9 @@ class Content_Scanner {
             $content = strtolower( $post->post_title . ' ' . $post->post_content );
             if ( preg_match( '/(' . $pattern . ')/i', $content, $matches ) ) {
                 // Flag post
-                update_post_meta( $post->ID, '_unpatti_quarantined', 1 );
-                update_post_meta( $post->ID, '_unpatti_quarantine_reason', 'Keyword terdeteksi: ' . $matches[1] );
-                update_post_meta( $post->ID, '_unpatti_quarantine_date', current_time( 'mysql' ) );
+                update_post_meta( $post->ID, '_campusos_quarantined', 1 );
+                update_post_meta( $post->ID, '_campusos_quarantine_reason', 'Keyword terdeteksi: ' . $matches[1] );
+                update_post_meta( $post->ID, '_campusos_quarantine_date', current_time( 'mysql' ) );
 
                 // Set to draft
                 wp_update_post( [ 'ID' => $post->ID, 'post_status' => 'draft' ] );
@@ -1198,8 +1198,8 @@ class Content_Scanner {
         foreach ( $hidden_results as $post ) {
             // Extract hidden text and check for spam keywords
             if ( preg_match( '/(display\s*:\s*none|font-size\s*:\s*0|visibility\s*:\s*hidden)[^<]*(' . $pattern . ')/i', $post->post_content ) ) {
-                update_post_meta( $post->ID, '_unpatti_quarantined', 1 );
-                update_post_meta( $post->ID, '_unpatti_quarantine_reason', 'Hidden spam content terdeteksi' );
+                update_post_meta( $post->ID, '_campusos_quarantined', 1 );
+                update_post_meta( $post->ID, '_campusos_quarantine_reason', 'Hidden spam content terdeteksi' );
                 wp_update_post( [ 'ID' => $post->ID, 'post_status' => 'draft' ] );
                 $flagged[] = $post;
             }
@@ -1218,7 +1218,7 @@ class Content_Scanner {
         }
 
         // Log scan result
-        update_option( 'unpatti_last_scan', [
+        update_option( 'campusos_last_scan', [
             'time'    => current_time( 'mysql' ),
             'flagged' => count( $flagged ),
         ] );
@@ -1227,14 +1227,14 @@ class Content_Scanner {
     public function quarantine_notice() {
         global $wpdb;
         $count = (int) $wpdb->get_var(
-            "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = '_unpatti_quarantined' AND meta_value = '1'"
+            "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = '_campusos_quarantined' AND meta_value = '1'"
         );
         if ( $count > 0 ) {
             echo '<div class="notice notice-warning"><p>';
             printf(
-                __( '⚠ UNPATTI Security: %d konten di-quarantine karena terdeteksi spam. <a href="%s">Review sekarang</a>.', 'unpatti-academic' ),
+                __( '⚠ CampusOS Security: %d konten di-quarantine karena terdeteksi spam. <a href="%s">Review sekarang</a>.', 'campusos-academic' ),
                 $count,
-                admin_url( 'edit.php?meta_key=_unpatti_quarantined&meta_value=1' )
+                admin_url( 'edit.php?meta_key=_campusos_quarantined&meta_value=1' )
             );
             echo '</p></div>';
         }
@@ -1245,7 +1245,7 @@ class Content_Scanner {
 **Step 2: Commit**
 
 ```bash
-git add wp-content/plugins/unpatti-academic-core/includes/security/class-content-scanner.php
+git add wp-content/plugins/campusos-academic-core/includes/security/class-content-scanner.php
 git commit -m "feat: add content scanner for gambling spam detection"
 ```
 
@@ -1254,14 +1254,14 @@ git commit -m "feat: add content scanner for gambling spam detection"
 ### Task 6.3: File Integrity Monitor
 
 **Files:**
-- Create: `wp-content/plugins/unpatti-academic-core/includes/security/class-file-integrity.php`
+- Create: `wp-content/plugins/campusos-academic-core/includes/security/class-file-integrity.php`
 
 **Step 1:** On plugin activation, hash all theme + plugin files (SHA-256), store in option. Daily cron checks for changed/new/deleted files. Alert admin.
 
 **Step 2: Commit**
 
 ```bash
-git add wp-content/plugins/unpatti-academic-core/includes/security/class-file-integrity.php
+git add wp-content/plugins/campusos-academic-core/includes/security/class-file-integrity.php
 git commit -m "feat: add file integrity monitor"
 ```
 
@@ -1270,16 +1270,16 @@ git commit -m "feat: add file integrity monitor"
 ### Task 6.4: Activity Log
 
 **Files:**
-- Create: `wp-content/plugins/unpatti-academic-core/includes/security/class-activity-log.php`
+- Create: `wp-content/plugins/campusos-academic-core/includes/security/class-activity-log.php`
 
-**Step 1:** Create custom DB table `{prefix}unpatti_activity_log` on plugin activation. Hook into: `save_post`, `delete_post`, `wp_login`, `wp_logout`, `activated_plugin`, `deactivated_plugin`, `updated_option`. Log: user_id, ip, action, object_type, object_id, details, timestamp.
+**Step 1:** Create custom DB table `{prefix}campusos_activity_log` on plugin activation. Hook into: `save_post`, `delete_post`, `wp_login`, `wp_logout`, `activated_plugin`, `deactivated_plugin`, `updated_option`. Log: user_id, ip, action, object_type, object_id, details, timestamp.
 
-Admin page under "UNPATTI Academic → Activity Log" with filterable list table. Auto-cleanup entries older than 90 days via daily cron.
+Admin page under "CampusOS Academic → Activity Log" with filterable list table. Auto-cleanup entries older than 90 days via daily cron.
 
 **Step 2: Commit**
 
 ```bash
-git add wp-content/plugins/unpatti-academic-core/includes/security/class-activity-log.php
+git add wp-content/plugins/campusos-academic-core/includes/security/class-activity-log.php
 git commit -m "feat: add admin activity log"
 ```
 
@@ -1290,14 +1290,14 @@ git commit -m "feat: add admin activity log"
 ### Task 7.1: Implement OAuth2 SSO with Laravel Passport
 
 **Files:**
-- Create: `wp-content/plugins/unpatti-academic-core/includes/sso/class-sso-auth.php`
-- Modify: `wp-content/plugins/unpatti-academic-core/includes/admin/class-admin-settings.php` (SSO tab)
+- Create: `wp-content/plugins/campusos-academic-core/includes/sso/class-sso-auth.php`
+- Modify: `wp-content/plugins/campusos-academic-core/includes/admin/class-admin-settings.php` (SSO tab)
 
 **Step 1: Create SSO auth class**
 
 ```php
 <?php
-namespace UNPATTI\Core\SSO;
+namespace CampusOS\Core\SSO;
 
 class SSO_Auth {
     private $base_url;
@@ -1306,20 +1306,20 @@ class SSO_Auth {
     private $redirect_uri;
 
     public function init() {
-        $settings = get_option( 'unpatti_sso_settings', [] );
+        $settings = get_option( 'campusos_sso_settings', [] );
         if ( empty( $settings['enabled'] ) ) return;
 
-        $this->base_url      = $settings['base_url'] ?? 'https://sso.unpatti.ac.id';
+        $this->base_url      = $settings['base_url'] ?? 'https://sso.campusos.ac.id';
         $this->client_id     = $settings['client_id'] ?? '';
         $this->client_secret = $settings['client_secret'] ?? '';
-        $this->redirect_uri  = admin_url( 'admin-ajax.php?action=unpatti_sso_callback' );
+        $this->redirect_uri  = admin_url( 'admin-ajax.php?action=campusos_sso_callback' );
 
         // Intercept wp-login.php → redirect to SSO
         add_action( 'login_init', [ $this, 'redirect_to_sso' ] );
 
         // AJAX callback handler (nopriv because user is not logged in yet)
-        add_action( 'wp_ajax_nopriv_unpatti_sso_callback', [ $this, 'handle_callback' ] );
-        add_action( 'wp_ajax_unpatti_sso_callback', [ $this, 'handle_callback' ] );
+        add_action( 'wp_ajax_nopriv_campusos_sso_callback', [ $this, 'handle_callback' ] );
+        add_action( 'wp_ajax_campusos_sso_callback', [ $this, 'handle_callback' ] );
 
         // On WP logout → also logout from SSO
         add_action( 'wp_logout', [ $this, 'sso_logout' ] );
@@ -1331,7 +1331,7 @@ class SSO_Auth {
         if ( isset( $_POST['log'] ) ) return; // Allow POST login for fallback
 
         $state = wp_generate_password( 40, false );
-        set_transient( 'unpatti_sso_state_' . $state, true, 10 * MINUTE_IN_SECONDS );
+        set_transient( 'campusos_sso_state_' . $state, true, 10 * MINUTE_IN_SECONDS );
 
         $url = $this->base_url . '/oauth/authorize?' . http_build_query( [
             'client_id'     => $this->client_id,
@@ -1350,13 +1350,13 @@ class SSO_Auth {
         $state = sanitize_text_field( $_GET['state'] ?? '' );
         $code  = sanitize_text_field( $_GET['code'] ?? '' );
 
-        if ( ! $state || ! get_transient( 'unpatti_sso_state_' . $state ) ) {
-            wp_die( __( 'Invalid state. Possible CSRF attack.', 'unpatti-academic' ), 403 );
+        if ( ! $state || ! get_transient( 'campusos_sso_state_' . $state ) ) {
+            wp_die( __( 'Invalid state. Possible CSRF attack.', 'campusos-academic' ), 403 );
         }
-        delete_transient( 'unpatti_sso_state_' . $state );
+        delete_transient( 'campusos_sso_state_' . $state );
 
         if ( ! $code ) {
-            wp_die( __( 'No authorization code received.', 'unpatti-academic' ), 400 );
+            wp_die( __( 'No authorization code received.', 'campusos-academic' ), 400 );
         }
 
         // Exchange code for token
@@ -1372,14 +1372,14 @@ class SSO_Auth {
         ] );
 
         if ( is_wp_error( $token_response ) ) {
-            wp_die( __( 'SSO token exchange failed.', 'unpatti-academic' ), 500 );
+            wp_die( __( 'SSO token exchange failed.', 'campusos-academic' ), 500 );
         }
 
         $token_data = json_decode( wp_remote_retrieve_body( $token_response ), true );
         $access_token = $token_data['access_token'] ?? null;
 
         if ( ! $access_token ) {
-            wp_die( __( 'No access token received.', 'unpatti-academic' ), 500 );
+            wp_die( __( 'No access token received.', 'campusos-academic' ), 500 );
         }
 
         // Get user info
@@ -1395,13 +1395,13 @@ class SSO_Auth {
         ] );
 
         if ( is_wp_error( $user_response ) ) {
-            wp_die( __( 'Failed to get user info from SSO.', 'unpatti-academic' ), 500 );
+            wp_die( __( 'Failed to get user info from SSO.', 'campusos-academic' ), 500 );
         }
 
         $user_info = json_decode( wp_remote_retrieve_body( $user_response ), true );
 
         if ( empty( $user_info['user_id'] ) || empty( $user_info['email'] ) ) {
-            wp_die( __( 'Invalid user data from SSO.', 'unpatti-academic' ), 500 );
+            wp_die( __( 'Invalid user data from SSO.', 'campusos-academic' ), 500 );
         }
 
         // Find or create WP user
@@ -1475,7 +1475,7 @@ class SSO_Auth {
     }
 
     private function map_roles( \WP_User $user, array $sso_roles ) {
-        $settings = get_option( 'unpatti_sso_settings', [] );
+        $settings = get_option( 'campusos_sso_settings', [] );
         $mapping = $settings['role_mapping'] ?? [
             'Admin'  => 'administrator',
             'Editor' => 'editor',
@@ -1521,12 +1521,12 @@ class SSO_Auth {
 
 **Step 2:** Add SSO settings tab to admin settings page — fields for base_url, client_id, client_secret, enable/disable toggle, role mapping repeater.
 
-**Step 3: Test SSO flow with sso.unpatti.ac.id (requires valid client credentials)**
+**Step 3: Test SSO flow with sso.campusos.ac.id (requires valid client credentials)**
 
 **Step 4: Commit**
 
 ```bash
-git add wp-content/plugins/unpatti-academic-core/includes/sso/
+git add wp-content/plugins/campusos-academic-core/includes/sso/
 git commit -m "feat: implement SSO OAuth2 integration with Laravel Passport"
 ```
 
@@ -1537,8 +1537,8 @@ git commit -m "feat: implement SSO OAuth2 integration with Laravel Passport"
 ### Task 8.1: Setup Wizard
 
 **Files:**
-- Create: `wp-content/themes/unpatti-academic/inc/setup-wizard/class-setup-wizard.php`
-- Create: `wp-content/themes/unpatti-academic/inc/setup-wizard/views/` (step templates)
+- Create: `wp-content/themes/campusos-academic/inc/setup-wizard/class-setup-wizard.php`
+- Create: `wp-content/themes/campusos-academic/inc/setup-wizard/views/` (step templates)
 
 **Step 1:** On theme activation, redirect to setup wizard (one-time, via `after_switch_theme` hook + transient flag).
 
@@ -1556,7 +1556,7 @@ Demo content import: creates pages with correct page templates assigned, creates
 **Step 2: Commit**
 
 ```bash
-git add wp-content/themes/unpatti-academic/inc/setup-wizard/
+git add wp-content/themes/campusos-academic/inc/setup-wizard/
 git commit -m "feat: add first-time setup wizard"
 ```
 
@@ -1565,8 +1565,8 @@ git commit -m "feat: add first-time setup wizard"
 ### Task 8.2: JSON Export/Import
 
 **Files:**
-- Create: `wp-content/plugins/unpatti-academic-core/includes/export-import/class-exporter.php`
-- Create: `wp-content/plugins/unpatti-academic-core/includes/export-import/class-importer.php`
+- Create: `wp-content/plugins/campusos-academic-core/includes/export-import/class-exporter.php`
+- Create: `wp-content/plugins/campusos-academic-core/includes/export-import/class-importer.php`
 
 **Step 1: Exporter** — collects all data into JSON:
 - `theme_mods` — all Customizer settings
@@ -1593,7 +1593,7 @@ Shows progress and result summary.
 **Step 4: Commit**
 
 ```bash
-git add wp-content/plugins/unpatti-academic-core/includes/export-import/
+git add wp-content/plugins/campusos-academic-core/includes/export-import/
 git commit -m "feat: add JSON site export/import"
 ```
 
@@ -1602,15 +1602,15 @@ git commit -m "feat: add JSON site export/import"
 ### Task 8.3: Auto-Update System
 
 **Files:**
-- Create: `wp-content/plugins/unpatti-academic-core/includes/updater/class-theme-updater.php`
-- Create: `wp-content/plugins/unpatti-academic-core/includes/updater/class-plugin-updater.php`
+- Create: `wp-content/plugins/campusos-academic-core/includes/updater/class-theme-updater.php`
+- Create: `wp-content/plugins/campusos-academic-core/includes/updater/class-plugin-updater.php`
 
 **Step 1:** Hook into `pre_set_site_transient_update_themes` and `pre_set_site_transient_update_plugins`. Check remote server for new version:
 
 ```php
 $response = wp_remote_get( $update_server_url . '/api/check?' . http_build_query([
-    'slug'    => 'unpatti-academic',
-    'version' => UNPATTI_THEME_VERSION,
+    'slug'    => 'campusos-academic',
+    'version' => CampusOS_THEME_VERSION,
     'type'    => 'theme', // or 'plugin'
 ]) );
 ```
@@ -1622,7 +1622,7 @@ Update server URL configurable in admin settings.
 **Step 2: Commit**
 
 ```bash
-git add wp-content/plugins/unpatti-academic-core/includes/updater/
+git add wp-content/plugins/campusos-academic-core/includes/updater/
 git commit -m "feat: add auto-update system for theme and plugin"
 ```
 
@@ -1633,20 +1633,20 @@ git commit -m "feat: add auto-update system for theme and plugin"
 ### Task 9.1: Create Abstract API Connector
 
 **Files:**
-- Create: `wp-content/plugins/unpatti-academic-core/includes/integrations/class-api-connector.php`
-- Create: `wp-content/plugins/unpatti-academic-core/includes/integrations/class-siakad-connector.php`
-- Create: `wp-content/plugins/unpatti-academic-core/includes/integrations/class-sigap-connector.php`
+- Create: `wp-content/plugins/campusos-academic-core/includes/integrations/class-api-connector.php`
+- Create: `wp-content/plugins/campusos-academic-core/includes/integrations/class-siakad-connector.php`
+- Create: `wp-content/plugins/campusos-academic-core/includes/integrations/class-sigap-connector.php`
 
 **Step 1:** Create abstract connector with `fetch()` (cached HTTP via WP transients), `test_connection()`, configurable base URL and auth headers. Create stub SIAKAD and SIGAP connectors.
 
 **Step 2:** Add "Integrasi API" tab to admin settings with connection fields and test button (AJAX).
 
-**Step 3:** Create shortcode `[unpatti_data]` and Elementor widget "UNPATTI Data" — both show placeholder "Belum terhubung" when API not configured.
+**Step 3:** Create shortcode `[campusos_data]` and Elementor widget "CampusOS Data" — both show placeholder "Belum terhubung" when API not configured.
 
 **Step 4: Commit**
 
 ```bash
-git add wp-content/plugins/unpatti-academic-core/includes/integrations/
+git add wp-content/plugins/campusos-academic-core/includes/integrations/
 git commit -m "feat: add API integration framework with SIAKAD/SIGAP stubs"
 ```
 
@@ -1657,7 +1657,7 @@ git commit -m "feat: add API integration framework with SIAKAD/SIGAP stubs"
 ### Task 10.1: Create Admin Dashboard Widget
 
 **Files:**
-- Modify: `wp-content/plugins/unpatti-academic-core/includes/class-plugin.php`
+- Modify: `wp-content/plugins/campusos-academic-core/includes/class-plugin.php`
 
 **Step 1:** Add WordPress dashboard widget showing:
 - Site mode & institution name
@@ -1676,13 +1676,13 @@ git commit -m "feat: add admin dashboard widget"
 
 ### Task 10.2: Internationalization
 
-**Step 1:** Run through all PHP files — ensure all user-facing strings use `__()` or `_e()` with 'unpatti-academic' text domain.
+**Step 1:** Run through all PHP files — ensure all user-facing strings use `__()` or `_e()` with 'campusos-academic' text domain.
 
 **Step 2:** Generate .pot file:
 
 ```bash
-wp i18n make-pot wp-content/themes/unpatti-academic/ wp-content/themes/unpatti-academic/languages/unpatti-academic.pot
-wp i18n make-pot wp-content/plugins/unpatti-academic-core/ wp-content/plugins/unpatti-academic-core/languages/unpatti-academic.pot
+wp i18n make-pot wp-content/themes/campusos-academic/ wp-content/themes/campusos-academic/languages/campusos-academic.pot
+wp i18n make-pot wp-content/plugins/campusos-academic-core/ wp-content/plugins/campusos-academic-core/languages/campusos-academic.pot
 ```
 
 **Step 3: Commit**

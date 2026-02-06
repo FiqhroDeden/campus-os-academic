@@ -1,21 +1,21 @@
-# Desain Tema WordPress UNPATTI Academic
+# Desain Tema WordPress CampusOS Academic
 
 **Tanggal:** 2026-01-28
-**Proyek:** Tema WordPress untuk Fakultas & Program Studi Universitas Pattimura
+**Proyek:** Tema WordPress untuk Fakultas & Program Studi Perguruan Tinggi
 **Scope:** 11 Fakultas + 104 Program Studi (115 website)
 
 ---
 
 ## 1. Ringkasan Proyek
 
-Membangun satu tema WordPress custom (`unpatti-academic`) beserta companion plugin (`unpatti-academic-core`) yang dapat digunakan untuk semua website fakultas dan program studi di Universitas Pattimura. Menggantikan 115 lisensi tema berbayar (@ Rp 250.000/tahun).
+Membangun satu tema WordPress custom (`campusos-academic`) beserta companion plugin (`campusos-academic-core`) yang dapat digunakan untuk semua website fakultas dan program studi di Perguruan Tinggi. Menggantikan 115 lisensi tema berbayar (@ Rp 250.000/tahun).
 
 ### Keputusan Arsitektur
 
 | Keputusan | Pilihan |
 |-----------|---------|
 | Arsitektur WP | Single-site terpisah per fakultas/prodi |
-| Distribusi update | Auto-update via server internal UNPATTI |
+| Distribusi update | Auto-update via server internal CampusOS |
 | SSO scope | Admin panel saja (frontend publik) |
 | API SIAKAD/SIGAP | Framework disiapkan, integrasi menyusul |
 | Frontend builder | Elementor |
@@ -27,7 +27,7 @@ Membangun satu tema WordPress custom (`unpatti-academic`) beserta companion plug
 
 ```
 wp-content/
-├── themes/unpatti-academic/              # TEMA
+├── themes/campusos-academic/              # TEMA
 │   ├── style.css
 │   ├── functions.php
 │   ├── theme.json                        # Design tokens, color system
@@ -73,8 +73,8 @@ wp-content/
 │   │   └── fonts/
 │   └── languages/
 │
-└── plugins/unpatti-academic-core/        # COMPANION PLUGIN
-    ├── unpatti-academic-core.php
+└── plugins/campusos-academic-core/        # COMPANION PLUGIN
+    ├── campusos-academic-core.php
     ├── includes/
     │   ├── class-plugin.php              # Main plugin class
     │   ├── cpt/                          # Custom Post Types
@@ -191,17 +191,17 @@ Admin mengatur 2 warna via WordPress Customizer:
 
 ```css
 :root {
-  --unpatti-primary: #003d82;        /* Default: biru UNPATTI */
-  --unpatti-secondary: #e67e22;      /* Default: orange */
-  --unpatti-primary-light: [auto];   /* 10% lighter */
-  --unpatti-primary-dark: [auto];    /* 10% darker */
-  --unpatti-secondary-light: [auto];
-  --unpatti-secondary-dark: [auto];
-  --unpatti-text: #1a1a1a;
-  --unpatti-text-light: #6b7280;
-  --unpatti-bg: #ffffff;
-  --unpatti-bg-alt: #f9fafb;
-  --unpatti-border: #e5e7eb;
+  --campusos-primary: #003d82;        /* Default: biru CampusOS */
+  --campusos-secondary: #e67e22;      /* Default: orange */
+  --campusos-primary-light: [auto];   /* 10% lighter */
+  --campusos-primary-dark: [auto];    /* 10% darker */
+  --campusos-secondary-light: [auto];
+  --campusos-secondary-dark: [auto];
+  --campusos-text: #1a1a1a;
+  --campusos-text-light: #6b7280;
+  --campusos-bg: #ffffff;
+  --campusos-bg-alt: #f9fafb;
+  --campusos-border: #e5e7eb;
 }
 ```
 
@@ -325,10 +325,10 @@ Tema menyertakan template kit lokal:
 
 ```
 SSO Endpoints:
-- Authorize: https://sso.unpatti.ac.id/oauth/authorize
-- Token:     https://sso.unpatti.ac.id/oauth/token
-- User Info: https://sso.unpatti.ac.id/api/me/roles (GET, query: client_id)
-- Logout:    https://sso.unpatti.ac.id/api/logmeout
+- Authorize: https://sso.campusos.ac.id/oauth/authorize
+- Token:     https://sso.campusos.ac.id/oauth/token
+- User Info: https://sso.campusos.ac.id/api/me/roles (GET, query: client_id)
+- Logout:    https://sso.campusos.ac.id/api/logmeout
 
 Token Response:
 {
@@ -341,7 +341,7 @@ Token Response:
 User Info Response:
 {
   "user_id": "uuid",
-  "email": "user@unpatti.ac.id",
+  "email": "user@campusos.ac.id",
   "name": "Full Name",
   "client_id": "...",
   "app_name": "...",
@@ -354,7 +354,7 @@ User Info Response:
 
 1. User navigates to `/wp-admin`
 2. Plugin intercepts, generates random `state`, stores in WP transient
-3. Redirect to `sso.unpatti.ac.id/oauth/authorize` with `client_id`, `redirect_uri`, `response_type=code`, `state`
+3. Redirect to `sso.campusos.ac.id/oauth/authorize` with `client_id`, `redirect_uri`, `response_type=code`, `state`
 4. User authenticates at SSO
 5. SSO redirects to WP callback URL with `code` and `state`
 6. Plugin validates `state` matches stored transient
@@ -372,10 +372,10 @@ User Info Response:
 
 | Setting | Description |
 |---------|-------------|
-| SSO Base URL | `https://sso.unpatti.ac.id` |
+| SSO Base URL | `https://sso.campusos.ac.id` |
 | Client ID | Dari registrasi app di SSO |
 | Client Secret | Dari registrasi app di SSO |
-| Redirect URI | Auto-generated: `{site_url}/wp-admin/admin-ajax.php?action=unpatti_sso_callback` |
+| Redirect URI | Auto-generated: `{site_url}/wp-admin/admin-ajax.php?action=campusos_sso_callback` |
 | Role Mapping | Table: SSO Role → WP Role (e.g., "Admin" → "administrator") |
 | Enable SSO | Toggle on/off |
 | Fallback Admin | Username untuk emergency local login (1 akun) |
@@ -395,7 +395,7 @@ User Info Response:
 ### 8.1 Architecture
 
 ```php
-abstract class UNPATTI_API_Connector {
+abstract class CampusOS_API_Connector {
     abstract function get_base_url(): string;
     abstract function get_auth_headers(): array;
 
@@ -408,8 +408,8 @@ abstract class UNPATTI_API_Connector {
     function test_connection(): bool { ... }
 }
 
-class SIAKAD_Connector extends UNPATTI_API_Connector { ... }
-class SIGAP_Connector extends UNPATTI_API_Connector { ... }
+class SIAKAD_Connector extends CampusOS_API_Connector { ... }
+class SIGAP_Connector extends CampusOS_API_Connector { ... }
 ```
 
 ### 8.2 Admin Panel
@@ -423,8 +423,8 @@ Tab "Integrasi API" dengan:
 
 ### 8.3 Frontend (Prepared)
 
-Shortcode: `[unpatti_data source="siakad" type="mahasiswa_count"]`
-Elementor widget: "UNPATTI Data" → shows "Belum terhubung" until configured
+Shortcode: `[campusos_data source="siakad" type="mahasiswa_count"]`
+Elementor widget: "CampusOS Data" → shows "Belum terhubung" until configured
 
 ---
 
@@ -456,13 +456,13 @@ Muncul saat tema pertama kali diaktifkan:
 
 ```
 Tema/Plugin → cek update setiap 12 jam
-  → GET {update_server}/api/check?slug=unpatti-academic&version=1.0.0
+  → GET {update_server}/api/check?slug=campusos-academic&version=1.0.0
   → Response: { version, download_url, changelog, requires_wp, requires_php }
   → Admin sees "Update available" notification
   → One-click update via standard WP update mechanism
 ```
 
-Update server: Simple PHP endpoint di server UNPATTI yang serve version info + ZIP file.
+Update server: Simple PHP endpoint di server CampusOS yang serve version info + ZIP file.
 
 Plugin dan tema punya update check terpisah.
 
@@ -474,8 +474,8 @@ Plugin dan tema punya update check terpisah.
 |-----------|-----------|
 | CMS | WordPress 6.x |
 | Page Builder | Elementor (Free or Pro) |
-| Theme | Custom PHP theme (`unpatti-academic`) |
-| Plugin | Custom PHP plugin (`unpatti-academic-core`) |
+| Theme | Custom PHP theme (`campusos-academic`) |
+| Plugin | Custom PHP plugin (`campusos-academic-core`) |
 | CSS | CSS custom properties + vanilla CSS (no framework) |
 | JS | Vanilla JS (minimal dependencies) |
 | Auth | OAuth2 via Laravel Passport SSO |
