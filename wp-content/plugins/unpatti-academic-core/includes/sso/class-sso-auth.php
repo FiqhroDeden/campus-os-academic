@@ -16,28 +16,50 @@ class SSO_Auth {
         $this->base_url      = rtrim( $settings['sso_base_url'] ?? 'https://sso.unpatti.ac.id', '/' );
         $this->client_id     = $settings['sso_client_id'] ?? '';
         $this->client_secret = $settings['sso_client_secret'] ?? '';
-        $this->redirect_uri  = admin_url( 'admin-ajax.php?action=unpatti_sso_callback' );
+        $this->redirect_uri  = home_url( '/sso/callback/' );
 
         if ( empty( $this->client_id ) || empty( $this->client_secret ) ) return;
 
-        add_action( 'login_init', [ $this, 'redirect_to_sso' ] );
+        add_action( 'init', [ $this, 'register_rewrite' ] );
+        add_filter( 'query_vars', [ $this, 'add_query_vars' ] );
+        add_action( 'template_redirect', [ $this, 'handle_rewrite_callback' ] );
+
+        $is_fallback = isset( $_GET['fallback'] ) && $_GET['fallback'] === '1';
+
+        add_filter( 'login_message', [ $this, 'sso_error_message' ] );
+
+        if ( $is_fallback ) {
+            // Fallback mode: only allow the designated fallback admin username
+            add_filter( 'authenticate', [ $this, 'restrict_fallback_user' ], 30, 2 );
+        } else {
+            // SSO mode: hide login form, show only SSO button, block password auth
+            add_action( 'login_form', [ $this, 'render_sso_button' ] );
+            add_action( 'login_enqueue_scripts', [ $this, 'login_styles' ] );
+            add_filter( 'authenticate', [ $this, 'block_password_auth' ], 30, 3 );
+        }
+
         add_action( 'wp_ajax_nopriv_unpatti_sso_callback', [ $this, 'handle_callback' ] );
         add_action( 'wp_ajax_unpatti_sso_callback', [ $this, 'handle_callback' ] );
+        add_action( 'wp_ajax_nopriv_unpatti_sso_redirect', [ $this, 'redirect_to_sso' ] );
+        add_action( 'wp_ajax_unpatti_sso_redirect', [ $this, 'redirect_to_sso' ] );
         add_action( 'wp_logout', [ $this, 'sso_logout' ] );
     }
 
-    public function redirect_to_sso() {
-        // Allow fallback login
-        if ( isset( $_GET['fallback'] ) && $_GET['fallback'] === '1' ) {
-            $settings = get_option( 'unpatti_settings', [] );
-            $fallback_user = $settings['sso_fallback_admin'] ?? '';
-            if ( $fallback_user && isset( $_POST['log'] ) && $_POST['log'] === $fallback_user ) {
-                return; // Allow normal WP login for fallback admin
-            }
-            if ( $fallback_user ) return; // Show login form for fallback
-        }
-        if ( isset( $_POST['log'] ) ) return; // Allow POST for fallback
+    public function register_rewrite() {
+        add_rewrite_rule( '^sso/callback/?$', 'index.php?unpatti_sso_callback=1', 'top' );
+    }
 
+    public function add_query_vars( $vars ) {
+        $vars[] = 'unpatti_sso_callback';
+        return $vars;
+    }
+
+    public function handle_rewrite_callback() {
+        if ( ! get_query_var( 'unpatti_sso_callback' ) ) return;
+        $this->handle_callback();
+    }
+
+    public function redirect_to_sso() {
         $state = wp_generate_password( 40, false );
         set_transient( 'unpatti_sso_state_' . $state, 1, 10 * MINUTE_IN_SECONDS );
 
@@ -51,6 +73,72 @@ class SSO_Auth {
 
         wp_redirect( $url );
         exit;
+    }
+
+    public function render_sso_button() {
+        $sso_url = admin_url( 'admin-ajax.php?action=unpatti_sso_redirect' );
+        ?>
+        <p class="unpatti-sso-wrap" style="text-align:center; margin: 8px 0 0;">
+            <a href="<?php echo esc_url( $sso_url ); ?>" style="display:inline-flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:12px 24px; background:#0073aa; color:#fff; text-decoration:none; border-radius:4px; font-size:14px; font-weight:600; transition:background .2s; box-sizing:border-box;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                Login dengan SSO UNPATTI
+            </a>
+        </p>
+        <?php
+    }
+
+    public function login_styles() {
+        ?>
+        <style>
+            /* Hide username/password fields, submit button, and lost password */
+            .login #loginform p:not(.unpatti-sso-wrap),
+            .login #loginform .user-pass-wrap,
+            .login #loginform .forgetmenot,
+            .login #loginform .submit,
+            .login #nav,
+            .login #loginform > label {
+                display: none !important;
+            }
+            .login #loginform {
+                padding: 26px 24px;
+            }
+            .login .unpatti-sso-wrap a:hover {
+                background: #005a87 !important;
+            }
+        </style>
+        <?php
+    }
+
+    public function sso_error_message( $message ) {
+        if ( isset( $_GET['sso_error'] ) && $_GET['sso_error'] === 'no_access' ) {
+            $message .= '<div id="login_error" style="margin-bottom:16px;"><strong>Akses ditolak.</strong> Akun SSO Anda tidak memiliki role untuk mengakses website ini. Hubungi administrator SSO untuk mendapatkan akses.</div>';
+        }
+        return $message;
+    }
+
+    public function block_password_auth( $user, $username, $password ) {
+        if ( ! empty( $username ) ) {
+            return new \WP_Error( 'sso_required', __( 'Login dengan username dan password tidak diizinkan. Gunakan SSO UNPATTI.', 'unpatti-academic' ) );
+        }
+        return $user;
+    }
+
+    public function restrict_fallback_user( $user, $username ) {
+        if ( is_wp_error( $user ) ) return $user;
+        if ( empty( $username ) ) return $user;
+
+        $settings = get_option( 'unpatti_settings', [] );
+        $fallback_user = $settings['sso_fallback_admin'] ?? '';
+
+        if ( empty( $fallback_user ) ) {
+            return new \WP_Error( 'fallback_disabled', __( 'Fallback admin belum dikonfigurasi. Gunakan SSO untuk login.', 'unpatti-academic' ) );
+        }
+
+        if ( $username !== $fallback_user ) {
+            return new \WP_Error( 'fallback_restricted', __( 'Hanya fallback admin yang diizinkan login di mode ini.', 'unpatti-academic' ) );
+        }
+
+        return $user;
     }
 
     public function handle_callback() {
@@ -111,6 +199,13 @@ class SSO_Auth {
 
         if ( empty( $user_info['user_id'] ) || empty( $user_info['email'] ) ) {
             wp_die( esc_html__( 'SSO: Data user tidak valid.', 'unpatti-academic' ), 500 );
+        }
+
+        // Authorization: user must have at least one role for this app
+        $sso_roles = $user_info['roles'] ?? [];
+        if ( empty( $sso_roles ) ) {
+            wp_safe_redirect( add_query_arg( 'sso_error', 'no_access', wp_login_url() ) );
+            exit;
         }
 
         $wp_user = $this->find_or_create_user( $user_info );

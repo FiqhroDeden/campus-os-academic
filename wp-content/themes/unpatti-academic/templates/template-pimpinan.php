@@ -12,6 +12,16 @@ $query = new WP_Query( array(
 <div class="page-hero"><div class="container"><h1><?php the_title(); ?></h1></div></div>
 <main id="primary" class="site-main">
     <div class="container">
+        <?php
+        $is_elementor = class_exists('\Elementor\Plugin') && \Elementor\Plugin::$instance->documents->get(get_the_ID()) && \Elementor\Plugin::$instance->documents->get(get_the_ID())->is_built_with_elementor();
+        if ($is_elementor) :
+            while (have_posts()) : the_post();
+        ?>
+            <div class="entry-content"><?php the_content(); ?></div>
+        <?php
+            endwhile;
+        else :
+        ?>
         <?php if ( $query->have_posts() ) : ?>
             <div class="profile-grid">
                 <?php while ( $query->have_posts() ) : $query->the_post(); ?>
@@ -40,6 +50,8 @@ $query = new WP_Query( array(
         <?php else : ?>
             <p>Belum ada data pimpinan.</p>
         <?php endif; ?>
-    </div>
+
+        <?php endif; ?>
+        </div>
 </main>
 <?php get_footer(); ?>

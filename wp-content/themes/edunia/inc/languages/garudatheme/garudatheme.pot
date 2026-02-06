@@ -1,0 +1,32 @@
+msgid "Theme License"
+msgstr ""
+
+msgid "Active"
+msgstr ""
+
+msgid "Inactive"
+msgstr ""
+
+msgid "Activate"
+msgstr ""
+
+msgid "License Key"
+msgstr ""
+
+msgid "Enter the license key, dont have one yet? get it <a href=\"%s\" target=\"_blank\">here</a>."
+msgstr ""
+
+msgid "All Google Fonts sorted alphabetically"
+msgstr ""
+
+msgid "Select weight for"
+msgstr ""
+
+msgid "Select weight & style for regular text"
+msgstr ""
+
+msgid "bold text"
+msgstr ""
+
+msgid "italic text"
+msgstr ""

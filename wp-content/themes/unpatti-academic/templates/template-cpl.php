@@ -16,6 +16,16 @@ $sections = array(
 <div class="page-hero"><div class="container"><h1><?php the_title(); ?></h1></div></div>
 <main id="primary" class="site-main">
     <div class="container">
+        <?php
+        $is_elementor = class_exists('\Elementor\Plugin') && \Elementor\Plugin::$instance->documents->get(get_the_ID()) && \Elementor\Plugin::$instance->documents->get(get_the_ID())->is_built_with_elementor();
+        if ($is_elementor) :
+            while (have_posts()) : the_post();
+        ?>
+            <div class="entry-content"><?php the_content(); ?></div>
+        <?php
+            endwhile;
+        else :
+        ?>
         <?php foreach ( $sections as $heading => $items ) : ?>
             <?php if ( ! empty( $items ) && is_array( $items ) ) : ?>
                 <section class="vmts-section">
@@ -28,6 +38,8 @@ $sections = array(
                 </section>
             <?php endif; ?>
         <?php endforeach; ?>
-    </div>
+
+        <?php endif; ?>
+        </div>
 </main>
 <?php get_footer(); ?>

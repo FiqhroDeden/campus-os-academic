@@ -1,0 +1,529 @@
+# Copyright (C) 2020 Automattic
+# This file is distributed under the GNU General Public License v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: _s 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/_s\n"
+"POT-Creation-Date: 2020-04-17T21:03:15+00:00\n"
+"PO-Revision-Date: 2024-09-09 09:43+0700\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: id_ID\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.5\n"
+"X-Domain: _s\n"
+
+msgid "_s"
+msgstr "_s"
+
+msgid "Garudatheme"
+msgstr ""
+
+msgid "https://garudatheme.com/"
+msgstr "https://garudatheme.com/"
+
+msgid "Oops! That page can&rsquo;t be found."
+msgstr "Ups! Halaman itu tidak dapat ditemukan."
+
+msgid ""
+"It looks like nothing was found at this location. Maybe try one of the links "
+"below or a search?"
+msgstr ""
+"Sepertinya tidak ada yang ditemukan di lokasi ini. Mungkin coba salah satu "
+"tautan di bawah ini atau cari?"
+
+msgid "Most Used Categories"
+msgstr "Kategori Paling Digunakan"
+
+msgid "Try looking in the monthly archives. %1$s"
+msgstr "Coba lihat dalam arsip bulanan. %1$s"
+
+msgid "One thought on &ldquo;%1$s&rdquo;"
+msgstr "Satu tanggapan pada &ldquo;%1$s&rdquo;"
+
+msgctxt "comments title"
+msgid "%1$s thought on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] "%1$s tanggapan pada &ldquo;%2$s&rdquo;"
+
+msgid "Comments are closed."
+msgstr "Komentar ditutup."
+
+msgid "https://wordpress.org/"
+msgstr "https://wordpress.org/"
+
+msgid "Proudly powered by %s"
+msgstr "Diberdayakan oleh %s"
+
+msgid "Theme by"
+msgstr "Tema dari"
+
+msgid "Primary"
+msgstr "Utama"
+
+msgid "Sidebar"
+msgstr "Sidebar"
+
+msgid "Add widgets here."
+msgstr "Tambahkan widget disini."
+
+#: header.php:26
+msgid "Skip to content"
+msgstr "Skip ke konten"
+
+msgid "Primary Menu"
+msgstr "Menu Utama"
+
+msgctxt "post date"
+msgid "Posted on %s"
+msgstr "Diposting pada %s"
+
+msgctxt "post author"
+msgid "by %s"
+msgstr "oleh %s"
+
+msgid "Posted in %1$s"
+msgstr "Diposting dalam %1$s"
+
+msgctxt "list item separator"
+msgid ", "
+msgstr ""
+
+msgid "Tagged %1$s"
+msgstr "Tag %1$s"
+
+msgid "Leave a Comment<span class=\"screen-reader-text\"> on %s</span>"
+msgstr "Tinggalkan komentar<span class=\"screen-reader-text\"> pada %s</span>"
+
+msgid "Edit <span class=\"screen-reader-text\">%s</span>"
+msgstr "Edit <span class=\"screen-reader-text\">%s</span>"
+
+msgid "View your shopping cart"
+msgstr "Lihat keranjang Anda"
+
+msgid "%d item"
+msgid_plural "%d items"
+msgstr[0] "%d item"
+
+msgid "Search Results for: %s"
+msgstr "Hasil Pencarian untuk: %s"
+
+msgid "Search Results for:"
+msgstr "Hasil Pencarian untuk:"
+
+msgid "Previous"
+msgstr "Sebelumnya"
+
+msgid "Next"
+msgstr "Selanjutnya"
+
+msgid "Nothing Found"
+msgstr "Tidak Ditemukan"
+
+msgid ""
+"Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr ""
+"Siap untuk mempublikasikan postingan pertama Anda? <a href=\"%1$s\">Mulai "
+"disini</a>."
+
+msgid ""
+"Sorry, but nothing matched your search terms. Please try again with some "
+"different keywords."
+msgstr ""
+"Maaf, tidak satupun ditemukan dengan kata kunci yang dicari. Cobalah dengan "
+"kata kunci yang berbeda."
+
+msgid ""
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
+"searching can help."
+msgstr ""
+"Sepertinya kami tidak dapat menemukan apa yang Anda cari. Mungkin pencarian "
+"bisa membantu."
+
+msgid "Pages:"
+msgstr "Halaman:"
+
+msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
+msgstr "Lanjutkan baca<span class=\"screen-reader-text\"> \"%s\"</span>"
+
+#. Custom Languages
+msgid "Announcement"
+msgstr "Pengumuman"
+
+msgid "Achievement"
+msgstr "Prestasi"
+
+msgid "Agenda"
+msgstr "Agenda"
+
+msgid "GTK"
+msgstr "GTK"
+
+msgid "Partner"
+msgstr "Mitra"
+
+msgid "Testimonial"
+msgstr "Testimonial"
+
+msgid "Partnership"
+msgstr "Kemitraan"
+
+msgid "Theme Options"
+msgstr "Pengaturan Tema"
+
+msgid "Appearance"
+msgstr "Tampilan"
+
+msgid "Primary Color"
+msgstr "Warna Utama"
+
+msgid "Text Color"
+msgstr "Warna Teks"
+
+msgid "Font Family"
+msgstr "Font Family"
+
+msgid "Top Bar"
+msgstr "Top Bar"
+
+msgid "Contact"
+msgstr "Kontak"
+
+msgid "Title"
+msgstr "Judul"
+
+msgid "Phone"
+msgstr "Telepon"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Language"
+msgstr "Bahasa"
+
+msgid "Indonesia (Url)"
+msgstr "Indonesia (Url)"
+
+msgid "English (Url)"
+msgstr "English (Url)"
+
+msgid "Featured Slider"
+msgstr "Featured Slider"
+
+msgid "Slider 1"
+msgstr "Slider 1"
+
+msgid "Slider 2"
+msgstr "Slider 2"
+
+msgid "Slider 3"
+msgstr "Slider 3"
+
+msgid "Image"
+msgstr "Gambar"
+
+msgid "Sub Title"
+msgstr "Sub Judul"
+
+msgid "Button Name"
+msgstr "Nama Tombol"
+
+msgid "Link"
+msgstr "Link"
+
+msgid "Featured Box"
+msgstr "Featured Box"
+
+msgid "Box 1"
+msgstr "Box 1"
+
+msgid "Box 2"
+msgstr "Box 2"
+
+msgid "Box 3"
+msgstr "Box 3"
+
+msgid "Image/ Icon"
+msgstr "Gambar/ Icon"
+
+msgid "Latest News"
+msgstr "Berita Terbaru"
+
+msgid "Main"
+msgstr "Utama"
+
+msgid "Main Title"
+msgstr "Judul Utama"
+
+msgid "Second"
+msgstr "Kedua"
+
+msgid "Second Title"
+msgstr "Judul Kedua"
+
+msgid "Announcement & Agenda"
+msgstr "Pengumuman & Agenda"
+
+msgid "Announcement Title"
+msgstr "Judul Pengumuman"
+
+msgid "Agenda Title"
+msgstr "Judul Agenda"
+
+msgid "School Details"
+msgstr "Detail Sekolah"
+
+msgid "Title:"
+msgstr "Judul:"
+
+msgid "Count:"
+msgstr "Jumlah:"
+
+msgid "Image:"
+msgstr "Gambar:"
+
+msgid "Address:"
+msgstr "Alamat:"
+
+msgid "Google Map Link:"
+msgstr "Link Google Map:"
+
+msgid "Google Map Title:"
+msgstr "Judul Google Map:"
+
+msgid "Phone:"
+msgstr "No. Hp:"
+
+msgid "Email:"
+msgstr "Email:"
+
+msgid "Page not Found"
+msgstr "Halaman tidak Ditemukan"
+
+msgid "Home"
+msgstr "Beranda"
+
+msgid "Categories: %1$s"
+msgstr "Kategori: %1$s"
+
+msgid "Tags: %1$s"
+msgstr "Tags: %1$s"
+
+msgid "Back to Home"
+msgstr "Kembali ke Beranda"
+
+msgid "Archives:"
+msgstr "Arsip:"
+
+msgid "News"
+msgstr "Berita"
+
+msgid "January"
+msgstr "Januari"
+
+msgid "February"
+msgstr "Februari"
+
+msgid "March"
+msgstr "Maret"
+
+msgid "May"
+msgstr "Mei"
+
+msgid "June"
+msgstr "Juni"
+
+msgid "July"
+msgstr "Juli"
+
+msgid "August"
+msgstr "Agustus"
+
+msgid "October"
+msgstr "Oktober"
+
+msgid "December"
+msgstr "Desember"
+
+msgid "Aug"
+msgstr "Ags"
+
+msgid "Oct"
+msgstr "Okt"
+
+msgid "Dec"
+msgstr "Des"
+
+msgid "Finished"
+msgstr "Selesai"
+
+msgid "Position:"
+msgstr "Jabatan:"
+
+msgid "Active:"
+msgstr "Aktif:"
+
+msgid "Gender:"
+msgstr "Kelamin:"
+
+msgid "Place & Date of Birth:"
+msgstr "Tempat & Tanggal Lahir:"
+
+msgid "Religion:"
+msgstr "Agama:"
+
+msgid "Time & Location"
+msgstr "Waktu & Lokasi"
+
+msgid "Date:"
+msgstr "Tanggal:"
+
+msgid "Start Time:"
+msgstr "Waktu Mulai:"
+
+msgid "Time's Up:"
+msgstr "Waktu Selesai:"
+
+msgid "Location:"
+msgstr "Lokasi:"
+
+msgid "Gallery"
+msgstr "Galeri"
+
+msgid "Facility"
+msgstr "Fasilitas"
+
+msgid "Latest Announcement"
+msgstr "Pengumuman Terbaru"
+
+msgid "Latest Agenda"
+msgstr "Agenda Terbaru"
+
+msgid "Message:"
+msgstr "Pesan:"
+
+msgid "Display"
+msgstr "Tampilkan"
+
+msgid "Yes"
+msgstr "Ya"
+
+msgid "No"
+msgstr "Tidak"
+
+msgid "Description"
+msgstr "Deskripsi"
+
+msgid "View All"
+msgstr "Selengkapnya"
+
+msgid "Not Added"
+msgstr "Belum Ditambahkan"
+
+msgid "Image Background"
+msgstr "Background Gambar"
+
+msgid "Top Menu"
+msgstr "Menu Atas"
+
+msgid "Footer"
+msgstr "Footer"
+
+msgid "Custom Credit"
+msgstr "Kredit Kustom"
+
+msgid "More"
+msgstr "Lainnya"
+
+msgid "For custom post type such us: announcement, agenda, etc"
+msgstr "Untuk tipe post khusus seperti: pengumuman, agenda, dll"
+
+msgid "Media Upload"
+msgstr "Upload Media"
+
+msgid "File Url"
+msgstr "Url Berkas"
+
+msgid "File Name"
+msgstr "Nama Berkas"
+
+msgid "Name"
+msgstr "Nama"
+
+msgid "Size"
+msgstr "Ukuran"
+
+msgid "Select File"
+msgstr "Pilih File"
+
+msgid "Activate"
+msgstr "Aktivasi"
+
+msgid "Select Font Family alphabetically"
+msgstr "Pilih Font Family berdasarkan abjad"
+
+msgid "Site Credit"
+msgstr "Kredit Situs"
+
+msgid "Credit information in the footer"
+msgstr "Informasi kredit pada bagian footer"
+
+msgid "Hide Topbar"
+msgstr "Sembunyikan Topbar"
+
+msgid "Sort Section"
+msgstr "Urutkan Section"
+
+msgid "Uncheck the section you want to hide"
+msgstr "Hilangkan centang pada section yang ingin disembunyikan"
+
+msgid "Background Color"
+msgstr "Background Warna"
+
+msgid "Select Color"
+msgstr "Pilih Warna"
+
+msgid "Select Style"
+msgstr "Pilih Style"
+
+msgid "Background Image"
+msgstr "Background Gambar"
+
+msgid "Select Image"
+msgstr "Pilih Gambar"
+
+msgid "Number Displayed"
+msgstr "Jumlah Ditampilkan"
+
+msgid "On the home page"
+msgstr "Pada laman beranda"
+
+msgid "On the archive page"
+msgstr "Pada laman arsip"
+
+msgid "No Limit"
+msgstr "Tanpa Batas"
+
+msgid "On hover"
+msgstr "Ketika di hover"
+
+msgid "Language Toggle"
+msgstr "Toggle Bahasa"
+
+msgid "Home Section"
+msgstr "Home Section"
+
+msgid "Archive Settings"
+msgstr "Pengaturan Arsip"
+
+msgid "Enable"
+msgstr "Aktifkan"
+
+msgid "Position"
+msgstr "Jabatan"
+
+msgid "Logo Size"
+msgstr "Ukuran Logo"

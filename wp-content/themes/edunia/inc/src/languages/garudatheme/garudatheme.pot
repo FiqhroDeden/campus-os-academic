@@ -1,0 +1,98 @@
+msgid "Welcome"
+msgstr ""
+
+msgid "This is the installation wizard. If you are new to using this theme, don't worry! It will help you to set up or do the installation in just a few easy steps."
+msgstr ""
+
+msgid "Start Installing Now"
+msgstr ""
+
+msgid "Skip installation Wizard"
+msgstr ""
+
+msgid "Theme Activation"
+msgstr ""
+
+msgid "First, you need to activate the theme by entering the license key below. If you don't have it, please log in to the member area or my account on the garudatheme website."
+msgstr ""
+
+msgid "Successfully activated"
+msgstr ""
+
+msgid "Next"
+msgstr ""
+
+msgid "Previous"
+msgstr ""
+
+msgid "Install Plugins"
+msgstr ""
+
+msgid "For the theme to work, please install the required plugins."
+msgstr ""
+
+msgid "Type"
+msgstr ""
+
+msgid "Required"
+msgstr ""
+
+msgid "Optional"
+msgstr ""
+
+msgid "Already active"
+msgstr ""
+
+msgid "Not active"
+msgstr ""
+
+msgid "To install the required plugins, please select the Appearance menu then click %s."
+msgstr ""
+
+msgid "Completed"
+msgstr ""
+
+msgid "At this point, the theme has been successfully installed. Next, you can proceed to the next step as follows:"
+msgstr ""
+
+msgid "Import Demo Content"
+msgstr ""
+
+msgid "Customize Display"
+msgstr ""
+
+msgid "Manage Posts"
+msgstr ""
+
+msgid "Import the content on the demo web, and customize the theme automatically with just a few clicks using the import demo data tool of the one click demo import plugin."
+msgstr ""
+
+msgid "Customize the appearance such as colors, fonts, sections, and many more in the theme options."
+msgstr ""
+
+msgid "Manage posts by creating, deleting, or editing posts and pages on your website."
+msgstr ""
+
+msgid "Exit"
+msgstr ""
+
+msgid "Enter the license key, dont have one yet? get it <a href=\"%s\" target=\"_blank\">here</a>."
+msgstr ""
+
+msgid "This site uses a theme that has not been activated, if you are an admin, please activate it %shere%s."
+msgstr ""
+
+msgid "All Google Fonts sorted alphabetically"
+msgstr ""
+
+msgid "Select weight for"
+msgstr ""
+
+msgid "Select weight & style for regular text"
+msgstr ""
+
+msgid "bold text"
+msgstr ""
+
+msgid "italic text"
+msgstr ""

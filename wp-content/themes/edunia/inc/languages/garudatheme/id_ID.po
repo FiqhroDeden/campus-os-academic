@@ -1,0 +1,50 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: id_ID\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.1.1\n"
+
+msgid "Theme License"
+msgstr "Lisensi Tema"
+
+msgid "Active"
+msgstr "Aktif"
+
+msgid "Inactive"
+msgstr "Tidak Aktif"
+
+msgid "Activate"
+msgstr "Aktivasi"
+
+msgid "License Key"
+msgstr "Kunci Lisensi"
+
+msgid ""
+"Enter the license key, dont have one yet? get it <a href=\"%s\" target="
+"\"_blank\">here</a>."
+msgstr ""
+"Masukkan kunci lisensi, tidak punya? dapatkan <a href=\"%s\" target="
+"\"_blank\">disini</a>."
+
+msgid "All Google Fonts sorted alphabetically"
+msgstr "Semua Font Google diurutkan berdasarkan abjad"
+
+msgid "Select weight for"
+msgstr "Pilih ketebalan untuk"
+
+msgid "Select weight & style for regular text"
+msgstr "Pilih ketebalan & gaya untuk teks biasa"
+
+msgid "bold text"
+msgstr "teks bold"
+
+msgid "italic text"
+msgstr "teks miring"

@@ -9,6 +9,16 @@ $sasaran = get_post_meta( get_the_ID(), '_sasaran', true );
 <div class="page-hero"><div class="container"><h1><?php the_title(); ?></h1></div></div>
 <main id="primary" class="site-main">
     <div class="container">
+        <?php
+        $is_elementor = class_exists('\Elementor\Plugin') && \Elementor\Plugin::$instance->documents->get(get_the_ID()) && \Elementor\Plugin::$instance->documents->get(get_the_ID())->is_built_with_elementor();
+        if ($is_elementor) :
+            while (have_posts()) : the_post();
+        ?>
+            <div class="entry-content"><?php the_content(); ?></div>
+        <?php
+            endwhile;
+        else :
+        ?>
         <?php if ( $visi ) : ?>
             <section class="vmts-section">
                 <h2>Visi</h2>
@@ -48,6 +58,8 @@ $sasaran = get_post_meta( get_the_ID(), '_sasaran', true );
                 </ol>
             </section>
         <?php endif; ?>
-    </div>
+
+        <?php endif; ?>
+        </div>
 </main>
 <?php get_footer(); ?>

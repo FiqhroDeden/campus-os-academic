@@ -12,6 +12,7 @@
 <a class="skip-link sr-only" href="#primary"><?php esc_html_e( 'Skip to content', 'unpatti-academic' ); ?></a>
 
 <header id="masthead" class="site-header">
+    <?php if ( get_theme_mod( 'unpatti_show_topbar', true ) ) : ?>
     <div class="header-top">
         <div class="container">
             <div class="header-top-inner">
@@ -27,6 +28,7 @@
             </div>
         </div>
     </div>
+    <?php endif; ?>
 
     <div class="header-main">
         <div class="container">
@@ -60,3 +62,4 @@
         </div>
     </div>
 </header>
+<?php unpatti_breadcrumbs(); ?>

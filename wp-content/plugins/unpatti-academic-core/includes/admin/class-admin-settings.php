@@ -70,6 +70,8 @@ class Admin_Settings {
         $active_tab = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : 'umum';
         $tabs = [
             'umum'      => __( 'Umum', 'unpatti-academic' ),
+            'pages'     => __( 'Halaman', 'unpatti-academic' ),
+            'tools'     => __( 'Tools', 'unpatti-academic' ),
             'keamanan'  => __( 'Keamanan', 'unpatti-academic' ),
             'sso'       => __( 'SSO', 'unpatti-academic' ),
             'api'       => __( 'Integrasi API', 'unpatti-academic' ),
@@ -96,6 +98,12 @@ class Admin_Settings {
                     case 'umum':
                         $this->render_tab_umum();
                         break;
+                    case 'pages':
+                        $this->render_tab_pages();
+                        break;
+                    case 'tools':
+                        $this->render_tab_tools();
+                        break;
                     case 'keamanan':
                         $this->render_tab_keamanan();
                         break;
@@ -111,7 +119,7 @@ class Admin_Settings {
                 }
                 ?>
 
-                <?php if ( $active_tab !== 'export' && $active_tab !== 'umum' ) : ?>
+                <?php if ( ! in_array( $active_tab, [ 'export', 'umum', 'pages', 'tools' ], true ) ) : ?>
                     <?php submit_button(); ?>
                 <?php endif; ?>
             </form>
@@ -143,6 +151,16 @@ class Admin_Settings {
         </table>
         <p><a href="<?php echo esc_url( admin_url( 'customize.php' ) ); ?>" class="button"><?php esc_html_e( 'Buka Customizer', 'unpatti-academic' ); ?></a></p>
         <?php
+    }
+
+    private function render_tab_pages() {
+        $page_updater = new Page_Updater();
+        $page_updater->render_tab();
+    }
+
+    private function render_tab_tools() {
+        $post_fixer = new Post_Status_Fixer();
+        $post_fixer->render_tools_tab();
     }
 
     private function render_tab_keamanan() {

@@ -1,0 +1,131 @@
+/* Pimpinan Settings Page */
+.unpatti-pimpinan-settings {
+    max-width: 1200px;
+}
+
+.unpatti-pimpinan-settings h1 {
+    margin-bottom: 0.5rem;
+}
+
+.unpatti-pimpinan-settings > p.description {
+    margin-bottom: 2rem;
+    font-size: 14px;
+}
+
+.pimpinan-form-container {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 782px) {
+    .pimpinan-form-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Photo Section */
+.pimpinan-photo-section {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 1.5rem;
+}
+
+.pimpinan-photo-section h2 {
+    margin-top: 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #dcdcde;
+    font-size: 14px;
+}
+
+.pimpinan-photo-wrapper {
+    text-align: center;
+}
+
+.pimpinan-photo-preview {
+    margin-bottom: 1rem;
+}
+
+.pimpinan-photo-preview img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.pimpinan-photo-placeholder {
+    width: 100%;
+    aspect-ratio: 3/4;
+    max-height: 300px;
+    background: #f0f0f1;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    color: #787c82;
+}
+
+.pimpinan-photo-placeholder .dashicons {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 0.5rem;
+}
+
+.pimpinan-photo-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+/* Info Section */
+.pimpinan-info-section {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 1.5rem;
+}
+
+.pimpinan-info-section h2 {
+    margin-top: 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #dcdcde;
+    font-size: 14px;
+}
+
+.pimpinan-info-section .form-table {
+    margin-top: 0;
+}
+
+.pimpinan-info-section .form-table th {
+    padding-left: 0;
+    width: 150px;
+}
+
+.pimpinan-info-section .form-table td {
+    padding-left: 0;
+}
+
+/* Sambutan Section */
+.pimpinan-sambutan-section {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.pimpinan-sambutan-section h2 {
+    margin-top: 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #dcdcde;
+    font-size: 14px;
+}
+
+.pimpinan-sambutan-section > p.description {
+    margin-bottom: 1rem;
+}

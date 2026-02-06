@@ -1,0 +1,153 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: id_ID\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.1.1\n"
+
+msgid "Welcome"
+msgstr "Selamat Datang"
+
+msgid ""
+"This is the installation wizard. If you are new to using this theme, don't "
+"worry! It will help you to set up or do the installation in just a few easy "
+"steps."
+msgstr ""
+"Ini adalah wizard instalasi. Jika Anda baru menggunakan tema ini, jangan "
+"khawatir! Ini akan membantu anda untuk menyiapkan atau melakukan instalasi "
+"dengan hanya beberapa langkah mudah."
+
+msgid "Start Installing Now"
+msgstr "Mulai Instal Sekarang"
+
+msgid "Skip installation Wizard"
+msgstr "Lewati Wizard Instalasi"
+
+msgid "Theme Activation"
+msgstr "Aktivasi Tema"
+
+msgid ""
+"First, you need to activate the theme by entering the license key below. If "
+"you don't have it, please log in to the member area or my account on the "
+"garudatheme website."
+msgstr ""
+"Pertama, Anda perlu melakukan aktivasi tema dengan memasukkan kunci lisensi "
+"dibawah. Jika tidak memilikinya, silahkan masuk ke member area atau akun "
+"saya di website garudatheme."
+
+msgid "Successfully activated"
+msgstr "Berhasil diaktivasi"
+
+msgid "Next"
+msgstr "Selanjutnya"
+
+msgid "Previous"
+msgstr "Sebelumnya"
+
+msgid "Install Plugins"
+msgstr "Instal Plugin"
+
+msgid "For the theme to work, please install the required plugins."
+msgstr "Agar tema dapat berjalan, silahkan instal plugin yang dibutuhkan."
+
+msgid "Type"
+msgstr "Tipe"
+
+msgid "Required"
+msgstr "Dibutuhkan"
+
+msgid "Optional"
+msgstr "Opsional"
+
+msgid "Already active"
+msgstr "Sudah aktif"
+
+msgid "Not active"
+msgstr "Belum aktif"
+
+msgid ""
+"To install the required plugins, please select the Appearance menu then "
+"click %s."
+msgstr ""
+"Untuk menginstal plugin yang dibutuhkan, silahkan pilih menu Tampilan "
+"kemudian klik %s."
+
+msgid "Completed"
+msgstr "Selesai"
+
+msgid ""
+"At this point, the theme has been successfully installed. Next, you can "
+"proceed to the next step as follows:"
+msgstr ""
+"Sampai disini tema sudah berhasil diinstal. Selanjutnya silahkan lanjut "
+"ketahap berikutnya dengan mengikuti perintah berikut:"
+
+msgid "Import Demo Content"
+msgstr "Import Konten Demo"
+
+msgid "Customize Display"
+msgstr "Sesuaikan Tampilan"
+
+msgid "Manage Posts"
+msgstr "Kelola Postingan"
+
+msgid ""
+"Import the content on the demo web, and customize the theme automatically "
+"with just a few clicks using the import demo data tool of the one click demo "
+"import plugin."
+msgstr ""
+"Import konten pada web demo, dan sesuaikan tampilan hanya dengan beberapa "
+"klik menggunakan alat import demo data dari plugin one click demo import."
+
+msgid ""
+"Customize the appearance such as colors, fonts, sections, and many more in "
+"the theme options."
+msgstr ""
+"Sesuaikan tampilan seperti warna, font, section, dan masih banyak lagi "
+"lainnya pada pengaturan tema."
+
+msgid ""
+"Manage posts by creating, deleting, or editing posts and pages on your "
+"website."
+msgstr ""
+"Kelola postingan dengan membuat, menghapus, atau mengedit postingan dan "
+"halaman pada website Anda."
+
+msgid "Exit"
+msgstr "Keluar"
+
+msgid ""
+"Enter the license key, dont have one yet? get it <a href=\"%s\" target="
+"\"_blank\">here</a>."
+msgstr ""
+"Masukkan kunci lisensi, tidak punya? dapatkan <a href=\"%s\" target=\"_blank"
+"\">disini</a>."
+
+msgid ""
+"This site uses a theme that has not been activated, if you are an admin, "
+"please activate it %shere%s."
+msgstr ""
+"Website ini menggunakan tema yang belum diaktivasi, jika Anda admin, silakan "
+"aktivasi %sdisini%s."
+
+msgid "All Google Fonts sorted alphabetically"
+msgstr "Semua Font Google diurutkan berdasarkan abjad"
+
+msgid "Select weight for"
+msgstr "Pilih ketebalan untuk"
+
+msgid "Select weight & style for regular text"
+msgstr "Pilih ketebalan & gaya untuk teks biasa"
+
+msgid "bold text"
+msgstr "teks bold"
+
+msgid "italic text"
+msgstr "teks miring"

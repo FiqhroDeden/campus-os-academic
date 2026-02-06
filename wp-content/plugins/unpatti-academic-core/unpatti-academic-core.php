@@ -26,6 +26,7 @@ register_activation_hook( __FILE__, function() {
 
     ( new UNPATTI\Core\Security\File_Integrity() )->generate_hashes();
     ( new UNPATTI\Core\Security\Activity_Log() )->maybe_create_table();
+    flush_rewrite_rules();
 } );
 
 register_deactivation_hook( __FILE__, function() {

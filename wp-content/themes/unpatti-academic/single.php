@@ -21,6 +21,7 @@
                         <span class="posted-by"><?php the_author(); ?></span>
                     </div>
                     <div class="entry-content"><?php the_content(); ?></div>
+                    <?php unpatti_social_share(); ?>
                 <?php endwhile; ?>
             </article>
             <?php get_sidebar(); ?>

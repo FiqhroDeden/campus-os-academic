@@ -1,0 +1,77 @@
+.custom-meta-box {
+    display: block;
+}
+
+.custom-meta-box label {
+    display: block;
+    margin: 0 0 6px 0;
+}
+
+.custom-meta-box input[type="text"],
+.custom-meta-box textarea,
+.custom-meta-box select {
+    display: block;
+    width: 100%;
+}
+
+.custom-meta-box .download-inputfield {
+	display: block;
+	width: 100%;
+}
+
+.custom-meta-box .download-inputfield .download-fileurl {
+	float: left;
+	width: calc(100% - 300px);
+	margin: 0 12px 12px 0;
+}
+
+.custom-meta-box .download-inputfield .download-filesize {
+	float: left;
+	width: 80px;
+	margin: 0 12px 12px 0;
+}
+
+.custom-meta-box .download-inputfield .download-filename {
+	float: left;
+	width: 196px;
+	margin: 0 0 12px 0;
+}
+
+.custom-meta-box .download-uploadbtn {
+	display: block;
+	width: 100%;
+	margin-bottom: 0;
+	overflow: hidden;
+}
+
+.custom-meta-box .download-uploadbtn .button {
+	display: block;
+	width: 100%;
+}
+
+.metabox-testimonial-message textarea {
+	display: block;
+	font-size: 16px;
+	font-style: italic;
+	line-height: 1.4em;
+	padding: 6px 12px;
+}
+
+@media screen and (max-width: 600px){
+	.custom-meta-box .download-inputfield .download-fileurl {
+		float: none;
+		display: block;
+		width: 100%;
+		margin: 0 0 12px 0;
+	}
+
+	.custom-meta-box .download-inputfield .download-filesize,
+	.custom-meta-box .download-inputfield .download-filename {
+		width: calc(50% - 8px);
+		margin: 0 8px 12px 0;
+	}
+
+	.custom-meta-box .download-inputfield .download-filename {
+		margin: 0 0 12px 8px;
+	}
+}

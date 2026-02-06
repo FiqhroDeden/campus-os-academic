@@ -20,7 +20,8 @@ final class Plugin {
 
     private function load_dependencies() {
         require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-base.php';
-        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-pimpinan.php';
+        // Pimpinan is now a settings page, not a CPT
+        // require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-pimpinan.php';
         require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-tenaga-pendidik.php';
         require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-kerjasama.php';
         require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-fasilitas.php';
@@ -34,9 +35,16 @@ final class Plugin {
         require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-publikasi.php';
         require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-beasiswa.php';
         require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-galeri.php';
+        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-video.php';
+        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-pengumuman.php';
+        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-testimonial.php';
 
-        // Register all CPTs
-        ( new \UNPATTI\Core\CPT\CPT_Pimpinan() )->register();
+        // Pimpinan Settings (single configuration page)
+        require_once UNPATTI_CORE_PATH . 'includes/admin/class-pimpinan-settings.php';
+        new \UNPATTI\Core\Admin\Pimpinan_Settings();
+
+        // Register all CPTs (Pimpinan moved to settings page)
+        // ( new \UNPATTI\Core\CPT\CPT_Pimpinan() )->register();
         ( new \UNPATTI\Core\CPT\CPT_Tenaga_Pendidik() )->register();
         ( new \UNPATTI\Core\CPT\CPT_Kerjasama() )->register();
         ( new \UNPATTI\Core\CPT\CPT_Fasilitas() )->register();
@@ -50,6 +58,9 @@ final class Plugin {
         ( new \UNPATTI\Core\CPT\CPT_Publikasi() )->register();
         ( new \UNPATTI\Core\CPT\CPT_Beasiswa() )->register();
         ( new \UNPATTI\Core\CPT\CPT_Galeri() )->register();
+        ( new \UNPATTI\Core\CPT\CPT_Video() )->register();
+        ( new \UNPATTI\Core\CPT\CPT_Pengumuman() )->register();
+        ( new \UNPATTI\Core\CPT\CPT_Testimonial() )->register();
 
         // Meta boxes
         require_once UNPATTI_CORE_PATH . 'includes/admin/meta-boxes/class-mb-base.php';
@@ -78,6 +89,14 @@ final class Plugin {
         // Admin settings
         require_once UNPATTI_CORE_PATH . 'includes/admin/class-admin-settings.php';
         ( new \UNPATTI\Core\Admin\Admin_Settings() )->register();
+
+        // Page Updater
+        require_once UNPATTI_CORE_PATH . 'includes/admin/class-page-updater.php';
+        ( new \UNPATTI\Core\Admin\Page_Updater() )->init();
+
+        // Post Status Fixer
+        require_once UNPATTI_CORE_PATH . 'includes/admin/class-post-status-fixer.php';
+        ( new \UNPATTI\Core\Admin\Post_Status_Fixer() )->init();
 
         // Export/Import
         require_once UNPATTI_CORE_PATH . 'includes/export-import/class-exporter.php';
@@ -115,6 +134,10 @@ final class Plugin {
 
         ( new \UNPATTI\Core\Integrations\Shortcode_Data() )->init();
         ( new \UNPATTI\Core\Integrations\API_Ajax() )->init();
+
+        // Frontend Shortcodes
+        require_once UNPATTI_CORE_PATH . 'includes/frontend/class-shortcodes.php';
+        ( new \UNPATTI\Core\Frontend\Shortcodes() )->init();
     }
 
     private function init_hooks() {
@@ -143,9 +166,8 @@ final class Plugin {
         echo '<p><strong>' . esc_html( $name ) . '</strong> — ' . ( $mode === 'fakultas' ? 'Fakultas' : 'Program Studi' ) . '</p>';
         echo '<hr/>';
 
-        // CPT counts
+        // CPT counts (Pimpinan is now a settings page)
         $cpts = [
-            'pimpinan'        => __( 'Pimpinan', 'unpatti-academic' ),
             'tenaga_pendidik' => __( 'Tenaga Pendidik', 'unpatti-academic' ),
             'kerjasama'       => __( 'Kerjasama', 'unpatti-academic' ),
             'fasilitas'       => __( 'Fasilitas', 'unpatti-academic' ),

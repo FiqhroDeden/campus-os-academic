@@ -16,7 +16,7 @@
     var menuItems = document.querySelectorAll('.main-navigation .menu-item-has-children > a');
     menuItems.forEach(function(item) {
         item.addEventListener('click', function(e) {
-            if (window.innerWidth <= 1024) {
+            if (window.innerWidth <= 1280) {
                 var parent = this.parentElement;
                 if (!parent.classList.contains('menu-open')) {
                     e.preventDefault();
@@ -39,5 +39,90 @@
                 header.style.boxShadow = 'none';
             }
         });
+    }
+
+    // Fix Elementor counter widgets that show "0"
+    function initCounters() {
+        var counters = document.querySelectorAll('.elementor-counter-number');
+        if (!counters.length) return;
+        counters.forEach(function(el) {
+            if (el.dataset.counterInit) return;
+            el.dataset.counterInit = '1';
+            var end = parseInt(el.getAttribute('data-to-value'), 10);
+            if (!end) return;
+            var animated = false;
+            function animate() {
+                if (animated) return;
+                animated = true;
+                var duration = 2000;
+                var startTime = null;
+                function step(timestamp) {
+                    if (!startTime) startTime = timestamp;
+                    var progress = Math.min((timestamp - startTime) / duration, 1);
+                    var eased = 1 - Math.pow(1 - progress, 3);
+                    el.textContent = Math.floor(eased * end);
+                    if (progress < 1) requestAnimationFrame(step);
+                    else el.textContent = end;
+                }
+                requestAnimationFrame(step);
+            }
+            if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            animate();
+                            observer.disconnect();
+                        }
+                    });
+                }, { threshold: 0.1 });
+                observer.observe(el);
+            } else {
+                animate();
+            }
+            // Safety: if still 0 after 4s, just set the value
+            setTimeout(function() { if (!animated) { el.textContent = end; } }, 4000);
+        });
+    }
+    // Run after a short delay to ensure DOM is fully ready
+    function tryInitCounters() {
+        setTimeout(initCounters, 100);
+        setTimeout(initCounters, 1000);
+    }
+    if (document.readyState === 'complete') tryInitCounters();
+    else window.addEventListener('load', tryInitCounters);
+
+    // FAQ Accordion
+    function initFaqAccordion() {
+        var faqQuestions = document.querySelectorAll('.faq-question');
+        if (!faqQuestions.length) return;
+
+        faqQuestions.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var expanded = this.getAttribute('aria-expanded') === 'true';
+                var answer = this.nextElementSibling;
+
+                // Close all other items in same accordion
+                var accordion = this.closest('.faq-accordion');
+                if (accordion) {
+                    accordion.querySelectorAll('.faq-question[aria-expanded="true"]').forEach(function(otherBtn) {
+                        if (otherBtn !== btn) {
+                            otherBtn.setAttribute('aria-expanded', 'false');
+                            otherBtn.nextElementSibling.hidden = true;
+                        }
+                    });
+                }
+
+                // Toggle current item
+                this.setAttribute('aria-expanded', !expanded);
+                answer.hidden = expanded;
+            });
+        });
+    }
+
+    // Initialize FAQ on DOM ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initFaqAccordion);
+    } else {
+        initFaqAccordion();
     }
 })();
