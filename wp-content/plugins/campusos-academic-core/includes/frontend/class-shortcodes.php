@@ -1,5 +1,5 @@
 <?php
-namespace UNPATTI\Core\Frontend;
+namespace CampusOS\Core\Frontend;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -7,24 +7,24 @@ class Shortcodes {
 
     public function init() {
         // CPT Shortcodes
-        add_shortcode( 'unpatti_tenaga_pendidik', [ $this, 'tenaga_pendidik' ] );
-        add_shortcode( 'unpatti_pimpinan', [ $this, 'pimpinan' ] );
-        add_shortcode( 'unpatti_sambutan_kaprodi', [ $this, 'sambutan_kaprodi' ] );
-        add_shortcode( 'unpatti_agenda', [ $this, 'agenda' ] );
-        add_shortcode( 'unpatti_pengumuman', [ $this, 'pengumuman' ] );
-        add_shortcode( 'unpatti_faq', [ $this, 'faq' ] );
-        add_shortcode( 'unpatti_galeri', [ $this, 'galeri' ] );
-        add_shortcode( 'unpatti_dokumen', [ $this, 'dokumen' ] );
-        add_shortcode( 'unpatti_prestasi', [ $this, 'prestasi' ] );
-        add_shortcode( 'unpatti_kerjasama', [ $this, 'kerjasama' ] );
-        add_shortcode( 'unpatti_fasilitas', [ $this, 'fasilitas' ] );
-        add_shortcode( 'unpatti_mitra_industri', [ $this, 'mitra_industri' ] );
-        add_shortcode( 'unpatti_mata_kuliah', [ $this, 'mata_kuliah' ] );
-        add_shortcode( 'unpatti_publikasi', [ $this, 'publikasi' ] );
-        add_shortcode( 'unpatti_beasiswa', [ $this, 'beasiswa' ] );
-        add_shortcode( 'unpatti_testimonial', [ $this, 'testimonial' ] );
-        add_shortcode( 'unpatti_video', [ $this, 'video' ] );
-        add_shortcode( 'unpatti_organisasi_mhs', [ $this, 'organisasi_mhs' ] );
+        add_shortcode( 'campusos_tenaga_pendidik', [ $this, 'tenaga_pendidik' ] );
+        add_shortcode( 'campusos_pimpinan', [ $this, 'pimpinan' ] );
+        add_shortcode( 'campusos_sambutan_kaprodi', [ $this, 'sambutan_kaprodi' ] );
+        add_shortcode( 'campusos_agenda', [ $this, 'agenda' ] );
+        add_shortcode( 'campusos_pengumuman', [ $this, 'pengumuman' ] );
+        add_shortcode( 'campusos_faq', [ $this, 'faq' ] );
+        add_shortcode( 'campusos_galeri', [ $this, 'galeri' ] );
+        add_shortcode( 'campusos_dokumen', [ $this, 'dokumen' ] );
+        add_shortcode( 'campusos_prestasi', [ $this, 'prestasi' ] );
+        add_shortcode( 'campusos_kerjasama', [ $this, 'kerjasama' ] );
+        add_shortcode( 'campusos_fasilitas', [ $this, 'fasilitas' ] );
+        add_shortcode( 'campusos_mitra_industri', [ $this, 'mitra_industri' ] );
+        add_shortcode( 'campusos_mata_kuliah', [ $this, 'mata_kuliah' ] );
+        add_shortcode( 'campusos_publikasi', [ $this, 'publikasi' ] );
+        add_shortcode( 'campusos_beasiswa', [ $this, 'beasiswa' ] );
+        add_shortcode( 'campusos_testimonial', [ $this, 'testimonial' ] );
+        add_shortcode( 'campusos_video', [ $this, 'video' ] );
+        add_shortcode( 'campusos_organisasi_mhs', [ $this, 'organisasi_mhs' ] );
 
         // Enqueue styles
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_styles' ] );
@@ -32,10 +32,10 @@ class Shortcodes {
 
     public function enqueue_styles() {
         wp_enqueue_style(
-            'unpatti-shortcodes',
-            UNPATTI_CORE_URL . 'assets/css/shortcodes.css',
+            'campusos-shortcodes',
+            CAMPUSOS_CORE_URL . 'assets/css/shortcodes.css',
             [],
-            UNPATTI_CORE_VERSION
+            CAMPUSOS_CORE_VERSION
         );
     }
 
@@ -60,7 +60,7 @@ class Shortcodes {
         ] );
 
         if ( ! $query->have_posts() ) {
-            return '<p class="unpatti-empty">' . __( 'Belum ada data tenaga pendidik.', 'unpatti-academic' ) . '</p>';
+            return '<p class="campusos-empty">' . __( 'Belum ada data tenaga pendidik.', 'campusos-academic' ) . '</p>';
         }
 
         $jabatan_labels = [
@@ -71,7 +71,7 @@ class Shortcodes {
         ];
 
         ob_start();
-        echo '<div class="unpatti-grid unpatti-grid-' . esc_attr( $atts['columns'] ) . ' unpatti-tenaga-pendidik">';
+        echo '<div class="campusos-grid campusos-grid-' . esc_attr( $atts['columns'] ) . ' campusos-tenaga-pendidik">';
 
         while ( $query->have_posts() ) {
             $query->the_post();
@@ -84,30 +84,30 @@ class Shortcodes {
             $link = get_post_meta( $id, '_tenaga_pendidik_link_profil', true );
             $foto = get_the_post_thumbnail_url( $id, 'medium' );
 
-            echo '<div class="unpatti-card unpatti-dosen-card">';
-            echo '<div class="unpatti-card-image">';
+            echo '<div class="campusos-card campusos-dosen-card">';
+            echo '<div class="campusos-card-image">';
             if ( $foto ) {
                 echo '<img src="' . esc_url( $foto ) . '" alt="' . esc_attr( get_the_title() ) . '">';
             } else {
-                echo '<div class="unpatti-placeholder-image"><span class="dashicons dashicons-admin-users"></span></div>';
+                echo '<div class="campusos-placeholder-image"><span class="dashicons dashicons-admin-users"></span></div>';
             }
             echo '</div>';
-            echo '<div class="unpatti-card-content">';
-            echo '<h4 class="unpatti-card-title">' . esc_html( get_the_title() ) . '</h4>';
+            echo '<div class="campusos-card-content">';
+            echo '<h4 class="campusos-card-title">' . esc_html( get_the_title() ) . '</h4>';
             if ( $jabatan ) {
-                echo '<p class="unpatti-dosen-jabatan">' . esc_html( $jabatan ) . '</p>';
+                echo '<p class="campusos-dosen-jabatan">' . esc_html( $jabatan ) . '</p>';
             }
             if ( $bidang ) {
-                echo '<p class="unpatti-dosen-bidang">Bidang: ' . esc_html( $bidang ) . '</p>';
+                echo '<p class="campusos-dosen-bidang">Bidang: ' . esc_html( $bidang ) . '</p>';
             }
             if ( $nidn ) {
-                echo '<p class="unpatti-dosen-nidn">NIDN: ' . esc_html( $nidn ) . '</p>';
+                echo '<p class="campusos-dosen-nidn">NIDN: ' . esc_html( $nidn ) . '</p>';
             }
             if ( $email ) {
-                echo '<p class="unpatti-dosen-email"><a href="mailto:' . esc_attr( $email ) . '">' . esc_html( $email ) . '</a></p>';
+                echo '<p class="campusos-dosen-email"><a href="mailto:' . esc_attr( $email ) . '">' . esc_html( $email ) . '</a></p>';
             }
             if ( $link ) {
-                echo '<p class="unpatti-dosen-link"><a href="' . esc_url( $link ) . '" target="_blank">Lihat Profil</a></p>';
+                echo '<p class="campusos-dosen-link"><a href="' . esc_url( $link ) . '" target="_blank">Lihat Profil</a></p>';
             }
             echo '</div>';
             echo '</div>';
@@ -141,11 +141,11 @@ class Shortcodes {
         ] );
 
         if ( ! $query->have_posts() ) {
-            return '<p class="unpatti-empty">' . __( 'Belum ada data pimpinan.', 'unpatti-academic' ) . '</p>';
+            return '<p class="campusos-empty">' . __( 'Belum ada data pimpinan.', 'campusos-academic' ) . '</p>';
         }
 
         ob_start();
-        echo '<div class="unpatti-grid unpatti-grid-' . esc_attr( $atts['columns'] ) . ' unpatti-pimpinan">';
+        echo '<div class="campusos-grid campusos-grid-' . esc_attr( $atts['columns'] ) . ' campusos-pimpinan">';
 
         while ( $query->have_posts() ) {
             $query->the_post();
@@ -155,24 +155,24 @@ class Shortcodes {
             $periode = get_post_meta( $id, '_pimpinan_periode', true );
             $foto = get_the_post_thumbnail_url( $id, 'medium' );
 
-            echo '<div class="unpatti-card unpatti-pimpinan-card">';
-            echo '<div class="unpatti-card-image">';
+            echo '<div class="campusos-card campusos-pimpinan-card">';
+            echo '<div class="campusos-card-image">';
             if ( $foto ) {
                 echo '<img src="' . esc_url( $foto ) . '" alt="' . esc_attr( get_the_title() ) . '">';
             } else {
-                echo '<div class="unpatti-placeholder-image"><span class="dashicons dashicons-businessman"></span></div>';
+                echo '<div class="campusos-placeholder-image"><span class="dashicons dashicons-businessman"></span></div>';
             }
             echo '</div>';
-            echo '<div class="unpatti-card-content">';
-            echo '<h4 class="unpatti-card-title">' . esc_html( get_the_title() ) . '</h4>';
+            echo '<div class="campusos-card-content">';
+            echo '<h4 class="campusos-card-title">' . esc_html( get_the_title() ) . '</h4>';
             if ( $jabatan ) {
-                echo '<p class="unpatti-pimpinan-jabatan">' . esc_html( $jabatan ) . '</p>';
+                echo '<p class="campusos-pimpinan-jabatan">' . esc_html( $jabatan ) . '</p>';
             }
             if ( $periode ) {
-                echo '<p class="unpatti-pimpinan-periode">Periode: ' . esc_html( $periode ) . '</p>';
+                echo '<p class="campusos-pimpinan-periode">Periode: ' . esc_html( $periode ) . '</p>';
             }
             if ( $nip ) {
-                echo '<p class="unpatti-pimpinan-nip">NIP: ' . esc_html( $nip ) . '</p>';
+                echo '<p class="campusos-pimpinan-nip">NIP: ' . esc_html( $nip ) . '</p>';
             }
             echo '</div>';
             echo '</div>';
@@ -186,8 +186,8 @@ class Shortcodes {
 
     /**
      * Sambutan Ketua Program Studi (from Settings)
-     * Displays leader data from unpatti_pimpinan_settings option
-     * Usage: [unpatti_sambutan_kaprodi]
+     * Displays leader data from campusos_pimpinan_settings option
+     * Usage: [campusos_sambutan_kaprodi]
      * Attributes: style (full/compact), show_button (yes/no), button_text, button_url
      */
     public function sambutan_kaprodi( $atts ) {
@@ -200,10 +200,10 @@ class Shortcodes {
         ], $atts );
 
         // Get pimpinan data from settings
-        $pimpinan = get_option( 'unpatti_pimpinan_settings', [] );
+        $pimpinan = get_option( 'campusos_pimpinan_settings', [] );
 
         if ( empty( $pimpinan['nama'] ) ) {
-            return '<p class="unpatti-empty">' . __( 'Data pimpinan belum dikonfigurasi.', 'unpatti-academic' ) . '</p>';
+            return '<p class="campusos-empty">' . __( 'Data pimpinan belum dikonfigurasi.', 'campusos-academic' ) . '</p>';
         }
 
         // Build full name with titles
@@ -238,39 +238,39 @@ class Shortcodes {
 
         if ( $atts['style'] === 'compact' ) {
             // Compact style - just name, jabatan, and short text
-            echo '<div class="unpatti-kaprodi unpatti-kaprodi-compact">';
-            echo '<div class="unpatti-kaprodi-info">';
-            echo '<h4 class="unpatti-kaprodi-nama">' . esc_html( $nama ) . '</h4>';
+            echo '<div class="campusos-kaprodi campusos-kaprodi-compact">';
+            echo '<div class="campusos-kaprodi-info">';
+            echo '<h4 class="campusos-kaprodi-nama">' . esc_html( $nama ) . '</h4>';
             if ( $jabatan ) {
-                echo '<p class="unpatti-kaprodi-jabatan">' . esc_html( $jabatan ) . '</p>';
+                echo '<p class="campusos-kaprodi-jabatan">' . esc_html( $jabatan ) . '</p>';
             }
             echo '</div>';
             echo '</div>';
         } else {
             // Full style - with photo, name, jabatan, sambutan excerpt
-            echo '<div class="unpatti-kaprodi unpatti-kaprodi-full">';
+            echo '<div class="campusos-kaprodi campusos-kaprodi-full">';
 
             // Photo column
-            echo '<div class="unpatti-kaprodi-foto">';
+            echo '<div class="campusos-kaprodi-foto">';
             if ( $foto_url ) {
                 echo '<img src="' . esc_url( $foto_url ) . '" alt="' . esc_attr( $nama ) . '">';
             } else {
-                echo '<div class="unpatti-kaprodi-placeholder"><span class="dashicons dashicons-admin-users"></span></div>';
+                echo '<div class="campusos-kaprodi-placeholder"><span class="dashicons dashicons-admin-users"></span></div>';
             }
             echo '</div>';
 
             // Content column
-            echo '<div class="unpatti-kaprodi-content">';
-            echo '<h3 class="unpatti-kaprodi-title">' . esc_html__( 'Sambutan Ketua Program Studi', 'unpatti-academic' ) . '</h3>';
-            echo '<h4 class="unpatti-kaprodi-nama">' . esc_html( $nama ) . '</h4>';
+            echo '<div class="campusos-kaprodi-content">';
+            echo '<h3 class="campusos-kaprodi-title">' . esc_html__( 'Sambutan Ketua Program Studi', 'campusos-academic' ) . '</h3>';
+            echo '<h4 class="campusos-kaprodi-nama">' . esc_html( $nama ) . '</h4>';
             if ( $jabatan ) {
-                echo '<p class="unpatti-kaprodi-jabatan">' . esc_html( $jabatan ) . '</p>';
+                echo '<p class="campusos-kaprodi-jabatan">' . esc_html( $jabatan ) . '</p>';
             }
             if ( $sambutan_excerpt ) {
-                echo '<div class="unpatti-kaprodi-text">' . esc_html( $sambutan_excerpt ) . '</div>';
+                echo '<div class="campusos-kaprodi-text">' . esc_html( $sambutan_excerpt ) . '</div>';
             }
             if ( $atts['show_button'] === 'yes' && $atts['button_url'] ) {
-                echo '<a href="' . esc_url( $atts['button_url'] ) . '" class="unpatti-btn unpatti-btn-primary">' . esc_html( $atts['button_text'] ) . '</a>';
+                echo '<a href="' . esc_url( $atts['button_url'] ) . '" class="campusos-btn campusos-btn-primary">' . esc_html( $atts['button_text'] ) . '</a>';
             }
             echo '</div>';
 
@@ -301,15 +301,15 @@ class Shortcodes {
         ] );
 
         if ( ! $query->have_posts() ) {
-            return '<p class="unpatti-empty">' . __( 'Belum ada agenda.', 'unpatti-academic' ) . '</p>';
+            return '<p class="campusos-empty">' . __( 'Belum ada agenda.', 'campusos-academic' ) . '</p>';
         }
 
         ob_start();
 
         if ( $atts['style'] === 'grid' ) {
-            echo '<div class="unpatti-grid unpatti-grid-' . esc_attr( $atts['columns'] ) . ' unpatti-agenda">';
+            echo '<div class="campusos-grid campusos-grid-' . esc_attr( $atts['columns'] ) . ' campusos-agenda">';
         } else {
-            echo '<div class="unpatti-list unpatti-agenda">';
+            echo '<div class="campusos-list campusos-agenda">';
         }
 
         while ( $query->have_posts() ) {
@@ -319,20 +319,20 @@ class Shortcodes {
             $tanggal_akhir = get_post_meta( $id, '_agenda_tanggal_akhir_agenda', true );
             $lokasi = get_post_meta( $id, '_agenda_lokasi_agenda', true );
 
-            echo '<div class="unpatti-card unpatti-agenda-card">';
+            echo '<div class="campusos-card campusos-agenda-card">';
             if ( $tanggal ) {
-                echo '<div class="unpatti-agenda-date">';
+                echo '<div class="campusos-agenda-date">';
                 echo '<span class="day">' . esc_html( date( 'd', strtotime( $tanggal ) ) ) . '</span>';
                 echo '<span class="month">' . esc_html( date_i18n( 'M', strtotime( $tanggal ) ) ) . '</span>';
                 echo '</div>';
             }
-            echo '<div class="unpatti-card-content">';
-            echo '<h4 class="unpatti-card-title"><a href="' . esc_url( get_permalink() ) . '">' . esc_html( get_the_title() ) . '</a></h4>';
+            echo '<div class="campusos-card-content">';
+            echo '<h4 class="campusos-card-title"><a href="' . esc_url( get_permalink() ) . '">' . esc_html( get_the_title() ) . '</a></h4>';
             if ( $lokasi ) {
-                echo '<p class="unpatti-agenda-lokasi"><span class="dashicons dashicons-location"></span> ' . esc_html( $lokasi ) . '</p>';
+                echo '<p class="campusos-agenda-lokasi"><span class="dashicons dashicons-location"></span> ' . esc_html( $lokasi ) . '</p>';
             }
             if ( has_excerpt() || get_the_content() ) {
-                echo '<p class="unpatti-excerpt">' . esc_html( wp_trim_words( get_the_excerpt() ?: get_the_content(), 15 ) ) . '</p>';
+                echo '<p class="campusos-excerpt">' . esc_html( wp_trim_words( get_the_excerpt() ?: get_the_content(), 15 ) ) . '</p>';
             }
             echo '</div>';
             echo '</div>';
@@ -364,11 +364,11 @@ class Shortcodes {
         ] );
 
         if ( ! $query->have_posts() ) {
-            return '<p class="unpatti-empty">' . __( 'Belum ada pengumuman.', 'unpatti-academic' ) . '</p>';
+            return '<p class="campusos-empty">' . __( 'Belum ada pengumuman.', 'campusos-academic' ) . '</p>';
         }
 
         ob_start();
-        echo '<div class="unpatti-list unpatti-pengumuman">';
+        echo '<div class="campusos-list campusos-pengumuman">';
 
         while ( $query->have_posts() ) {
             $query->the_post();
@@ -376,17 +376,17 @@ class Shortcodes {
             $lampiran_id = get_post_meta( $id, '_pengumuman_file_lampiran', true );
             $lampiran_url = $lampiran_id ? wp_get_attachment_url( (int) $lampiran_id ) : '';
 
-            echo '<div class="unpatti-card unpatti-pengumuman-card">';
-            echo '<div class="unpatti-card-content">';
-            echo '<div class="unpatti-pengumuman-meta">';
-            echo '<span class="unpatti-date">' . esc_html( get_the_date( 'd M Y' ) ) . '</span>';
+            echo '<div class="campusos-card campusos-pengumuman-card">';
+            echo '<div class="campusos-card-content">';
+            echo '<div class="campusos-pengumuman-meta">';
+            echo '<span class="campusos-date">' . esc_html( get_the_date( 'd M Y' ) ) . '</span>';
             echo '</div>';
-            echo '<h4 class="unpatti-card-title"><a href="' . esc_url( get_permalink() ) . '">' . esc_html( get_the_title() ) . '</a></h4>';
+            echo '<h4 class="campusos-card-title"><a href="' . esc_url( get_permalink() ) . '">' . esc_html( get_the_title() ) . '</a></h4>';
             if ( has_excerpt() || get_the_content() ) {
-                echo '<p class="unpatti-excerpt">' . esc_html( wp_trim_words( get_the_excerpt() ?: get_the_content(), 20 ) ) . '</p>';
+                echo '<p class="campusos-excerpt">' . esc_html( wp_trim_words( get_the_excerpt() ?: get_the_content(), 20 ) ) . '</p>';
             }
             if ( $lampiran_url ) {
-                echo '<p><a href="' . esc_url( $lampiran_url ) . '" class="unpatti-btn-sm" target="_blank"><span class="dashicons dashicons-download"></span> Unduh Lampiran</a></p>';
+                echo '<p><a href="' . esc_url( $lampiran_url ) . '" class="campusos-btn-sm" target="_blank"><span class="dashicons dashicons-download"></span> Unduh Lampiran</a></p>';
             }
             echo '</div>';
             echo '</div>';
@@ -417,23 +417,23 @@ class Shortcodes {
         ] );
 
         if ( ! $query->have_posts() ) {
-            return '<p class="unpatti-empty">' . __( 'Belum ada FAQ.', 'unpatti-academic' ) . '</p>';
+            return '<p class="campusos-empty">' . __( 'Belum ada FAQ.', 'campusos-academic' ) . '</p>';
         }
 
         ob_start();
-        echo '<div class="unpatti-faq-accordion">';
+        echo '<div class="campusos-faq-accordion">';
 
         $i = 0;
         while ( $query->have_posts() ) {
             $query->the_post();
 
-            echo '<div class="unpatti-faq-item' . ( $i === 0 ? ' active' : '' ) . '">';
-            echo '<button class="unpatti-faq-question" aria-expanded="' . ( $i === 0 ? 'true' : 'false' ) . '">';
+            echo '<div class="campusos-faq-item' . ( $i === 0 ? ' active' : '' ) . '">';
+            echo '<button class="campusos-faq-question" aria-expanded="' . ( $i === 0 ? 'true' : 'false' ) . '">';
             echo '<span>' . esc_html( get_the_title() ) . '</span>';
-            echo '<span class="unpatti-faq-icon">+</span>';
+            echo '<span class="campusos-faq-icon">+</span>';
             echo '</button>';
-            echo '<div class="unpatti-faq-answer"' . ( $i === 0 ? ' style="display:block;"' : '' ) . '>';
-            echo '<div class="unpatti-faq-content">' . wp_kses_post( get_the_content() ) . '</div>';
+            echo '<div class="campusos-faq-answer"' . ( $i === 0 ? ' style="display:block;"' : '' ) . '>';
+            echo '<div class="campusos-faq-content">' . wp_kses_post( get_the_content() ) . '</div>';
             echo '</div>';
             echo '</div>';
             $i++;
@@ -445,18 +445,18 @@ class Shortcodes {
         // Inline JS for accordion
         echo '<script>
         document.addEventListener("DOMContentLoaded", function() {
-            document.querySelectorAll(".unpatti-faq-question").forEach(function(btn) {
+            document.querySelectorAll(".campusos-faq-question").forEach(function(btn) {
                 btn.addEventListener("click", function() {
                     var item = this.parentElement;
                     var wasActive = item.classList.contains("active");
-                    document.querySelectorAll(".unpatti-faq-item").forEach(function(el) {
+                    document.querySelectorAll(".campusos-faq-item").forEach(function(el) {
                         el.classList.remove("active");
-                        el.querySelector(".unpatti-faq-answer").style.display = "none";
-                        el.querySelector(".unpatti-faq-question").setAttribute("aria-expanded", "false");
+                        el.querySelector(".campusos-faq-answer").style.display = "none";
+                        el.querySelector(".campusos-faq-question").setAttribute("aria-expanded", "false");
                     });
                     if (!wasActive) {
                         item.classList.add("active");
-                        item.querySelector(".unpatti-faq-answer").style.display = "block";
+                        item.querySelector(".campusos-faq-answer").style.display = "block";
                         this.setAttribute("aria-expanded", "true");
                     }
                 });
@@ -486,11 +486,11 @@ class Shortcodes {
         ] );
 
         if ( ! $query->have_posts() ) {
-            return '<p class="unpatti-empty">' . __( 'Belum ada galeri.', 'unpatti-academic' ) . '</p>';
+            return '<p class="campusos-empty">' . __( 'Belum ada galeri.', 'campusos-academic' ) . '</p>';
         }
 
         ob_start();
-        echo '<div class="unpatti-grid unpatti-grid-' . esc_attr( $atts['columns'] ) . ' unpatti-galeri">';
+        echo '<div class="campusos-grid campusos-grid-' . esc_attr( $atts['columns'] ) . ' campusos-galeri">';
 
         while ( $query->have_posts() ) {
             $query->the_post();
@@ -498,9 +498,9 @@ class Shortcodes {
             $thumb = get_the_post_thumbnail_url( get_the_ID(), 'medium' );
 
             if ( $thumb ) {
-                echo '<a href="' . esc_url( $foto ?: $thumb ) . '" class="unpatti-galeri-item" data-lightbox="galeri">';
+                echo '<a href="' . esc_url( $foto ?: $thumb ) . '" class="campusos-galeri-item" data-lightbox="galeri">';
                 echo '<img src="' . esc_url( $thumb ) . '" alt="' . esc_attr( get_the_title() ) . '">';
-                echo '<div class="unpatti-galeri-overlay"><span>' . esc_html( get_the_title() ) . '</span></div>';
+                echo '<div class="campusos-galeri-overlay"><span>' . esc_html( get_the_title() ) . '</span></div>';
                 echo '</a>';
             }
         }
@@ -541,7 +541,7 @@ class Shortcodes {
         $query = new \WP_Query( $args );
 
         if ( ! $query->have_posts() ) {
-            return '<p class="unpatti-empty">' . __( 'Belum ada dokumen.', 'unpatti-academic' ) . '</p>';
+            return '<p class="campusos-empty">' . __( 'Belum ada dokumen.', 'campusos-academic' ) . '</p>';
         }
 
         $kategori_labels = [
@@ -560,7 +560,7 @@ class Shortcodes {
         ];
 
         ob_start();
-        echo '<div class="unpatti-list unpatti-dokumen">';
+        echo '<div class="campusos-list campusos-dokumen">';
 
         while ( $query->have_posts() ) {
             $query->the_post();
@@ -573,22 +573,22 @@ class Shortcodes {
             $sumber_key = get_post_meta( $id, '_dokumen_sumber_dokumen', true );
             $sumber = $sumber_labels[ $sumber_key ] ?? $sumber_key;
 
-            echo '<div class="unpatti-card unpatti-dokumen-card">';
-            echo '<div class="unpatti-dokumen-icon"><span class="dashicons dashicons-media-document"></span></div>';
-            echo '<div class="unpatti-card-content">';
-            echo '<h4 class="unpatti-card-title">' . esc_html( get_the_title() ) . '</h4>';
+            echo '<div class="campusos-card campusos-dokumen-card">';
+            echo '<div class="campusos-dokumen-icon"><span class="dashicons dashicons-media-document"></span></div>';
+            echo '<div class="campusos-card-content">';
+            echo '<h4 class="campusos-card-title">' . esc_html( get_the_title() ) . '</h4>';
             if ( $kategori ) {
-                echo '<p class="unpatti-dokumen-kategori">' . esc_html( $kategori ) . '</p>';
+                echo '<p class="campusos-dokumen-kategori">' . esc_html( $kategori ) . '</p>';
             }
             if ( $tahun ) {
-                echo '<p class="unpatti-date">Tahun: ' . esc_html( $tahun ) . '</p>';
+                echo '<p class="campusos-date">Tahun: ' . esc_html( $tahun ) . '</p>';
             }
             if ( $sumber ) {
-                echo '<p class="unpatti-dokumen-sumber">Sumber: ' . esc_html( $sumber ) . '</p>';
+                echo '<p class="campusos-dokumen-sumber">Sumber: ' . esc_html( $sumber ) . '</p>';
             }
             echo '</div>';
             if ( $file_url ) {
-                echo '<a href="' . esc_url( $file_url ) . '" class="unpatti-btn-download" target="_blank"><span class="dashicons dashicons-download"></span></a>';
+                echo '<a href="' . esc_url( $file_url ) . '" class="campusos-btn-download" target="_blank"><span class="dashicons dashicons-download"></span></a>';
             }
             echo '</div>';
         }
@@ -619,7 +619,7 @@ class Shortcodes {
         ] );
 
         if ( ! $query->have_posts() ) {
-            return '<p class="unpatti-empty">' . __( 'Belum ada prestasi.', 'unpatti-academic' ) . '</p>';
+            return '<p class="campusos-empty">' . __( 'Belum ada prestasi.', 'campusos-academic' ) . '</p>';
         }
 
         $tingkat_labels = [
@@ -629,7 +629,7 @@ class Shortcodes {
         ];
 
         ob_start();
-        echo '<div class="unpatti-grid unpatti-grid-' . esc_attr( $atts['columns'] ) . ' unpatti-prestasi">';
+        echo '<div class="campusos-grid campusos-grid-' . esc_attr( $atts['columns'] ) . ' campusos-prestasi">';
 
         while ( $query->have_posts() ) {
             $query->the_post();
@@ -640,17 +640,17 @@ class Shortcodes {
             $peraih = get_post_meta( $id, '_prestasi_nama_peraih', true );
             $foto = get_the_post_thumbnail_url( $id, 'medium' );
 
-            echo '<div class="unpatti-card unpatti-prestasi-card">';
+            echo '<div class="campusos-card campusos-prestasi-card">';
             if ( $foto ) {
-                echo '<div class="unpatti-card-image"><img src="' . esc_url( $foto ) . '" alt="' . esc_attr( get_the_title() ) . '"></div>';
+                echo '<div class="campusos-card-image"><img src="' . esc_url( $foto ) . '" alt="' . esc_attr( get_the_title() ) . '"></div>';
             }
-            echo '<div class="unpatti-card-content">';
-            echo '<h4 class="unpatti-card-title">' . esc_html( get_the_title() ) . '</h4>';
+            echo '<div class="campusos-card-content">';
+            echo '<h4 class="campusos-card-title">' . esc_html( get_the_title() ) . '</h4>';
             if ( $peraih ) {
-                echo '<p class="unpatti-prestasi-peraih">' . esc_html( $peraih ) . '</p>';
+                echo '<p class="campusos-prestasi-peraih">' . esc_html( $peraih ) . '</p>';
             }
             if ( $tingkat || $tanggal ) {
-                echo '<p class="unpatti-prestasi-meta">';
+                echo '<p class="campusos-prestasi-meta">';
                 if ( $tingkat ) echo '<span class="tingkat">' . esc_html( $tingkat ) . '</span>';
                 if ( $tanggal ) echo '<span class="tahun">' . esc_html( date_i18n( 'Y', strtotime( $tanggal ) ) ) . '</span>';
                 echo '</p>';
@@ -684,7 +684,7 @@ class Shortcodes {
         ] );
 
         if ( ! $query->have_posts() ) {
-            return '<p class="unpatti-empty">' . __( 'Belum ada data kerjasama.', 'unpatti-academic' ) . '</p>';
+            return '<p class="campusos-empty">' . __( 'Belum ada data kerjasama.', 'campusos-academic' ) . '</p>';
         }
 
         $jenis_labels = [
@@ -693,7 +693,7 @@ class Shortcodes {
         ];
 
         ob_start();
-        echo '<div class="unpatti-grid unpatti-grid-' . esc_attr( $atts['columns'] ) . ' unpatti-kerjasama">';
+        echo '<div class="campusos-grid campusos-grid-' . esc_attr( $atts['columns'] ) . ' campusos-kerjasama">';
 
         while ( $query->have_posts() ) {
             $query->the_post();
@@ -710,17 +710,17 @@ class Shortcodes {
                 $periode = date_i18n( 'Y', strtotime( $tgl_mulai ) ) . ' - ' . date_i18n( 'Y', strtotime( $tgl_akhir ) );
             }
 
-            echo '<div class="unpatti-card unpatti-kerjasama-card">';
+            echo '<div class="campusos-card campusos-kerjasama-card">';
             if ( $logo ) {
-                echo '<div class="unpatti-card-logo"><img src="' . esc_url( $logo ) . '" alt="' . esc_attr( get_the_title() ) . '"></div>';
+                echo '<div class="campusos-card-logo"><img src="' . esc_url( $logo ) . '" alt="' . esc_attr( get_the_title() ) . '"></div>';
             }
-            echo '<div class="unpatti-card-content">';
-            echo '<h4 class="unpatti-card-title">' . esc_html( get_the_title() ) . '</h4>';
+            echo '<div class="campusos-card-content">';
+            echo '<h4 class="campusos-card-title">' . esc_html( get_the_title() ) . '</h4>';
             if ( $jenis ) {
-                echo '<p class="unpatti-kerjasama-jenis">' . esc_html( $jenis ) . '</p>';
+                echo '<p class="campusos-kerjasama-jenis">' . esc_html( $jenis ) . '</p>';
             }
             if ( $periode ) {
-                echo '<p class="unpatti-kerjasama-periode">' . esc_html( $periode ) . '</p>';
+                echo '<p class="campusos-kerjasama-periode">' . esc_html( $periode ) . '</p>';
             }
             echo '</div>';
             echo '</div>';
@@ -751,11 +751,11 @@ class Shortcodes {
         ] );
 
         if ( ! $query->have_posts() ) {
-            return '<p class="unpatti-empty">' . __( 'Belum ada data fasilitas.', 'unpatti-academic' ) . '</p>';
+            return '<p class="campusos-empty">' . __( 'Belum ada data fasilitas.', 'campusos-academic' ) . '</p>';
         }
 
         ob_start();
-        echo '<div class="unpatti-grid unpatti-grid-' . esc_attr( $atts['columns'] ) . ' unpatti-fasilitas">';
+        echo '<div class="campusos-grid campusos-grid-' . esc_attr( $atts['columns'] ) . ' campusos-fasilitas">';
 
         while ( $query->have_posts() ) {
             $query->the_post();
@@ -764,20 +764,20 @@ class Shortcodes {
             $kapasitas = get_post_meta( $id, '_fasilitas_kapasitas', true );
             $foto = get_the_post_thumbnail_url( $id, 'large' );
 
-            echo '<div class="unpatti-card unpatti-fasilitas-card">';
+            echo '<div class="campusos-card campusos-fasilitas-card">';
             if ( $foto ) {
-                echo '<div class="unpatti-card-image"><img src="' . esc_url( $foto ) . '" alt="' . esc_attr( get_the_title() ) . '"></div>';
+                echo '<div class="campusos-card-image"><img src="' . esc_url( $foto ) . '" alt="' . esc_attr( get_the_title() ) . '"></div>';
             }
-            echo '<div class="unpatti-card-content">';
-            echo '<h4 class="unpatti-card-title">' . esc_html( get_the_title() ) . '</h4>';
+            echo '<div class="campusos-card-content">';
+            echo '<h4 class="campusos-card-title">' . esc_html( get_the_title() ) . '</h4>';
             if ( has_excerpt() || get_the_content() ) {
-                echo '<p class="unpatti-fasilitas-desc">' . esc_html( wp_trim_words( get_the_excerpt() ?: get_the_content(), 15 ) ) . '</p>';
+                echo '<p class="campusos-fasilitas-desc">' . esc_html( wp_trim_words( get_the_excerpt() ?: get_the_content(), 15 ) ) . '</p>';
             }
             if ( $lokasi ) {
-                echo '<p class="unpatti-fasilitas-lokasi"><span class="dashicons dashicons-location"></span> ' . esc_html( $lokasi ) . '</p>';
+                echo '<p class="campusos-fasilitas-lokasi"><span class="dashicons dashicons-location"></span> ' . esc_html( $lokasi ) . '</p>';
             }
             if ( $kapasitas ) {
-                echo '<p class="unpatti-fasilitas-kapasitas"><span class="dashicons dashicons-groups"></span> ' . esc_html( $kapasitas ) . '</p>';
+                echo '<p class="campusos-fasilitas-kapasitas"><span class="dashicons dashicons-groups"></span> ' . esc_html( $kapasitas ) . '</p>';
             }
             echo '</div>';
             echo '</div>';
@@ -808,22 +808,22 @@ class Shortcodes {
         ] );
 
         if ( ! $query->have_posts() ) {
-            return '<p class="unpatti-empty">' . __( 'Belum ada mitra industri.', 'unpatti-academic' ) . '</p>';
+            return '<p class="campusos-empty">' . __( 'Belum ada mitra industri.', 'campusos-academic' ) . '</p>';
         }
 
         ob_start();
-        echo '<div class="unpatti-grid unpatti-grid-' . esc_attr( $atts['columns'] ) . ' unpatti-mitra">';
+        echo '<div class="campusos-grid campusos-grid-' . esc_attr( $atts['columns'] ) . ' campusos-mitra">';
 
         while ( $query->have_posts() ) {
             $query->the_post();
             $id = get_the_ID();
             $logo = get_the_post_thumbnail_url( $id, 'medium' );
 
-            echo '<div class="unpatti-mitra-card">';
+            echo '<div class="campusos-mitra-card">';
             if ( $logo ) {
                 echo '<img src="' . esc_url( $logo ) . '" alt="' . esc_attr( get_the_title() ) . '">';
             } else {
-                echo '<span class="unpatti-mitra-name">' . esc_html( get_the_title() ) . '</span>';
+                echo '<span class="campusos-mitra-name">' . esc_html( get_the_title() ) . '</span>';
             }
             echo '</div>';
         }
@@ -865,11 +865,11 @@ class Shortcodes {
         $query = new \WP_Query( $args );
 
         if ( ! $query->have_posts() ) {
-            return '<p class="unpatti-empty">' . __( 'Belum ada data mata kuliah.', 'unpatti-academic' ) . '</p>';
+            return '<p class="campusos-empty">' . __( 'Belum ada data mata kuliah.', 'campusos-academic' ) . '</p>';
         }
 
         ob_start();
-        echo '<table class="unpatti-table unpatti-mata-kuliah">';
+        echo '<table class="campusos-table campusos-mata-kuliah">';
         echo '<thead><tr>';
         echo '<th>Kode</th>';
         echo '<th>Mata Kuliah</th>';
@@ -918,7 +918,7 @@ class Shortcodes {
         ] );
 
         if ( ! $query->have_posts() ) {
-            return '<p class="unpatti-empty">' . __( 'Belum ada publikasi.', 'unpatti-academic' ) . '</p>';
+            return '<p class="campusos-empty">' . __( 'Belum ada publikasi.', 'campusos-academic' ) . '</p>';
         }
 
         $jenis_labels = [
@@ -929,7 +929,7 @@ class Shortcodes {
         ];
 
         ob_start();
-        echo '<div class="unpatti-list unpatti-publikasi">';
+        echo '<div class="campusos-list campusos-publikasi">';
 
         while ( $query->have_posts() ) {
             $query->the_post();
@@ -941,21 +941,21 @@ class Shortcodes {
             $link = get_post_meta( $id, '_publikasi_link_pub', true );
             $doi = get_post_meta( $id, '_publikasi_doi_pub', true );
 
-            echo '<div class="unpatti-card unpatti-publikasi-card">';
-            echo '<div class="unpatti-card-content">';
-            echo '<h4 class="unpatti-card-title">' . esc_html( get_the_title() ) . '</h4>';
+            echo '<div class="campusos-card campusos-publikasi-card">';
+            echo '<div class="campusos-card-content">';
+            echo '<h4 class="campusos-card-title">' . esc_html( get_the_title() ) . '</h4>';
             if ( $penulis ) {
-                echo '<p class="unpatti-publikasi-penulis">' . esc_html( $penulis ) . '</p>';
+                echo '<p class="campusos-publikasi-penulis">' . esc_html( $penulis ) . '</p>';
             }
-            echo '<p class="unpatti-publikasi-meta">';
+            echo '<p class="campusos-publikasi-meta">';
             if ( $jenis ) echo '<span class="jurnal">' . esc_html( $jenis ) . '</span>';
             if ( $tahun ) echo '<span class="tahun">(' . esc_html( $tahun ) . ')</span>';
             echo '</p>';
             if ( $doi ) {
-                echo '<p class="unpatti-publikasi-doi">DOI: ' . esc_html( $doi ) . '</p>';
+                echo '<p class="campusos-publikasi-doi">DOI: ' . esc_html( $doi ) . '</p>';
             }
             if ( $link ) {
-                echo '<p><a href="' . esc_url( $link ) . '" class="unpatti-btn-sm" target="_blank">Lihat Publikasi</a></p>';
+                echo '<p><a href="' . esc_url( $link ) . '" class="campusos-btn-sm" target="_blank">Lihat Publikasi</a></p>';
             }
             echo '</div>';
             echo '</div>';
@@ -986,11 +986,11 @@ class Shortcodes {
         ] );
 
         if ( ! $query->have_posts() ) {
-            return '<p class="unpatti-empty">' . __( 'Belum ada informasi beasiswa.', 'unpatti-academic' ) . '</p>';
+            return '<p class="campusos-empty">' . __( 'Belum ada informasi beasiswa.', 'campusos-academic' ) . '</p>';
         }
 
         ob_start();
-        echo '<div class="unpatti-grid unpatti-grid-' . esc_attr( $atts['columns'] ) . ' unpatti-beasiswa">';
+        echo '<div class="campusos-grid campusos-grid-' . esc_attr( $atts['columns'] ) . ' campusos-beasiswa">';
 
         while ( $query->have_posts() ) {
             $query->the_post();
@@ -998,17 +998,17 @@ class Shortcodes {
             $deadline = get_post_meta( $id, '_beasiswa_deadline_beasiswa', true );
             $link = get_post_meta( $id, '_beasiswa_link_pendaftaran', true );
 
-            echo '<div class="unpatti-card unpatti-beasiswa-card">';
-            echo '<div class="unpatti-card-content">';
-            echo '<h4 class="unpatti-card-title">' . esc_html( get_the_title() ) . '</h4>';
+            echo '<div class="campusos-card campusos-beasiswa-card">';
+            echo '<div class="campusos-card-content">';
+            echo '<h4 class="campusos-card-title">' . esc_html( get_the_title() ) . '</h4>';
             if ( $deadline ) {
-                echo '<p class="unpatti-beasiswa-deadline"><span class="dashicons dashicons-calendar-alt"></span> Deadline: ' . esc_html( date_i18n( 'd M Y', strtotime( $deadline ) ) ) . '</p>';
+                echo '<p class="campusos-beasiswa-deadline"><span class="dashicons dashicons-calendar-alt"></span> Deadline: ' . esc_html( date_i18n( 'd M Y', strtotime( $deadline ) ) ) . '</p>';
             }
             if ( has_excerpt() || get_the_content() ) {
-                echo '<p class="unpatti-excerpt">' . esc_html( wp_trim_words( get_the_excerpt() ?: get_the_content(), 20 ) ) . '</p>';
+                echo '<p class="campusos-excerpt">' . esc_html( wp_trim_words( get_the_excerpt() ?: get_the_content(), 20 ) ) . '</p>';
             }
             if ( $link ) {
-                echo '<p><a href="' . esc_url( $link ) . '" class="unpatti-btn-sm" target="_blank">Daftar Sekarang</a></p>';
+                echo '<p><a href="' . esc_url( $link ) . '" class="campusos-btn-sm" target="_blank">Daftar Sekarang</a></p>';
             }
             echo '</div>';
             echo '</div>';
@@ -1039,11 +1039,11 @@ class Shortcodes {
         ] );
 
         if ( ! $query->have_posts() ) {
-            return '<p class="unpatti-empty">' . __( 'Belum ada testimonial.', 'unpatti-academic' ) . '</p>';
+            return '<p class="campusos-empty">' . __( 'Belum ada testimonial.', 'campusos-academic' ) . '</p>';
         }
 
         ob_start();
-        echo '<div class="unpatti-grid unpatti-grid-' . esc_attr( $atts['columns'] ) . ' unpatti-testimonial">';
+        echo '<div class="campusos-grid campusos-grid-' . esc_attr( $atts['columns'] ) . ' campusos-testimonial">';
 
         while ( $query->have_posts() ) {
             $query->the_post();
@@ -1052,15 +1052,15 @@ class Shortcodes {
             $instansi = get_post_meta( $id, '_testimonial_instansi', true );
             $foto = get_the_post_thumbnail_url( $id, 'thumbnail' );
 
-            echo '<div class="unpatti-card unpatti-testimonial-card">';
-            echo '<div class="unpatti-testimonial-content">';
-            echo '<p class="unpatti-testimonial-text">"' . esc_html( wp_trim_words( get_the_content(), 40 ) ) . '"</p>';
+            echo '<div class="campusos-card campusos-testimonial-card">';
+            echo '<div class="campusos-testimonial-content">';
+            echo '<p class="campusos-testimonial-text">"' . esc_html( wp_trim_words( get_the_content(), 40 ) ) . '"</p>';
             echo '</div>';
-            echo '<div class="unpatti-testimonial-author">';
+            echo '<div class="campusos-testimonial-author">';
             if ( $foto ) {
-                echo '<img src="' . esc_url( $foto ) . '" alt="' . esc_attr( get_the_title() ) . '" class="unpatti-testimonial-photo">';
+                echo '<img src="' . esc_url( $foto ) . '" alt="' . esc_attr( get_the_title() ) . '" class="campusos-testimonial-photo">';
             }
-            echo '<div class="unpatti-testimonial-info">';
+            echo '<div class="campusos-testimonial-info">';
             echo '<strong>' . esc_html( get_the_title() ) . '</strong>';
             if ( $jabatan || $instansi ) {
                 echo '<span>';
@@ -1099,11 +1099,11 @@ class Shortcodes {
         ] );
 
         if ( ! $query->have_posts() ) {
-            return '<p class="unpatti-empty">' . __( 'Belum ada video.', 'unpatti-academic' ) . '</p>';
+            return '<p class="campusos-empty">' . __( 'Belum ada video.', 'campusos-academic' ) . '</p>';
         }
 
         ob_start();
-        echo '<div class="unpatti-grid unpatti-grid-' . esc_attr( $atts['columns'] ) . ' unpatti-video">';
+        echo '<div class="campusos-grid campusos-grid-' . esc_attr( $atts['columns'] ) . ' campusos-video">';
 
         while ( $query->have_posts() ) {
             $query->the_post();
@@ -1120,17 +1120,17 @@ class Shortcodes {
                 }
             }
 
-            echo '<div class="unpatti-card unpatti-video-card">';
-            echo '<div class="unpatti-video-thumb">';
+            echo '<div class="campusos-card campusos-video-card">';
+            echo '<div class="campusos-video-thumb">';
             if ( $thumb ) {
                 echo '<img src="' . esc_url( $thumb ) . '" alt="' . esc_attr( get_the_title() ) . '">';
             }
             if ( $url ) {
-                echo '<a href="' . esc_url( $url ) . '" class="unpatti-video-play" target="_blank"><span class="dashicons dashicons-controls-play"></span></a>';
+                echo '<a href="' . esc_url( $url ) . '" class="campusos-video-play" target="_blank"><span class="dashicons dashicons-controls-play"></span></a>';
             }
             echo '</div>';
-            echo '<div class="unpatti-card-content">';
-            echo '<h4 class="unpatti-card-title">' . esc_html( get_the_title() ) . '</h4>';
+            echo '<div class="campusos-card-content">';
+            echo '<h4 class="campusos-card-title">' . esc_html( get_the_title() ) . '</h4>';
             echo '</div>';
             echo '</div>';
         }
@@ -1160,25 +1160,25 @@ class Shortcodes {
         ] );
 
         if ( ! $query->have_posts() ) {
-            return '<p class="unpatti-empty">' . __( 'Belum ada data organisasi mahasiswa.', 'unpatti-academic' ) . '</p>';
+            return '<p class="campusos-empty">' . __( 'Belum ada data organisasi mahasiswa.', 'campusos-academic' ) . '</p>';
         }
 
         ob_start();
-        echo '<div class="unpatti-grid unpatti-grid-' . esc_attr( $atts['columns'] ) . ' unpatti-organisasi-mhs">';
+        echo '<div class="campusos-grid campusos-grid-' . esc_attr( $atts['columns'] ) . ' campusos-organisasi-mhs">';
 
         while ( $query->have_posts() ) {
             $query->the_post();
             $id = get_the_ID();
             $logo = get_the_post_thumbnail_url( $id, 'medium' );
 
-            echo '<div class="unpatti-card unpatti-org-card">';
+            echo '<div class="campusos-card campusos-org-card">';
             if ( $logo ) {
-                echo '<div class="unpatti-card-logo"><img src="' . esc_url( $logo ) . '" alt="' . esc_attr( get_the_title() ) . '"></div>';
+                echo '<div class="campusos-card-logo"><img src="' . esc_url( $logo ) . '" alt="' . esc_attr( get_the_title() ) . '"></div>';
             }
-            echo '<div class="unpatti-card-content">';
-            echo '<h4 class="unpatti-card-title">' . esc_html( get_the_title() ) . '</h4>';
+            echo '<div class="campusos-card-content">';
+            echo '<h4 class="campusos-card-title">' . esc_html( get_the_title() ) . '</h4>';
             if ( has_excerpt() || get_the_content() ) {
-                echo '<p class="unpatti-excerpt">' . esc_html( wp_trim_words( get_the_excerpt() ?: get_the_content(), 20 ) ) . '</p>';
+                echo '<p class="campusos-excerpt">' . esc_html( wp_trim_words( get_the_excerpt() ?: get_the_content(), 20 ) ) . '</p>';
             }
             echo '</div>';
             echo '</div>';

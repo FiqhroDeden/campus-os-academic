@@ -1,5 +1,5 @@
 <?php
-namespace UNPATTI\Core\Security;
+namespace CampusOS\Core\Security;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -9,7 +9,7 @@ class Activity_Log {
 
     public function __construct() {
         global $wpdb;
-        $this->table_name = $wpdb->prefix . 'unpatti_activity_log';
+        $this->table_name = $wpdb->prefix . 'campusos_activity_log';
     }
 
     public function init() {
@@ -27,16 +27,16 @@ class Activity_Log {
         add_action( 'admin_menu', [ $this, 'add_menu' ] );
 
         // Cleanup cron
-        add_action( 'unpatti_activity_log_cleanup', [ $this, 'cleanup_old_entries' ] );
-        if ( ! wp_next_scheduled( 'unpatti_activity_log_cleanup' ) ) {
-            wp_schedule_event( time(), 'daily', 'unpatti_activity_log_cleanup' );
+        add_action( 'campusos_activity_log_cleanup', [ $this, 'cleanup_old_entries' ] );
+        if ( ! wp_next_scheduled( 'campusos_activity_log_cleanup' ) ) {
+            wp_schedule_event( time(), 'daily', 'campusos_activity_log_cleanup' );
         }
     }
 
     public function maybe_create_table() {
         global $wpdb;
 
-        if ( get_option( 'unpatti_activity_log_db_version' ) === '1.0' ) {
+        if ( get_option( 'campusos_activity_log_db_version' ) === '1.0' ) {
             return;
         }
 
@@ -59,7 +59,7 @@ class Activity_Log {
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
         dbDelta( $sql );
 
-        update_option( 'unpatti_activity_log_db_version', '1.0' );
+        update_option( 'campusos_activity_log_db_version', '1.0' );
     }
 
     private function log( $action, $object_type = '', $object_id = 0, $details = '' ) {
@@ -114,11 +114,11 @@ class Activity_Log {
 
     public function add_menu() {
         add_submenu_page(
-            'unpatti-academic',
-            __( 'Activity Log', 'unpatti-academic' ),
-            __( 'Activity Log', 'unpatti-academic' ),
+            'campusos-academic',
+            __( 'Activity Log', 'campusos-academic' ),
+            __( 'Activity Log', 'campusos-academic' ),
             'manage_options',
-            'unpatti-activity-log',
+            'campusos-activity-log',
             [ $this, 'render_page' ]
         );
     }
@@ -128,7 +128,7 @@ class Activity_Log {
         $table->prepare_items();
 
         echo '<div class="wrap">';
-        echo '<h1>' . esc_html__( 'Activity Log', 'unpatti-academic' ) . '</h1>';
+        echo '<h1>' . esc_html__( 'Activity Log', 'campusos-academic' ) . '</h1>';
         $table->display();
         echo '</div>';
     }
@@ -161,13 +161,13 @@ class Activity_Log_Table extends \WP_List_Table {
 
     public function get_columns() {
         return [
-            'created_at'  => __( 'Waktu', 'unpatti-academic' ),
-            'user_id'     => __( 'User', 'unpatti-academic' ),
-            'ip'          => __( 'IP', 'unpatti-academic' ),
-            'action'      => __( 'Aksi', 'unpatti-academic' ),
-            'object_type' => __( 'Tipe', 'unpatti-academic' ),
-            'object_id'   => __( 'Object ID', 'unpatti-academic' ),
-            'details'     => __( 'Detail', 'unpatti-academic' ),
+            'created_at'  => __( 'Waktu', 'campusos-academic' ),
+            'user_id'     => __( 'User', 'campusos-academic' ),
+            'ip'          => __( 'IP', 'campusos-academic' ),
+            'action'      => __( 'Aksi', 'campusos-academic' ),
+            'object_type' => __( 'Tipe', 'campusos-academic' ),
+            'object_id'   => __( 'Object ID', 'campusos-academic' ),
+            'details'     => __( 'Detail', 'campusos-academic' ),
         ];
     }
 

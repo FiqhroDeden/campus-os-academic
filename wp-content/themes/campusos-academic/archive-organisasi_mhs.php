@@ -8,7 +8,7 @@ get_header();
     <div class="container">
         <h1><?php post_type_archive_title(); ?></h1>
         <div class="breadcrumb">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'unpatti-academic' ); ?></a> &raquo;
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'campusos-academic' ); ?></a> &raquo;
             <?php post_type_archive_title(); ?>
         </div>
     </div>
@@ -40,7 +40,7 @@ get_header();
                         <?php elseif ( get_the_excerpt() ) : ?>
                             <p class="card-text"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 20 ) ); ?></p>
                         <?php endif; ?>
-                        <a href="<?php the_permalink(); ?>" class="btn btn-outline btn-sm"><?php esc_html_e( 'Lihat Detail', 'unpatti-academic' ); ?></a>
+                        <a href="<?php the_permalink(); ?>" class="btn btn-outline btn-sm"><?php esc_html_e( 'Lihat Detail', 'campusos-academic' ); ?></a>
                     </div>
                 </article>
                 <?php endwhile; ?>
@@ -51,7 +51,7 @@ get_header();
                 'next_text' => '&raquo;',
             ) ); ?>
         <?php else : ?>
-            <p class="no-content"><?php esc_html_e( 'Belum ada data organisasi mahasiswa.', 'unpatti-academic' ); ?></p>
+            <p class="no-content"><?php esc_html_e( 'Belum ada data organisasi mahasiswa.', 'campusos-academic' ); ?></p>
         <?php endif; ?>
     </div>
 </main>

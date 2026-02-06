@@ -1,11 +1,11 @@
 <?php
-namespace UNPATTI\Core\Integrations;
+namespace CampusOS\Core\Integrations;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Shortcode_Data {
     public function init() {
-        add_shortcode( 'unpatti_data', [ $this, 'render' ] );
+        add_shortcode( 'campusos_data', [ $this, 'render' ] );
     }
 
     public function render( $atts ) {
@@ -13,14 +13,14 @@ class Shortcode_Data {
             'source' => '',
             'type'   => '',
             'endpoint' => '',
-        ], $atts, 'unpatti_data' );
+        ], $atts, 'campusos_data' );
 
         $source = sanitize_text_field( $atts['source'] );
         $type = sanitize_text_field( $atts['type'] );
         $endpoint = sanitize_text_field( $atts['endpoint'] );
 
         if ( empty( $source ) ) {
-            return '<span class="unpatti-data-error">' . esc_html__( 'Parameter source diperlukan.', 'unpatti-academic' ) . '</span>';
+            return '<span class="campusos-data-error">' . esc_html__( 'Parameter source diperlukan.', 'campusos-academic' ) . '</span>';
         }
 
         $connector = null;
@@ -32,31 +32,31 @@ class Shortcode_Data {
                 $connector = new SIGAP_Connector();
                 break;
             default:
-                return '<span class="unpatti-data-error">' . esc_html__( 'Source tidak dikenali.', 'unpatti-academic' ) . '</span>';
+                return '<span class="campusos-data-error">' . esc_html__( 'Source tidak dikenali.', 'campusos-academic' ) . '</span>';
         }
 
         if ( empty( $connector->get_base_url() ) ) {
-            return '<span class="unpatti-data-placeholder">' . esc_html__( 'Belum terhubung', 'unpatti-academic' ) . '</span>';
+            return '<span class="campusos-data-placeholder">' . esc_html__( 'Belum terhubung', 'campusos-academic' ) . '</span>';
         }
 
         $ep = ! empty( $endpoint ) ? $endpoint : $type;
         if ( empty( $ep ) ) {
-            return '<span class="unpatti-data-error">' . esc_html__( 'Parameter type atau endpoint diperlukan.', 'unpatti-academic' ) . '</span>';
+            return '<span class="campusos-data-error">' . esc_html__( 'Parameter type atau endpoint diperlukan.', 'campusos-academic' ) . '</span>';
         }
 
         $data = $connector->fetch( $ep );
         if ( ! empty( $data['error'] ) ) {
-            return '<span class="unpatti-data-error">' . esc_html( $data['message'] ?? 'Error' ) . '</span>';
+            return '<span class="campusos-data-error">' . esc_html( $data['message'] ?? 'Error' ) . '</span>';
         }
 
         // If data is a single value (e.g. count), return it
         if ( isset( $data['count'] ) ) {
-            return '<span class="unpatti-data-value">' . esc_html( $data['count'] ) . '</span>';
+            return '<span class="campusos-data-value">' . esc_html( $data['count'] ) . '</span>';
         }
         if ( isset( $data['value'] ) ) {
-            return '<span class="unpatti-data-value">' . esc_html( $data['value'] ) . '</span>';
+            return '<span class="campusos-data-value">' . esc_html( $data['value'] ) . '</span>';
         }
 
-        return '<span class="unpatti-data-value">' . esc_html( wp_json_encode( $data ) ) . '</span>';
+        return '<span class="campusos-data-value">' . esc_html( wp_json_encode( $data ) ) . '</span>';
     }
 }

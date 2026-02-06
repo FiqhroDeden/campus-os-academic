@@ -1,5 +1,5 @@
 <?php
-namespace UNPATTI\Core\CPT;
+namespace CampusOS\Core\CPT;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -10,13 +10,13 @@ class CPT_Pimpinan extends CPT_Base {
 
     protected function get_labels(): array {
         return [
-            'name'               => __( 'Pimpinan', 'unpatti-academic' ),
-            'singular_name'      => __( 'Pimpinan', 'unpatti-academic' ),
-            'add_new_item'       => __( 'Tambah Pimpinan', 'unpatti-academic' ),
-            'edit_item'          => __( 'Edit Pimpinan', 'unpatti-academic' ),
-            'all_items'          => __( 'Semua Pimpinan', 'unpatti-academic' ),
-            'search_items'       => __( 'Cari Pimpinan', 'unpatti-academic' ),
-            'not_found'          => __( 'Tidak ditemukan', 'unpatti-academic' ),
+            'name'               => __( 'Pimpinan', 'campusos-academic' ),
+            'singular_name'      => __( 'Pimpinan', 'campusos-academic' ),
+            'add_new_item'       => __( 'Tambah Pimpinan', 'campusos-academic' ),
+            'edit_item'          => __( 'Edit Pimpinan', 'campusos-academic' ),
+            'all_items'          => __( 'Semua Pimpinan', 'campusos-academic' ),
+            'search_items'       => __( 'Cari Pimpinan', 'campusos-academic' ),
+            'not_found'          => __( 'Tidak ditemukan', 'campusos-academic' ),
         ];
     }
 

@@ -59,7 +59,7 @@ $faq_query = new WP_Query( array(
                 <?php endforeach; ?>
             </div>
         <?php else : ?>
-            <p class="no-content"><?php esc_html_e( 'Belum ada FAQ.', 'unpatti-academic' ); ?></p>
+            <p class="no-content"><?php esc_html_e( 'Belum ada FAQ.', 'campusos-academic' ); ?></p>
         <?php endif; ?>
         <?php endif; ?>
     </div>

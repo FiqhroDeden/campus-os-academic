@@ -3,7 +3,7 @@
     // Show/hide meta boxes based on page template
     function toggleMetaBoxes() {
         var template = $('#page_template').val() || '';
-        $('.unpatti-mb').each(function() {
+        $('.campusos-mb').each(function() {
             var expected = $(this).data('template');
             if (template === expected) {
                 $(this).show();

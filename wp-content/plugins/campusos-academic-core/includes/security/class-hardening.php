@@ -1,11 +1,11 @@
 <?php
-namespace UNPATTI\Core\Security;
+namespace CampusOS\Core\Security;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Hardening {
     public function init() {
-        $opts = get_option( 'unpatti_settings', [] );
+        $opts = get_option( 'campusos_settings', [] );
 
         // Disable XML-RPC
         if ( ! empty( $opts['security_xmlrpc_disabled'] ) ) {
@@ -55,12 +55,12 @@ class Hardening {
     public function check_rate_limit( $user, $username, $password ) {
         if ( empty( $username ) ) return $user;
         $ip  = sanitize_text_field( $_SERVER['REMOTE_ADDR'] ?? '' );
-        $key = 'unpatti_login_' . md5( $ip );
+        $key = 'campusos_login_' . md5( $ip );
         $attempts = (int) get_transient( $key );
         if ( $attempts >= 5 ) {
             return new \WP_Error(
                 'too_many_attempts',
-                __( 'Terlalu banyak percobaan login. Coba lagi dalam 15 menit.', 'unpatti-academic' )
+                __( 'Terlalu banyak percobaan login. Coba lagi dalam 15 menit.', 'campusos-academic' )
             );
         }
         return $user;
@@ -68,7 +68,7 @@ class Hardening {
 
     public function record_failed( $username ) {
         $ip  = sanitize_text_field( $_SERVER['REMOTE_ADDR'] ?? '' );
-        $key = 'unpatti_login_' . md5( $ip );
+        $key = 'campusos_login_' . md5( $ip );
         $attempts = (int) get_transient( $key );
         set_transient( $key, $attempts + 1, 15 * MINUTE_IN_SECONDS );
     }

@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 get_header();
 
-$sections_raw = get_theme_mod( 'unpatti_homepage_sections', 'hero,news,announcement,agenda,gallery,stats,faq,partner' );
+$sections_raw = get_theme_mod( 'campusos_homepage_sections', 'hero,news,announcement,agenda,gallery,stats,faq,partner' );
 $sections     = array_map( 'trim', explode( ',', $sections_raw ) );
 $allowed      = [ 'hero', 'news', 'announcement', 'agenda', 'gallery', 'stats', 'faq', 'partner' ];
 

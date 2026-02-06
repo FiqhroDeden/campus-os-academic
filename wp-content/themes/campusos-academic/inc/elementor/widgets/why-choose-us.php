@@ -1,21 +1,21 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class UNPATTI_Why_Choose_Us extends \Elementor\Widget_Base {
+class CampusOS_Why_Choose_Us extends \Elementor\Widget_Base {
 
-    public function get_name() { return 'unpatti_why_choose_us'; }
-    public function get_title() { return __( 'Why Choose Us', 'unpatti-academic' ); }
+    public function get_name() { return 'campusos_why_choose_us'; }
+    public function get_title() { return __( 'Why Choose Us', 'campusos-academic' ); }
     public function get_icon() { return 'eicon-info-box'; }
-    public function get_categories() { return [ 'unpatti-academic' ]; }
+    public function get_categories() { return [ 'campusos-academic' ]; }
 
     protected function register_controls() {
         $this->start_controls_section( 'content_section', [
-            'label' => __( 'Features', 'unpatti-academic' ),
+            'label' => __( 'Features', 'campusos-academic' ),
             'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
         ] );
 
         $this->add_control( 'columns', [
-            'label'   => __( 'Columns', 'unpatti-academic' ),
+            'label'   => __( 'Columns', 'campusos-academic' ),
             'type'    => \Elementor\Controls_Manager::SELECT,
             'default' => '3',
             'options' => [ '2' => '2', '3' => '3', '4' => '4' ],
@@ -24,7 +24,7 @@ class UNPATTI_Why_Choose_Us extends \Elementor\Widget_Base {
         $repeater = new \Elementor\Repeater();
 
         $repeater->add_control( 'selected_icon', [
-            'label'   => __( 'Icon', 'unpatti-academic' ),
+            'label'   => __( 'Icon', 'campusos-academic' ),
             'type'    => \Elementor\Controls_Manager::ICONS,
             'default' => [
                 'value'   => 'fas fa-star',
@@ -33,25 +33,25 @@ class UNPATTI_Why_Choose_Us extends \Elementor\Widget_Base {
         ] );
 
         $repeater->add_control( 'title', [
-            'label'   => __( 'Title', 'unpatti-academic' ),
+            'label'   => __( 'Title', 'campusos-academic' ),
             'type'    => \Elementor\Controls_Manager::TEXT,
-            'default' => __( 'Feature Title', 'unpatti-academic' ),
+            'default' => __( 'Feature Title', 'campusos-academic' ),
         ] );
 
         $repeater->add_control( 'description', [
-            'label'   => __( 'Description', 'unpatti-academic' ),
+            'label'   => __( 'Description', 'campusos-academic' ),
             'type'    => \Elementor\Controls_Manager::TEXTAREA,
-            'default' => __( 'Feature description goes here.', 'unpatti-academic' ),
+            'default' => __( 'Feature description goes here.', 'campusos-academic' ),
         ] );
 
         $this->add_control( 'features', [
-            'label'   => __( 'Features', 'unpatti-academic' ),
+            'label'   => __( 'Features', 'campusos-academic' ),
             'type'    => \Elementor\Controls_Manager::REPEATER,
             'fields'  => $repeater->get_controls(),
             'default' => [
-                [ 'title' => __( 'Akreditasi Unggul', 'unpatti-academic' ), 'description' => __( 'Terakreditasi A oleh BAN-PT.', 'unpatti-academic' ) ],
-                [ 'title' => __( 'Dosen Berkualitas', 'unpatti-academic' ), 'description' => __( 'Tenaga pendidik berpengalaman dan berkualifikasi tinggi.', 'unpatti-academic' ) ],
-                [ 'title' => __( 'Fasilitas Modern', 'unpatti-academic' ), 'description' => __( 'Laboratorium dan fasilitas kampus berstandar internasional.', 'unpatti-academic' ) ],
+                [ 'title' => __( 'Akreditasi Unggul', 'campusos-academic' ), 'description' => __( 'Terakreditasi A oleh BAN-PT.', 'campusos-academic' ) ],
+                [ 'title' => __( 'Dosen Berkualitas', 'campusos-academic' ), 'description' => __( 'Tenaga pendidik berpengalaman dan berkualifikasi tinggi.', 'campusos-academic' ) ],
+                [ 'title' => __( 'Fasilitas Modern', 'campusos-academic' ), 'description' => __( 'Laboratorium dan fasilitas kampus berstandar internasional.', 'campusos-academic' ) ],
             ],
             'title_field' => '{{{ title }}}',
         ] );
@@ -65,33 +65,33 @@ class UNPATTI_Why_Choose_Us extends \Elementor\Widget_Base {
         $features = $settings['features'];
         if ( empty( $features ) ) return;
 
-        $id = 'unpatti-why-' . $this->get_id();
+        $id = 'campusos-why-' . $this->get_id();
         ?>
         <style>
             #<?php echo esc_attr( $id ); ?> {
                 display: grid; grid-template-columns: repeat(<?php echo $cols; ?>, 1fr);
                 gap: 30px; padding: 30px 0;
             }
-            #<?php echo esc_attr( $id ); ?> .unpatti-feature-box {
+            #<?php echo esc_attr( $id ); ?> .campusos-feature-box {
                 background: #fff; border-radius: 8px; padding: 30px;
                 box-shadow: 0 2px 10px rgba(0,0,0,0.06); text-align: center; transition: transform .3s, box-shadow .3s;
             }
-            #<?php echo esc_attr( $id ); ?> .unpatti-feature-box:hover {
+            #<?php echo esc_attr( $id ); ?> .campusos-feature-box:hover {
                 transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.12);
             }
-            #<?php echo esc_attr( $id ); ?> .unpatti-feature-icon {
-                font-size: 2.5rem; color: var(--unpatti-primary, #003d82); margin-bottom: 15px;
+            #<?php echo esc_attr( $id ); ?> .campusos-feature-icon {
+                font-size: 2.5rem; color: var(--campusos-primary, #003d82); margin-bottom: 15px;
             }
-            #<?php echo esc_attr( $id ); ?> .unpatti-feature-box h4 { margin: 0 0 10px; font-size: 1.15rem; color: #222; }
-            #<?php echo esc_attr( $id ); ?> .unpatti-feature-box p { margin: 0; font-size: 0.9rem; color: #666; line-height: 1.6; }
+            #<?php echo esc_attr( $id ); ?> .campusos-feature-box h4 { margin: 0 0 10px; font-size: 1.15rem; color: #222; }
+            #<?php echo esc_attr( $id ); ?> .campusos-feature-box p { margin: 0; font-size: 0.9rem; color: #666; line-height: 1.6; }
             @media (max-width: 768px) {
                 #<?php echo esc_attr( $id ); ?> { grid-template-columns: 1fr; }
             }
         </style>
         <div id="<?php echo esc_attr( $id ); ?>">
             <?php foreach ( $features as $feature ) : ?>
-                <div class="unpatti-feature-box">
-                    <div class="unpatti-feature-icon">
+                <div class="campusos-feature-box">
+                    <div class="campusos-feature-icon">
                         <?php
                         if ( ! empty( $feature['selected_icon']['value'] ) ) {
                             \Elementor\Icons_Manager::render_icon( $feature['selected_icon'], [ 'aria-hidden' => 'true' ] );

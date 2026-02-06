@@ -1,5 +1,5 @@
 <?php
-namespace UNPATTI\Core\Admin\MetaBoxes;
+namespace CampusOS\Core\Admin\MetaBoxes;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -31,7 +31,7 @@ abstract class MB_Base {
         // Only show on correct template
         $template = get_page_template_slug( $post->ID );
         $expected = $this->get_template();
-        echo "<div class='unpatti-mb' data-template='{$expected}'" .
+        echo "<div class='campusos-mb' data-template='{$expected}'" .
              ( $template !== $expected ? " style='display:none;'" : "" ) . ">";
 
         wp_nonce_field( $this->get_id() . '_nonce_action', $this->get_id() . '_nonce' );
@@ -47,7 +47,7 @@ abstract class MB_Base {
         $id    = esc_attr( $field['id'] );
         $label = esc_html( $field['label'] );
 
-        echo '<div class="unpatti-field" style="margin-bottom:15px;">';
+        echo '<div class="campusos-field" style="margin-bottom:15px;">';
         echo "<label style='display:block;font-weight:600;margin-bottom:4px;'>{$label}</label>";
 
         switch ( $field['type'] ) {
@@ -64,15 +64,15 @@ abstract class MB_Base {
                 $img_url = $value ? wp_get_attachment_url( (int) $value ) : '';
                 echo "<input type='hidden' name='{$id}' id='{$id}' value='" . esc_attr( $value ) . "' />";
                 echo "<img src='" . esc_url( $img_url ) . "' style='max-width:300px;display:" . ($img_url ? 'block' : 'none') . ";margin-bottom:8px;' id='{$id}_preview' />";
-                echo "<button type='button' class='button unpatti-upload-btn' data-target='{$id}'>" . esc_html__('Pilih Gambar','unpatti-academic') . "</button> ";
-                echo "<button type='button' class='button unpatti-remove-btn' data-target='{$id}' style='display:" . ($img_url ? 'inline-block' : 'none') . "'>" . esc_html__('Hapus','unpatti-academic') . "</button>";
+                echo "<button type='button' class='button campusos-upload-btn' data-target='{$id}'>" . esc_html__('Pilih Gambar','campusos-academic') . "</button> ";
+                echo "<button type='button' class='button campusos-remove-btn' data-target='{$id}' style='display:" . ($img_url ? 'inline-block' : 'none') . "'>" . esc_html__('Hapus','campusos-academic') . "</button>";
                 break;
             case 'file':
                 $file_url = $value ? wp_get_attachment_url( (int) $value ) : '';
                 echo "<input type='hidden' name='{$id}' id='{$id}' value='" . esc_attr( $value ) . "' />";
                 echo "<span id='{$id}_name'>" . ($file_url ? esc_html(basename($file_url)) : '') . "</span> ";
-                echo "<button type='button' class='button unpatti-upload-btn' data-target='{$id}' data-type='file'>" . esc_html__('Pilih File','unpatti-academic') . "</button> ";
-                echo "<button type='button' class='button unpatti-remove-btn' data-target='{$id}' style='display:" . ($value ? 'inline-block' : 'none') . "'>" . esc_html__('Hapus','unpatti-academic') . "</button>";
+                echo "<button type='button' class='button campusos-upload-btn' data-target='{$id}' data-type='file'>" . esc_html__('Pilih File','campusos-academic') . "</button> ";
+                echo "<button type='button' class='button campusos-remove-btn' data-target='{$id}' style='display:" . ($value ? 'inline-block' : 'none') . "'>" . esc_html__('Hapus','campusos-academic') . "</button>";
                 break;
             case 'number':
                 echo "<input type='number' name='{$id}' value='" . esc_attr( $value ) . "' class='widefat' />";
@@ -93,22 +93,22 @@ abstract class MB_Base {
     protected function render_repeater( array $field, $rows ) {
         $id = esc_attr( $field['id'] );
         if ( ! is_array( $rows ) ) $rows = [];
-        echo "<div class='unpatti-repeater' data-field='{$id}'>";
-        echo "<div class='unpatti-repeater-rows'>";
+        echo "<div class='campusos-repeater' data-field='{$id}'>";
+        echo "<div class='campusos-repeater-rows'>";
         foreach ( $rows as $i => $row ) {
             $this->render_repeater_row( $field, $id, $i, $row );
         }
         echo "</div>";
-        echo "<button type='button' class='button unpatti-repeater-add' data-field='{$id}'>" . esc_html__( 'Tambah Baris', 'unpatti-academic' ) . "</button>";
+        echo "<button type='button' class='button campusos-repeater-add' data-field='{$id}'>" . esc_html__( 'Tambah Baris', 'campusos-academic' ) . "</button>";
         // Hidden template row
-        echo "<div class='unpatti-repeater-template' style='display:none;'>";
+        echo "<div class='campusos-repeater-template' style='display:none;'>";
         $this->render_repeater_row( $field, $id, '__INDEX__', [] );
         echo "</div>";
         echo "</div>";
     }
 
     protected function render_repeater_row( array $field, string $id, $index, array $row ) {
-        echo "<div class='unpatti-repeater-row' style='border:1px solid #ddd;padding:10px;margin-bottom:8px;background:#fafafa;'>";
+        echo "<div class='campusos-repeater-row' style='border:1px solid #ddd;padding:10px;margin-bottom:8px;background:#fafafa;'>";
         foreach ( $field['sub_fields'] as $sub ) {
             $name  = $id . '[' . $index . '][' . $sub['id'] . ']';
             $value = $row[ $sub['id'] ] ?? '';
@@ -121,7 +121,7 @@ abstract class MB_Base {
             }
             echo "</div>";
         }
-        echo "<button type='button' class='button unpatti-repeater-remove' style='color:#a00;'>" . esc_html__( 'Hapus Baris', 'unpatti-academic' ) . "</button>";
+        echo "<button type='button' class='button campusos-repeater-remove' style='color:#a00;'>" . esc_html__( 'Hapus Baris', 'campusos-academic' ) . "</button>";
         echo "</div>";
     }
 
@@ -131,9 +131,9 @@ abstract class MB_Base {
         if ( $post_type !== 'page' ) return;
 
         wp_enqueue_media();
-        wp_enqueue_script( 'unpatti-admin-media', UNPATTI_CORE_URL . 'assets/js/admin-media.js', ['jquery'], UNPATTI_CORE_VERSION, true );
-        wp_enqueue_script( 'unpatti-admin-repeater', UNPATTI_CORE_URL . 'assets/js/admin-repeater.js', ['jquery'], UNPATTI_CORE_VERSION, true );
-        wp_enqueue_script( 'unpatti-admin-mb', UNPATTI_CORE_URL . 'assets/js/admin-metabox.js', ['jquery'], UNPATTI_CORE_VERSION, true );
+        wp_enqueue_script( 'campusos-admin-media', CAMPUSOS_CORE_URL . 'assets/js/admin-media.js', ['jquery'], CAMPUSOS_CORE_VERSION, true );
+        wp_enqueue_script( 'campusos-admin-repeater', CAMPUSOS_CORE_URL . 'assets/js/admin-repeater.js', ['jquery'], CAMPUSOS_CORE_VERSION, true );
+        wp_enqueue_script( 'campusos-admin-mb', CAMPUSOS_CORE_URL . 'assets/js/admin-metabox.js', ['jquery'], CAMPUSOS_CORE_VERSION, true );
     }
 
     public function save( $post_id, $post ) {

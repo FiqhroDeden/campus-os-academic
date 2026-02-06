@@ -3,14 +3,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 // Only load if Elementor is active
 add_action( 'elementor/elements/categories_registered', function( $elements_manager ) {
-    $elements_manager->add_category( 'unpatti-academic', [
-        'title' => __( 'UNPATTI Academic', 'unpatti-academic' ),
+    $elements_manager->add_category( 'campusos-academic', [
+        'title' => __( 'CampusOS Academic', 'campusos-academic' ),
         'icon'  => 'fa fa-university',
     ] );
 } );
 
 add_action( 'elementor/widgets/register', function( $widgets_manager ) {
-    $widgets_dir = UNPATTI_THEME_PATH . '/inc/elementor/widgets/';
+    $widgets_dir = CAMPUSOS_THEME_PATH . '/inc/elementor/widgets/';
 
     require_once $widgets_dir . 'hero-slider.php';
     require_once $widgets_dir . 'stats-counter.php';
@@ -24,15 +24,15 @@ add_action( 'elementor/widgets/register', function( $widgets_manager ) {
     require_once $widgets_dir . 'prestasi-carousel.php';
     require_once $widgets_dir . 'why-choose-us.php';
 
-    $widgets_manager->register( new \UNPATTI_Hero_Slider() );
-    $widgets_manager->register( new \UNPATTI_Stats_Counter() );
-    $widgets_manager->register( new \UNPATTI_Team_Grid() );
-    $widgets_manager->register( new \UNPATTI_News_Grid() );
-    $widgets_manager->register( new \UNPATTI_Announcement_List() );
-    $widgets_manager->register( new \UNPATTI_Agenda_Calendar() );
-    $widgets_manager->register( new \UNPATTI_FAQ_Accordion() );
-    $widgets_manager->register( new \UNPATTI_Partner_Logos() );
-    $widgets_manager->register( new \UNPATTI_Gallery_Grid() );
-    $widgets_manager->register( new \UNPATTI_Prestasi_Carousel() );
-    $widgets_manager->register( new \UNPATTI_Why_Choose_Us() );
+    $widgets_manager->register( new \CampusOS_Hero_Slider() );
+    $widgets_manager->register( new \CampusOS_Stats_Counter() );
+    $widgets_manager->register( new \CampusOS_Team_Grid() );
+    $widgets_manager->register( new \CampusOS_News_Grid() );
+    $widgets_manager->register( new \CampusOS_Announcement_List() );
+    $widgets_manager->register( new \CampusOS_Agenda_Calendar() );
+    $widgets_manager->register( new \CampusOS_FAQ_Accordion() );
+    $widgets_manager->register( new \CampusOS_Partner_Logos() );
+    $widgets_manager->register( new \CampusOS_Gallery_Grid() );
+    $widgets_manager->register( new \CampusOS_Prestasi_Carousel() );
+    $widgets_manager->register( new \CampusOS_Why_Choose_Us() );
 } );

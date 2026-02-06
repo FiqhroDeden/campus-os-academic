@@ -81,7 +81,7 @@ $jenis_labels = array(
                     <?php if ( $link ) : ?>
                         <div class="publikasi-action">
                             <a href="<?php echo esc_url( $link ); ?>" class="btn btn-outline btn-sm" target="_blank">
-                                <span class="dashicons dashicons-external"></span> <?php esc_html_e( 'Lihat', 'unpatti-academic' ); ?>
+                                <span class="dashicons dashicons-external"></span> <?php esc_html_e( 'Lihat', 'campusos-academic' ); ?>
                             </a>
                         </div>
                     <?php endif; ?>
@@ -102,7 +102,7 @@ $jenis_labels = array(
             echo '</div>';
             ?>
         <?php else : ?>
-            <p class="no-content"><?php esc_html_e( 'Belum ada publikasi.', 'unpatti-academic' ); ?></p>
+            <p class="no-content"><?php esc_html_e( 'Belum ada publikasi.', 'campusos-academic' ); ?></p>
         <?php endif; ?>
         <?php endif; ?>
     </div>

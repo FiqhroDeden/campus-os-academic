@@ -1,16 +1,16 @@
 (function($) {
     'use strict';
-    $(document).on('click', '.unpatti-repeater-add', function(e) {
+    $(document).on('click', '.campusos-repeater-add', function(e) {
         e.preventDefault();
         var fieldId = $(this).data('field');
-        var container = $(this).closest('.unpatti-repeater');
-        var template = container.find('.unpatti-repeater-template').html();
-        var index = container.find('.unpatti-repeater-rows .unpatti-repeater-row').length;
+        var container = $(this).closest('.campusos-repeater');
+        var template = container.find('.campusos-repeater-template').html();
+        var index = container.find('.campusos-repeater-rows .campusos-repeater-row').length;
         template = template.replace(/__INDEX__/g, index);
-        container.find('.unpatti-repeater-rows').append(template);
+        container.find('.campusos-repeater-rows').append(template);
     });
-    $(document).on('click', '.unpatti-repeater-remove', function(e) {
+    $(document).on('click', '.campusos-repeater-remove', function(e) {
         e.preventDefault();
-        $(this).closest('.unpatti-repeater-row').remove();
+        $(this).closest('.campusos-repeater-row').remove();
     });
 })(jQuery);

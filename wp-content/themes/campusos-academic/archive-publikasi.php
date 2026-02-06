@@ -8,7 +8,7 @@ get_header();
     <div class="container">
         <h1><?php post_type_archive_title(); ?></h1>
         <div class="breadcrumb">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'unpatti-academic' ); ?></a> &raquo;
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'campusos-academic' ); ?></a> &raquo;
             <?php post_type_archive_title(); ?>
         </div>
     </div>
@@ -72,7 +72,7 @@ get_header();
                     <?php if ( $link ) : ?>
                         <div class="publikasi-action">
                             <a href="<?php echo esc_url( $link ); ?>" class="btn btn-outline btn-sm" target="_blank">
-                                <span class="dashicons dashicons-external"></span> <?php esc_html_e( 'Lihat', 'unpatti-academic' ); ?>
+                                <span class="dashicons dashicons-external"></span> <?php esc_html_e( 'Lihat', 'campusos-academic' ); ?>
                             </a>
                         </div>
                     <?php endif; ?>
@@ -85,7 +85,7 @@ get_header();
                 'next_text' => '&raquo;',
             ) ); ?>
         <?php else : ?>
-            <p class="no-content"><?php esc_html_e( 'Belum ada publikasi.', 'unpatti-academic' ); ?></p>
+            <p class="no-content"><?php esc_html_e( 'Belum ada publikasi.', 'campusos-academic' ); ?></p>
         <?php endif; ?>
     </div>
 </main>

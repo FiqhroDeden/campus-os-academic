@@ -1,5 +1,5 @@
 <?php
-namespace UNPATTI\Core\CPT;
+namespace CampusOS\Core\CPT;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -10,13 +10,13 @@ class CPT_Beasiswa extends CPT_Base {
 
     protected function get_labels(): array {
         return [
-            'name'               => __( 'Beasiswa', 'unpatti-academic' ),
-            'singular_name'      => __( 'Beasiswa', 'unpatti-academic' ),
-            'add_new_item'       => __( 'Tambah Beasiswa', 'unpatti-academic' ),
-            'edit_item'          => __( 'Edit Beasiswa', 'unpatti-academic' ),
-            'all_items'          => __( 'Semua Beasiswa', 'unpatti-academic' ),
-            'search_items'       => __( 'Cari Beasiswa', 'unpatti-academic' ),
-            'not_found'          => __( 'Tidak ditemukan', 'unpatti-academic' ),
+            'name'               => __( 'Beasiswa', 'campusos-academic' ),
+            'singular_name'      => __( 'Beasiswa', 'campusos-academic' ),
+            'add_new_item'       => __( 'Tambah Beasiswa', 'campusos-academic' ),
+            'edit_item'          => __( 'Edit Beasiswa', 'campusos-academic' ),
+            'all_items'          => __( 'Semua Beasiswa', 'campusos-academic' ),
+            'search_items'       => __( 'Cari Beasiswa', 'campusos-academic' ),
+            'not_found'          => __( 'Tidak ditemukan', 'campusos-academic' ),
         ];
     }
 

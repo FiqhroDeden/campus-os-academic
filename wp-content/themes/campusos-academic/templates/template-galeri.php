@@ -63,7 +63,7 @@ $query = new WP_Query( array(
             echo '</div>';
             ?>
         <?php else : ?>
-            <p class="no-content"><?php esc_html_e( 'Belum ada galeri foto.', 'unpatti-academic' ); ?></p>
+            <p class="no-content"><?php esc_html_e( 'Belum ada galeri foto.', 'campusos-academic' ); ?></p>
         <?php endif; ?>
         <?php endif; ?>
     </div>

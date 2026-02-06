@@ -1,5 +1,5 @@
 <?php
-namespace UNPATTI\Core\CPT;
+namespace CampusOS\Core\CPT;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -10,13 +10,13 @@ class CPT_Testimonial extends CPT_Base {
 
     protected function get_labels(): array {
         return [
-            'name'               => __( 'Testimonial', 'unpatti-academic' ),
-            'singular_name'      => __( 'Testimonial', 'unpatti-academic' ),
-            'add_new_item'       => __( 'Tambah Testimonial', 'unpatti-academic' ),
-            'edit_item'          => __( 'Edit Testimonial', 'unpatti-academic' ),
-            'all_items'          => __( 'Semua Testimonial', 'unpatti-academic' ),
-            'search_items'       => __( 'Cari Testimonial', 'unpatti-academic' ),
-            'not_found'          => __( 'Tidak ditemukan', 'unpatti-academic' ),
+            'name'               => __( 'Testimonial', 'campusos-academic' ),
+            'singular_name'      => __( 'Testimonial', 'campusos-academic' ),
+            'add_new_item'       => __( 'Tambah Testimonial', 'campusos-academic' ),
+            'edit_item'          => __( 'Edit Testimonial', 'campusos-academic' ),
+            'all_items'          => __( 'Semua Testimonial', 'campusos-academic' ),
+            'search_items'       => __( 'Cari Testimonial', 'campusos-academic' ),
+            'not_found'          => __( 'Tidak ditemukan', 'campusos-academic' ),
         ];
     }
 

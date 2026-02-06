@@ -1,5 +1,5 @@
 <?php
-namespace UNPATTI\Core;
+namespace CampusOS\Core;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -19,125 +19,125 @@ final class Plugin {
     }
 
     private function load_dependencies() {
-        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-base.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/cpt/class-cpt-base.php';
         // Pimpinan is now a settings page, not a CPT
-        // require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-pimpinan.php';
-        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-tenaga-pendidik.php';
-        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-kerjasama.php';
-        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-fasilitas.php';
-        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-prestasi.php';
-        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-dokumen.php';
-        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-agenda.php';
-        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-faq.php';
-        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-mata-kuliah.php';
-        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-organisasi-mhs.php';
-        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-mitra-industri.php';
-        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-publikasi.php';
-        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-beasiswa.php';
-        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-galeri.php';
-        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-video.php';
-        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-pengumuman.php';
-        require_once UNPATTI_CORE_PATH . 'includes/cpt/class-cpt-testimonial.php';
+        // require_once CAMPUSOS_CORE_PATH . 'includes/cpt/class-cpt-pimpinan.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/cpt/class-cpt-tenaga-pendidik.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/cpt/class-cpt-kerjasama.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/cpt/class-cpt-fasilitas.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/cpt/class-cpt-prestasi.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/cpt/class-cpt-dokumen.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/cpt/class-cpt-agenda.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/cpt/class-cpt-faq.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/cpt/class-cpt-mata-kuliah.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/cpt/class-cpt-organisasi-mhs.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/cpt/class-cpt-mitra-industri.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/cpt/class-cpt-publikasi.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/cpt/class-cpt-beasiswa.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/cpt/class-cpt-galeri.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/cpt/class-cpt-video.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/cpt/class-cpt-pengumuman.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/cpt/class-cpt-testimonial.php';
 
         // Pimpinan Settings (single configuration page)
-        require_once UNPATTI_CORE_PATH . 'includes/admin/class-pimpinan-settings.php';
-        new \UNPATTI\Core\Admin\Pimpinan_Settings();
+        require_once CAMPUSOS_CORE_PATH . 'includes/admin/class-pimpinan-settings.php';
+        new \CampusOS\Core\Admin\Pimpinan_Settings();
 
         // Register all CPTs (Pimpinan moved to settings page)
-        // ( new \UNPATTI\Core\CPT\CPT_Pimpinan() )->register();
-        ( new \UNPATTI\Core\CPT\CPT_Tenaga_Pendidik() )->register();
-        ( new \UNPATTI\Core\CPT\CPT_Kerjasama() )->register();
-        ( new \UNPATTI\Core\CPT\CPT_Fasilitas() )->register();
-        ( new \UNPATTI\Core\CPT\CPT_Prestasi() )->register();
-        ( new \UNPATTI\Core\CPT\CPT_Dokumen() )->register();
-        ( new \UNPATTI\Core\CPT\CPT_Agenda() )->register();
-        ( new \UNPATTI\Core\CPT\CPT_Faq() )->register();
-        ( new \UNPATTI\Core\CPT\CPT_Mata_Kuliah() )->register();
-        ( new \UNPATTI\Core\CPT\CPT_Organisasi_Mhs() )->register();
-        ( new \UNPATTI\Core\CPT\CPT_Mitra_Industri() )->register();
-        ( new \UNPATTI\Core\CPT\CPT_Publikasi() )->register();
-        ( new \UNPATTI\Core\CPT\CPT_Beasiswa() )->register();
-        ( new \UNPATTI\Core\CPT\CPT_Galeri() )->register();
-        ( new \UNPATTI\Core\CPT\CPT_Video() )->register();
-        ( new \UNPATTI\Core\CPT\CPT_Pengumuman() )->register();
-        ( new \UNPATTI\Core\CPT\CPT_Testimonial() )->register();
+        // ( new \CampusOS\Core\CPT\CPT_Pimpinan() )->register();
+        ( new \CampusOS\Core\CPT\CPT_Tenaga_Pendidik() )->register();
+        ( new \CampusOS\Core\CPT\CPT_Kerjasama() )->register();
+        ( new \CampusOS\Core\CPT\CPT_Fasilitas() )->register();
+        ( new \CampusOS\Core\CPT\CPT_Prestasi() )->register();
+        ( new \CampusOS\Core\CPT\CPT_Dokumen() )->register();
+        ( new \CampusOS\Core\CPT\CPT_Agenda() )->register();
+        ( new \CampusOS\Core\CPT\CPT_Faq() )->register();
+        ( new \CampusOS\Core\CPT\CPT_Mata_Kuliah() )->register();
+        ( new \CampusOS\Core\CPT\CPT_Organisasi_Mhs() )->register();
+        ( new \CampusOS\Core\CPT\CPT_Mitra_Industri() )->register();
+        ( new \CampusOS\Core\CPT\CPT_Publikasi() )->register();
+        ( new \CampusOS\Core\CPT\CPT_Beasiswa() )->register();
+        ( new \CampusOS\Core\CPT\CPT_Galeri() )->register();
+        ( new \CampusOS\Core\CPT\CPT_Video() )->register();
+        ( new \CampusOS\Core\CPT\CPT_Pengumuman() )->register();
+        ( new \CampusOS\Core\CPT\CPT_Testimonial() )->register();
 
         // Meta boxes
-        require_once UNPATTI_CORE_PATH . 'includes/admin/meta-boxes/class-mb-base.php';
-        require_once UNPATTI_CORE_PATH . 'includes/admin/meta-boxes/class-mb-sejarah.php';
-        require_once UNPATTI_CORE_PATH . 'includes/admin/meta-boxes/class-mb-visi-misi.php';
-        require_once UNPATTI_CORE_PATH . 'includes/admin/meta-boxes/class-mb-struktur-org.php';
-        require_once UNPATTI_CORE_PATH . 'includes/admin/meta-boxes/class-mb-sambutan.php';
-        require_once UNPATTI_CORE_PATH . 'includes/admin/meta-boxes/class-mb-akreditasi.php';
-        require_once UNPATTI_CORE_PATH . 'includes/admin/meta-boxes/class-mb-cpl.php';
-        require_once UNPATTI_CORE_PATH . 'includes/admin/meta-boxes/class-mb-penerimaan.php';
-        require_once UNPATTI_CORE_PATH . 'includes/admin/meta-boxes/class-mb-biaya-ukt.php';
-        require_once UNPATTI_CORE_PATH . 'includes/admin/meta-boxes/class-mb-statistik.php';
-        require_once UNPATTI_CORE_PATH . 'includes/admin/meta-boxes/class-mb-tracer-study.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/admin/meta-boxes/class-mb-base.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/admin/meta-boxes/class-mb-sejarah.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/admin/meta-boxes/class-mb-visi-misi.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/admin/meta-boxes/class-mb-struktur-org.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/admin/meta-boxes/class-mb-sambutan.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/admin/meta-boxes/class-mb-akreditasi.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/admin/meta-boxes/class-mb-cpl.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/admin/meta-boxes/class-mb-penerimaan.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/admin/meta-boxes/class-mb-biaya-ukt.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/admin/meta-boxes/class-mb-statistik.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/admin/meta-boxes/class-mb-tracer-study.php';
 
-        ( new \UNPATTI\Core\Admin\MetaBoxes\MB_Sejarah() )->register();
-        ( new \UNPATTI\Core\Admin\MetaBoxes\MB_Visi_Misi() )->register();
-        ( new \UNPATTI\Core\Admin\MetaBoxes\MB_Struktur_Org() )->register();
-        ( new \UNPATTI\Core\Admin\MetaBoxes\MB_Sambutan() )->register();
-        ( new \UNPATTI\Core\Admin\MetaBoxes\MB_Akreditasi() )->register();
-        ( new \UNPATTI\Core\Admin\MetaBoxes\MB_CPL() )->register();
-        ( new \UNPATTI\Core\Admin\MetaBoxes\MB_Penerimaan() )->register();
-        ( new \UNPATTI\Core\Admin\MetaBoxes\MB_Biaya_UKT() )->register();
-        ( new \UNPATTI\Core\Admin\MetaBoxes\MB_Statistik() )->register();
-        ( new \UNPATTI\Core\Admin\MetaBoxes\MB_Tracer_Study() )->register();
+        ( new \CampusOS\Core\Admin\MetaBoxes\MB_Sejarah() )->register();
+        ( new \CampusOS\Core\Admin\MetaBoxes\MB_Visi_Misi() )->register();
+        ( new \CampusOS\Core\Admin\MetaBoxes\MB_Struktur_Org() )->register();
+        ( new \CampusOS\Core\Admin\MetaBoxes\MB_Sambutan() )->register();
+        ( new \CampusOS\Core\Admin\MetaBoxes\MB_Akreditasi() )->register();
+        ( new \CampusOS\Core\Admin\MetaBoxes\MB_CPL() )->register();
+        ( new \CampusOS\Core\Admin\MetaBoxes\MB_Penerimaan() )->register();
+        ( new \CampusOS\Core\Admin\MetaBoxes\MB_Biaya_UKT() )->register();
+        ( new \CampusOS\Core\Admin\MetaBoxes\MB_Statistik() )->register();
+        ( new \CampusOS\Core\Admin\MetaBoxes\MB_Tracer_Study() )->register();
 
         // Admin settings
-        require_once UNPATTI_CORE_PATH . 'includes/admin/class-admin-settings.php';
-        ( new \UNPATTI\Core\Admin\Admin_Settings() )->register();
+        require_once CAMPUSOS_CORE_PATH . 'includes/admin/class-admin-settings.php';
+        ( new \CampusOS\Core\Admin\Admin_Settings() )->register();
 
         // Page Updater
-        require_once UNPATTI_CORE_PATH . 'includes/admin/class-page-updater.php';
-        ( new \UNPATTI\Core\Admin\Page_Updater() )->init();
+        require_once CAMPUSOS_CORE_PATH . 'includes/admin/class-page-updater.php';
+        ( new \CampusOS\Core\Admin\Page_Updater() )->init();
 
         // Post Status Fixer
-        require_once UNPATTI_CORE_PATH . 'includes/admin/class-post-status-fixer.php';
-        ( new \UNPATTI\Core\Admin\Post_Status_Fixer() )->init();
+        require_once CAMPUSOS_CORE_PATH . 'includes/admin/class-post-status-fixer.php';
+        ( new \CampusOS\Core\Admin\Post_Status_Fixer() )->init();
 
         // Export/Import
-        require_once UNPATTI_CORE_PATH . 'includes/export-import/class-exporter.php';
-        require_once UNPATTI_CORE_PATH . 'includes/export-import/class-importer.php';
-        ( new \UNPATTI\Core\ExportImport\Exporter() )->init();
-        ( new \UNPATTI\Core\ExportImport\Importer() )->init();
+        require_once CAMPUSOS_CORE_PATH . 'includes/export-import/class-exporter.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/export-import/class-importer.php';
+        ( new \CampusOS\Core\ExportImport\Exporter() )->init();
+        ( new \CampusOS\Core\ExportImport\Importer() )->init();
 
         // Updater
-        require_once UNPATTI_CORE_PATH . 'includes/updater/class-theme-updater.php';
-        require_once UNPATTI_CORE_PATH . 'includes/updater/class-plugin-updater.php';
-        ( new \UNPATTI\Core\Updater\Theme_Updater() )->init();
-        ( new \UNPATTI\Core\Updater\Plugin_Updater() )->init();
+        require_once CAMPUSOS_CORE_PATH . 'includes/updater/class-theme-updater.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/updater/class-plugin-updater.php';
+        ( new \CampusOS\Core\Updater\Theme_Updater() )->init();
+        ( new \CampusOS\Core\Updater\Plugin_Updater() )->init();
 
         // SSO
-        require_once UNPATTI_CORE_PATH . 'includes/sso/class-sso-auth.php';
-        ( new \UNPATTI\Core\SSO\SSO_Auth() )->init();
+        require_once CAMPUSOS_CORE_PATH . 'includes/sso/class-sso-auth.php';
+        ( new \CampusOS\Core\SSO\SSO_Auth() )->init();
 
         // Security
-        require_once UNPATTI_CORE_PATH . 'includes/security/class-hardening.php';
-        require_once UNPATTI_CORE_PATH . 'includes/security/class-content-scanner.php';
-        require_once UNPATTI_CORE_PATH . 'includes/security/class-file-integrity.php';
-        require_once UNPATTI_CORE_PATH . 'includes/security/class-activity-log.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/security/class-hardening.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/security/class-content-scanner.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/security/class-file-integrity.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/security/class-activity-log.php';
 
-        ( new \UNPATTI\Core\Security\Hardening() )->init();
-        ( new \UNPATTI\Core\Security\Content_Scanner() )->init();
-        ( new \UNPATTI\Core\Security\File_Integrity() )->init();
-        ( new \UNPATTI\Core\Security\Activity_Log() )->init();
+        ( new \CampusOS\Core\Security\Hardening() )->init();
+        ( new \CampusOS\Core\Security\Content_Scanner() )->init();
+        ( new \CampusOS\Core\Security\File_Integrity() )->init();
+        ( new \CampusOS\Core\Security\Activity_Log() )->init();
 
         // API Integrations
-        require_once UNPATTI_CORE_PATH . 'includes/integrations/class-api-connector.php';
-        require_once UNPATTI_CORE_PATH . 'includes/integrations/class-siakad-connector.php';
-        require_once UNPATTI_CORE_PATH . 'includes/integrations/class-sigap-connector.php';
-        require_once UNPATTI_CORE_PATH . 'includes/integrations/class-shortcode-data.php';
-        require_once UNPATTI_CORE_PATH . 'includes/integrations/class-api-ajax.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/integrations/class-api-connector.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/integrations/class-siakad-connector.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/integrations/class-sigap-connector.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/integrations/class-shortcode-data.php';
+        require_once CAMPUSOS_CORE_PATH . 'includes/integrations/class-api-ajax.php';
 
-        ( new \UNPATTI\Core\Integrations\Shortcode_Data() )->init();
-        ( new \UNPATTI\Core\Integrations\API_Ajax() )->init();
+        ( new \CampusOS\Core\Integrations\Shortcode_Data() )->init();
+        ( new \CampusOS\Core\Integrations\API_Ajax() )->init();
 
         // Frontend Shortcodes
-        require_once UNPATTI_CORE_PATH . 'includes/frontend/class-shortcodes.php';
-        ( new \UNPATTI\Core\Frontend\Shortcodes() )->init();
+        require_once CAMPUSOS_CORE_PATH . 'includes/frontend/class-shortcodes.php';
+        ( new \CampusOS\Core\Frontend\Shortcodes() )->init();
     }
 
     private function init_hooks() {
@@ -146,37 +146,37 @@ final class Plugin {
     }
 
     public function load_textdomain() {
-        load_plugin_textdomain( 'unpatti-academic', false, dirname( plugin_basename( UNPATTI_CORE_PATH . 'unpatti-academic-core.php' ) ) . '/languages' );
+        load_plugin_textdomain( 'campusos-academic', false, dirname( plugin_basename( CAMPUSOS_CORE_PATH . 'campusos-academic-core.php' ) ) . '/languages' );
     }
 
     public function add_dashboard_widget() {
         wp_add_dashboard_widget(
-            'unpatti_dashboard_widget',
-            __( 'UNPATTI Academic', 'unpatti-academic' ),
+            'campusos_dashboard_widget',
+            __( 'CampusOS Academic', 'campusos-academic' ),
             [ $this, 'render_dashboard_widget' ]
         );
     }
 
     public function render_dashboard_widget() {
-        $mode = get_theme_mod( 'unpatti_site_mode', 'prodi' );
-        $name = get_theme_mod( 'unpatti_institution_name', get_bloginfo( 'name' ) );
-        $settings = get_option( 'unpatti_settings', [] );
+        $mode = get_theme_mod( 'campusos_site_mode', 'prodi' );
+        $name = get_theme_mod( 'campusos_institution_name', get_bloginfo( 'name' ) );
+        $settings = get_option( 'campusos_settings', [] );
 
-        echo '<div class="unpatti-dashboard">';
+        echo '<div class="campusos-dashboard">';
         echo '<p><strong>' . esc_html( $name ) . '</strong> — ' . ( $mode === 'fakultas' ? 'Fakultas' : 'Program Studi' ) . '</p>';
         echo '<hr/>';
 
         // CPT counts (Pimpinan is now a settings page)
         $cpts = [
-            'tenaga_pendidik' => __( 'Tenaga Pendidik', 'unpatti-academic' ),
-            'kerjasama'       => __( 'Kerjasama', 'unpatti-academic' ),
-            'fasilitas'       => __( 'Fasilitas', 'unpatti-academic' ),
-            'prestasi'        => __( 'Prestasi', 'unpatti-academic' ),
-            'dokumen'         => __( 'Dokumen', 'unpatti-academic' ),
-            'agenda'          => __( 'Agenda', 'unpatti-academic' ),
-            'faq'             => __( 'FAQ', 'unpatti-academic' ),
-            'publikasi'       => __( 'Publikasi', 'unpatti-academic' ),
-            'galeri'          => __( 'Galeri', 'unpatti-academic' ),
+            'tenaga_pendidik' => __( 'Tenaga Pendidik', 'campusos-academic' ),
+            'kerjasama'       => __( 'Kerjasama', 'campusos-academic' ),
+            'fasilitas'       => __( 'Fasilitas', 'campusos-academic' ),
+            'prestasi'        => __( 'Prestasi', 'campusos-academic' ),
+            'dokumen'         => __( 'Dokumen', 'campusos-academic' ),
+            'agenda'          => __( 'Agenda', 'campusos-academic' ),
+            'faq'             => __( 'FAQ', 'campusos-academic' ),
+            'publikasi'       => __( 'Publikasi', 'campusos-academic' ),
+            'galeri'          => __( 'Galeri', 'campusos-academic' ),
         ];
         echo '<table style="width:100%;font-size:13px;">';
         foreach ( $cpts as $slug => $label ) {
@@ -188,17 +188,17 @@ final class Plugin {
         echo '<hr/>';
 
         // Security status
-        $last_scan = get_option( 'unpatti_last_scan', [] );
+        $last_scan = get_option( 'campusos_last_scan', [] );
         if ( $last_scan ) {
-            echo '<p>' . esc_html__( 'Scan terakhir:', 'unpatti-academic' ) . ' ' . esc_html( $last_scan['time'] ?? '-' ) . ' — ';
+            echo '<p>' . esc_html__( 'Scan terakhir:', 'campusos-academic' ) . ' ' . esc_html( $last_scan['time'] ?? '-' ) . ' — ';
             echo esc_html( ( $last_scan['flagged'] ?? 0 ) . ' konten ditandai' ) . '</p>';
         }
 
         // SSO status
-        $sso = ! empty( $settings['sso_enabled'] ) ? __( 'Aktif', 'unpatti-academic' ) : __( 'Nonaktif', 'unpatti-academic' );
+        $sso = ! empty( $settings['sso_enabled'] ) ? __( 'Aktif', 'campusos-academic' ) : __( 'Nonaktif', 'campusos-academic' );
         echo '<p>SSO: <strong>' . esc_html( $sso ) . '</strong></p>';
 
-        echo '<p><a href="' . esc_url( admin_url( 'admin.php?page=unpatti-academic' ) ) . '" class="button">' . esc_html__( 'Pengaturan', 'unpatti-academic' ) . '</a></p>';
+        echo '<p><a href="' . esc_url( admin_url( 'admin.php?page=campusos-academic' ) ) . '" class="button">' . esc_html__( 'Pengaturan', 'campusos-academic' ) . '</a></p>';
         echo '</div>';
     }
 }

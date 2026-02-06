@@ -12,8 +12,8 @@ while ( have_posts() ) : the_post();
     <div class="container">
         <h1><?php the_title(); ?></h1>
         <div class="breadcrumb">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'unpatti-academic' ); ?></a> &raquo;
-            <a href="<?php echo esc_url( get_post_type_archive_link( 'galeri' ) ); ?>"><?php esc_html_e( 'Galeri', 'unpatti-academic' ); ?></a> &raquo;
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'campusos-academic' ); ?></a> &raquo;
+            <a href="<?php echo esc_url( get_post_type_archive_link( 'galeri' ) ); ?>"><?php esc_html_e( 'Galeri', 'campusos-academic' ); ?></a> &raquo;
             <?php the_title(); ?>
         </div>
     </div>
@@ -62,7 +62,7 @@ while ( have_posts() ) : the_post();
                 </div>
             <?php endif; ?>
 
-            <?php unpatti_social_share(); ?>
+            <?php campusos_social_share(); ?>
 
             <?php
             // Related Galeri
@@ -76,7 +76,7 @@ while ( have_posts() ) : the_post();
             if ( $related->have_posts() ) :
             ?>
                 <div class="related-galeri">
-                    <h3><?php esc_html_e( 'Galeri Lainnya', 'unpatti-academic' ); ?></h3>
+                    <h3><?php esc_html_e( 'Galeri Lainnya', 'campusos-academic' ); ?></h3>
                     <div class="galeri-grid galeri-grid-small">
                         <?php while ( $related->have_posts() ) : $related->the_post(); ?>
                             <a href="<?php the_permalink(); ?>" class="galeri-item">

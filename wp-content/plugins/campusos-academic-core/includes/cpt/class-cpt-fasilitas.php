@@ -1,5 +1,5 @@
 <?php
-namespace UNPATTI\Core\CPT;
+namespace CampusOS\Core\CPT;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -10,13 +10,13 @@ class CPT_Fasilitas extends CPT_Base {
 
     protected function get_labels(): array {
         return [
-            'name'               => __( 'Fasilitas', 'unpatti-academic' ),
-            'singular_name'      => __( 'Fasilitas', 'unpatti-academic' ),
-            'add_new_item'       => __( 'Tambah Fasilitas', 'unpatti-academic' ),
-            'edit_item'          => __( 'Edit Fasilitas', 'unpatti-academic' ),
-            'all_items'          => __( 'Semua Fasilitas', 'unpatti-academic' ),
-            'search_items'       => __( 'Cari Fasilitas', 'unpatti-academic' ),
-            'not_found'          => __( 'Tidak ditemukan', 'unpatti-academic' ),
+            'name'               => __( 'Fasilitas', 'campusos-academic' ),
+            'singular_name'      => __( 'Fasilitas', 'campusos-academic' ),
+            'add_new_item'       => __( 'Tambah Fasilitas', 'campusos-academic' ),
+            'edit_item'          => __( 'Edit Fasilitas', 'campusos-academic' ),
+            'all_items'          => __( 'Semua Fasilitas', 'campusos-academic' ),
+            'search_items'       => __( 'Cari Fasilitas', 'campusos-academic' ),
+            'not_found'          => __( 'Tidak ditemukan', 'campusos-academic' ),
         ];
     }
 

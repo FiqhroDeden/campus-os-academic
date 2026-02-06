@@ -1,13 +1,13 @@
 /* Pimpinan Settings Page */
-.unpatti-pimpinan-settings {
+.campusos-pimpinan-settings {
     max-width: 1200px;
 }
 
-.unpatti-pimpinan-settings h1 {
+.campusos-pimpinan-settings h1 {
     margin-bottom: 0.5rem;
 }
 
-.unpatti-pimpinan-settings > p.description {
+.campusos-pimpinan-settings > p.description {
     margin-bottom: 2rem;
     font-size: 14px;
 }

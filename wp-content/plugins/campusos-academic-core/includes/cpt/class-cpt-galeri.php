@@ -1,5 +1,5 @@
 <?php
-namespace UNPATTI\Core\CPT;
+namespace CampusOS\Core\CPT;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -10,13 +10,13 @@ class CPT_Galeri extends CPT_Base {
 
     protected function get_labels(): array {
         return [
-            'name'               => __( 'Galeri', 'unpatti-academic' ),
-            'singular_name'      => __( 'Galeri', 'unpatti-academic' ),
-            'add_new_item'       => __( 'Tambah Galeri', 'unpatti-academic' ),
-            'edit_item'          => __( 'Edit Galeri', 'unpatti-academic' ),
-            'all_items'          => __( 'Semua Galeri', 'unpatti-academic' ),
-            'search_items'       => __( 'Cari Galeri', 'unpatti-academic' ),
-            'not_found'          => __( 'Tidak ditemukan', 'unpatti-academic' ),
+            'name'               => __( 'Galeri', 'campusos-academic' ),
+            'singular_name'      => __( 'Galeri', 'campusos-academic' ),
+            'add_new_item'       => __( 'Tambah Galeri', 'campusos-academic' ),
+            'edit_item'          => __( 'Edit Galeri', 'campusos-academic' ),
+            'all_items'          => __( 'Semua Galeri', 'campusos-academic' ),
+            'search_items'       => __( 'Cari Galeri', 'campusos-academic' ),
+            'not_found'          => __( 'Tidak ditemukan', 'campusos-academic' ),
         ];
     }
 

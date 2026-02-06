@@ -1,15 +1,15 @@
 <?php
-namespace UNPATTI\Core\Security;
+namespace CampusOS\Core\Security;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class File_Integrity {
 
     public function init() {
-        add_action( 'unpatti_file_integrity_check', [ $this, 'check_integrity' ] );
+        add_action( 'campusos_file_integrity_check', [ $this, 'check_integrity' ] );
 
-        if ( ! wp_next_scheduled( 'unpatti_file_integrity_check' ) ) {
-            wp_schedule_event( time(), 'daily', 'unpatti_file_integrity_check' );
+        if ( ! wp_next_scheduled( 'campusos_file_integrity_check' ) ) {
+            wp_schedule_event( time(), 'daily', 'campusos_file_integrity_check' );
         }
     }
 
@@ -43,14 +43,14 @@ class File_Integrity {
             }
         }
 
-        update_option( 'unpatti_file_hashes', $hashes, false );
+        update_option( 'campusos_file_hashes', $hashes, false );
     }
 
     /**
      * Compare current file hashes against stored baseline.
      */
     public function check_integrity() {
-        $stored = get_option( 'unpatti_file_hashes', [] );
+        $stored = get_option( 'campusos_file_hashes', [] );
         if ( empty( $stored ) ) {
             return;
         }
@@ -107,7 +107,7 @@ class File_Integrity {
         $this->alert_admin( $modified, $added, $removed );
 
         // Update stored hashes to current state
-        update_option( 'unpatti_file_hashes', $current, false );
+        update_option( 'campusos_file_hashes', $current, false );
     }
 
     private function alert_admin( $modified, $added, $removed ) {

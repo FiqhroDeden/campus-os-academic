@@ -8,7 +8,7 @@ get_header();
     <div class="container">
         <h1><?php post_type_archive_title(); ?></h1>
         <div class="breadcrumb">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'unpatti-academic' ); ?></a> &raquo;
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'campusos-academic' ); ?></a> &raquo;
             <?php post_type_archive_title(); ?>
         </div>
     </div>
@@ -30,9 +30,9 @@ get_header();
                         <div class="beasiswa-header">
                             <h3 class="card-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
                             <?php if ( $is_expired ) : ?>
-                                <span class="beasiswa-status status-expired"><?php esc_html_e( 'Ditutup', 'unpatti-academic' ); ?></span>
+                                <span class="beasiswa-status status-expired"><?php esc_html_e( 'Ditutup', 'campusos-academic' ); ?></span>
                             <?php elseif ( $deadline ) : ?>
-                                <span class="beasiswa-status status-open"><?php esc_html_e( 'Dibuka', 'unpatti-academic' ); ?></span>
+                                <span class="beasiswa-status status-open"><?php esc_html_e( 'Dibuka', 'campusos-academic' ); ?></span>
                             <?php endif; ?>
                         </div>
 
@@ -43,15 +43,15 @@ get_header();
                         <?php if ( $deadline ) : ?>
                             <p class="beasiswa-deadline">
                                 <span class="dashicons dashicons-calendar-alt"></span>
-                                <strong><?php esc_html_e( 'Deadline:', 'unpatti-academic' ); ?></strong>
+                                <strong><?php esc_html_e( 'Deadline:', 'campusos-academic' ); ?></strong>
                                 <?php echo esc_html( date_i18n( 'j F Y', strtotime( $deadline ) ) ); ?>
                             </p>
                         <?php endif; ?>
 
                         <div class="beasiswa-actions">
-                            <a href="<?php the_permalink(); ?>" class="btn btn-outline btn-sm"><?php esc_html_e( 'Lihat Detail', 'unpatti-academic' ); ?></a>
+                            <a href="<?php the_permalink(); ?>" class="btn btn-outline btn-sm"><?php esc_html_e( 'Lihat Detail', 'campusos-academic' ); ?></a>
                             <?php if ( $link && ! $is_expired ) : ?>
-                                <a href="<?php echo esc_url( $link ); ?>" class="btn btn-primary btn-sm" target="_blank"><?php esc_html_e( 'Daftar', 'unpatti-academic' ); ?></a>
+                                <a href="<?php echo esc_url( $link ); ?>" class="btn btn-primary btn-sm" target="_blank"><?php esc_html_e( 'Daftar', 'campusos-academic' ); ?></a>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -64,7 +64,7 @@ get_header();
                 'next_text' => '&raquo;',
             ) ); ?>
         <?php else : ?>
-            <p class="no-content"><?php esc_html_e( 'Belum ada data beasiswa.', 'unpatti-academic' ); ?></p>
+            <p class="no-content"><?php esc_html_e( 'Belum ada data beasiswa.', 'campusos-academic' ); ?></p>
         <?php endif; ?>
     </div>
 </main>

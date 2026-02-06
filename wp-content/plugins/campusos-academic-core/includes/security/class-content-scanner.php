@@ -1,5 +1,5 @@
 <?php
-namespace UNPATTI\Core\Security;
+namespace CampusOS\Core\Security;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -13,17 +13,17 @@ class Content_Scanner {
     ];
 
     public function init() {
-        $opts = get_option( 'unpatti_settings', [] );
+        $opts = get_option( 'campusos_settings', [] );
         if ( empty( $opts['security_scanner_enabled'] ) ) {
             return;
         }
 
         // Schedule cron every 6 hours
         add_filter( 'cron_schedules', [ $this, 'add_schedule' ] );
-        add_action( 'unpatti_content_scan', [ $this, 'run_scan' ] );
+        add_action( 'campusos_content_scan', [ $this, 'run_scan' ] );
 
-        if ( ! wp_next_scheduled( 'unpatti_content_scan' ) ) {
-            wp_schedule_event( time(), 'every_six_hours', 'unpatti_content_scan' );
+        if ( ! wp_next_scheduled( 'campusos_content_scan' ) ) {
+            wp_schedule_event( time(), 'every_six_hours', 'campusos_content_scan' );
         }
 
         // Admin notice for quarantined content
@@ -33,14 +33,14 @@ class Content_Scanner {
     public function add_schedule( $schedules ) {
         $schedules['every_six_hours'] = [
             'interval' => 6 * HOUR_IN_SECONDS,
-            'display'  => __( 'Every 6 Hours', 'unpatti-academic' ),
+            'display'  => __( 'Every 6 Hours', 'campusos-academic' ),
         ];
         return $schedules;
     }
 
     private function get_keywords() {
         $keywords = $this->default_keywords;
-        $opts     = get_option( 'unpatti_settings', [] );
+        $opts     = get_option( 'campusos_settings', [] );
 
         if ( ! empty( $opts['security_scanner_keywords'] ) ) {
             $custom = array_filter( array_map( 'trim', explode( "\n", $opts['security_scanner_keywords'] ) ) );
@@ -86,7 +86,7 @@ class Content_Scanner {
                     'ID'          => $post_id,
                     'post_status' => 'draft',
                 ] );
-                update_post_meta( $post_id, '_unpatti_quarantined', 1 );
+                update_post_meta( $post_id, '_campusos_quarantined', 1 );
 
                 preg_match( $pattern, $content, $matches );
                 $flagged[] = [
@@ -136,7 +136,7 @@ class Content_Scanner {
         $quarantined = get_posts( [
             'post_type'      => [ 'post', 'page' ],
             'post_status'    => 'draft',
-            'meta_key'       => '_unpatti_quarantined',
+            'meta_key'       => '_campusos_quarantined',
             'meta_value'     => '1',
             'posts_per_page' => -1,
             'fields'         => 'ids',
@@ -148,9 +148,9 @@ class Content_Scanner {
 
         printf(
             '<div class="notice notice-warning"><p><strong>%s</strong> %s</p></div>',
-            __( 'Peringatan Keamanan:', 'unpatti-academic' ),
+            __( 'Peringatan Keamanan:', 'campusos-academic' ),
             sprintf(
-                __( '%d konten telah dikarantina karena terdeteksi mengandung kata kunci mencurigakan. Silakan periksa draft Anda.', 'unpatti-academic' ),
+                __( '%d konten telah dikarantina karena terdeteksi mengandung kata kunci mencurigakan. Silakan periksa draft Anda.', 'campusos-academic' ),
                 count( $quarantined )
             )
         );

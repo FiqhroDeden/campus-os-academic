@@ -1,35 +1,35 @@
 <?php
-namespace UNPATTI\Core\ExportImport;
+namespace CampusOS\Core\ExportImport;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Importer {
 
     public function init() {
-        add_action( 'admin_post_unpatti_import', [ $this, 'handle_import' ] );
+        add_action( 'admin_post_campusos_import', [ $this, 'handle_import' ] );
     }
 
     public function handle_import() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( __( 'Unauthorized', 'unpatti-academic' ) );
+            wp_die( __( 'Unauthorized', 'campusos-academic' ) );
         }
 
-        check_admin_referer( 'unpatti_import' );
+        check_admin_referer( 'campusos_import' );
 
         if ( empty( $_FILES['import_file']['tmp_name'] ) ) {
-            wp_safe_redirect( admin_url( 'admin.php?page=unpatti-academic&tab=export&import_error=no_file' ) );
+            wp_safe_redirect( admin_url( 'admin.php?page=campusos-academic&tab=export&import_error=no_file' ) );
             exit;
         }
 
         $file = $_FILES['import_file'];
         if ( $file['type'] !== 'application/json' && pathinfo( $file['name'], PATHINFO_EXTENSION ) !== 'json' ) {
-            wp_safe_redirect( admin_url( 'admin.php?page=unpatti-academic&tab=export&import_error=invalid_file' ) );
+            wp_safe_redirect( admin_url( 'admin.php?page=campusos-academic&tab=export&import_error=invalid_file' ) );
             exit;
         }
 
         $json_string = file_get_contents( $file['tmp_name'] );
         if ( empty( $json_string ) ) {
-            wp_safe_redirect( admin_url( 'admin.php?page=unpatti-academic&tab=export&import_error=empty_file' ) );
+            wp_safe_redirect( admin_url( 'admin.php?page=campusos-academic&tab=export&import_error=empty_file' ) );
             exit;
         }
 
@@ -41,7 +41,7 @@ class Importer {
             }
         }
 
-        wp_safe_redirect( admin_url( 'admin.php?page=unpatti-academic&tab=export&import_success=' . $count ) );
+        wp_safe_redirect( admin_url( 'admin.php?page=campusos-academic&tab=export&import_success=' . $count ) );
         exit;
     }
 
@@ -90,13 +90,13 @@ class Importer {
     }
 
     private function import_options( $options ) {
-        $existing = get_option( 'unpatti_settings', [] );
+        $existing = get_option( 'campusos_settings', [] );
         // Preserve existing secret
         if ( ! empty( $existing['sso_client_secret'] ) ) {
             $options['sso_client_secret'] = $existing['sso_client_secret'];
         }
-        update_option( 'unpatti_settings', $options );
-        return [ 'unpatti_settings' ];
+        update_option( 'campusos_settings', $options );
+        return [ 'campusos_settings' ];
     }
 
     private function import_cpt_data( $cpt_data ) {

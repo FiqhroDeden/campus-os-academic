@@ -14,8 +14,8 @@ while ( have_posts() ) : the_post();
     <div class="container">
         <h1><?php the_title(); ?></h1>
         <div class="breadcrumb">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'unpatti-academic' ); ?></a> &raquo;
-            <a href="<?php echo esc_url( get_post_type_archive_link( 'agenda' ) ); ?>"><?php esc_html_e( 'Agenda', 'unpatti-academic' ); ?></a> &raquo;
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'campusos-academic' ); ?></a> &raquo;
+            <a href="<?php echo esc_url( get_post_type_archive_link( 'agenda' ) ); ?>"><?php esc_html_e( 'Agenda', 'campusos-academic' ); ?></a> &raquo;
             <?php the_title(); ?>
         </div>
     </div>
@@ -39,16 +39,16 @@ while ( have_posts() ) : the_post();
                         <?php the_content(); ?>
                     </div>
 
-                    <?php unpatti_social_share(); ?>
+                    <?php campusos_social_share(); ?>
                 </div>
 
                 <aside class="agenda-sidebar">
                     <div class="agenda-info-box">
-                        <h3><?php esc_html_e( 'Informasi Kegiatan', 'unpatti-academic' ); ?></h3>
+                        <h3><?php esc_html_e( 'Informasi Kegiatan', 'campusos-academic' ); ?></h3>
                         <ul class="agenda-info-list">
                             <?php if ( $tanggal_mulai ) : ?>
                                 <li>
-                                    <span class="info-label"><span class="dashicons dashicons-calendar-alt"></span> <?php esc_html_e( 'Tanggal', 'unpatti-academic' ); ?></span>
+                                    <span class="info-label"><span class="dashicons dashicons-calendar-alt"></span> <?php esc_html_e( 'Tanggal', 'campusos-academic' ); ?></span>
                                     <span class="info-value">
                                         <?php
                                         echo esc_html( date_i18n( 'l, j F Y', strtotime( $tanggal_mulai ) ) );
@@ -61,7 +61,7 @@ while ( have_posts() ) : the_post();
                             <?php endif; ?>
                             <?php if ( $lokasi ) : ?>
                                 <li>
-                                    <span class="info-label"><span class="dashicons dashicons-location"></span> <?php esc_html_e( 'Lokasi', 'unpatti-academic' ); ?></span>
+                                    <span class="info-label"><span class="dashicons dashicons-location"></span> <?php esc_html_e( 'Lokasi', 'campusos-academic' ); ?></span>
                                     <span class="info-value"><?php echo esc_html( $lokasi ); ?></span>
                                 </li>
                             <?php endif; ?>
@@ -81,7 +81,7 @@ while ( have_posts() ) : the_post();
                     if ( $related->have_posts() ) :
                     ?>
                         <div class="related-agenda">
-                            <h3><?php esc_html_e( 'Agenda Lainnya', 'unpatti-academic' ); ?></h3>
+                            <h3><?php esc_html_e( 'Agenda Lainnya', 'campusos-academic' ); ?></h3>
                             <ul class="related-list">
                                 <?php while ( $related->have_posts() ) : $related->the_post(); ?>
                                     <li>

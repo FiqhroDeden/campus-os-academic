@@ -1,5 +1,5 @@
 <?php
-namespace UNPATTI\Core\ExportImport;
+namespace CampusOS\Core\ExportImport;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -23,18 +23,18 @@ class Exporter {
     ];
 
     public function init() {
-        add_action( 'admin_post_unpatti_export', [ $this, 'handle_export' ] );
+        add_action( 'admin_post_campusos_export', [ $this, 'handle_export' ] );
     }
 
     public function handle_export() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( __( 'Unauthorized', 'unpatti-academic' ) );
+            wp_die( __( 'Unauthorized', 'campusos-academic' ) );
         }
 
-        check_admin_referer( 'unpatti_export' );
+        check_admin_referer( 'campusos_export' );
 
         $json = $this->export();
-        $filename = 'unpatti-export-' . date( 'Y-m-d-His' ) . '.json';
+        $filename = 'campusos-export-' . date( 'Y-m-d-His' ) . '.json';
 
         header( 'Content-Type: application/json; charset=utf-8' );
         header( 'Content-Disposition: attachment; filename=' . $filename );
@@ -70,7 +70,7 @@ class Exporter {
     }
 
     private function export_options() {
-        $settings = get_option( 'unpatti_settings', [] );
+        $settings = get_option( 'campusos_settings', [] );
         // Remove sensitive data
         unset( $settings['sso_client_secret'] );
         return $settings;

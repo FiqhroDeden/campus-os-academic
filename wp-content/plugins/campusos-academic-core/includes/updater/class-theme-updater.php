@@ -1,15 +1,15 @@
 <?php
-namespace UNPATTI\Core\Updater;
+namespace CampusOS\Core\Updater;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Theme_Updater {
 
     private $update_url;
-    private $theme_slug = 'unpatti-academic';
+    private $theme_slug = 'campusos-academic';
 
     public function init() {
-        $settings = get_option( 'unpatti_settings', [] );
+        $settings = get_option( 'campusos_settings', [] );
         $this->update_url = $settings['update_server_url'] ?? '';
         if ( empty( $this->update_url ) ) return;
 

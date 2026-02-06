@@ -70,7 +70,7 @@ $query = new WP_Query( array(
             echo '</div>';
             ?>
         <?php else : ?>
-            <p class="no-content"><?php esc_html_e( 'Belum ada video.', 'unpatti-academic' ); ?></p>
+            <p class="no-content"><?php esc_html_e( 'Belum ada video.', 'campusos-academic' ); ?></p>
         <?php endif; ?>
         <?php endif; ?>
     </div>

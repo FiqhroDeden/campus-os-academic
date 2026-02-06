@@ -1,5 +1,5 @@
 <?php
-namespace UNPATTI\Core\SSO;
+namespace CampusOS\Core\SSO;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -10,10 +10,10 @@ class SSO_Auth {
     private $redirect_uri;
 
     public function init() {
-        $settings = get_option( 'unpatti_settings', [] );
+        $settings = get_option( 'campusos_settings', [] );
         if ( empty( $settings['sso_enabled'] ) ) return;
 
-        $this->base_url      = rtrim( $settings['sso_base_url'] ?? 'https://sso.unpatti.ac.id', '/' );
+        $this->base_url      = rtrim( $settings['sso_base_url'] ?? '', '/' );
         $this->client_id     = $settings['sso_client_id'] ?? '';
         $this->client_secret = $settings['sso_client_secret'] ?? '';
         $this->redirect_uri  = home_url( '/sso/callback/' );
@@ -38,30 +38,30 @@ class SSO_Auth {
             add_filter( 'authenticate', [ $this, 'block_password_auth' ], 30, 3 );
         }
 
-        add_action( 'wp_ajax_nopriv_unpatti_sso_callback', [ $this, 'handle_callback' ] );
-        add_action( 'wp_ajax_unpatti_sso_callback', [ $this, 'handle_callback' ] );
-        add_action( 'wp_ajax_nopriv_unpatti_sso_redirect', [ $this, 'redirect_to_sso' ] );
-        add_action( 'wp_ajax_unpatti_sso_redirect', [ $this, 'redirect_to_sso' ] );
+        add_action( 'wp_ajax_nopriv_campusos_sso_callback', [ $this, 'handle_callback' ] );
+        add_action( 'wp_ajax_campusos_sso_callback', [ $this, 'handle_callback' ] );
+        add_action( 'wp_ajax_nopriv_campusos_sso_redirect', [ $this, 'redirect_to_sso' ] );
+        add_action( 'wp_ajax_campusos_sso_redirect', [ $this, 'redirect_to_sso' ] );
         add_action( 'wp_logout', [ $this, 'sso_logout' ] );
     }
 
     public function register_rewrite() {
-        add_rewrite_rule( '^sso/callback/?$', 'index.php?unpatti_sso_callback=1', 'top' );
+        add_rewrite_rule( '^sso/callback/?$', 'index.php?campusos_sso_callback=1', 'top' );
     }
 
     public function add_query_vars( $vars ) {
-        $vars[] = 'unpatti_sso_callback';
+        $vars[] = 'campusos_sso_callback';
         return $vars;
     }
 
     public function handle_rewrite_callback() {
-        if ( ! get_query_var( 'unpatti_sso_callback' ) ) return;
+        if ( ! get_query_var( 'campusos_sso_callback' ) ) return;
         $this->handle_callback();
     }
 
     public function redirect_to_sso() {
         $state = wp_generate_password( 40, false );
-        set_transient( 'unpatti_sso_state_' . $state, 1, 10 * MINUTE_IN_SECONDS );
+        set_transient( 'campusos_sso_state_' . $state, 1, 10 * MINUTE_IN_SECONDS );
 
         $url = $this->base_url . '/oauth/authorize?' . http_build_query( [
             'client_id'     => $this->client_id,
@@ -76,12 +76,12 @@ class SSO_Auth {
     }
 
     public function render_sso_button() {
-        $sso_url = admin_url( 'admin-ajax.php?action=unpatti_sso_redirect' );
+        $sso_url = admin_url( 'admin-ajax.php?action=campusos_sso_redirect' );
         ?>
-        <p class="unpatti-sso-wrap" style="text-align:center; margin: 8px 0 0;">
+        <p class="campusos-sso-wrap" style="text-align:center; margin: 8px 0 0;">
             <a href="<?php echo esc_url( $sso_url ); ?>" style="display:inline-flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:12px 24px; background:#0073aa; color:#fff; text-decoration:none; border-radius:4px; font-size:14px; font-weight:600; transition:background .2s; box-sizing:border-box;">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                Login dengan SSO UNPATTI
+                Login dengan SSO
             </a>
         </p>
         <?php
@@ -91,7 +91,7 @@ class SSO_Auth {
         ?>
         <style>
             /* Hide username/password fields, submit button, and lost password */
-            .login #loginform p:not(.unpatti-sso-wrap),
+            .login #loginform p:not(.campusos-sso-wrap),
             .login #loginform .user-pass-wrap,
             .login #loginform .forgetmenot,
             .login #loginform .submit,
@@ -102,7 +102,7 @@ class SSO_Auth {
             .login #loginform {
                 padding: 26px 24px;
             }
-            .login .unpatti-sso-wrap a:hover {
+            .login .campusos-sso-wrap a:hover {
                 background: #005a87 !important;
             }
         </style>
@@ -118,7 +118,7 @@ class SSO_Auth {
 
     public function block_password_auth( $user, $username, $password ) {
         if ( ! empty( $username ) ) {
-            return new \WP_Error( 'sso_required', __( 'Login dengan username dan password tidak diizinkan. Gunakan SSO UNPATTI.', 'unpatti-academic' ) );
+            return new \WP_Error( 'sso_required', __( 'Login dengan username dan password tidak diizinkan. Gunakan SSO.', 'campusos-academic' ) );
         }
         return $user;
     }
@@ -127,15 +127,15 @@ class SSO_Auth {
         if ( is_wp_error( $user ) ) return $user;
         if ( empty( $username ) ) return $user;
 
-        $settings = get_option( 'unpatti_settings', [] );
+        $settings = get_option( 'campusos_settings', [] );
         $fallback_user = $settings['sso_fallback_admin'] ?? '';
 
         if ( empty( $fallback_user ) ) {
-            return new \WP_Error( 'fallback_disabled', __( 'Fallback admin belum dikonfigurasi. Gunakan SSO untuk login.', 'unpatti-academic' ) );
+            return new \WP_Error( 'fallback_disabled', __( 'Fallback admin belum dikonfigurasi. Gunakan SSO untuk login.', 'campusos-academic' ) );
         }
 
         if ( $username !== $fallback_user ) {
-            return new \WP_Error( 'fallback_restricted', __( 'Hanya fallback admin yang diizinkan login di mode ini.', 'unpatti-academic' ) );
+            return new \WP_Error( 'fallback_restricted', __( 'Hanya fallback admin yang diizinkan login di mode ini.', 'campusos-academic' ) );
         }
 
         return $user;
@@ -145,13 +145,13 @@ class SSO_Auth {
         $state = sanitize_text_field( $_GET['state'] ?? '' );
         $code  = sanitize_text_field( $_GET['code'] ?? '' );
 
-        if ( ! $state || ! get_transient( 'unpatti_sso_state_' . $state ) ) {
-            wp_die( esc_html__( 'Invalid state parameter.', 'unpatti-academic' ), 403 );
+        if ( ! $state || ! get_transient( 'campusos_sso_state_' . $state ) ) {
+            wp_die( esc_html__( 'Invalid state parameter.', 'campusos-academic' ), 403 );
         }
-        delete_transient( 'unpatti_sso_state_' . $state );
+        delete_transient( 'campusos_sso_state_' . $state );
 
         if ( ! $code ) {
-            wp_die( esc_html__( 'No authorization code.', 'unpatti-academic' ), 400 );
+            wp_die( esc_html__( 'No authorization code.', 'campusos-academic' ), 400 );
         }
 
         // Exchange code for token
@@ -168,7 +168,7 @@ class SSO_Auth {
         ] );
 
         if ( is_wp_error( $token_response ) ) {
-            wp_die( esc_html__( 'SSO: Gagal mendapatkan token.', 'unpatti-academic' ), 500 );
+            wp_die( esc_html__( 'SSO: Gagal mendapatkan token.', 'campusos-academic' ), 500 );
         }
 
         $token_body = wp_remote_retrieve_body( $token_response );
@@ -176,7 +176,7 @@ class SSO_Auth {
         $access_token = $token_data['access_token'] ?? null;
 
         if ( ! $access_token ) {
-            wp_die( esc_html__( 'SSO: Access token tidak ditemukan.', 'unpatti-academic' ), 500 );
+            wp_die( esc_html__( 'SSO: Access token tidak ditemukan.', 'campusos-academic' ), 500 );
         }
 
         // Get user info
@@ -192,13 +192,13 @@ class SSO_Auth {
         );
 
         if ( is_wp_error( $user_response ) ) {
-            wp_die( esc_html__( 'SSO: Gagal mendapatkan data user.', 'unpatti-academic' ), 500 );
+            wp_die( esc_html__( 'SSO: Gagal mendapatkan data user.', 'campusos-academic' ), 500 );
         }
 
         $user_info = json_decode( wp_remote_retrieve_body( $user_response ), true );
 
         if ( empty( $user_info['user_id'] ) || empty( $user_info['email'] ) ) {
-            wp_die( esc_html__( 'SSO: Data user tidak valid.', 'unpatti-academic' ), 500 );
+            wp_die( esc_html__( 'SSO: Data user tidak valid.', 'campusos-academic' ), 500 );
         }
 
         // Authorization: user must have at least one role for this app
@@ -284,7 +284,7 @@ class SSO_Auth {
     }
 
     private function get_role_mapping(): array {
-        $settings = get_option( 'unpatti_settings', [] );
+        $settings = get_option( 'campusos_settings', [] );
         $raw = $settings['sso_role_mapping'] ?? "Admin=administrator\nEditor=editor";
         $map = [];
         foreach ( explode( "\n", $raw ) as $line ) {

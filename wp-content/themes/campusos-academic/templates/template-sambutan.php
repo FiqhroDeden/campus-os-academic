@@ -3,7 +3,7 @@
 get_header();
 
 // Get pimpinan data from settings
-$pimpinan = get_option( 'unpatti_pimpinan_settings', [] );
+$pimpinan = get_option( 'campusos_pimpinan_settings', [] );
 
 $foto_id  = ! empty( $pimpinan['foto_id'] ) ? $pimpinan['foto_id'] : '';
 $nama     = '';
@@ -47,7 +47,7 @@ if ( empty( $isi ) ) {
 <div class="page-hero">
     <div class="container">
         <h1><?php the_title(); ?></h1>
-        <p class="page-hero-subtitle"><?php esc_html_e( 'Selamat datang di Program Studi Ilmu Komputer UNPATTI', 'unpatti-academic' ); ?></p>
+        <p class="page-hero-subtitle"><?php esc_html_e( 'Selamat datang di Program Studi kami', 'campusos-academic' ); ?></p>
     </div>
 </div>
 <main id="primary" class="site-main">

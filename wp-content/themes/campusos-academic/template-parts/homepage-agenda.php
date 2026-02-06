@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 <section class="homepage-section homepage-agenda">
     <div class="container">
-        <h2><?php esc_html_e( 'Agenda', 'unpatti-academic' ); ?></h2>
+        <h2><?php esc_html_e( 'Agenda', 'campusos-academic' ); ?></h2>
         <div class="posts-grid">
             <?php
             $items = new WP_Query( [

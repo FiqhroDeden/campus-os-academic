@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 <div class="page-hero">
     <div class="container">
-        <h1><?php printf( esc_html__( 'Hasil Pencarian: %s', 'unpatti-academic' ), get_search_query() ); ?></h1>
+        <h1><?php printf( esc_html__( 'Hasil Pencarian: %s', 'campusos-academic' ), get_search_query() ); ?></h1>
     </div>
 </div>
 <main id="primary" class="site-main">
@@ -15,7 +15,7 @@
             <?php endwhile; ?>
             <?php the_posts_pagination(); ?>
         <?php else : ?>
-            <p><?php esc_html_e( 'Tidak ada hasil ditemukan.', 'unpatti-academic' ); ?></p>
+            <p><?php esc_html_e( 'Tidak ada hasil ditemukan.', 'campusos-academic' ); ?></p>
         <?php endif; ?>
     </div>
 </main>

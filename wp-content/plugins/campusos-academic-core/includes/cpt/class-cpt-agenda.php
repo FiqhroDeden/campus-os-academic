@@ -1,5 +1,5 @@
 <?php
-namespace UNPATTI\Core\CPT;
+namespace CampusOS\Core\CPT;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -10,13 +10,13 @@ class CPT_Agenda extends CPT_Base {
 
     protected function get_labels(): array {
         return [
-            'name'               => __( 'Agenda', 'unpatti-academic' ),
-            'singular_name'      => __( 'Agenda', 'unpatti-academic' ),
-            'add_new_item'       => __( 'Tambah Agenda', 'unpatti-academic' ),
-            'edit_item'          => __( 'Edit Agenda', 'unpatti-academic' ),
-            'all_items'          => __( 'Semua Agenda', 'unpatti-academic' ),
-            'search_items'       => __( 'Cari Agenda', 'unpatti-academic' ),
-            'not_found'          => __( 'Tidak ditemukan', 'unpatti-academic' ),
+            'name'               => __( 'Agenda', 'campusos-academic' ),
+            'singular_name'      => __( 'Agenda', 'campusos-academic' ),
+            'add_new_item'       => __( 'Tambah Agenda', 'campusos-academic' ),
+            'edit_item'          => __( 'Edit Agenda', 'campusos-academic' ),
+            'all_items'          => __( 'Semua Agenda', 'campusos-academic' ),
+            'search_items'       => __( 'Cari Agenda', 'campusos-academic' ),
+            'not_found'          => __( 'Tidak ditemukan', 'campusos-academic' ),
         ];
     }
 

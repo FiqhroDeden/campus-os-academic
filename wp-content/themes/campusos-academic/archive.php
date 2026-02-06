@@ -13,7 +13,7 @@
                     <article <?php post_class( 'card' ); ?>>
                         <?php if ( has_post_thumbnail() ) : ?>
                             <a href="<?php the_permalink(); ?>">
-                                <?php the_post_thumbnail( 'unpatti-card', [ 'class' => 'card-img' ] ); ?>
+                                <?php the_post_thumbnail( 'campusos-card', [ 'class' => 'card-img' ] ); ?>
                             </a>
                         <?php endif; ?>
                         <div class="card-body">
@@ -26,7 +26,7 @@
             </div>
             <?php the_posts_pagination( [ 'mid_size' => 2 ] ); ?>
         <?php else : ?>
-            <p><?php esc_html_e( 'Tidak ada konten ditemukan.', 'unpatti-academic' ); ?></p>
+            <p><?php esc_html_e( 'Tidak ada konten ditemukan.', 'campusos-academic' ); ?></p>
         <?php endif; ?>
     </div>
 </main>

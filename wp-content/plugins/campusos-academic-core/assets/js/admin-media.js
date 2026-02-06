@@ -1,7 +1,7 @@
 (function($) {
     'use strict';
 
-    $(document).on('click', '.unpatti-upload-btn', function(e) {
+    $(document).on('click', '.campusos-upload-btn', function(e) {
         e.preventDefault();
         var btn = $(this);
         var targetId = btn.data('target');
@@ -19,12 +19,12 @@
             } else {
                 $('#' + targetId + '_preview').attr('src', attachment.url).show();
             }
-            btn.siblings('.unpatti-remove-btn').show();
+            btn.siblings('.campusos-remove-btn').show();
         });
         frame.open();
     });
 
-    $(document).on('click', '.unpatti-remove-btn', function(e) {
+    $(document).on('click', '.campusos-remove-btn', function(e) {
         e.preventDefault();
         var targetId = $(this).data('target');
         $('#' + targetId).val('');

@@ -1,5 +1,5 @@
 <?php
-namespace UNPATTI\Core\CPT;
+namespace CampusOS\Core\CPT;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -27,10 +27,10 @@ abstract class CPT_Base {
 
         wp_enqueue_media();
         wp_enqueue_script(
-            'unpatti-admin-media',
-            UNPATTI_CORE_URL . 'assets/js/admin-media.js',
+            'campusos-admin-media',
+            CAMPUSOS_CORE_URL . 'assets/js/admin-media.js',
             [ 'jquery' ],
-            UNPATTI_CORE_VERSION,
+            CAMPUSOS_CORE_VERSION,
             true
         );
     }
@@ -38,7 +38,7 @@ abstract class CPT_Base {
     public function add_meta_boxes() {
         add_meta_box(
             $this->get_slug() . '_details',
-            __( 'Detail', 'unpatti-academic' ),
+            __( 'Detail', 'campusos-academic' ),
             [ $this, 'render_meta_box' ],
             $this->get_slug(),
             'normal',
@@ -48,7 +48,7 @@ abstract class CPT_Base {
 
     public function render_meta_box( $post ) {
         wp_nonce_field( $this->get_slug() . '_nonce_action', $this->get_slug() . '_nonce' );
-        echo '<div class="unpatti-meta-fields">';
+        echo '<div class="campusos-meta-fields">';
         foreach ( $this->get_meta_fields() as $field ) {
             $value = get_post_meta( $post->ID, '_' . $field['id'], true );
             $this->render_field( $field, $value );
@@ -61,7 +61,7 @@ abstract class CPT_Base {
         $label = esc_html( $field['label'] );
         $desc  = isset( $field['desc'] ) ? esc_html( $field['desc'] ) : '';
 
-        echo '<div class="unpatti-field" style="margin-bottom:15px;">';
+        echo '<div class="campusos-field" style="margin-bottom:15px;">';
         echo "<label for='{$id}' style='display:block;font-weight:600;margin-bottom:4px;'>{$label}</label>";
 
         switch ( $field['type'] ) {
@@ -80,7 +80,7 @@ abstract class CPT_Base {
 
             case 'select':
                 echo "<select id='{$id}' name='{$id}' class='widefat'>";
-                echo "<option value=''>" . esc_html__( '-- Pilih --', 'unpatti-academic' ) . "</option>";
+                echo "<option value=''>" . esc_html__( '-- Pilih --', 'campusos-academic' ) . "</option>";
                 foreach ( $field['options'] as $k => $v ) {
                     $sel = selected( $value, $k, false );
                     echo "<option value='" . esc_attr( $k ) . "' {$sel}>" . esc_html( $v ) . "</option>";
@@ -90,11 +90,11 @@ abstract class CPT_Base {
 
             case 'image':
                 $img_url = $value ? wp_get_attachment_url( (int) $value ) : '';
-                echo "<div class='unpatti-image-field'>";
+                echo "<div class='campusos-image-field'>";
                 echo "<input type='hidden' id='{$id}' name='{$id}' value='" . esc_attr( $value ) . "' />";
                 echo "<img src='" . esc_url( $img_url ) . "' style='max-width:200px;display:" . ( $img_url ? 'block' : 'none' ) . ";margin-bottom:8px;' id='{$id}_preview' />";
-                echo "<button type='button' class='button unpatti-upload-btn' data-target='{$id}'>" . esc_html__( 'Pilih Gambar', 'unpatti-academic' ) . "</button> ";
-                echo "<button type='button' class='button unpatti-remove-btn' data-target='{$id}' style='display:" . ( $img_url ? 'inline-block' : 'none' ) . ";'>" . esc_html__( 'Hapus', 'unpatti-academic' ) . "</button>";
+                echo "<button type='button' class='button campusos-upload-btn' data-target='{$id}'>" . esc_html__( 'Pilih Gambar', 'campusos-academic' ) . "</button> ";
+                echo "<button type='button' class='button campusos-remove-btn' data-target='{$id}' style='display:" . ( $img_url ? 'inline-block' : 'none' ) . ";'>" . esc_html__( 'Hapus', 'campusos-academic' ) . "</button>";
                 echo "</div>";
                 break;
 
@@ -102,8 +102,8 @@ abstract class CPT_Base {
                 $file_url = $value ? wp_get_attachment_url( (int) $value ) : '';
                 echo "<input type='hidden' id='{$id}' name='{$id}' value='" . esc_attr( $value ) . "' />";
                 echo "<span id='{$id}_name'>" . ( $file_url ? esc_html( basename( $file_url ) ) : '' ) . "</span> ";
-                echo "<button type='button' class='button unpatti-upload-btn' data-target='{$id}' data-type='file'>" . esc_html__( 'Pilih File', 'unpatti-academic' ) . "</button> ";
-                echo "<button type='button' class='button unpatti-remove-btn' data-target='{$id}' style='display:" . ( $value ? 'inline-block' : 'none' ) . ";'>" . esc_html__( 'Hapus', 'unpatti-academic' ) . "</button>";
+                echo "<button type='button' class='button campusos-upload-btn' data-target='{$id}' data-type='file'>" . esc_html__( 'Pilih File', 'campusos-academic' ) . "</button> ";
+                echo "<button type='button' class='button campusos-remove-btn' data-target='{$id}' style='display:" . ( $value ? 'inline-block' : 'none' ) . ";'>" . esc_html__( 'Hapus', 'campusos-academic' ) . "</button>";
                 break;
 
             case 'date':

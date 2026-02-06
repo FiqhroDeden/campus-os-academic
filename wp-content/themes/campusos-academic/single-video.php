@@ -17,8 +17,8 @@ while ( have_posts() ) : the_post();
     <div class="container">
         <h1><?php the_title(); ?></h1>
         <div class="breadcrumb">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'unpatti-academic' ); ?></a> &raquo;
-            <a href="<?php echo esc_url( get_post_type_archive_link( 'video' ) ); ?>"><?php esc_html_e( 'Video', 'unpatti-academic' ); ?></a> &raquo;
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'campusos-academic' ); ?></a> &raquo;
+            <a href="<?php echo esc_url( get_post_type_archive_link( 'video' ) ); ?>"><?php esc_html_e( 'Video', 'campusos-academic' ); ?></a> &raquo;
             <?php the_title(); ?>
         </div>
     </div>
@@ -50,7 +50,7 @@ while ( have_posts() ) : the_post();
                     <?php the_content(); ?>
                 </div>
 
-                <?php unpatti_social_share(); ?>
+                <?php campusos_social_share(); ?>
             </div>
 
             <?php
@@ -65,7 +65,7 @@ while ( have_posts() ) : the_post();
             if ( $related->have_posts() ) :
             ?>
                 <div class="related-videos">
-                    <h3><?php esc_html_e( 'Video Lainnya', 'unpatti-academic' ); ?></h3>
+                    <h3><?php esc_html_e( 'Video Lainnya', 'campusos-academic' ); ?></h3>
                     <div class="video-grid video-grid-small">
                         <?php while ( $related->have_posts() ) : $related->the_post();
                             $rel_youtube = get_post_meta( get_the_ID(), 'video_youtube_url', true );

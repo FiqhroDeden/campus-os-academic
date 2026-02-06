@@ -8,16 +8,16 @@ if ( $stats_page && class_exists( '\Elementor\Plugin' ) && \Elementor\Plugin::$i
     echo '</section>';
 } else {
 ?>
-<section class="homepage-section homepage-stats" style="background:var(--unpatti-bg-alt, #f9fafb);padding:3rem 0;">
+<section class="homepage-section homepage-stats" style="background:var(--campusos-bg-alt, #f9fafb);padding:3rem 0;">
     <div class="container">
-        <h2 style="text-align:center;margin-bottom:1.5rem;"><?php esc_html_e( 'Statistik', 'unpatti-academic' ); ?></h2>
+        <h2 style="text-align:center;margin-bottom:1.5rem;"><?php esc_html_e( 'Statistik', 'campusos-academic' ); ?></h2>
         <div class="stat-grid">
             <?php
             $stat_items = [
-                [ 'count' => wp_count_posts( 'tenaga_pendidik' )->publish ?? 0, 'label' => __( 'Tenaga Pendidik', 'unpatti-academic' ) ],
-                [ 'count' => wp_count_posts( 'prestasi' )->publish ?? 0, 'label' => __( 'Prestasi', 'unpatti-academic' ) ],
-                [ 'count' => wp_count_posts( 'kerjasama' )->publish ?? 0, 'label' => __( 'Kerjasama', 'unpatti-academic' ) ],
-                [ 'count' => wp_count_posts( 'publikasi' )->publish ?? 0, 'label' => __( 'Publikasi', 'unpatti-academic' ) ],
+                [ 'count' => wp_count_posts( 'tenaga_pendidik' )->publish ?? 0, 'label' => __( 'Tenaga Pendidik', 'campusos-academic' ) ],
+                [ 'count' => wp_count_posts( 'prestasi' )->publish ?? 0, 'label' => __( 'Prestasi', 'campusos-academic' ) ],
+                [ 'count' => wp_count_posts( 'kerjasama' )->publish ?? 0, 'label' => __( 'Kerjasama', 'campusos-academic' ) ],
+                [ 'count' => wp_count_posts( 'publikasi' )->publish ?? 0, 'label' => __( 'Publikasi', 'campusos-academic' ) ],
             ];
             foreach ( $stat_items as $item ) :
             ?>

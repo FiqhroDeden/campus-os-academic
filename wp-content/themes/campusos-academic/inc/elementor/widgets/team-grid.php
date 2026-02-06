@@ -1,31 +1,31 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class UNPATTI_Team_Grid extends \Elementor\Widget_Base {
+class CampusOS_Team_Grid extends \Elementor\Widget_Base {
 
-    public function get_name() { return 'unpatti_team_grid'; }
-    public function get_title() { return __( 'Team Grid', 'unpatti-academic' ); }
+    public function get_name() { return 'campusos_team_grid'; }
+    public function get_title() { return __( 'Team Grid', 'campusos-academic' ); }
     public function get_icon() { return 'eicon-person'; }
-    public function get_categories() { return [ 'unpatti-academic' ]; }
+    public function get_categories() { return [ 'campusos-academic' ]; }
 
     protected function register_controls() {
         $this->start_controls_section( 'content_section', [
-            'label' => __( 'Settings', 'unpatti-academic' ),
+            'label' => __( 'Settings', 'campusos-academic' ),
             'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
         ] );
 
         $this->add_control( 'source', [
-            'label'   => __( 'Source', 'unpatti-academic' ),
+            'label'   => __( 'Source', 'campusos-academic' ),
             'type'    => \Elementor\Controls_Manager::SELECT,
             'default' => 'pimpinan',
             'options' => [
-                'pimpinan'         => __( 'Pimpinan', 'unpatti-academic' ),
-                'tenaga_pendidik'  => __( 'Tenaga Pendidik', 'unpatti-academic' ),
+                'pimpinan'         => __( 'Pimpinan', 'campusos-academic' ),
+                'tenaga_pendidik'  => __( 'Tenaga Pendidik', 'campusos-academic' ),
             ],
         ] );
 
         $this->add_control( 'count', [
-            'label'   => __( 'Count', 'unpatti-academic' ),
+            'label'   => __( 'Count', 'campusos-academic' ),
             'type'    => \Elementor\Controls_Manager::NUMBER,
             'default' => 12,
             'min'     => 1,
@@ -33,7 +33,7 @@ class UNPATTI_Team_Grid extends \Elementor\Widget_Base {
         ] );
 
         $this->add_control( 'columns', [
-            'label'   => __( 'Columns', 'unpatti-academic' ),
+            'label'   => __( 'Columns', 'campusos-academic' ),
             'type'    => \Elementor\Controls_Manager::SELECT,
             'default' => '4',
             'options' => [ '3' => '3', '4' => '4' ],
@@ -45,7 +45,7 @@ class UNPATTI_Team_Grid extends \Elementor\Widget_Base {
     protected function render() {
         $settings = $this->get_settings_for_display();
         $cols     = intval( $settings['columns'] );
-        $id       = 'unpatti-team-' . $this->get_id();
+        $id       = 'campusos-team-' . $this->get_id();
 
         $query = new \WP_Query( [
             'post_type'      => $settings['source'],
@@ -58,17 +58,17 @@ class UNPATTI_Team_Grid extends \Elementor\Widget_Base {
                 display: grid; grid-template-columns: repeat(<?php echo $cols; ?>, 1fr);
                 gap: 30px; padding: 20px 0;
             }
-            #<?php echo esc_attr( $id ); ?> .unpatti-team-card {
+            #<?php echo esc_attr( $id ); ?> .campusos-team-card {
                 background: #fff; border-radius: 8px; overflow: hidden;
                 box-shadow: 0 2px 10px rgba(0,0,0,0.08); text-align: center; transition: transform .3s;
             }
-            #<?php echo esc_attr( $id ); ?> .unpatti-team-card:hover { transform: translateY(-5px); }
-            #<?php echo esc_attr( $id ); ?> .unpatti-team-card img {
+            #<?php echo esc_attr( $id ); ?> .campusos-team-card:hover { transform: translateY(-5px); }
+            #<?php echo esc_attr( $id ); ?> .campusos-team-card img {
                 width: 100%; height: 280px; object-fit: cover;
             }
-            #<?php echo esc_attr( $id ); ?> .unpatti-team-info { padding: 15px; }
-            #<?php echo esc_attr( $id ); ?> .unpatti-team-info h4 { margin: 0 0 5px; font-size: 1rem; color: #222; }
-            #<?php echo esc_attr( $id ); ?> .unpatti-team-info p { margin: 0; font-size: 0.85rem; color: #666; }
+            #<?php echo esc_attr( $id ); ?> .campusos-team-info { padding: 15px; }
+            #<?php echo esc_attr( $id ); ?> .campusos-team-info h4 { margin: 0 0 5px; font-size: 1rem; color: #222; }
+            #<?php echo esc_attr( $id ); ?> .campusos-team-info p { margin: 0; font-size: 0.85rem; color: #666; }
             @media (max-width: 768px) {
                 #<?php echo esc_attr( $id ); ?> { grid-template-columns: repeat(2, 1fr); }
             }
@@ -78,20 +78,20 @@ class UNPATTI_Team_Grid extends \Elementor\Widget_Base {
                 $jabatan = get_post_meta( get_the_ID(), '_jabatan', true );
                 $nip     = get_post_meta( get_the_ID(), '_nip', true );
             ?>
-                <div class="unpatti-team-card">
+                <div class="campusos-team-card">
                     <?php if ( has_post_thumbnail() ) : ?>
-                        <?php the_post_thumbnail( 'unpatti-profile' ); ?>
+                        <?php the_post_thumbnail( 'campusos-profile' ); ?>
                     <?php else : ?>
                         <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/placeholder-profile.png' ); ?>" alt="<?php the_title_attribute(); ?>">
                     <?php endif; ?>
-                    <div class="unpatti-team-info">
+                    <div class="campusos-team-info">
                         <h4><?php the_title(); ?></h4>
                         <?php if ( $jabatan ) : ?><p><?php echo esc_html( $jabatan ); ?></p><?php endif; ?>
                         <?php if ( $nip ) : ?><p>NIP: <?php echo esc_html( $nip ); ?></p><?php endif; ?>
                     </div>
                 </div>
             <?php endwhile; wp_reset_postdata(); else : ?>
-                <p><?php esc_html_e( 'No team members found.', 'unpatti-academic' ); ?></p>
+                <p><?php esc_html_e( 'No team members found.', 'campusos-academic' ); ?></p>
             <?php endif; ?>
         </div>
         <?php

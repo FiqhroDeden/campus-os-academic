@@ -1,5 +1,5 @@
 <?php
-namespace UNPATTI\Core\CPT;
+namespace CampusOS\Core\CPT;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -10,13 +10,13 @@ class CPT_Tenaga_Pendidik extends CPT_Base {
 
     protected function get_labels(): array {
         return [
-            'name'               => __( 'Tenaga Pendidik', 'unpatti-academic' ),
-            'singular_name'      => __( 'Tenaga Pendidik', 'unpatti-academic' ),
-            'add_new_item'       => __( 'Tambah Tenaga Pendidik', 'unpatti-academic' ),
-            'edit_item'          => __( 'Edit Tenaga Pendidik', 'unpatti-academic' ),
-            'all_items'          => __( 'Semua Tenaga Pendidik', 'unpatti-academic' ),
-            'search_items'       => __( 'Cari Tenaga Pendidik', 'unpatti-academic' ),
-            'not_found'          => __( 'Tidak ditemukan', 'unpatti-academic' ),
+            'name'               => __( 'Tenaga Pendidik', 'campusos-academic' ),
+            'singular_name'      => __( 'Tenaga Pendidik', 'campusos-academic' ),
+            'add_new_item'       => __( 'Tambah Tenaga Pendidik', 'campusos-academic' ),
+            'edit_item'          => __( 'Edit Tenaga Pendidik', 'campusos-academic' ),
+            'all_items'          => __( 'Semua Tenaga Pendidik', 'campusos-academic' ),
+            'search_items'       => __( 'Cari Tenaga Pendidik', 'campusos-academic' ),
+            'not_found'          => __( 'Tidak ditemukan', 'campusos-academic' ),
         ];
     }
 

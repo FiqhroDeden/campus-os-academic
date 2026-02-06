@@ -1,5 +1,5 @@
 <?php
-namespace UNPATTI\Core\Integrations;
+namespace CampusOS\Core\Integrations;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -15,8 +15,8 @@ abstract class API_Connector {
         }
 
         // Check cache
-        $cache_key = 'unpatti_api_' . md5( $url );
-        $settings = get_option( 'unpatti_settings', [] );
+        $cache_key = 'campusos_api_' . md5( $url );
+        $settings = get_option( 'campusos_settings', [] );
         $ttl = absint( $settings['api_cache_ttl'] ?? 3600 );
 
         $cached = get_transient( $cache_key );
@@ -47,7 +47,7 @@ abstract class API_Connector {
     public function test_connection(): array {
         $url = $this->get_base_url();
         if ( empty( $url ) ) {
-            return [ 'success' => false, 'message' => __( 'Base URL belum dikonfigurasi.', 'unpatti-academic' ) ];
+            return [ 'success' => false, 'message' => __( 'Base URL belum dikonfigurasi.', 'campusos-academic' ) ];
         }
 
         $response = wp_remote_get( $url, [
@@ -61,7 +61,7 @@ abstract class API_Connector {
 
         $code = wp_remote_retrieve_response_code( $response );
         if ( $code >= 200 && $code < 400 ) {
-            return [ 'success' => true, 'message' => __( 'Terhubung.', 'unpatti-academic' ) ];
+            return [ 'success' => true, 'message' => __( 'Terhubung.', 'campusos-academic' ) ];
         }
 
         return [ 'success' => false, 'message' => 'HTTP ' . $code ];

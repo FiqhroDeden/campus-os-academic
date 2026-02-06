@@ -23,8 +23,8 @@ while ( have_posts() ) : the_post();
     <div class="container">
         <h1><?php the_title(); ?></h1>
         <div class="breadcrumb">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'unpatti-academic' ); ?></a> &raquo;
-            <a href="<?php echo esc_url( get_post_type_archive_link( 'publikasi' ) ); ?>"><?php esc_html_e( 'Publikasi', 'unpatti-academic' ); ?></a> &raquo;
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'campusos-academic' ); ?></a> &raquo;
+            <a href="<?php echo esc_url( get_post_type_archive_link( 'publikasi' ) ); ?>"><?php esc_html_e( 'Publikasi', 'campusos-academic' ); ?></a> &raquo;
             <?php the_title(); ?>
         </div>
     </div>
@@ -44,41 +44,41 @@ while ( have_posts() ) : the_post();
 
                 <?php if ( $penulis ) : ?>
                     <div class="publikasi-authors">
-                        <h3><?php esc_html_e( 'Penulis', 'unpatti-academic' ); ?></h3>
+                        <h3><?php esc_html_e( 'Penulis', 'campusos-academic' ); ?></h3>
                         <p><?php echo esc_html( $penulis ); ?></p>
                     </div>
                 <?php endif; ?>
 
                 <div class="publikasi-details">
-                    <h3><?php esc_html_e( 'Detail Publikasi', 'unpatti-academic' ); ?></h3>
+                    <h3><?php esc_html_e( 'Detail Publikasi', 'campusos-academic' ); ?></h3>
                     <table class="publikasi-table">
                         <?php if ( $jenis && isset( $jenis_labels[ $jenis ] ) ) : ?>
                             <tr>
-                                <th><?php esc_html_e( 'Jenis', 'unpatti-academic' ); ?></th>
+                                <th><?php esc_html_e( 'Jenis', 'campusos-academic' ); ?></th>
                                 <td><?php echo esc_html( $jenis_labels[ $jenis ] ); ?></td>
                             </tr>
                         <?php endif; ?>
                         <?php if ( $tahun ) : ?>
                             <tr>
-                                <th><?php esc_html_e( 'Tahun', 'unpatti-academic' ); ?></th>
+                                <th><?php esc_html_e( 'Tahun', 'campusos-academic' ); ?></th>
                                 <td><?php echo esc_html( $tahun ); ?></td>
                             </tr>
                         <?php endif; ?>
                         <?php if ( $kategori ) : ?>
                             <tr>
-                                <th><?php esc_html_e( 'Kategori', 'unpatti-academic' ); ?></th>
+                                <th><?php esc_html_e( 'Kategori', 'campusos-academic' ); ?></th>
                                 <td><?php echo esc_html( ucfirst( $kategori ) ); ?></td>
                             </tr>
                         <?php endif; ?>
                         <?php if ( $doi ) : ?>
                             <tr>
-                                <th><?php esc_html_e( 'DOI', 'unpatti-academic' ); ?></th>
+                                <th><?php esc_html_e( 'DOI', 'campusos-academic' ); ?></th>
                                 <td><a href="https://doi.org/<?php echo esc_attr( $doi ); ?>" target="_blank"><?php echo esc_html( $doi ); ?></a></td>
                             </tr>
                         <?php endif; ?>
                         <?php if ( $link ) : ?>
                             <tr>
-                                <th><?php esc_html_e( 'Link', 'unpatti-academic' ); ?></th>
+                                <th><?php esc_html_e( 'Link', 'campusos-academic' ); ?></th>
                                 <td><a href="<?php echo esc_url( $link ); ?>" target="_blank"><?php echo esc_html( $link ); ?></a></td>
                             </tr>
                         <?php endif; ?>
@@ -87,7 +87,7 @@ while ( have_posts() ) : the_post();
 
                 <?php if ( get_the_content() ) : ?>
                     <div class="publikasi-abstract">
-                        <h3><?php esc_html_e( 'Abstrak', 'unpatti-academic' ); ?></h3>
+                        <h3><?php esc_html_e( 'Abstrak', 'campusos-academic' ); ?></h3>
                         <div class="entry-content">
                             <?php the_content(); ?>
                         </div>
@@ -97,12 +97,12 @@ while ( have_posts() ) : the_post();
                 <?php if ( $link ) : ?>
                     <div class="publikasi-actions">
                         <a href="<?php echo esc_url( $link ); ?>" class="btn btn-primary" target="_blank">
-                            <span class="dashicons dashicons-external"></span> <?php esc_html_e( 'Lihat Publikasi', 'unpatti-academic' ); ?>
+                            <span class="dashicons dashicons-external"></span> <?php esc_html_e( 'Lihat Publikasi', 'campusos-academic' ); ?>
                         </a>
                     </div>
                 <?php endif; ?>
 
-                <?php unpatti_social_share(); ?>
+                <?php campusos_social_share(); ?>
             </article>
 
             <aside class="widget-area">
@@ -127,7 +127,7 @@ while ( have_posts() ) : the_post();
                 if ( $related->have_posts() ) :
                 ?>
                     <div class="widget">
-                        <h3 class="widget-title"><?php esc_html_e( 'Publikasi Terkait', 'unpatti-academic' ); ?></h3>
+                        <h3 class="widget-title"><?php esc_html_e( 'Publikasi Terkait', 'campusos-academic' ); ?></h3>
                         <ul class="related-list">
                             <?php while ( $related->have_posts() ) : $related->the_post();
                                 $rel_tahun = get_post_meta( get_the_ID(), 'publikasi_tahun_pub', true );

@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 <section class="homepage-section homepage-news">
     <div class="container">
-        <h2><?php esc_html_e( 'Berita Terbaru', 'unpatti-academic' ); ?></h2>
+        <h2><?php esc_html_e( 'Berita Terbaru', 'campusos-academic' ); ?></h2>
         <div class="posts-grid">
             <?php
             $news = new WP_Query( [
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
             ?>
             <div class="card">
                 <?php if ( has_post_thumbnail() ) : ?>
-                    <img class="card-img" src="<?php echo esc_url( get_the_post_thumbnail_url( null, 'unpatti-card' ) ); ?>" alt="<?php the_title_attribute(); ?>" />
+                    <img class="card-img" src="<?php echo esc_url( get_the_post_thumbnail_url( null, 'campusos-card' ) ); ?>" alt="<?php the_title_attribute(); ?>" />
                 <?php endif; ?>
                 <div class="card-body">
                     <span class="card-date"><?php echo get_the_date(); ?></span>

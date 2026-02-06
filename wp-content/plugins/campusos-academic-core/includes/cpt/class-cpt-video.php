@@ -1,5 +1,5 @@
 <?php
-namespace UNPATTI\Core\CPT;
+namespace CampusOS\Core\CPT;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -10,13 +10,13 @@ class CPT_Video extends CPT_Base {
 
     protected function get_labels(): array {
         return [
-            'name'               => __( 'Video', 'unpatti-academic' ),
-            'singular_name'      => __( 'Video', 'unpatti-academic' ),
-            'add_new_item'       => __( 'Tambah Video', 'unpatti-academic' ),
-            'edit_item'          => __( 'Edit Video', 'unpatti-academic' ),
-            'all_items'          => __( 'Semua Video', 'unpatti-academic' ),
-            'search_items'       => __( 'Cari Video', 'unpatti-academic' ),
-            'not_found'          => __( 'Tidak ditemukan', 'unpatti-academic' ),
+            'name'               => __( 'Video', 'campusos-academic' ),
+            'singular_name'      => __( 'Video', 'campusos-academic' ),
+            'add_new_item'       => __( 'Tambah Video', 'campusos-academic' ),
+            'edit_item'          => __( 'Edit Video', 'campusos-academic' ),
+            'all_items'          => __( 'Semua Video', 'campusos-academic' ),
+            'search_items'       => __( 'Cari Video', 'campusos-academic' ),
+            'not_found'          => __( 'Tidak ditemukan', 'campusos-academic' ),
         ];
     }
 

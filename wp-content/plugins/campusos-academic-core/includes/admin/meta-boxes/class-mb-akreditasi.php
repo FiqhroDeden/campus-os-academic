@@ -1,5 +1,5 @@
 <?php
-namespace UNPATTI\Core\Admin\MetaBoxes;
+namespace CampusOS\Core\Admin\MetaBoxes;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 

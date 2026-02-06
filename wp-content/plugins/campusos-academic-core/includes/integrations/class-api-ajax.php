@@ -1,15 +1,15 @@
 <?php
-namespace UNPATTI\Core\Integrations;
+namespace CampusOS\Core\Integrations;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class API_Ajax {
     public function init() {
-        add_action( 'wp_ajax_unpatti_test_api', [ $this, 'test_connection' ] );
+        add_action( 'wp_ajax_campusos_test_api', [ $this, 'test_connection' ] );
     }
 
     public function test_connection() {
-        check_ajax_referer( 'unpatti_test_api_nonce', 'nonce' );
+        check_ajax_referer( 'campusos_test_api_nonce', 'nonce' );
 
         if ( ! current_user_can( 'manage_options' ) ) {
             wp_send_json_error( 'Unauthorized' );

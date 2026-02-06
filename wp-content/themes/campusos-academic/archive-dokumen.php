@@ -45,7 +45,7 @@ if ( $all_docs->have_posts() ) {
     <div class="container">
         <h1><?php post_type_archive_title(); ?></h1>
         <div class="breadcrumb">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'unpatti-academic' ); ?></a> &raquo;
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'campusos-academic' ); ?></a> &raquo;
             <?php post_type_archive_title(); ?>
         </div>
     </div>
@@ -88,7 +88,7 @@ if ( $all_docs->have_posts() ) {
                 <?php endforeach; ?>
             </div>
         <?php else : ?>
-            <p class="no-content"><?php esc_html_e( 'Belum ada dokumen.', 'unpatti-academic' ); ?></p>
+            <p class="no-content"><?php esc_html_e( 'Belum ada dokumen.', 'campusos-academic' ); ?></p>
         <?php endif; ?>
     </div>
 </main>

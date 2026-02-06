@@ -1,16 +1,16 @@
 <?php
-namespace UNPATTI\Core\Updater;
+namespace CampusOS\Core\Updater;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Plugin_Updater {
 
     private $update_url;
-    private $plugin_slug = 'unpatti-academic-core';
+    private $plugin_slug = 'campusos-academic-core';
     private $plugin_file;
 
     public function init() {
-        $settings = get_option( 'unpatti_settings', [] );
+        $settings = get_option( 'campusos_settings', [] );
         $this->update_url = $settings['update_server_url'] ?? '';
         if ( empty( $this->update_url ) ) return;
 
@@ -66,7 +66,7 @@ class Plugin_Updater {
         if ( empty( $data ) ) return $result;
 
         return (object) [
-            'name'          => $data['name'] ?? 'UNPATTI Academic Core',
+            'name'          => $data['name'] ?? 'CampusOS Academic Core',
             'slug'          => $this->plugin_slug,
             'version'       => $data['version'] ?? '',
             'author'        => $data['author'] ?? '',

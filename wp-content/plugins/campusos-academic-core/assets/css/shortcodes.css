@@ -1,291 +1,291 @@
 /**
- * UNPATTI Academic Shortcodes Styles
+ * CampusOS Academic Shortcodes Styles
  */
 
 :root {
-    --unpatti-primary: #003366;
-    --unpatti-secondary: #B8860B;
-    --unpatti-text: #1f2937;
-    --unpatti-text-light: #6b7280;
-    --unpatti-border: #e5e7eb;
-    --unpatti-bg-light: #f9fafb;
-    --unpatti-radius: 8px;
+    --campusos-primary: #003366;
+    --campusos-secondary: #B8860B;
+    --campusos-text: #1f2937;
+    --campusos-text-light: #6b7280;
+    --campusos-border: #e5e7eb;
+    --campusos-bg-light: #f9fafb;
+    --campusos-radius: 8px;
 }
 
 /* Grid System */
-.unpatti-grid { display: grid; gap: 1.5rem; }
-.unpatti-grid-2 { grid-template-columns: repeat(2, 1fr); }
-.unpatti-grid-3 { grid-template-columns: repeat(3, 1fr); }
-.unpatti-grid-4 { grid-template-columns: repeat(4, 1fr); }
-.unpatti-grid-5 { grid-template-columns: repeat(5, 1fr); }
+.campusos-grid { display: grid; gap: 1.5rem; }
+.campusos-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.campusos-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.campusos-grid-4 { grid-template-columns: repeat(4, 1fr); }
+.campusos-grid-5 { grid-template-columns: repeat(5, 1fr); }
 
 @media (max-width: 1024px) {
-    .unpatti-grid-4, .unpatti-grid-5 { grid-template-columns: repeat(3, 1fr); }
+    .campusos-grid-4, .campusos-grid-5 { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 768px) {
-    .unpatti-grid-3, .unpatti-grid-4, .unpatti-grid-5 { grid-template-columns: repeat(2, 1fr); }
+    .campusos-grid-3, .campusos-grid-4, .campusos-grid-5 { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 480px) {
-    .unpatti-grid-2, .unpatti-grid-3, .unpatti-grid-4, .unpatti-grid-5 { grid-template-columns: 1fr; }
+    .campusos-grid-2, .campusos-grid-3, .campusos-grid-4, .campusos-grid-5 { grid-template-columns: 1fr; }
 }
 
 /* List Layout */
-.unpatti-list { display: flex; flex-direction: column; gap: 1rem; }
+.campusos-list { display: flex; flex-direction: column; gap: 1rem; }
 
 /* Card Base */
-.unpatti-card {
+.campusos-card {
     background: #fff;
-    border-radius: var(--unpatti-radius);
+    border-radius: var(--campusos-radius);
     overflow: hidden;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     transition: transform 0.2s, box-shadow 0.2s;
 }
-.unpatti-card:hover {
+.campusos-card:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
-.unpatti-card-image { aspect-ratio: 1; overflow: hidden; background: var(--unpatti-bg-light); }
-.unpatti-card-image img { width: 100%; height: 100%; object-fit: cover; }
-.unpatti-card-content { padding: 1rem; }
-.unpatti-card-title { margin: 0 0 0.5rem; font-size: 1rem; font-weight: 600; color: var(--unpatti-text); line-height: 1.4; }
-.unpatti-card-title a { color: inherit; text-decoration: none; }
-.unpatti-card-title a:hover { color: var(--unpatti-primary); }
+.campusos-card-image { aspect-ratio: 1; overflow: hidden; background: var(--campusos-bg-light); }
+.campusos-card-image img { width: 100%; height: 100%; object-fit: cover; }
+.campusos-card-content { padding: 1rem; }
+.campusos-card-title { margin: 0 0 0.5rem; font-size: 1rem; font-weight: 600; color: var(--campusos-text); line-height: 1.4; }
+.campusos-card-title a { color: inherit; text-decoration: none; }
+.campusos-card-title a:hover { color: var(--campusos-primary); }
 
 /* Placeholder Image */
-.unpatti-placeholder-image {
+.campusos-placeholder-image {
     width: 100%; height: 100%;
     display: flex; align-items: center; justify-content: center;
     background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
 }
-.unpatti-placeholder-image .dashicons { font-size: 48px; width: 48px; height: 48px; color: #9ca3af; }
+.campusos-placeholder-image .dashicons { font-size: 48px; width: 48px; height: 48px; color: #9ca3af; }
 
 /* Empty State */
-.unpatti-empty { text-align: center; padding: 2rem; color: var(--unpatti-text-light); background: var(--unpatti-bg-light); border-radius: var(--unpatti-radius); }
+.campusos-empty { text-align: center; padding: 2rem; color: var(--campusos-text-light); background: var(--campusos-bg-light); border-radius: var(--campusos-radius); }
 
 /* Buttons */
-.unpatti-btn-sm {
+.campusos-btn-sm {
     display: inline-flex; align-items: center; gap: 0.25rem;
     padding: 0.375rem 0.75rem; font-size: 0.8125rem; font-weight: 500;
-    color: var(--unpatti-primary); background: transparent;
-    border: 1px solid var(--unpatti-primary); border-radius: 4px;
+    color: var(--campusos-primary); background: transparent;
+    border: 1px solid var(--campusos-primary); border-radius: 4px;
     text-decoration: none; transition: all 0.2s;
 }
-.unpatti-btn-sm:hover { background: var(--unpatti-primary); color: #fff; }
-.unpatti-btn-sm .dashicons { font-size: 14px; width: 14px; height: 14px; }
+.campusos-btn-sm:hover { background: var(--campusos-primary); color: #fff; }
+.campusos-btn-sm .dashicons { font-size: 14px; width: 14px; height: 14px; }
 
-.unpatti-date { font-size: 0.8125rem; color: var(--unpatti-text-light); }
-.unpatti-excerpt { font-size: 0.875rem; color: var(--unpatti-text-light); line-height: 1.6; margin: 0.5rem 0; }
+.campusos-date { font-size: 0.8125rem; color: var(--campusos-text-light); }
+.campusos-excerpt { font-size: 0.875rem; color: var(--campusos-text-light); line-height: 1.6; margin: 0.5rem 0; }
 
 /* Tenaga Pendidik / Dosen */
-.unpatti-dosen-card .unpatti-card-image { aspect-ratio: 1; }
-.unpatti-dosen-jabatan { display: inline-block; padding: 0.25rem 0.5rem; font-size: 0.75rem; font-weight: 600; color: var(--unpatti-secondary); background: rgba(184, 134, 11, 0.1); border-radius: 4px; margin-bottom: 0.5rem; }
-.unpatti-dosen-bidang, .unpatti-dosen-nidn, .unpatti-dosen-email { font-size: 0.8125rem; color: var(--unpatti-text-light); margin: 0.25rem 0; }
-.unpatti-dosen-email a { color: var(--unpatti-primary); text-decoration: none; }
-.unpatti-dosen-link a { font-size: 0.8125rem; color: var(--unpatti-primary); text-decoration: none; font-weight: 500; }
+.campusos-dosen-card .campusos-card-image { aspect-ratio: 1; }
+.campusos-dosen-jabatan { display: inline-block; padding: 0.25rem 0.5rem; font-size: 0.75rem; font-weight: 600; color: var(--campusos-secondary); background: rgba(184, 134, 11, 0.1); border-radius: 4px; margin-bottom: 0.5rem; }
+.campusos-dosen-bidang, .campusos-dosen-nidn, .campusos-dosen-email { font-size: 0.8125rem; color: var(--campusos-text-light); margin: 0.25rem 0; }
+.campusos-dosen-email a { color: var(--campusos-primary); text-decoration: none; }
+.campusos-dosen-link a { font-size: 0.8125rem; color: var(--campusos-primary); text-decoration: none; font-weight: 500; }
 
 /* Pimpinan */
-.unpatti-pimpinan-card .unpatti-card-image { aspect-ratio: 3/4; }
-.unpatti-pimpinan-jabatan { font-size: 0.875rem; color: var(--unpatti-secondary); font-weight: 500; }
-.unpatti-pimpinan-nip, .unpatti-pimpinan-periode { font-size: 0.8125rem; color: var(--unpatti-text-light); }
+.campusos-pimpinan-card .campusos-card-image { aspect-ratio: 3/4; }
+.campusos-pimpinan-jabatan { font-size: 0.875rem; color: var(--campusos-secondary); font-weight: 500; }
+.campusos-pimpinan-nip, .campusos-pimpinan-periode { font-size: 0.8125rem; color: var(--campusos-text-light); }
 
 /* Agenda */
-.unpatti-agenda-card { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem; }
-.unpatti-agenda-date { flex-shrink: 0; width: 60px; text-align: center; background: var(--unpatti-primary); color: #fff; border-radius: var(--unpatti-radius); padding: 0.5rem; }
-.unpatti-agenda-date .day { display: block; font-size: 1.5rem; font-weight: 700; line-height: 1; }
-.unpatti-agenda-date .month { display: block; font-size: 0.75rem; text-transform: uppercase; margin-top: 0.25rem; }
-.unpatti-agenda-card .unpatti-card-content { padding: 0; flex: 1; }
-.unpatti-agenda-lokasi { font-size: 0.8125rem; color: var(--unpatti-text-light); margin: 0.25rem 0; display: flex; align-items: center; gap: 0.25rem; }
-.unpatti-agenda-lokasi .dashicons { font-size: 14px; width: 14px; height: 14px; }
+.campusos-agenda-card { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem; }
+.campusos-agenda-date { flex-shrink: 0; width: 60px; text-align: center; background: var(--campusos-primary); color: #fff; border-radius: var(--campusos-radius); padding: 0.5rem; }
+.campusos-agenda-date .day { display: block; font-size: 1.5rem; font-weight: 700; line-height: 1; }
+.campusos-agenda-date .month { display: block; font-size: 0.75rem; text-transform: uppercase; margin-top: 0.25rem; }
+.campusos-agenda-card .campusos-card-content { padding: 0; flex: 1; }
+.campusos-agenda-lokasi { font-size: 0.8125rem; color: var(--campusos-text-light); margin: 0.25rem 0; display: flex; align-items: center; gap: 0.25rem; }
+.campusos-agenda-lokasi .dashicons { font-size: 14px; width: 14px; height: 14px; }
 
 /* Pengumuman */
-.unpatti-pengumuman-card { border-left: 3px solid var(--unpatti-primary); }
-.unpatti-pengumuman-meta { display: flex; gap: 0.75rem; margin-bottom: 0.5rem; }
+.campusos-pengumuman-card { border-left: 3px solid var(--campusos-primary); }
+.campusos-pengumuman-meta { display: flex; gap: 0.75rem; margin-bottom: 0.5rem; }
 
 /* FAQ */
-.unpatti-faq-accordion { border: 1px solid var(--unpatti-border); border-radius: var(--unpatti-radius); overflow: hidden; }
-.unpatti-faq-item { border-bottom: 1px solid var(--unpatti-border); }
-.unpatti-faq-item:last-child { border-bottom: none; }
-.unpatti-faq-question { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 1rem 1.25rem; font-size: 1rem; font-weight: 500; color: var(--unpatti-text); background: #fff; border: none; cursor: pointer; text-align: left; transition: background 0.2s; }
-.unpatti-faq-question:hover { background: var(--unpatti-bg-light); }
-.unpatti-faq-item.active .unpatti-faq-question { background: var(--unpatti-bg-light); }
-.unpatti-faq-icon { font-size: 1.5rem; font-weight: 300; color: var(--unpatti-primary); transition: transform 0.2s; }
-.unpatti-faq-item.active .unpatti-faq-icon { transform: rotate(45deg); }
-.unpatti-faq-answer { display: none; padding: 0 1.25rem 1rem; background: var(--unpatti-bg-light); }
-.unpatti-faq-content { font-size: 0.9375rem; line-height: 1.7; color: var(--unpatti-text-light); }
+.campusos-faq-accordion { border: 1px solid var(--campusos-border); border-radius: var(--campusos-radius); overflow: hidden; }
+.campusos-faq-item { border-bottom: 1px solid var(--campusos-border); }
+.campusos-faq-item:last-child { border-bottom: none; }
+.campusos-faq-question { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 1rem 1.25rem; font-size: 1rem; font-weight: 500; color: var(--campusos-text); background: #fff; border: none; cursor: pointer; text-align: left; transition: background 0.2s; }
+.campusos-faq-question:hover { background: var(--campusos-bg-light); }
+.campusos-faq-item.active .campusos-faq-question { background: var(--campusos-bg-light); }
+.campusos-faq-icon { font-size: 1.5rem; font-weight: 300; color: var(--campusos-primary); transition: transform 0.2s; }
+.campusos-faq-item.active .campusos-faq-icon { transform: rotate(45deg); }
+.campusos-faq-answer { display: none; padding: 0 1.25rem 1rem; background: var(--campusos-bg-light); }
+.campusos-faq-content { font-size: 0.9375rem; line-height: 1.7; color: var(--campusos-text-light); }
 
 /* Galeri */
-.unpatti-galeri-item { display: block; position: relative; aspect-ratio: 1; overflow: hidden; border-radius: var(--unpatti-radius); }
-.unpatti-galeri-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
-.unpatti-galeri-item:hover img { transform: scale(1.05); }
-.unpatti-galeri-overlay { position: absolute; inset: 0; background: rgba(0, 51, 102, 0.7); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
-.unpatti-galeri-item:hover .unpatti-galeri-overlay { opacity: 1; }
-.unpatti-galeri-overlay span { color: #fff; font-size: 0.875rem; padding: 0.5rem 1rem; text-align: center; }
+.campusos-galeri-item { display: block; position: relative; aspect-ratio: 1; overflow: hidden; border-radius: var(--campusos-radius); }
+.campusos-galeri-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+.campusos-galeri-item:hover img { transform: scale(1.05); }
+.campusos-galeri-overlay { position: absolute; inset: 0; background: rgba(0, 51, 102, 0.7); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
+.campusos-galeri-item:hover .campusos-galeri-overlay { opacity: 1; }
+.campusos-galeri-overlay span { color: #fff; font-size: 0.875rem; padding: 0.5rem 1rem; text-align: center; }
 
 /* Dokumen */
-.unpatti-dokumen-card { display: flex; align-items: center; gap: 1rem; padding: 1rem; }
-.unpatti-dokumen-icon { flex-shrink: 0; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; background: var(--unpatti-bg-light); border-radius: var(--unpatti-radius); }
-.unpatti-dokumen-icon .dashicons { font-size: 24px; width: 24px; height: 24px; color: var(--unpatti-primary); }
-.unpatti-dokumen-card .unpatti-card-content { flex: 1; padding: 0; }
-.unpatti-dokumen-kategori { font-size: 0.75rem; color: var(--unpatti-text-light); }
-.unpatti-btn-download { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: var(--unpatti-primary); color: #fff; border-radius: var(--unpatti-radius); text-decoration: none; transition: background 0.2s; }
-.unpatti-btn-download:hover { background: #002244; }
-.unpatti-btn-download .dashicons { font-size: 20px; width: 20px; height: 20px; }
+.campusos-dokumen-card { display: flex; align-items: center; gap: 1rem; padding: 1rem; }
+.campusos-dokumen-icon { flex-shrink: 0; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; background: var(--campusos-bg-light); border-radius: var(--campusos-radius); }
+.campusos-dokumen-icon .dashicons { font-size: 24px; width: 24px; height: 24px; color: var(--campusos-primary); }
+.campusos-dokumen-card .campusos-card-content { flex: 1; padding: 0; }
+.campusos-dokumen-kategori { font-size: 0.75rem; color: var(--campusos-text-light); }
+.campusos-btn-download { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: var(--campusos-primary); color: #fff; border-radius: var(--campusos-radius); text-decoration: none; transition: background 0.2s; }
+.campusos-btn-download:hover { background: #002244; }
+.campusos-btn-download .dashicons { font-size: 20px; width: 20px; height: 20px; }
 
 /* Prestasi */
-.unpatti-prestasi-peraih { font-size: 0.875rem; font-weight: 500; color: var(--unpatti-text); }
-.unpatti-prestasi-meta { display: flex; gap: 0.5rem; font-size: 0.8125rem; }
-.unpatti-prestasi-meta .tingkat { color: var(--unpatti-secondary); font-weight: 500; }
-.unpatti-prestasi-meta .tahun { color: var(--unpatti-text-light); }
+.campusos-prestasi-peraih { font-size: 0.875rem; font-weight: 500; color: var(--campusos-text); }
+.campusos-prestasi-meta { display: flex; gap: 0.5rem; font-size: 0.8125rem; }
+.campusos-prestasi-meta .tingkat { color: var(--campusos-secondary); font-weight: 500; }
+.campusos-prestasi-meta .tahun { color: var(--campusos-text-light); }
 
 /* Kerjasama */
-.unpatti-kerjasama-card .unpatti-card-logo { height: 120px; display: flex; align-items: center; justify-content: center; padding: 1rem; background: var(--unpatti-bg-light); }
-.unpatti-kerjasama-card .unpatti-card-logo img { max-height: 100%; max-width: 100%; object-fit: contain; }
-.unpatti-kerjasama-jenis { display: inline-block; padding: 0.125rem 0.5rem; font-size: 0.75rem; background: rgba(0, 51, 102, 0.1); color: var(--unpatti-primary); border-radius: 4px; }
-.unpatti-kerjasama-periode { font-size: 0.75rem; color: var(--unpatti-text-light); }
+.campusos-kerjasama-card .campusos-card-logo { height: 120px; display: flex; align-items: center; justify-content: center; padding: 1rem; background: var(--campusos-bg-light); }
+.campusos-kerjasama-card .campusos-card-logo img { max-height: 100%; max-width: 100%; object-fit: contain; }
+.campusos-kerjasama-jenis { display: inline-block; padding: 0.125rem 0.5rem; font-size: 0.75rem; background: rgba(0, 51, 102, 0.1); color: var(--campusos-primary); border-radius: 4px; }
+.campusos-kerjasama-periode { font-size: 0.75rem; color: var(--campusos-text-light); }
 
 /* Fasilitas */
-.unpatti-fasilitas-card .unpatti-card-image { aspect-ratio: 16/10; }
-.unpatti-fasilitas-desc { font-size: 0.875rem; color: var(--unpatti-text-light); margin-bottom: 0.5rem; }
-.unpatti-fasilitas-lokasi, .unpatti-fasilitas-kapasitas { font-size: 0.8125rem; color: var(--unpatti-text-light); display: flex; align-items: center; gap: 0.25rem; margin: 0.25rem 0; }
-.unpatti-fasilitas-lokasi .dashicons, .unpatti-fasilitas-kapasitas .dashicons { font-size: 14px; width: 14px; height: 14px; }
+.campusos-fasilitas-card .campusos-card-image { aspect-ratio: 16/10; }
+.campusos-fasilitas-desc { font-size: 0.875rem; color: var(--campusos-text-light); margin-bottom: 0.5rem; }
+.campusos-fasilitas-lokasi, .campusos-fasilitas-kapasitas { font-size: 0.8125rem; color: var(--campusos-text-light); display: flex; align-items: center; gap: 0.25rem; margin: 0.25rem 0; }
+.campusos-fasilitas-lokasi .dashicons, .campusos-fasilitas-kapasitas .dashicons { font-size: 14px; width: 14px; height: 14px; }
 
 /* Mitra Industri */
-.unpatti-mitra-card { display: flex; align-items: center; justify-content: center; padding: 1.5rem; background: #fff; border-radius: var(--unpatti-radius); box-shadow: 0 1px 3px rgba(0,0,0,0.1); aspect-ratio: 3/2; transition: transform 0.2s; }
-.unpatti-mitra-card:hover { transform: scale(1.05); }
-.unpatti-mitra-card img { max-width: 100%; max-height: 100%; object-fit: contain; filter: grayscale(100%); opacity: 0.7; transition: all 0.2s; }
-.unpatti-mitra-card:hover img { filter: grayscale(0%); opacity: 1; }
-.unpatti-mitra-name { font-size: 0.875rem; font-weight: 600; color: var(--unpatti-text); text-align: center; }
+.campusos-mitra-card { display: flex; align-items: center; justify-content: center; padding: 1.5rem; background: #fff; border-radius: var(--campusos-radius); box-shadow: 0 1px 3px rgba(0,0,0,0.1); aspect-ratio: 3/2; transition: transform 0.2s; }
+.campusos-mitra-card:hover { transform: scale(1.05); }
+.campusos-mitra-card img { max-width: 100%; max-height: 100%; object-fit: contain; filter: grayscale(100%); opacity: 0.7; transition: all 0.2s; }
+.campusos-mitra-card:hover img { filter: grayscale(0%); opacity: 1; }
+.campusos-mitra-name { font-size: 0.875rem; font-weight: 600; color: var(--campusos-text); text-align: center; }
 
 /* Mata Kuliah Table */
-.unpatti-table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
-.unpatti-table th, .unpatti-table td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--unpatti-border); }
-.unpatti-table th { background: var(--unpatti-primary); color: #fff; font-weight: 600; }
-.unpatti-table tbody tr:hover { background: var(--unpatti-bg-light); }
-.unpatti-table td:nth-child(3), .unpatti-table td:nth-child(4) { text-align: center; }
+.campusos-table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
+.campusos-table th, .campusos-table td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--campusos-border); }
+.campusos-table th { background: var(--campusos-primary); color: #fff; font-weight: 600; }
+.campusos-table tbody tr:hover { background: var(--campusos-bg-light); }
+.campusos-table td:nth-child(3), .campusos-table td:nth-child(4) { text-align: center; }
 
 /* Publikasi */
-.unpatti-publikasi-card { padding: 1rem; }
-.unpatti-publikasi-penulis { font-size: 0.875rem; color: var(--unpatti-text); font-style: italic; }
-.unpatti-publikasi-meta { font-size: 0.8125rem; color: var(--unpatti-text-light); display: flex; gap: 0.5rem; }
-.unpatti-publikasi-meta .jurnal { font-weight: 500; }
-.unpatti-publikasi-doi { font-size: 0.8125rem; color: var(--unpatti-text-light); }
+.campusos-publikasi-card { padding: 1rem; }
+.campusos-publikasi-penulis { font-size: 0.875rem; color: var(--campusos-text); font-style: italic; }
+.campusos-publikasi-meta { font-size: 0.8125rem; color: var(--campusos-text-light); display: flex; gap: 0.5rem; }
+.campusos-publikasi-meta .jurnal { font-weight: 500; }
+.campusos-publikasi-doi { font-size: 0.8125rem; color: var(--campusos-text-light); }
 
 /* Beasiswa */
-.unpatti-beasiswa-card { border-top: 3px solid var(--unpatti-secondary); }
-.unpatti-beasiswa-deadline { font-size: 0.8125rem; color: var(--unpatti-text-light); display: flex; align-items: center; gap: 0.25rem; }
-.unpatti-beasiswa-deadline .dashicons { font-size: 14px; width: 14px; height: 14px; }
+.campusos-beasiswa-card { border-top: 3px solid var(--campusos-secondary); }
+.campusos-beasiswa-deadline { font-size: 0.8125rem; color: var(--campusos-text-light); display: flex; align-items: center; gap: 0.25rem; }
+.campusos-beasiswa-deadline .dashicons { font-size: 14px; width: 14px; height: 14px; }
 
 /* Testimonial */
-.unpatti-testimonial-card { display: flex; flex-direction: column; padding: 1.5rem; }
-.unpatti-testimonial-content { flex: 1; }
-.unpatti-testimonial-text { font-size: 0.9375rem; font-style: italic; color: var(--unpatti-text); line-height: 1.7; margin: 0 0 1rem; }
-.unpatti-testimonial-author { display: flex; align-items: center; gap: 0.75rem; padding-top: 1rem; border-top: 1px solid var(--unpatti-border); }
-.unpatti-testimonial-photo { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
-.unpatti-testimonial-info { display: flex; flex-direction: column; }
-.unpatti-testimonial-info strong { font-size: 0.9375rem; color: var(--unpatti-text); }
-.unpatti-testimonial-info span { font-size: 0.8125rem; color: var(--unpatti-text-light); }
+.campusos-testimonial-card { display: flex; flex-direction: column; padding: 1.5rem; }
+.campusos-testimonial-content { flex: 1; }
+.campusos-testimonial-text { font-size: 0.9375rem; font-style: italic; color: var(--campusos-text); line-height: 1.7; margin: 0 0 1rem; }
+.campusos-testimonial-author { display: flex; align-items: center; gap: 0.75rem; padding-top: 1rem; border-top: 1px solid var(--campusos-border); }
+.campusos-testimonial-photo { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+.campusos-testimonial-info { display: flex; flex-direction: column; }
+.campusos-testimonial-info strong { font-size: 0.9375rem; color: var(--campusos-text); }
+.campusos-testimonial-info span { font-size: 0.8125rem; color: var(--campusos-text-light); }
 
 /* Video */
-.unpatti-video-card .unpatti-video-thumb { position: relative; aspect-ratio: 16/9; overflow: hidden; background: #000; }
-.unpatti-video-card .unpatti-video-thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
-.unpatti-video-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-decoration: none; }
-.unpatti-video-play .dashicons { width: 60px; height: 60px; font-size: 60px; color: #fff; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); transition: transform 0.2s; }
-.unpatti-video-card:hover .unpatti-video-play .dashicons { transform: scale(1.1); }
+.campusos-video-card .campusos-video-thumb { position: relative; aspect-ratio: 16/9; overflow: hidden; background: #000; }
+.campusos-video-card .campusos-video-thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+.campusos-video-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-decoration: none; }
+.campusos-video-play .dashicons { width: 60px; height: 60px; font-size: 60px; color: #fff; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); transition: transform 0.2s; }
+.campusos-video-card:hover .campusos-video-play .dashicons { transform: scale(1.1); }
 
 /* Organisasi Mahasiswa */
-.unpatti-org-card .unpatti-card-logo { height: 120px; display: flex; align-items: center; justify-content: center; padding: 1rem; background: var(--unpatti-bg-light); }
-.unpatti-org-card .unpatti-card-logo img { max-height: 100%; max-width: 100%; object-fit: contain; }
-.unpatti-org-ketua { font-size: 0.875rem; color: var(--unpatti-text-light); }
+.campusos-org-card .campusos-card-logo { height: 120px; display: flex; align-items: center; justify-content: center; padding: 1rem; background: var(--campusos-bg-light); }
+.campusos-org-card .campusos-card-logo img { max-height: 100%; max-width: 100%; object-fit: contain; }
+.campusos-org-ketua { font-size: 0.875rem; color: var(--campusos-text-light); }
 
 /* Sambutan Kaprodi */
-.unpatti-kaprodi-full {
+.campusos-kaprodi-full {
     display: grid;
     grid-template-columns: 350px 1fr;
     gap: 2rem;
     align-items: start;
 }
 @media (max-width: 768px) {
-    .unpatti-kaprodi-full {
+    .campusos-kaprodi-full {
         grid-template-columns: 1fr;
     }
 }
-.unpatti-kaprodi-foto {
+.campusos-kaprodi-foto {
     aspect-ratio: 3/4;
-    background: var(--unpatti-bg-light);
-    border-radius: var(--unpatti-radius);
+    background: var(--campusos-bg-light);
+    border-radius: var(--campusos-radius);
     overflow: hidden;
 }
-.unpatti-kaprodi-foto img {
+.campusos-kaprodi-foto img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-.unpatti-kaprodi-placeholder {
+.campusos-kaprodi-placeholder {
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--unpatti-text-light);
+    color: var(--campusos-text-light);
 }
-.unpatti-kaprodi-placeholder .dashicons {
+.campusos-kaprodi-placeholder .dashicons {
     font-size: 80px;
     width: 80px;
     height: 80px;
 }
-.unpatti-kaprodi-content {
+.campusos-kaprodi-content {
     padding: 0;
 }
-.unpatti-kaprodi-title {
+.campusos-kaprodi-title {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--unpatti-primary);
+    color: var(--campusos-primary);
     margin: 0 0 1rem;
 }
-.unpatti-kaprodi-nama {
+.campusos-kaprodi-nama {
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--unpatti-secondary);
+    color: var(--campusos-secondary);
     margin: 0 0 0.25rem;
 }
-.unpatti-kaprodi-jabatan {
+.campusos-kaprodi-jabatan {
     font-size: 1rem;
-    color: var(--unpatti-text);
+    color: var(--campusos-text);
     margin: 0 0 1.5rem;
 }
-.unpatti-kaprodi-text {
+.campusos-kaprodi-text {
     font-size: 1rem;
     line-height: 1.8;
-    color: var(--unpatti-text);
+    color: var(--campusos-text);
     margin: 0 0 1.5rem;
 }
-.unpatti-btn {
+.campusos-btn {
     display: inline-block;
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
     font-weight: 600;
     text-decoration: none;
-    border-radius: var(--unpatti-radius);
+    border-radius: var(--campusos-radius);
     transition: all 0.2s;
 }
-.unpatti-btn-primary {
-    background: var(--unpatti-primary);
+.campusos-btn-primary {
+    background: var(--campusos-primary);
     color: #fff;
 }
-.unpatti-btn-primary:hover {
+.campusos-btn-primary:hover {
     background: #002244;
     color: #fff;
 }
 
 /* Compact Kaprodi */
-.unpatti-kaprodi-compact {
+.campusos-kaprodi-compact {
     text-align: center;
 }
-.unpatti-kaprodi-compact .unpatti-kaprodi-nama {
+.campusos-kaprodi-compact .campusos-kaprodi-nama {
     font-size: 1rem;
     margin-bottom: 0.25rem;
 }
-.unpatti-kaprodi-compact .unpatti-kaprodi-jabatan {
+.campusos-kaprodi-compact .campusos-kaprodi-jabatan {
     font-size: 0.875rem;
     margin-bottom: 0;
 }

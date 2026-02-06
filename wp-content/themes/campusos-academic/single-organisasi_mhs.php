@@ -14,8 +14,8 @@ while ( have_posts() ) : the_post();
     <div class="container">
         <h1><?php the_title(); ?></h1>
         <div class="breadcrumb">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'unpatti-academic' ); ?></a> &raquo;
-            <a href="<?php echo esc_url( get_post_type_archive_link( 'organisasi_mhs' ) ); ?>"><?php esc_html_e( 'Organisasi Mahasiswa', 'unpatti-academic' ); ?></a> &raquo;
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'campusos-academic' ); ?></a> &raquo;
+            <a href="<?php echo esc_url( get_post_type_archive_link( 'organisasi_mhs' ) ); ?>"><?php esc_html_e( 'Organisasi Mahasiswa', 'campusos-academic' ); ?></a> &raquo;
             <?php the_title(); ?>
         </div>
     </div>
@@ -39,7 +39,7 @@ while ( have_posts() ) : the_post();
 
             <?php if ( get_the_content() ) : ?>
                 <div class="organisasi-section">
-                    <h3><?php esc_html_e( 'Tentang Organisasi', 'unpatti-academic' ); ?></h3>
+                    <h3><?php esc_html_e( 'Tentang Organisasi', 'campusos-academic' ); ?></h3>
                     <div class="entry-content">
                         <?php the_content(); ?>
                     </div>
@@ -48,7 +48,7 @@ while ( have_posts() ) : the_post();
 
             <?php if ( $tupoksi ) : ?>
                 <div class="organisasi-section">
-                    <h3><?php esc_html_e( 'Tugas Pokok dan Fungsi', 'unpatti-academic' ); ?></h3>
+                    <h3><?php esc_html_e( 'Tugas Pokok dan Fungsi', 'campusos-academic' ); ?></h3>
                     <div class="organisasi-content">
                         <?php echo wp_kses_post( nl2br( $tupoksi ) ); ?>
                     </div>
@@ -57,7 +57,7 @@ while ( have_posts() ) : the_post();
 
             <?php if ( $program_kerja ) : ?>
                 <div class="organisasi-section">
-                    <h3><?php esc_html_e( 'Program Kerja', 'unpatti-academic' ); ?></h3>
+                    <h3><?php esc_html_e( 'Program Kerja', 'campusos-academic' ); ?></h3>
                     <div class="organisasi-content">
                         <?php echo wp_kses_post( nl2br( $program_kerja ) ); ?>
                     </div>
@@ -66,14 +66,14 @@ while ( have_posts() ) : the_post();
 
             <?php if ( $struktur ) : ?>
                 <div class="organisasi-section">
-                    <h3><?php esc_html_e( 'Struktur Organisasi', 'unpatti-academic' ); ?></h3>
+                    <h3><?php esc_html_e( 'Struktur Organisasi', 'campusos-academic' ); ?></h3>
                     <div class="organisasi-struktur">
-                        <img src="<?php echo esc_url( wp_get_attachment_image_url( $struktur, 'full' ) ); ?>" alt="<?php esc_attr_e( 'Struktur Organisasi', 'unpatti-academic' ); ?>">
+                        <img src="<?php echo esc_url( wp_get_attachment_image_url( $struktur, 'full' ) ); ?>" alt="<?php esc_attr_e( 'Struktur Organisasi', 'campusos-academic' ); ?>">
                     </div>
                 </div>
             <?php endif; ?>
 
-            <?php unpatti_social_share(); ?>
+            <?php campusos_social_share(); ?>
 
             <?php
             // Related Organisasi
@@ -87,7 +87,7 @@ while ( have_posts() ) : the_post();
             if ( $related->have_posts() ) :
             ?>
                 <div class="related-organisasi">
-                    <h3><?php esc_html_e( 'Organisasi Lainnya', 'unpatti-academic' ); ?></h3>
+                    <h3><?php esc_html_e( 'Organisasi Lainnya', 'campusos-academic' ); ?></h3>
                     <div class="organisasi-grid organisasi-grid-small">
                         <?php while ( $related->have_posts() ) : $related->the_post();
                             $rel_logo = get_post_meta( get_the_ID(), 'organisasi_mhs_logo_org', true );

@@ -60,7 +60,7 @@ $query = new WP_Query( array(
                                 </p>
                             <?php endif; ?>
                         </div>
-                        <a href="<?php the_permalink(); ?>" class="btn btn-outline btn-sm"><?php esc_html_e( 'Lihat Detail', 'unpatti-academic' ); ?></a>
+                        <a href="<?php the_permalink(); ?>" class="btn btn-outline btn-sm"><?php esc_html_e( 'Lihat Detail', 'campusos-academic' ); ?></a>
                     </div>
                 </article>
                 <?php endwhile; wp_reset_postdata(); ?>
@@ -79,7 +79,7 @@ $query = new WP_Query( array(
             echo '</div>';
             ?>
         <?php else : ?>
-            <p class="no-content"><?php esc_html_e( 'Belum ada agenda.', 'unpatti-academic' ); ?></p>
+            <p class="no-content"><?php esc_html_e( 'Belum ada agenda.', 'campusos-academic' ); ?></p>
         <?php endif; ?>
         <?php endif; ?>
     </div>

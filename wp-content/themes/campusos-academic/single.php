@@ -3,7 +3,7 @@
     <div class="container">
         <h1><?php the_title(); ?></h1>
         <div class="breadcrumb">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'unpatti-academic' ); ?></a> &raquo;
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'campusos-academic' ); ?></a> &raquo;
             <?php the_title(); ?>
         </div>
     </div>
@@ -21,7 +21,7 @@
                         <span class="posted-by"><?php the_author(); ?></span>
                     </div>
                     <div class="entry-content"><?php the_content(); ?></div>
-                    <?php unpatti_social_share(); ?>
+                    <?php campusos_social_share(); ?>
                 <?php endwhile; ?>
             </article>
             <?php get_sidebar(); ?>

@@ -1,5 +1,5 @@
 <?php
-namespace UNPATTI\Core\Admin;
+namespace CampusOS\Core\Admin;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 class Pimpinan_Settings {
 
-    private $option_name = 'unpatti_pimpinan_settings';
+    private $option_name = 'campusos_pimpinan_settings';
 
     public function __construct() {
         add_action( 'admin_menu', [ $this, 'add_menu_page' ] );
@@ -22,10 +22,10 @@ class Pimpinan_Settings {
      */
     public function add_menu_page() {
         add_menu_page(
-            __( 'Pimpinan', 'unpatti-academic' ),
-            __( 'Pimpinan', 'unpatti-academic' ),
+            __( 'Pimpinan', 'campusos-academic' ),
+            __( 'Pimpinan', 'campusos-academic' ),
             'manage_options',
-            'unpatti-pimpinan',
+            'campusos-pimpinan',
             [ $this, 'render_page' ],
             'dashicons-businessman',
             26
@@ -36,22 +36,22 @@ class Pimpinan_Settings {
      * Enqueue media scripts for image upload
      */
     public function enqueue_scripts( $hook ) {
-        if ( $hook !== 'toplevel_page_unpatti-pimpinan' ) {
+        if ( $hook !== 'toplevel_page_campusos-pimpinan' ) {
             return;
         }
         wp_enqueue_media();
         wp_enqueue_script(
-            'unpatti-pimpinan-settings',
-            UNPATTI_CORE_URL . 'assets/js/pimpinan-settings.js',
+            'campusos-pimpinan-settings',
+            CAMPUSOS_CORE_URL . 'assets/js/pimpinan-settings.js',
             [ 'jquery' ],
-            UNPATTI_CORE_VERSION,
+            CAMPUSOS_CORE_VERSION,
             true
         );
         wp_enqueue_style(
-            'unpatti-pimpinan-settings',
-            UNPATTI_CORE_URL . 'assets/css/pimpinan-settings.css',
+            'campusos-pimpinan-settings',
+            CAMPUSOS_CORE_URL . 'assets/css/pimpinan-settings.css',
             [],
-            UNPATTI_CORE_VERSION
+            CAMPUSOS_CORE_VERSION
         );
     }
 
@@ -60,7 +60,7 @@ class Pimpinan_Settings {
      */
     public function register_settings() {
         register_setting(
-            'unpatti_pimpinan_group',
+            'campusos_pimpinan_group',
             $this->option_name,
             [ $this, 'sanitize_settings' ]
         );
@@ -103,7 +103,7 @@ class Pimpinan_Settings {
             'sambutan' => '',
         ];
 
-        $settings = get_option( 'unpatti_pimpinan_settings', [] );
+        $settings = get_option( 'campusos_pimpinan_settings', [] );
         return wp_parse_args( $settings, $defaults );
     }
 
@@ -114,39 +114,39 @@ class Pimpinan_Settings {
         $settings = self::get_settings();
         $foto_url = $settings['foto_id'] ? wp_get_attachment_image_url( $settings['foto_id'], 'medium' ) : '';
         ?>
-        <div class="wrap unpatti-pimpinan-settings">
-            <h1><?php esc_html_e( 'Pengaturan Pimpinan', 'unpatti-academic' ); ?></h1>
-            <p class="description"><?php esc_html_e( 'Konfigurasi data Ketua Program Studi yang akan ditampilkan di halaman Sambutan.', 'unpatti-academic' ); ?></p>
+        <div class="wrap campusos-pimpinan-settings">
+            <h1><?php esc_html_e( 'Pengaturan Pimpinan', 'campusos-academic' ); ?></h1>
+            <p class="description"><?php esc_html_e( 'Konfigurasi data Ketua Program Studi yang akan ditampilkan di halaman Sambutan.', 'campusos-academic' ); ?></p>
 
             <form method="post" action="options.php">
-                <?php settings_fields( 'unpatti_pimpinan_group' ); ?>
+                <?php settings_fields( 'campusos_pimpinan_group' ); ?>
 
                 <div class="pimpinan-form-container">
                     <div class="pimpinan-photo-section">
-                        <h2><?php esc_html_e( 'Foto', 'unpatti-academic' ); ?></h2>
+                        <h2><?php esc_html_e( 'Foto', 'campusos-academic' ); ?></h2>
                         <div class="pimpinan-photo-wrapper">
                             <div class="pimpinan-photo-preview" id="foto-preview" style="<?php echo $foto_url ? '' : 'display:none;'; ?>">
                                 <img src="<?php echo esc_url( $foto_url ); ?>" alt="" id="foto-preview-img">
                             </div>
                             <div class="pimpinan-photo-placeholder" id="foto-placeholder" style="<?php echo $foto_url ? 'display:none;' : ''; ?>">
                                 <span class="dashicons dashicons-admin-users"></span>
-                                <span><?php esc_html_e( 'Belum ada foto', 'unpatti-academic' ); ?></span>
+                                <span><?php esc_html_e( 'Belum ada foto', 'campusos-academic' ); ?></span>
                             </div>
                             <input type="hidden" name="<?php echo esc_attr( $this->option_name ); ?>[foto_id]" id="foto_id" value="<?php echo esc_attr( $settings['foto_id'] ); ?>">
                             <div class="pimpinan-photo-buttons">
-                                <button type="button" class="button" id="upload-foto-btn"><?php esc_html_e( 'Pilih Foto', 'unpatti-academic' ); ?></button>
-                                <button type="button" class="button" id="remove-foto-btn" style="<?php echo $foto_url ? '' : 'display:none;'; ?>"><?php esc_html_e( 'Hapus', 'unpatti-academic' ); ?></button>
+                                <button type="button" class="button" id="upload-foto-btn"><?php esc_html_e( 'Pilih Foto', 'campusos-academic' ); ?></button>
+                                <button type="button" class="button" id="remove-foto-btn" style="<?php echo $foto_url ? '' : 'display:none;'; ?>"><?php esc_html_e( 'Hapus', 'campusos-academic' ); ?></button>
                             </div>
                         </div>
                     </div>
 
                     <div class="pimpinan-info-section">
-                        <h2><?php esc_html_e( 'Informasi Pimpinan', 'unpatti-academic' ); ?></h2>
+                        <h2><?php esc_html_e( 'Informasi Pimpinan', 'campusos-academic' ); ?></h2>
 
                         <table class="form-table">
                             <tr>
                                 <th scope="row">
-                                    <label for="nama"><?php esc_html_e( 'Nama Lengkap', 'unpatti-academic' ); ?></label>
+                                    <label for="nama"><?php esc_html_e( 'Nama Lengkap', 'campusos-academic' ); ?></label>
                                 </th>
                                 <td>
                                     <input type="text" id="nama" name="<?php echo esc_attr( $this->option_name ); ?>[nama]" value="<?php echo esc_attr( $settings['nama'] ); ?>" class="regular-text" placeholder="Contoh: John Doe">
@@ -154,7 +154,7 @@ class Pimpinan_Settings {
                             </tr>
                             <tr>
                                 <th scope="row">
-                                    <label for="gelar_depan"><?php esc_html_e( 'Gelar Depan', 'unpatti-academic' ); ?></label>
+                                    <label for="gelar_depan"><?php esc_html_e( 'Gelar Depan', 'campusos-academic' ); ?></label>
                                 </th>
                                 <td>
                                     <input type="text" id="gelar_depan" name="<?php echo esc_attr( $this->option_name ); ?>[gelar_depan]" value="<?php echo esc_attr( $settings['gelar_depan'] ); ?>" class="regular-text" placeholder="Contoh: Dr., Prof., Ir.">
@@ -162,7 +162,7 @@ class Pimpinan_Settings {
                             </tr>
                             <tr>
                                 <th scope="row">
-                                    <label for="gelar_belakang"><?php esc_html_e( 'Gelar Belakang', 'unpatti-academic' ); ?></label>
+                                    <label for="gelar_belakang"><?php esc_html_e( 'Gelar Belakang', 'campusos-academic' ); ?></label>
                                 </th>
                                 <td>
                                     <input type="text" id="gelar_belakang" name="<?php echo esc_attr( $this->option_name ); ?>[gelar_belakang]" value="<?php echo esc_attr( $settings['gelar_belakang'] ); ?>" class="regular-text" placeholder="Contoh: S.Kom., M.Cs., Ph.D.">
@@ -170,7 +170,7 @@ class Pimpinan_Settings {
                             </tr>
                             <tr>
                                 <th scope="row">
-                                    <label for="nip"><?php esc_html_e( 'NIP', 'unpatti-academic' ); ?></label>
+                                    <label for="nip"><?php esc_html_e( 'NIP', 'campusos-academic' ); ?></label>
                                 </th>
                                 <td>
                                     <input type="text" id="nip" name="<?php echo esc_attr( $this->option_name ); ?>[nip]" value="<?php echo esc_attr( $settings['nip'] ); ?>" class="regular-text">
@@ -178,7 +178,7 @@ class Pimpinan_Settings {
                             </tr>
                             <tr>
                                 <th scope="row">
-                                    <label for="jabatan"><?php esc_html_e( 'Jabatan', 'unpatti-academic' ); ?></label>
+                                    <label for="jabatan"><?php esc_html_e( 'Jabatan', 'campusos-academic' ); ?></label>
                                 </th>
                                 <td>
                                     <input type="text" id="jabatan" name="<?php echo esc_attr( $this->option_name ); ?>[jabatan]" value="<?php echo esc_attr( $settings['jabatan'] ); ?>" class="regular-text" placeholder="Contoh: Ketua Program Studi">
@@ -186,7 +186,7 @@ class Pimpinan_Settings {
                             </tr>
                             <tr>
                                 <th scope="row">
-                                    <label for="email"><?php esc_html_e( 'Email', 'unpatti-academic' ); ?></label>
+                                    <label for="email"><?php esc_html_e( 'Email', 'campusos-academic' ); ?></label>
                                 </th>
                                 <td>
                                     <input type="email" id="email" name="<?php echo esc_attr( $this->option_name ); ?>[email]" value="<?php echo esc_attr( $settings['email'] ); ?>" class="regular-text">
@@ -194,7 +194,7 @@ class Pimpinan_Settings {
                             </tr>
                             <tr>
                                 <th scope="row">
-                                    <label for="periode"><?php esc_html_e( 'Periode Jabatan', 'unpatti-academic' ); ?></label>
+                                    <label for="periode"><?php esc_html_e( 'Periode Jabatan', 'campusos-academic' ); ?></label>
                                 </th>
                                 <td>
                                     <input type="text" id="periode" name="<?php echo esc_attr( $this->option_name ); ?>[periode]" value="<?php echo esc_attr( $settings['periode'] ); ?>" class="regular-text" placeholder="Contoh: 2022-2026">
@@ -202,11 +202,11 @@ class Pimpinan_Settings {
                             </tr>
                             <tr>
                                 <th scope="row">
-                                    <label for="bio"><?php esc_html_e( 'Bio Singkat', 'unpatti-academic' ); ?></label>
+                                    <label for="bio"><?php esc_html_e( 'Bio Singkat', 'campusos-academic' ); ?></label>
                                 </th>
                                 <td>
                                     <textarea id="bio" name="<?php echo esc_attr( $this->option_name ); ?>[bio]" rows="3" class="large-text"><?php echo esc_textarea( $settings['bio'] ); ?></textarea>
-                                    <p class="description"><?php esc_html_e( 'Riwayat singkat pimpinan (pendidikan, keahlian, dll).', 'unpatti-academic' ); ?></p>
+                                    <p class="description"><?php esc_html_e( 'Riwayat singkat pimpinan (pendidikan, keahlian, dll).', 'campusos-academic' ); ?></p>
                                 </td>
                             </tr>
                         </table>
@@ -214,8 +214,8 @@ class Pimpinan_Settings {
                 </div>
 
                 <div class="pimpinan-sambutan-section">
-                    <h2><?php esc_html_e( 'Teks Sambutan', 'unpatti-academic' ); ?></h2>
-                    <p class="description"><?php esc_html_e( 'Tulis sambutan lengkap dari Ketua Program Studi yang akan ditampilkan di halaman Sambutan.', 'unpatti-academic' ); ?></p>
+                    <h2><?php esc_html_e( 'Teks Sambutan', 'campusos-academic' ); ?></h2>
+                    <p class="description"><?php esc_html_e( 'Tulis sambutan lengkap dari Ketua Program Studi yang akan ditampilkan di halaman Sambutan.', 'campusos-academic' ); ?></p>
                     <?php
                     wp_editor( $settings['sambutan'], 'sambutan', [
                         'textarea_name' => $this->option_name . '[sambutan]',
@@ -227,7 +227,7 @@ class Pimpinan_Settings {
                     ?>
                 </div>
 
-                <?php submit_button( __( 'Simpan Pengaturan', 'unpatti-academic' ) ); ?>
+                <?php submit_button( __( 'Simpan Pengaturan', 'campusos-academic' ) ); ?>
             </form>
         </div>
         <?php

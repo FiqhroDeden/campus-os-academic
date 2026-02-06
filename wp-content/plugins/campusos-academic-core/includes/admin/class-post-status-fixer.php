@@ -1,5 +1,5 @@
 <?php
-namespace UNPATTI\Core\Admin;
+namespace CampusOS\Core\Admin;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -48,7 +48,7 @@ class Post_Status_Fixer {
         add_action( 'admin_footer-post-new.php', [ $this, 'add_publish_status_option' ] );
 
         // Handle publish all scheduled action
-        add_action( 'admin_post_unpatti_publish_scheduled', [ $this, 'handle_publish_scheduled' ] );
+        add_action( 'admin_post_campusos_publish_scheduled', [ $this, 'handle_publish_scheduled' ] );
 
         // Prevent future posts from becoming scheduled - Classic Editor
         add_filter( 'wp_insert_post_data', [ $this, 'prevent_scheduled_status' ], 99, 2 );
@@ -91,7 +91,7 @@ class Post_Status_Fixer {
             <p>
                 <?php
                 printf(
-                    esc_html( _n( '%d post berhasil di-publish.', '%d posts berhasil di-publish.', $count, 'unpatti-academic' ) ),
+                    esc_html( _n( '%d post berhasil di-publish.', '%d posts berhasil di-publish.', $count, 'campusos-academic' ) ),
                     $count
                 );
                 ?>
@@ -104,7 +104,7 @@ class Post_Status_Fixer {
      * Add "Publish Now" to bulk actions dropdown
      */
     public function add_publish_bulk_action( $bulk_actions ) {
-        $bulk_actions['unpatti_publish_now'] = __( 'Publish Sekarang', 'unpatti-academic' );
+        $bulk_actions['campusos_publish_now'] = __( 'Publish Sekarang', 'campusos-academic' );
         return $bulk_actions;
     }
 
@@ -112,7 +112,7 @@ class Post_Status_Fixer {
      * Handle bulk publish action
      */
     public function handle_publish_bulk_action( $redirect_to, $action, $post_ids ) {
-        if ( $action !== 'unpatti_publish_now' ) {
+        if ( $action !== 'campusos_publish_now' ) {
             return $redirect_to;
         }
 
@@ -152,7 +152,7 @@ class Post_Status_Fixer {
             // Function to add publish option if not exists
             function addPublishOption($select) {
                 if ($select.find('option[value="publish"]').length === 0) {
-                    $select.prepend('<option value="publish"><?php echo esc_js( __( 'Published', 'unpatti-academic' ) ); ?></option>');
+                    $select.prepend('<option value="publish"><?php echo esc_js( __( 'Published', 'campusos-academic' ) ); ?></option>');
                 }
             }
 
@@ -325,13 +325,13 @@ class Post_Status_Fixer {
             // Add "Published" option to status dropdown
             var $statusSelect = $('#post_status');
             if ($statusSelect.length && $statusSelect.find('option[value="publish"]').length === 0) {
-                $statusSelect.prepend('<option value="publish"><?php echo esc_js( __( 'Published', 'unpatti-academic' ) ); ?></option>');
+                $statusSelect.prepend('<option value="publish"><?php echo esc_js( __( 'Published', 'campusos-academic' ) ); ?></option>');
             }
 
             // Update the display text when publish is selected
             $statusSelect.on('change', function() {
                 if ($(this).val() === 'publish') {
-                    $('#post-status-display').text('<?php echo esc_js( __( 'Published', 'unpatti-academic' ) ); ?>');
+                    $('#post-status-display').text('<?php echo esc_js( __( 'Published', 'campusos-academic' ) ); ?>');
                 }
             });
 
@@ -340,12 +340,12 @@ class Post_Status_Fixer {
             if ($publishActions.length) {
                 $publishActions.append(
                     '<div class="misc-pub-section" style="border-top: 1px solid #ddd; padding-top: 10px; margin-top: 10px;">' +
-                    '<a href="#" id="unpatti-quick-publish" class="button button-primary" style="width: 100%;">' +
-                    '<?php echo esc_js( __( 'Publish Sekarang', 'unpatti-academic' ) ); ?>' +
+                    '<a href="#" id="campusos-quick-publish" class="button button-primary" style="width: 100%;">' +
+                    '<?php echo esc_js( __( 'Publish Sekarang', 'campusos-academic' ) ); ?>' +
                     '</a></div>'
                 );
 
-                $('#unpatti-quick-publish').on('click', function(e) {
+                $('#campusos-quick-publish').on('click', function(e) {
                     e.preventDefault();
                     $statusSelect.val('publish').trigger('change');
                     // Set date to now
@@ -419,17 +419,17 @@ class Post_Status_Fixer {
      */
     public function handle_publish_scheduled() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( __( 'Unauthorized', 'unpatti-academic' ) );
+            wp_die( __( 'Unauthorized', 'campusos-academic' ) );
         }
 
-        check_admin_referer( 'unpatti_publish_scheduled' );
+        check_admin_referer( 'campusos_publish_scheduled' );
 
         $post_type = isset( $_GET['post_type'] ) ? sanitize_text_field( $_GET['post_type'] ) : '';
 
         $count = $this->publish_all_scheduled( $post_type );
 
         $redirect = add_query_arg( [
-            'page' => 'unpatti-academic',
+            'page' => 'campusos-academic',
             'tab' => 'tools',
             'published' => $count,
         ], admin_url( 'admin.php' ) );
@@ -517,21 +517,21 @@ class Post_Status_Fixer {
         $type_name = $post_type_obj ? $post_type_obj->labels->name : $screen->post_type;
 
         $publish_url = wp_nonce_url(
-            admin_url( 'admin-post.php?action=unpatti_publish_scheduled&post_type=' . $screen->post_type ),
-            'unpatti_publish_scheduled'
+            admin_url( 'admin-post.php?action=campusos_publish_scheduled&post_type=' . $screen->post_type ),
+            'campusos_publish_scheduled'
         );
         ?>
         <div class="notice notice-warning is-dismissible">
             <p>
                 <?php
                 printf(
-                    esc_html__( 'Ada %d %s dengan status "Scheduled". ', 'unpatti-academic' ),
+                    esc_html__( 'Ada %d %s dengan status "Scheduled". ', 'campusos-academic' ),
                     $count,
                     esc_html( $type_name )
                 );
                 ?>
                 <a href="<?php echo esc_url( $publish_url ); ?>" class="button button-small">
-                    <?php esc_html_e( 'Publish Semua Sekarang', 'unpatti-academic' ); ?>
+                    <?php esc_html_e( 'Publish Semua Sekarang', 'campusos-academic' ); ?>
                 </a>
             </p>
         </div>
@@ -546,19 +546,19 @@ class Post_Status_Fixer {
         if ( isset( $_GET['published'] ) ) {
             $count = absint( $_GET['published'] );
             echo '<div class="notice notice-success"><p>' .
-                 sprintf( esc_html__( '%d post berhasil di-publish.', 'unpatti-academic' ), $count ) .
+                 sprintf( esc_html__( '%d post berhasil di-publish.', 'campusos-academic' ), $count ) .
                  '</p></div>';
         }
         ?>
-        <h3><?php esc_html_e( 'Perbaiki Post Scheduled', 'unpatti-academic' ); ?></h3>
-        <p><?php esc_html_e( 'Post dengan status "Scheduled" tidak akan muncul di frontend. Gunakan tombol di bawah untuk mengubah semua post scheduled menjadi published.', 'unpatti-academic' ); ?></p>
+        <h3><?php esc_html_e( 'Perbaiki Post Scheduled', 'campusos-academic' ); ?></h3>
+        <p><?php esc_html_e( 'Post dengan status "Scheduled" tidak akan muncul di frontend. Gunakan tombol di bawah untuk mengubah semua post scheduled menjadi published.', 'campusos-academic' ); ?></p>
 
         <table class="wp-list-table widefat fixed striped">
             <thead>
                 <tr>
-                    <th><?php esc_html_e( 'Post Type', 'unpatti-academic' ); ?></th>
-                    <th style="width: 100px;"><?php esc_html_e( 'Scheduled', 'unpatti-academic' ); ?></th>
-                    <th style="width: 150px;"><?php esc_html_e( 'Aksi', 'unpatti-academic' ); ?></th>
+                    <th><?php esc_html_e( 'Post Type', 'campusos-academic' ); ?></th>
+                    <th style="width: 100px;"><?php esc_html_e( 'Scheduled', 'campusos-academic' ); ?></th>
+                    <th style="width: 150px;"><?php esc_html_e( 'Aksi', 'campusos-academic' ); ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -576,7 +576,7 @@ class Post_Status_Fixer {
                             <strong><?php echo esc_html( $post_type_obj->labels->name ); ?></strong>
                             <br>
                             <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=' . $cpt ) ); ?>" class="row-actions">
-                                <?php esc_html_e( 'Lihat Semua', 'unpatti-academic' ); ?>
+                                <?php esc_html_e( 'Lihat Semua', 'campusos-academic' ); ?>
                             </a>
                         </td>
                         <td>
@@ -589,13 +589,13 @@ class Post_Status_Fixer {
                         <td>
                             <?php if ( $count > 0 ) : ?>
                                 <a href="<?php echo esc_url( wp_nonce_url(
-                                    admin_url( 'admin-post.php?action=unpatti_publish_scheduled&post_type=' . $cpt ),
-                                    'unpatti_publish_scheduled'
+                                    admin_url( 'admin-post.php?action=campusos_publish_scheduled&post_type=' . $cpt ),
+                                    'campusos_publish_scheduled'
                                 ) ); ?>" class="button button-small">
-                                    <?php esc_html_e( 'Publish', 'unpatti-academic' ); ?>
+                                    <?php esc_html_e( 'Publish', 'campusos-academic' ); ?>
                                 </a>
                             <?php else : ?>
-                                <button class="button button-small" disabled><?php esc_html_e( 'Publish', 'unpatti-academic' ); ?></button>
+                                <button class="button button-small" disabled><?php esc_html_e( 'Publish', 'campusos-academic' ); ?></button>
                             <?php endif; ?>
                         </td>
                     </tr>
@@ -603,7 +603,7 @@ class Post_Status_Fixer {
             </tbody>
             <tfoot>
                 <tr>
-                    <th><strong><?php esc_html_e( 'Total', 'unpatti-academic' ); ?></strong></th>
+                    <th><strong><?php esc_html_e( 'Total', 'campusos-academic' ); ?></strong></th>
                     <th>
                         <?php if ( $total_scheduled > 0 ) : ?>
                             <span style="color: #d63638; font-weight: 600;"><?php echo esc_html( $total_scheduled ); ?></span>
@@ -614,10 +614,10 @@ class Post_Status_Fixer {
                     <th>
                         <?php if ( $total_scheduled > 0 ) : ?>
                             <a href="<?php echo esc_url( wp_nonce_url(
-                                admin_url( 'admin-post.php?action=unpatti_publish_scheduled' ),
-                                'unpatti_publish_scheduled'
+                                admin_url( 'admin-post.php?action=campusos_publish_scheduled' ),
+                                'campusos_publish_scheduled'
                             ) ); ?>" class="button button-primary button-small">
-                                <?php esc_html_e( 'Publish Semua', 'unpatti-academic' ); ?>
+                                <?php esc_html_e( 'Publish Semua', 'campusos-academic' ); ?>
                             </a>
                         <?php endif; ?>
                     </th>
@@ -627,24 +627,24 @@ class Post_Status_Fixer {
 
         <hr style="margin: 30px 0;">
 
-        <h3><?php esc_html_e( 'Informasi Timezone', 'unpatti-academic' ); ?></h3>
+        <h3><?php esc_html_e( 'Informasi Timezone', 'campusos-academic' ); ?></h3>
         <table class="form-table">
             <tr>
-                <th><?php esc_html_e( 'Timezone WordPress', 'unpatti-academic' ); ?></th>
+                <th><?php esc_html_e( 'Timezone WordPress', 'campusos-academic' ); ?></th>
                 <td><code><?php echo esc_html( wp_timezone_string() ); ?></code></td>
             </tr>
             <tr>
-                <th><?php esc_html_e( 'Waktu Server Saat Ini', 'unpatti-academic' ); ?></th>
+                <th><?php esc_html_e( 'Waktu Server Saat Ini', 'campusos-academic' ); ?></th>
                 <td><code><?php echo esc_html( current_time( 'Y-m-d H:i:s' ) ); ?></code></td>
             </tr>
             <tr>
-                <th><?php esc_html_e( 'Waktu UTC', 'unpatti-academic' ); ?></th>
+                <th><?php esc_html_e( 'Waktu UTC', 'campusos-academic' ); ?></th>
                 <td><code><?php echo esc_html( current_time( 'Y-m-d H:i:s', true ) ); ?></code></td>
             </tr>
         </table>
         <p>
             <a href="<?php echo esc_url( admin_url( 'options-general.php' ) ); ?>" class="button">
-                <?php esc_html_e( 'Ubah Pengaturan Timezone', 'unpatti-academic' ); ?>
+                <?php esc_html_e( 'Ubah Pengaturan Timezone', 'campusos-academic' ); ?>
             </a>
         </p>
         <?php

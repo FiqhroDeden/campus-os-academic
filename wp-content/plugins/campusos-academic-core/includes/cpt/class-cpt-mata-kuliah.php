@@ -1,5 +1,5 @@
 <?php
-namespace UNPATTI\Core\CPT;
+namespace CampusOS\Core\CPT;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -10,13 +10,13 @@ class CPT_Mata_Kuliah extends CPT_Base {
 
     protected function get_labels(): array {
         return [
-            'name'               => __( 'Mata Kuliah', 'unpatti-academic' ),
-            'singular_name'      => __( 'Mata Kuliah', 'unpatti-academic' ),
-            'add_new_item'       => __( 'Tambah Mata Kuliah', 'unpatti-academic' ),
-            'edit_item'          => __( 'Edit Mata Kuliah', 'unpatti-academic' ),
-            'all_items'          => __( 'Semua Mata Kuliah', 'unpatti-academic' ),
-            'search_items'       => __( 'Cari Mata Kuliah', 'unpatti-academic' ),
-            'not_found'          => __( 'Tidak ditemukan', 'unpatti-academic' ),
+            'name'               => __( 'Mata Kuliah', 'campusos-academic' ),
+            'singular_name'      => __( 'Mata Kuliah', 'campusos-academic' ),
+            'add_new_item'       => __( 'Tambah Mata Kuliah', 'campusos-academic' ),
+            'edit_item'          => __( 'Edit Mata Kuliah', 'campusos-academic' ),
+            'all_items'          => __( 'Semua Mata Kuliah', 'campusos-academic' ),
+            'search_items'       => __( 'Cari Mata Kuliah', 'campusos-academic' ),
+            'not_found'          => __( 'Tidak ditemukan', 'campusos-academic' ),
         ];
     }
 

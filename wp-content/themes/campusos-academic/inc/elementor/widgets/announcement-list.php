@@ -1,21 +1,21 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class UNPATTI_Announcement_List extends \Elementor\Widget_Base {
+class CampusOS_Announcement_List extends \Elementor\Widget_Base {
 
-    public function get_name() { return 'unpatti_announcement_list'; }
-    public function get_title() { return __( 'Announcement List', 'unpatti-academic' ); }
+    public function get_name() { return 'campusos_announcement_list'; }
+    public function get_title() { return __( 'Announcement List', 'campusos-academic' ); }
     public function get_icon() { return 'eicon-post-list'; }
-    public function get_categories() { return [ 'unpatti-academic' ]; }
+    public function get_categories() { return [ 'campusos-academic' ]; }
 
     protected function register_controls() {
         $this->start_controls_section( 'content_section', [
-            'label' => __( 'Settings', 'unpatti-academic' ),
+            'label' => __( 'Settings', 'campusos-academic' ),
             'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
         ] );
 
         $this->add_control( 'count', [
-            'label'   => __( 'Count', 'unpatti-academic' ),
+            'label'   => __( 'Count', 'campusos-academic' ),
             'type'    => \Elementor\Controls_Manager::NUMBER,
             'default' => 5,
             'min'     => 1,
@@ -23,7 +23,7 @@ class UNPATTI_Announcement_List extends \Elementor\Widget_Base {
         ] );
 
         $this->add_control( 'category_slug', [
-            'label'   => __( 'Category Slug', 'unpatti-academic' ),
+            'label'   => __( 'Category Slug', 'campusos-academic' ),
             'type'    => \Elementor\Controls_Manager::TEXT,
             'default' => 'pengumuman',
         ] );
@@ -33,7 +33,7 @@ class UNPATTI_Announcement_List extends \Elementor\Widget_Base {
 
     protected function render() {
         $settings = $this->get_settings_for_display();
-        $id       = 'unpatti-announce-' . $this->get_id();
+        $id       = 'campusos-announce-' . $this->get_id();
 
         $args = [
             'post_type'      => 'post',
@@ -52,31 +52,31 @@ class UNPATTI_Announcement_List extends \Elementor\Widget_Base {
                 display: flex; align-items: center; gap: 15px;
                 padding: 15px 0; border-bottom: 1px solid #eee;
             }
-            #<?php echo esc_attr( $id ); ?> .unpatti-announce-date {
+            #<?php echo esc_attr( $id ); ?> .campusos-announce-date {
                 flex-shrink: 0; width: 60px; height: 60px;
-                background: var(--unpatti-primary, #003d82); color: #fff;
+                background: var(--campusos-primary, #003d82); color: #fff;
                 display: flex; flex-direction: column; align-items: center; justify-content: center;
                 border-radius: 6px; font-size: 0.75rem; line-height: 1.3;
             }
-            #<?php echo esc_attr( $id ); ?> .unpatti-announce-date .day { font-size: 1.4rem; font-weight: 700; }
-            #<?php echo esc_attr( $id ); ?> .unpatti-announce-title a {
+            #<?php echo esc_attr( $id ); ?> .campusos-announce-date .day { font-size: 1.4rem; font-weight: 700; }
+            #<?php echo esc_attr( $id ); ?> .campusos-announce-title a {
                 color: #222; text-decoration: none; font-weight: 500; font-size: 1rem;
             }
-            #<?php echo esc_attr( $id ); ?> .unpatti-announce-title a:hover { color: var(--unpatti-primary, #003d82); }
+            #<?php echo esc_attr( $id ); ?> .campusos-announce-title a:hover { color: var(--campusos-primary, #003d82); }
         </style>
         <ul id="<?php echo esc_attr( $id ); ?>">
             <?php if ( $query->have_posts() ) : while ( $query->have_posts() ) : $query->the_post(); ?>
                 <li>
-                    <div class="unpatti-announce-date">
+                    <div class="campusos-announce-date">
                         <span class="day"><?php echo get_the_date( 'j' ); ?></span>
                         <span><?php echo get_the_date( 'M Y' ); ?></span>
                     </div>
-                    <div class="unpatti-announce-title">
+                    <div class="campusos-announce-title">
                         <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                     </div>
                 </li>
             <?php endwhile; wp_reset_postdata(); else : ?>
-                <li><?php esc_html_e( 'No announcements found.', 'unpatti-academic' ); ?></li>
+                <li><?php esc_html_e( 'No announcements found.', 'campusos-academic' ); ?></li>
             <?php endif; ?>
         </ul>
         <?php

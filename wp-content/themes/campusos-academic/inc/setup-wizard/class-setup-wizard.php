@@ -1,7 +1,7 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class UNPATTI_Setup_Wizard {
+class CampusOS_Setup_Wizard {
 
     private $steps = [];
     private $current_step = '';
@@ -10,24 +10,24 @@ class UNPATTI_Setup_Wizard {
         add_action( 'after_switch_theme', [ $this, 'on_theme_activate' ] );
         add_action( 'admin_init', [ $this, 'redirect_to_wizard' ] );
         add_action( 'admin_menu', [ $this, 'add_wizard_page' ] );
-        add_action( 'admin_post_unpatti_wizard_save', [ $this, 'handle_save' ] );
+        add_action( 'admin_post_campusos_wizard_save', [ $this, 'handle_save' ] );
         add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
     }
 
     public function on_theme_activate() {
-        if ( get_transient( 'unpatti_setup_wizard_done' ) ) {
+        if ( get_transient( 'campusos_setup_wizard_done' ) ) {
             return;
         }
-        set_transient( 'unpatti_setup_wizard_redirect', true, 30 );
+        set_transient( 'campusos_setup_wizard_redirect', true, 30 );
     }
 
     public function redirect_to_wizard() {
-        if ( ! get_transient( 'unpatti_setup_wizard_redirect' ) ) {
+        if ( ! get_transient( 'campusos_setup_wizard_redirect' ) ) {
             return;
         }
-        delete_transient( 'unpatti_setup_wizard_redirect' );
+        delete_transient( 'campusos_setup_wizard_redirect' );
 
-        if ( get_transient( 'unpatti_setup_wizard_done' ) ) {
+        if ( get_transient( 'campusos_setup_wizard_done' ) ) {
             return;
         }
 
@@ -35,38 +35,38 @@ class UNPATTI_Setup_Wizard {
             return;
         }
 
-        wp_safe_redirect( admin_url( 'admin.php?page=unpatti-setup-wizard' ) );
+        wp_safe_redirect( admin_url( 'admin.php?page=campusos-setup-wizard' ) );
         exit;
     }
 
     public function add_wizard_page() {
         add_submenu_page(
             null,
-            __( 'Setup Wizard', 'unpatti-academic' ),
-            __( 'Setup Wizard', 'unpatti-academic' ),
+            __( 'Setup Wizard', 'campusos-academic' ),
+            __( 'Setup Wizard', 'campusos-academic' ),
             'manage_options',
-            'unpatti-setup-wizard',
+            'campusos-setup-wizard',
             [ $this, 'render_wizard' ]
         );
     }
 
     public function enqueue_assets( $hook ) {
-        if ( 'admin_page_unpatti-setup-wizard' !== $hook ) {
+        if ( 'admin_page_campusos-setup-wizard' !== $hook ) {
             return;
         }
         wp_enqueue_style( 'wp-color-picker' );
         wp_enqueue_script( 'wp-color-picker' );
         wp_enqueue_media();
-        wp_enqueue_style( 'unpatti-wizard', UNPATTI_THEME_URI . '/inc/setup-wizard/wizard.css', [], UNPATTI_THEME_VERSION );
+        wp_enqueue_style( 'campusos-wizard', CAMPUSOS_THEME_URI . '/inc/setup-wizard/wizard.css', [], CAMPUSOS_THEME_VERSION );
     }
 
     private function get_steps() {
         return [
-            'welcome'   => __( 'Welcome', 'unpatti-academic' ),
-            'warna'     => __( 'Warna', 'unpatti-academic' ),
-            'identitas' => __( 'Identitas', 'unpatti-academic' ),
-            'demo'      => __( 'Demo Content', 'unpatti-academic' ),
-            'selesai'   => __( 'Selesai', 'unpatti-academic' ),
+            'welcome'   => __( 'Welcome', 'campusos-academic' ),
+            'warna'     => __( 'Warna', 'campusos-academic' ),
+            'identitas' => __( 'Identitas', 'campusos-academic' ),
+            'demo'      => __( 'Demo Content', 'campusos-academic' ),
+            'selesai'   => __( 'Selesai', 'campusos-academic' ),
         ];
     }
 
@@ -81,8 +81,8 @@ class UNPATTI_Setup_Wizard {
 
         $current_index = array_search( $this->current_step, $step_keys );
         ?>
-        <div class="wrap unpatti-setup-wizard">
-            <h1><?php esc_html_e( 'UNPATTI Academic — Setup Wizard', 'unpatti-academic' ); ?></h1>
+        <div class="wrap campusos-setup-wizard">
+            <h1><?php esc_html_e( 'CampusOS Academic — Setup Wizard', 'campusos-academic' ); ?></h1>
 
             <ul class="wizard-steps">
                 <?php foreach ( $steps as $key => $label ) :
@@ -105,7 +105,7 @@ class UNPATTI_Setup_Wizard {
             </div>
         </div>
         <style>
-        .unpatti-setup-wizard { max-width: 700px; margin: 40px auto; }
+        .campusos-setup-wizard { max-width: 700px; margin: 40px auto; }
         .wizard-steps { display: flex; list-style: none; padding: 0; margin: 0 0 30px; gap: 0; }
         .wizard-steps li { flex: 1; text-align: center; padding: 12px 8px; background: #f0f0f1; border-bottom: 3px solid #ddd; font-size: 13px; }
         .wizard-steps li.active { background: #fff; border-bottom-color: #2271b1; font-weight: 600; }
@@ -118,55 +118,55 @@ class UNPATTI_Setup_Wizard {
     }
 
     private function render_step_welcome() {
-        $mode = get_theme_mod( 'unpatti_site_mode', 'prodi' );
+        $mode = get_theme_mod( 'campusos_site_mode', 'prodi' );
         ?>
-        <h2><?php esc_html_e( 'Selamat Datang!', 'unpatti-academic' ); ?></h2>
-        <p><?php esc_html_e( 'Wizard ini akan membantu Anda mengatur tema UNPATTI Academic. Pilih mode situs Anda:', 'unpatti-academic' ); ?></p>
+        <h2><?php esc_html_e( 'Selamat Datang!', 'campusos-academic' ); ?></h2>
+        <p><?php esc_html_e( 'Wizard ini akan membantu Anda mengatur tema CampusOS Academic. Pilih mode situs Anda:', 'campusos-academic' ); ?></p>
         <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
-            <?php wp_nonce_field( 'unpatti_wizard_welcome' ); ?>
-            <input type="hidden" name="action" value="unpatti_wizard_save" />
+            <?php wp_nonce_field( 'campusos_wizard_welcome' ); ?>
+            <input type="hidden" name="action" value="campusos_wizard_save" />
             <input type="hidden" name="wizard_step" value="welcome" />
             <table class="form-table">
                 <tr>
-                    <th><?php esc_html_e( 'Mode Situs', 'unpatti-academic' ); ?></th>
+                    <th><?php esc_html_e( 'Mode Situs', 'campusos-academic' ); ?></th>
                     <td>
-                        <label><input type="radio" name="site_mode" value="fakultas" <?php checked( $mode, 'fakultas' ); ?> /> <?php esc_html_e( 'Fakultas', 'unpatti-academic' ); ?></label><br/>
-                        <label><input type="radio" name="site_mode" value="prodi" <?php checked( $mode, 'prodi' ); ?> /> <?php esc_html_e( 'Program Studi', 'unpatti-academic' ); ?></label>
+                        <label><input type="radio" name="site_mode" value="fakultas" <?php checked( $mode, 'fakultas' ); ?> /> <?php esc_html_e( 'Fakultas', 'campusos-academic' ); ?></label><br/>
+                        <label><input type="radio" name="site_mode" value="prodi" <?php checked( $mode, 'prodi' ); ?> /> <?php esc_html_e( 'Program Studi', 'campusos-academic' ); ?></label>
                     </td>
                 </tr>
             </table>
             <div class="wizard-nav">
                 <span></span>
-                <?php submit_button( __( 'Lanjut &rarr;', 'unpatti-academic' ), 'primary', 'submit', false ); ?>
+                <?php submit_button( __( 'Lanjut &rarr;', 'campusos-academic' ), 'primary', 'submit', false ); ?>
             </div>
         </form>
         <?php
     }
 
     private function render_step_warna() {
-        $primary   = get_theme_mod( 'unpatti_primary_color', '#003d82' );
-        $secondary = get_theme_mod( 'unpatti_secondary_color', '#e67e22' );
+        $primary   = get_theme_mod( 'campusos_primary_color', '#003d82' );
+        $secondary = get_theme_mod( 'campusos_secondary_color', '#e67e22' );
         ?>
-        <h2><?php esc_html_e( 'Warna Situs', 'unpatti-academic' ); ?></h2>
-        <p><?php esc_html_e( 'Pilih warna utama dan sekunder untuk situs Anda.', 'unpatti-academic' ); ?></p>
+        <h2><?php esc_html_e( 'Warna Situs', 'campusos-academic' ); ?></h2>
+        <p><?php esc_html_e( 'Pilih warna utama dan sekunder untuk situs Anda.', 'campusos-academic' ); ?></p>
         <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
-            <?php wp_nonce_field( 'unpatti_wizard_warna' ); ?>
-            <input type="hidden" name="action" value="unpatti_wizard_save" />
+            <?php wp_nonce_field( 'campusos_wizard_warna' ); ?>
+            <input type="hidden" name="action" value="campusos_wizard_save" />
             <input type="hidden" name="wizard_step" value="warna" />
             <table class="form-table">
                 <tr>
-                    <th><?php esc_html_e( 'Warna Primary', 'unpatti-academic' ); ?></th>
-                    <td><input type="text" name="primary_color" value="<?php echo esc_attr( $primary ); ?>" class="unpatti-color-field" /></td>
+                    <th><?php esc_html_e( 'Warna Primary', 'campusos-academic' ); ?></th>
+                    <td><input type="text" name="primary_color" value="<?php echo esc_attr( $primary ); ?>" class="campusos-color-field" /></td>
                 </tr>
                 <tr>
-                    <th><?php esc_html_e( 'Warna Secondary', 'unpatti-academic' ); ?></th>
-                    <td><input type="text" name="secondary_color" value="<?php echo esc_attr( $secondary ); ?>" class="unpatti-color-field" /></td>
+                    <th><?php esc_html_e( 'Warna Secondary', 'campusos-academic' ); ?></th>
+                    <td><input type="text" name="secondary_color" value="<?php echo esc_attr( $secondary ); ?>" class="campusos-color-field" /></td>
                 </tr>
             </table>
-            <script>jQuery(document).ready(function($){ $('.unpatti-color-field').wpColorPicker(); });</script>
+            <script>jQuery(document).ready(function($){ $('.campusos-color-field').wpColorPicker(); });</script>
             <div class="wizard-nav">
-                <a href="<?php echo esc_url( admin_url( 'admin.php?page=unpatti-setup-wizard&step=welcome' ) ); ?>" class="button"><?php esc_html_e( '&larr; Kembali', 'unpatti-academic' ); ?></a>
-                <?php submit_button( __( 'Lanjut &rarr;', 'unpatti-academic' ), 'primary', 'submit', false ); ?>
+                <a href="<?php echo esc_url( admin_url( 'admin.php?page=campusos-setup-wizard&step=welcome' ) ); ?>" class="button"><?php esc_html_e( '&larr; Kembali', 'campusos-academic' ); ?></a>
+                <?php submit_button( __( 'Lanjut &rarr;', 'campusos-academic' ), 'primary', 'submit', false ); ?>
             </div>
         </form>
         <?php
@@ -174,44 +174,44 @@ class UNPATTI_Setup_Wizard {
 
     private function render_step_identitas() {
         $logo_id = get_theme_mod( 'custom_logo', '' );
-        $name    = get_theme_mod( 'unpatti_institution_name', '' );
-        $address = get_theme_mod( 'unpatti_institution_address', '' );
+        $name    = get_theme_mod( 'campusos_institution_name', '' );
+        $address = get_theme_mod( 'campusos_institution_address', '' );
         ?>
-        <h2><?php esc_html_e( 'Identitas Institusi', 'unpatti-academic' ); ?></h2>
+        <h2><?php esc_html_e( 'Identitas Institusi', 'campusos-academic' ); ?></h2>
         <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
-            <?php wp_nonce_field( 'unpatti_wizard_identitas' ); ?>
-            <input type="hidden" name="action" value="unpatti_wizard_save" />
+            <?php wp_nonce_field( 'campusos_wizard_identitas' ); ?>
+            <input type="hidden" name="action" value="campusos_wizard_save" />
             <input type="hidden" name="wizard_step" value="identitas" />
             <table class="form-table">
                 <tr>
-                    <th><?php esc_html_e( 'Logo', 'unpatti-academic' ); ?></th>
+                    <th><?php esc_html_e( 'Logo', 'campusos-academic' ); ?></th>
                     <td>
-                        <input type="hidden" name="logo_id" id="unpatti-logo-id" value="<?php echo esc_attr( $logo_id ); ?>" />
-                        <div id="unpatti-logo-preview">
+                        <input type="hidden" name="logo_id" id="campusos-logo-id" value="<?php echo esc_attr( $logo_id ); ?>" />
+                        <div id="campusos-logo-preview">
                             <?php if ( $logo_id ) : ?>
                                 <?php echo wp_get_attachment_image( $logo_id, 'medium' ); ?>
                             <?php endif; ?>
                         </div>
-                        <button type="button" class="button" id="unpatti-upload-logo"><?php esc_html_e( 'Upload Logo', 'unpatti-academic' ); ?></button>
-                        <button type="button" class="button" id="unpatti-remove-logo" <?php echo empty( $logo_id ) ? 'style="display:none"' : ''; ?>><?php esc_html_e( 'Hapus', 'unpatti-academic' ); ?></button>
+                        <button type="button" class="button" id="campusos-upload-logo"><?php esc_html_e( 'Upload Logo', 'campusos-academic' ); ?></button>
+                        <button type="button" class="button" id="campusos-remove-logo" <?php echo empty( $logo_id ) ? 'style="display:none"' : ''; ?>><?php esc_html_e( 'Hapus', 'campusos-academic' ); ?></button>
                         <script>
                         jQuery(document).ready(function($){
                             var frame;
-                            $('#unpatti-upload-logo').on('click', function(e){
+                            $('#campusos-upload-logo').on('click', function(e){
                                 e.preventDefault();
                                 if (frame) { frame.open(); return; }
                                 frame = wp.media({ title: 'Pilih Logo', multiple: false, library: { type: 'image' } });
                                 frame.on('select', function(){
                                     var attachment = frame.state().get('selection').first().toJSON();
-                                    $('#unpatti-logo-id').val(attachment.id);
-                                    $('#unpatti-logo-preview').html('<img src="'+attachment.url+'" style="max-width:200px;"/>');
-                                    $('#unpatti-remove-logo').show();
+                                    $('#campusos-logo-id').val(attachment.id);
+                                    $('#campusos-logo-preview').html('<img src="'+attachment.url+'" style="max-width:200px;"/>');
+                                    $('#campusos-remove-logo').show();
                                 });
                                 frame.open();
                             });
-                            $('#unpatti-remove-logo').on('click', function(){
-                                $('#unpatti-logo-id').val('');
-                                $('#unpatti-logo-preview').html('');
+                            $('#campusos-remove-logo').on('click', function(){
+                                $('#campusos-logo-id').val('');
+                                $('#campusos-logo-preview').html('');
                                 $(this).hide();
                             });
                         });
@@ -219,17 +219,17 @@ class UNPATTI_Setup_Wizard {
                     </td>
                 </tr>
                 <tr>
-                    <th><?php esc_html_e( 'Nama Institusi', 'unpatti-academic' ); ?></th>
+                    <th><?php esc_html_e( 'Nama Institusi', 'campusos-academic' ); ?></th>
                     <td><input type="text" name="institution_name" value="<?php echo esc_attr( $name ); ?>" class="regular-text" /></td>
                 </tr>
                 <tr>
-                    <th><?php esc_html_e( 'Alamat', 'unpatti-academic' ); ?></th>
+                    <th><?php esc_html_e( 'Alamat', 'campusos-academic' ); ?></th>
                     <td><textarea name="institution_address" rows="3" class="large-text"><?php echo esc_textarea( $address ); ?></textarea></td>
                 </tr>
             </table>
             <div class="wizard-nav">
-                <a href="<?php echo esc_url( admin_url( 'admin.php?page=unpatti-setup-wizard&step=warna' ) ); ?>" class="button"><?php esc_html_e( '&larr; Kembali', 'unpatti-academic' ); ?></a>
-                <?php submit_button( __( 'Lanjut &rarr;', 'unpatti-academic' ), 'primary', 'submit', false ); ?>
+                <a href="<?php echo esc_url( admin_url( 'admin.php?page=campusos-setup-wizard&step=warna' ) ); ?>" class="button"><?php esc_html_e( '&larr; Kembali', 'campusos-academic' ); ?></a>
+                <?php submit_button( __( 'Lanjut &rarr;', 'campusos-academic' ), 'primary', 'submit', false ); ?>
             </div>
         </form>
         <?php
@@ -237,30 +237,30 @@ class UNPATTI_Setup_Wizard {
 
     private function render_step_demo() {
         ?>
-        <h2><?php esc_html_e( 'Demo Content', 'unpatti-academic' ); ?></h2>
-        <p><?php esc_html_e( 'Klik tombol di bawah untuk membuat halaman-halaman starter dan menu utama.', 'unpatti-academic' ); ?></p>
+        <h2><?php esc_html_e( 'Demo Content', 'campusos-academic' ); ?></h2>
+        <p><?php esc_html_e( 'Klik tombol di bawah untuk membuat halaman-halaman starter dan menu utama.', 'campusos-academic' ); ?></p>
         <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
-            <?php wp_nonce_field( 'unpatti_wizard_demo' ); ?>
-            <input type="hidden" name="action" value="unpatti_wizard_save" />
+            <?php wp_nonce_field( 'campusos_wizard_demo' ); ?>
+            <input type="hidden" name="action" value="campusos_wizard_save" />
             <input type="hidden" name="wizard_step" value="demo" />
-            <?php submit_button( __( 'Import Demo Content', 'unpatti-academic' ), 'primary', 'submit', false ); ?>
-            <p class="description"><?php esc_html_e( 'Halaman yang sudah ada (berdasarkan judul) tidak akan diduplikasi.', 'unpatti-academic' ); ?></p>
+            <?php submit_button( __( 'Import Demo Content', 'campusos-academic' ), 'primary', 'submit', false ); ?>
+            <p class="description"><?php esc_html_e( 'Halaman yang sudah ada (berdasarkan judul) tidak akan diduplikasi.', 'campusos-academic' ); ?></p>
             <div class="wizard-nav" style="margin-top:20px;">
-                <a href="<?php echo esc_url( admin_url( 'admin.php?page=unpatti-setup-wizard&step=identitas' ) ); ?>" class="button"><?php esc_html_e( '&larr; Kembali', 'unpatti-academic' ); ?></a>
-                <a href="<?php echo esc_url( admin_url( 'admin.php?page=unpatti-setup-wizard&step=selesai' ) ); ?>" class="button"><?php esc_html_e( 'Lewati &rarr;', 'unpatti-academic' ); ?></a>
+                <a href="<?php echo esc_url( admin_url( 'admin.php?page=campusos-setup-wizard&step=identitas' ) ); ?>" class="button"><?php esc_html_e( '&larr; Kembali', 'campusos-academic' ); ?></a>
+                <a href="<?php echo esc_url( admin_url( 'admin.php?page=campusos-setup-wizard&step=selesai' ) ); ?>" class="button"><?php esc_html_e( 'Lewati &rarr;', 'campusos-academic' ); ?></a>
             </div>
         </form>
         <?php
     }
 
     private function render_step_selesai() {
-        set_transient( 'unpatti_setup_wizard_done', true, 0 );
+        set_transient( 'campusos_setup_wizard_done', true, 0 );
         ?>
-        <h2><?php esc_html_e( 'Setup Selesai!', 'unpatti-academic' ); ?></h2>
-        <p><?php esc_html_e( 'Tema UNPATTI Academic sudah siap digunakan. Anda dapat melakukan kustomisasi lebih lanjut melalui Customizer.', 'unpatti-academic' ); ?></p>
+        <h2><?php esc_html_e( 'Setup Selesai!', 'campusos-academic' ); ?></h2>
+        <p><?php esc_html_e( 'Tema CampusOS Academic sudah siap digunakan. Anda dapat melakukan kustomisasi lebih lanjut melalui Customizer.', 'campusos-academic' ); ?></p>
         <div class="wizard-nav">
-            <a href="<?php echo esc_url( admin_url( 'customize.php' ) ); ?>" class="button button-primary"><?php esc_html_e( 'Buka Customizer', 'unpatti-academic' ); ?></a>
-            <a href="<?php echo esc_url( admin_url() ); ?>" class="button"><?php esc_html_e( 'Ke Dashboard', 'unpatti-academic' ); ?></a>
+            <a href="<?php echo esc_url( admin_url( 'customize.php' ) ); ?>" class="button button-primary"><?php esc_html_e( 'Buka Customizer', 'campusos-academic' ); ?></a>
+            <a href="<?php echo esc_url( admin_url() ); ?>" class="button"><?php esc_html_e( 'Ke Dashboard', 'campusos-academic' ); ?></a>
         </div>
         <?php
     }
@@ -269,7 +269,7 @@ class UNPATTI_Setup_Wizard {
         $step = isset( $_POST['wizard_step'] ) ? sanitize_key( $_POST['wizard_step'] ) : '';
 
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( __( 'Unauthorized', 'unpatti-academic' ) );
+            wp_die( __( 'Unauthorized', 'campusos-academic' ) );
         }
 
         $steps = $this->get_steps();
@@ -277,38 +277,38 @@ class UNPATTI_Setup_Wizard {
 
         switch ( $step ) {
             case 'welcome':
-                check_admin_referer( 'unpatti_wizard_welcome' );
+                check_admin_referer( 'campusos_wizard_welcome' );
                 $mode = sanitize_text_field( $_POST['site_mode'] ?? 'prodi' );
                 if ( in_array( $mode, [ 'fakultas', 'prodi' ], true ) ) {
-                    set_theme_mod( 'unpatti_site_mode', $mode );
+                    set_theme_mod( 'campusos_site_mode', $mode );
                 }
                 $next = 'warna';
                 break;
 
             case 'warna':
-                check_admin_referer( 'unpatti_wizard_warna' );
+                check_admin_referer( 'campusos_wizard_warna' );
                 $primary = sanitize_hex_color( $_POST['primary_color'] ?? '#003d82' );
                 $secondary = sanitize_hex_color( $_POST['secondary_color'] ?? '#e67e22' );
-                if ( $primary ) set_theme_mod( 'unpatti_primary_color', $primary );
-                if ( $secondary ) set_theme_mod( 'unpatti_secondary_color', $secondary );
+                if ( $primary ) set_theme_mod( 'campusos_primary_color', $primary );
+                if ( $secondary ) set_theme_mod( 'campusos_secondary_color', $secondary );
                 $next = 'identitas';
                 break;
 
             case 'identitas':
-                check_admin_referer( 'unpatti_wizard_identitas' );
+                check_admin_referer( 'campusos_wizard_identitas' );
                 $logo_id = absint( $_POST['logo_id'] ?? 0 );
                 if ( $logo_id ) {
                     set_theme_mod( 'custom_logo', $logo_id );
                 } else {
                     remove_theme_mod( 'custom_logo' );
                 }
-                set_theme_mod( 'unpatti_institution_name', sanitize_text_field( $_POST['institution_name'] ?? '' ) );
-                set_theme_mod( 'unpatti_institution_address', sanitize_textarea_field( $_POST['institution_address'] ?? '' ) );
+                set_theme_mod( 'campusos_institution_name', sanitize_text_field( $_POST['institution_name'] ?? '' ) );
+                set_theme_mod( 'campusos_institution_address', sanitize_textarea_field( $_POST['institution_address'] ?? '' ) );
                 $next = 'demo';
                 break;
 
             case 'demo':
-                check_admin_referer( 'unpatti_wizard_demo' );
+                check_admin_referer( 'campusos_wizard_demo' );
                 $this->create_demo_content();
                 $next = 'selesai';
                 break;
@@ -318,7 +318,7 @@ class UNPATTI_Setup_Wizard {
                 break;
         }
 
-        wp_safe_redirect( admin_url( 'admin.php?page=unpatti-setup-wizard&step=' . $next ) );
+        wp_safe_redirect( admin_url( 'admin.php?page=campusos-setup-wizard&step=' . $next ) );
         exit;
     }
 

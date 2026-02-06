@@ -12,8 +12,8 @@ while ( have_posts() ) : the_post();
     <div class="container">
         <h1><?php the_title(); ?></h1>
         <div class="breadcrumb">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'unpatti-academic' ); ?></a> &raquo;
-            <a href="<?php echo esc_url( get_post_type_archive_link( 'pengumuman' ) ); ?>"><?php esc_html_e( 'Pengumuman', 'unpatti-academic' ); ?></a> &raquo;
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'campusos-academic' ); ?></a> &raquo;
+            <a href="<?php echo esc_url( get_post_type_archive_link( 'pengumuman' ) ); ?>"><?php esc_html_e( 'Pengumuman', 'campusos-academic' ); ?></a> &raquo;
             <?php the_title(); ?>
         </div>
     </div>
@@ -35,7 +35,7 @@ while ( have_posts() ) : the_post();
                     <?php if ( $tanggal_berlaku ) : ?>
                         <span class="valid-until">
                             <span class="dashicons dashicons-clock"></span>
-                            <?php esc_html_e( 'Berlaku sampai:', 'unpatti-academic' ); ?> <?php echo esc_html( date_i18n( 'j F Y', strtotime( $tanggal_berlaku ) ) ); ?>
+                            <?php esc_html_e( 'Berlaku sampai:', 'campusos-academic' ); ?> <?php echo esc_html( date_i18n( 'j F Y', strtotime( $tanggal_berlaku ) ) ); ?>
                         </span>
                     <?php endif; ?>
                 </div>
@@ -49,18 +49,18 @@ while ( have_posts() ) : the_post();
                     $file_name = basename( get_attached_file( $file_lampiran ) );
                 ?>
                     <div class="pengumuman-attachment">
-                        <h3><?php esc_html_e( 'Lampiran', 'unpatti-academic' ); ?></h3>
+                        <h3><?php esc_html_e( 'Lampiran', 'campusos-academic' ); ?></h3>
                         <div class="attachment-item">
                             <span class="dashicons dashicons-media-document"></span>
                             <span class="attachment-name"><?php echo esc_html( $file_name ); ?></span>
                             <a href="<?php echo esc_url( $file_url ); ?>" class="btn btn-primary btn-sm" target="_blank" download>
-                                <span class="dashicons dashicons-download"></span> <?php esc_html_e( 'Download', 'unpatti-academic' ); ?>
+                                <span class="dashicons dashicons-download"></span> <?php esc_html_e( 'Download', 'campusos-academic' ); ?>
                             </a>
                         </div>
                     </div>
                 <?php endif; ?>
 
-                <?php unpatti_social_share(); ?>
+                <?php campusos_social_share(); ?>
             </article>
 
             <aside class="widget-area">
@@ -76,7 +76,7 @@ while ( have_posts() ) : the_post();
                 if ( $related->have_posts() ) :
                 ?>
                     <div class="widget">
-                        <h3 class="widget-title"><?php esc_html_e( 'Pengumuman Lainnya', 'unpatti-academic' ); ?></h3>
+                        <h3 class="widget-title"><?php esc_html_e( 'Pengumuman Lainnya', 'campusos-academic' ); ?></h3>
                         <ul class="related-list">
                             <?php while ( $related->have_posts() ) : $related->the_post(); ?>
                                 <li>

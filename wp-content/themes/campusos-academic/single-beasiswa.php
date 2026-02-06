@@ -16,8 +16,8 @@ while ( have_posts() ) : the_post();
     <div class="container">
         <h1><?php the_title(); ?></h1>
         <div class="breadcrumb">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'unpatti-academic' ); ?></a> &raquo;
-            <a href="<?php echo esc_url( get_post_type_archive_link( 'beasiswa' ) ); ?>"><?php esc_html_e( 'Beasiswa', 'unpatti-academic' ); ?></a> &raquo;
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'campusos-academic' ); ?></a> &raquo;
+            <a href="<?php echo esc_url( get_post_type_archive_link( 'beasiswa' ) ); ?>"><?php esc_html_e( 'Beasiswa', 'campusos-academic' ); ?></a> &raquo;
             <?php the_title(); ?>
         </div>
     </div>
@@ -29,10 +29,10 @@ while ( have_posts() ) : the_post();
                 <div class="beasiswa-status-banner <?php echo $is_expired ? 'status-expired' : 'status-open'; ?>">
                     <?php if ( $is_expired ) : ?>
                         <span class="dashicons dashicons-no"></span>
-                        <?php esc_html_e( 'Pendaftaran Ditutup', 'unpatti-academic' ); ?>
+                        <?php esc_html_e( 'Pendaftaran Ditutup', 'campusos-academic' ); ?>
                     <?php else : ?>
                         <span class="dashicons dashicons-yes"></span>
-                        <?php esc_html_e( 'Pendaftaran Dibuka', 'unpatti-academic' ); ?>
+                        <?php esc_html_e( 'Pendaftaran Dibuka', 'campusos-academic' ); ?>
                     <?php endif; ?>
                 </div>
 
@@ -42,7 +42,7 @@ while ( have_posts() ) : the_post();
 
                 <?php if ( $persyaratan ) : ?>
                     <div class="beasiswa-section">
-                        <h3><?php esc_html_e( 'Persyaratan', 'unpatti-academic' ); ?></h3>
+                        <h3><?php esc_html_e( 'Persyaratan', 'campusos-academic' ); ?></h3>
                         <div class="beasiswa-persyaratan">
                             <?php echo wp_kses_post( nl2br( $persyaratan ) ); ?>
                         </div>
@@ -53,30 +53,30 @@ while ( have_posts() ) : the_post();
                     <div class="beasiswa-cta">
                         <a href="<?php echo esc_url( $link ); ?>" class="btn btn-primary btn-lg" target="_blank">
                             <span class="dashicons dashicons-external"></span>
-                            <?php esc_html_e( 'Daftar Sekarang', 'unpatti-academic' ); ?>
+                            <?php esc_html_e( 'Daftar Sekarang', 'campusos-academic' ); ?>
                         </a>
                     </div>
                 <?php endif; ?>
 
-                <?php unpatti_social_share(); ?>
+                <?php campusos_social_share(); ?>
             </article>
 
             <aside class="beasiswa-sidebar">
                 <div class="beasiswa-info-box">
-                    <h3><?php esc_html_e( 'Informasi Beasiswa', 'unpatti-academic' ); ?></h3>
+                    <h3><?php esc_html_e( 'Informasi Beasiswa', 'campusos-academic' ); ?></h3>
                     <ul class="beasiswa-info-list">
                         <?php if ( $deadline ) : ?>
                             <li>
-                                <span class="info-label"><span class="dashicons dashicons-calendar-alt"></span> <?php esc_html_e( 'Deadline', 'unpatti-academic' ); ?></span>
+                                <span class="info-label"><span class="dashicons dashicons-calendar-alt"></span> <?php esc_html_e( 'Deadline', 'campusos-academic' ); ?></span>
                                 <span class="info-value <?php echo $is_expired ? 'text-expired' : ''; ?>">
                                     <?php echo esc_html( date_i18n( 'l, j F Y', strtotime( $deadline ) ) ); ?>
                                 </span>
                             </li>
                         <?php endif; ?>
                         <li>
-                            <span class="info-label"><span class="dashicons dashicons-tag"></span> <?php esc_html_e( 'Status', 'unpatti-academic' ); ?></span>
+                            <span class="info-label"><span class="dashicons dashicons-tag"></span> <?php esc_html_e( 'Status', 'campusos-academic' ); ?></span>
                             <span class="info-value">
-                                <?php echo $is_expired ? esc_html__( 'Ditutup', 'unpatti-academic' ) : esc_html__( 'Dibuka', 'unpatti-academic' ); ?>
+                                <?php echo $is_expired ? esc_html__( 'Ditutup', 'campusos-academic' ) : esc_html__( 'Dibuka', 'campusos-academic' ); ?>
                             </span>
                         </li>
                     </ul>
@@ -94,7 +94,7 @@ while ( have_posts() ) : the_post();
                 if ( $related->have_posts() ) :
                 ?>
                     <div class="related-beasiswa">
-                        <h3><?php esc_html_e( 'Beasiswa Lainnya', 'unpatti-academic' ); ?></h3>
+                        <h3><?php esc_html_e( 'Beasiswa Lainnya', 'campusos-academic' ); ?></h3>
                         <ul class="related-list">
                             <?php while ( $related->have_posts() ) : $related->the_post();
                                 $rel_deadline = get_post_meta( get_the_ID(), 'beasiswa_deadline_beasiswa', true );

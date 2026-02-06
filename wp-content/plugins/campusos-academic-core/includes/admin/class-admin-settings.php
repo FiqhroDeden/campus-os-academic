@@ -1,10 +1,10 @@
 <?php
-namespace UNPATTI\Core\Admin;
+namespace CampusOS\Core\Admin;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Admin_Settings {
-    private $option_name = 'unpatti_settings';
+    private $option_name = 'campusos_settings';
 
     public function register() {
         add_action( 'admin_menu', [ $this, 'add_menu' ] );
@@ -13,10 +13,10 @@ class Admin_Settings {
 
     public function add_menu() {
         add_menu_page(
-            __( 'UNPATTI Academic', 'unpatti-academic' ),
-            __( 'UNPATTI Academic', 'unpatti-academic' ),
+            __( 'CampusOS Academic', 'campusos-academic' ),
+            __( 'CampusOS Academic', 'campusos-academic' ),
             'manage_options',
-            'unpatti-academic',
+            'campusos-academic',
             [ $this, 'render_page' ],
             'dashicons-university',
             3
@@ -24,7 +24,7 @@ class Admin_Settings {
     }
 
     public function register_settings() {
-        register_setting( 'unpatti_settings_group', $this->option_name, [
+        register_setting( 'campusos_settings_group', $this->option_name, [
             'sanitize_callback' => [ $this, 'sanitize_settings' ],
         ] );
     }
@@ -69,21 +69,21 @@ class Admin_Settings {
     public function render_page() {
         $active_tab = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : 'umum';
         $tabs = [
-            'umum'      => __( 'Umum', 'unpatti-academic' ),
-            'pages'     => __( 'Halaman', 'unpatti-academic' ),
-            'tools'     => __( 'Tools', 'unpatti-academic' ),
-            'keamanan'  => __( 'Keamanan', 'unpatti-academic' ),
-            'sso'       => __( 'SSO', 'unpatti-academic' ),
-            'api'       => __( 'Integrasi API', 'unpatti-academic' ),
-            'export'    => __( 'Export / Import', 'unpatti-academic' ),
+            'umum'      => __( 'Umum', 'campusos-academic' ),
+            'pages'     => __( 'Halaman', 'campusos-academic' ),
+            'tools'     => __( 'Tools', 'campusos-academic' ),
+            'keamanan'  => __( 'Keamanan', 'campusos-academic' ),
+            'sso'       => __( 'SSO', 'campusos-academic' ),
+            'api'       => __( 'Integrasi API', 'campusos-academic' ),
+            'export'    => __( 'Export / Import', 'campusos-academic' ),
         ];
         ?>
         <div class="wrap">
-            <h1><?php esc_html_e( 'UNPATTI Academic Settings', 'unpatti-academic' ); ?></h1>
+            <h1><?php esc_html_e( 'CampusOS Academic Settings', 'campusos-academic' ); ?></h1>
 
             <h2 class="nav-tab-wrapper">
                 <?php foreach ( $tabs as $tab_key => $tab_label ) : ?>
-                    <a href="<?php echo esc_url( admin_url( 'admin.php?page=unpatti-academic&tab=' . $tab_key ) ); ?>"
+                    <a href="<?php echo esc_url( admin_url( 'admin.php?page=campusos-academic&tab=' . $tab_key ) ); ?>"
                        class="nav-tab <?php echo $active_tab === $tab_key ? 'nav-tab-active' : ''; ?>">
                         <?php echo esc_html( $tab_label ); ?>
                     </a>
@@ -91,7 +91,7 @@ class Admin_Settings {
             </h2>
 
             <form method="post" action="options.php">
-                <?php settings_fields( 'unpatti_settings_group' ); ?>
+                <?php settings_fields( 'campusos_settings_group' ); ?>
 
                 <?php
                 switch ( $active_tab ) {
@@ -128,28 +128,28 @@ class Admin_Settings {
     }
 
     private function render_tab_umum() {
-        $mode = get_theme_mod( 'unpatti_site_mode', 'prodi' );
-        $name = get_theme_mod( 'unpatti_institution_name', '' );
+        $mode = get_theme_mod( 'campusos_site_mode', 'prodi' );
+        $name = get_theme_mod( 'campusos_institution_name', '' );
         ?>
         <table class="form-table">
             <tr>
-                <th><?php esc_html_e( 'Mode Situs', 'unpatti-academic' ); ?></th>
+                <th><?php esc_html_e( 'Mode Situs', 'campusos-academic' ); ?></th>
                 <td><strong><?php echo $mode === 'fakultas' ? 'Fakultas' : 'Program Studi'; ?></strong></td>
             </tr>
             <tr>
-                <th><?php esc_html_e( 'Nama Institusi', 'unpatti-academic' ); ?></th>
+                <th><?php esc_html_e( 'Nama Institusi', 'campusos-academic' ); ?></th>
                 <td><?php echo esc_html( $name ?: '-' ); ?></td>
             </tr>
             <tr>
-                <th><?php esc_html_e( 'Warna Primary', 'unpatti-academic' ); ?></th>
-                <td><span style="display:inline-block;width:24px;height:24px;background:<?php echo esc_attr( get_theme_mod('unpatti_primary_color','#003d82') ); ?>;border-radius:3px;vertical-align:middle;"></span> <?php echo esc_html( get_theme_mod('unpatti_primary_color','#003d82') ); ?></td>
+                <th><?php esc_html_e( 'Warna Primary', 'campusos-academic' ); ?></th>
+                <td><span style="display:inline-block;width:24px;height:24px;background:<?php echo esc_attr( get_theme_mod('campusos_primary_color','#003d82') ); ?>;border-radius:3px;vertical-align:middle;"></span> <?php echo esc_html( get_theme_mod('campusos_primary_color','#003d82') ); ?></td>
             </tr>
             <tr>
-                <th><?php esc_html_e( 'Warna Secondary', 'unpatti-academic' ); ?></th>
-                <td><span style="display:inline-block;width:24px;height:24px;background:<?php echo esc_attr( get_theme_mod('unpatti_secondary_color','#e67e22') ); ?>;border-radius:3px;vertical-align:middle;"></span> <?php echo esc_html( get_theme_mod('unpatti_secondary_color','#e67e22') ); ?></td>
+                <th><?php esc_html_e( 'Warna Secondary', 'campusos-academic' ); ?></th>
+                <td><span style="display:inline-block;width:24px;height:24px;background:<?php echo esc_attr( get_theme_mod('campusos_secondary_color','#e67e22') ); ?>;border-radius:3px;vertical-align:middle;"></span> <?php echo esc_html( get_theme_mod('campusos_secondary_color','#e67e22') ); ?></td>
             </tr>
         </table>
-        <p><a href="<?php echo esc_url( admin_url( 'customize.php' ) ); ?>" class="button"><?php esc_html_e( 'Buka Customizer', 'unpatti-academic' ); ?></a></p>
+        <p><a href="<?php echo esc_url( admin_url( 'customize.php' ) ); ?>" class="button"><?php esc_html_e( 'Buka Customizer', 'campusos-academic' ); ?></a></p>
         <?php
     }
 
@@ -167,33 +167,33 @@ class Admin_Settings {
         ?>
         <table class="form-table">
             <tr>
-                <th><?php esc_html_e( 'Disable XML-RPC', 'unpatti-academic' ); ?></th>
-                <td><label><input type="checkbox" name="<?php echo $this->option_name; ?>[security_xmlrpc_disabled]" value="1" <?php checked( $this->get_option('security_xmlrpc_disabled', 1) ); ?> /> <?php esc_html_e( 'Nonaktifkan XML-RPC', 'unpatti-academic' ); ?></label></td>
+                <th><?php esc_html_e( 'Disable XML-RPC', 'campusos-academic' ); ?></th>
+                <td><label><input type="checkbox" name="<?php echo $this->option_name; ?>[security_xmlrpc_disabled]" value="1" <?php checked( $this->get_option('security_xmlrpc_disabled', 1) ); ?> /> <?php esc_html_e( 'Nonaktifkan XML-RPC', 'campusos-academic' ); ?></label></td>
             </tr>
             <tr>
-                <th><?php esc_html_e( 'Disable User Enumeration', 'unpatti-academic' ); ?></th>
-                <td><label><input type="checkbox" name="<?php echo $this->option_name; ?>[security_user_enum_disabled]" value="1" <?php checked( $this->get_option('security_user_enum_disabled', 1) ); ?> /> <?php esc_html_e( 'Blokir enumerasi user via REST API', 'unpatti-academic' ); ?></label></td>
+                <th><?php esc_html_e( 'Disable User Enumeration', 'campusos-academic' ); ?></th>
+                <td><label><input type="checkbox" name="<?php echo $this->option_name; ?>[security_user_enum_disabled]" value="1" <?php checked( $this->get_option('security_user_enum_disabled', 1) ); ?> /> <?php esc_html_e( 'Blokir enumerasi user via REST API', 'campusos-academic' ); ?></label></td>
             </tr>
             <tr>
-                <th><?php esc_html_e( 'Disable File Editor', 'unpatti-academic' ); ?></th>
-                <td><label><input type="checkbox" name="<?php echo $this->option_name; ?>[security_file_edit_disabled]" value="1" <?php checked( $this->get_option('security_file_edit_disabled', 1) ); ?> /> <?php esc_html_e( 'Nonaktifkan editor file di admin', 'unpatti-academic' ); ?></label></td>
+                <th><?php esc_html_e( 'Disable File Editor', 'campusos-academic' ); ?></th>
+                <td><label><input type="checkbox" name="<?php echo $this->option_name; ?>[security_file_edit_disabled]" value="1" <?php checked( $this->get_option('security_file_edit_disabled', 1) ); ?> /> <?php esc_html_e( 'Nonaktifkan editor file di admin', 'campusos-academic' ); ?></label></td>
             </tr>
             <tr>
-                <th><?php esc_html_e( 'Content Scanner', 'unpatti-academic' ); ?></th>
-                <td><label><input type="checkbox" name="<?php echo $this->option_name; ?>[security_scanner_enabled]" value="1" <?php checked( $this->get_option('security_scanner_enabled', 1) ); ?> /> <?php esc_html_e( 'Aktifkan scanner konten otomatis (anti judi online)', 'unpatti-academic' ); ?></label></td>
+                <th><?php esc_html_e( 'Content Scanner', 'campusos-academic' ); ?></th>
+                <td><label><input type="checkbox" name="<?php echo $this->option_name; ?>[security_scanner_enabled]" value="1" <?php checked( $this->get_option('security_scanner_enabled', 1) ); ?> /> <?php esc_html_e( 'Aktifkan scanner konten otomatis (anti judi online)', 'campusos-academic' ); ?></label></td>
             </tr>
             <tr>
-                <th><?php esc_html_e( 'Keyword Tambahan', 'unpatti-academic' ); ?></th>
+                <th><?php esc_html_e( 'Keyword Tambahan', 'campusos-academic' ); ?></th>
                 <td>
                     <textarea name="<?php echo $this->option_name; ?>[security_scanner_keywords]" rows="4" class="large-text"><?php echo esc_textarea( $this->get_option('security_scanner_keywords') ); ?></textarea>
-                    <p class="description"><?php esc_html_e( 'Satu keyword per baris. Ditambahkan ke daftar keyword bawaan.', 'unpatti-academic' ); ?></p>
+                    <p class="description"><?php esc_html_e( 'Satu keyword per baris. Ditambahkan ke daftar keyword bawaan.', 'campusos-academic' ); ?></p>
                 </td>
             </tr>
             <tr>
-                <th><?php esc_html_e( 'Domain Whitelist', 'unpatti-academic' ); ?></th>
+                <th><?php esc_html_e( 'Domain Whitelist', 'campusos-academic' ); ?></th>
                 <td>
                     <textarea name="<?php echo $this->option_name; ?>[security_whitelist_domains]" rows="4" class="large-text"><?php echo esc_textarea( $this->get_option('security_whitelist_domains') ); ?></textarea>
-                    <p class="description"><?php esc_html_e( 'Domain yang diizinkan untuk outbound links. Satu per baris. Contoh: unpatti.ac.id', 'unpatti-academic' ); ?></p>
+                    <p class="description"><?php esc_html_e( 'Domain yang diizinkan untuk outbound links. Satu per baris. Contoh: university.ac.id', 'campusos-academic' ); ?></p>
                 </td>
             </tr>
         </table>
@@ -204,37 +204,37 @@ class Admin_Settings {
         ?>
         <table class="form-table">
             <tr>
-                <th><?php esc_html_e( 'Aktifkan SSO', 'unpatti-academic' ); ?></th>
-                <td><label><input type="checkbox" name="<?php echo $this->option_name; ?>[sso_enabled]" value="1" <?php checked( $this->get_option('sso_enabled') ); ?> /> <?php esc_html_e( 'Login menggunakan SSO UNPATTI', 'unpatti-academic' ); ?></label></td>
+                <th><?php esc_html_e( 'Aktifkan SSO', 'campusos-academic' ); ?></th>
+                <td><label><input type="checkbox" name="<?php echo $this->option_name; ?>[sso_enabled]" value="1" <?php checked( $this->get_option('sso_enabled') ); ?> /> <?php esc_html_e( 'Login menggunakan SSO', 'campusos-academic' ); ?></label></td>
             </tr>
             <tr>
-                <th><?php esc_html_e( 'SSO Base URL', 'unpatti-academic' ); ?></th>
-                <td><input type="url" name="<?php echo $this->option_name; ?>[sso_base_url]" value="<?php echo esc_attr( $this->get_option('sso_base_url', 'https://sso.unpatti.ac.id') ); ?>" class="regular-text" /></td>
+                <th><?php esc_html_e( 'SSO Base URL', 'campusos-academic' ); ?></th>
+                <td><input type="url" name="<?php echo $this->option_name; ?>[sso_base_url]" value="<?php echo esc_attr( $this->get_option('sso_base_url', '') ); ?>" class="regular-text" /></td>
             </tr>
             <tr>
-                <th><?php esc_html_e( 'Client ID', 'unpatti-academic' ); ?></th>
+                <th><?php esc_html_e( 'Client ID', 'campusos-academic' ); ?></th>
                 <td><input type="text" name="<?php echo $this->option_name; ?>[sso_client_id]" value="<?php echo esc_attr( $this->get_option('sso_client_id') ); ?>" class="regular-text" /></td>
             </tr>
             <tr>
-                <th><?php esc_html_e( 'Client Secret', 'unpatti-academic' ); ?></th>
+                <th><?php esc_html_e( 'Client Secret', 'campusos-academic' ); ?></th>
                 <td><input type="password" name="<?php echo $this->option_name; ?>[sso_client_secret]" value="<?php echo esc_attr( $this->get_option('sso_client_secret') ); ?>" class="regular-text" /></td>
             </tr>
             <tr>
-                <th><?php esc_html_e( 'Redirect URI', 'unpatti-academic' ); ?></th>
-                <td><code><?php echo esc_html( admin_url( 'admin-ajax.php?action=unpatti_sso_callback' ) ); ?></code>
-                <p class="description"><?php esc_html_e( 'Gunakan URL ini saat mendaftarkan aplikasi di SSO.', 'unpatti-academic' ); ?></p></td>
+                <th><?php esc_html_e( 'Redirect URI', 'campusos-academic' ); ?></th>
+                <td><code><?php echo esc_html( admin_url( 'admin-ajax.php?action=campusos_sso_callback' ) ); ?></code>
+                <p class="description"><?php esc_html_e( 'Gunakan URL ini saat mendaftarkan aplikasi di SSO.', 'campusos-academic' ); ?></p></td>
             </tr>
             <tr>
-                <th><?php esc_html_e( 'Role Mapping', 'unpatti-academic' ); ?></th>
+                <th><?php esc_html_e( 'Role Mapping', 'campusos-academic' ); ?></th>
                 <td>
                     <textarea name="<?php echo $this->option_name; ?>[sso_role_mapping]" rows="4" class="large-text"><?php echo esc_textarea( $this->get_option('sso_role_mapping', "Admin=administrator\nEditor=editor") ); ?></textarea>
-                    <p class="description"><?php esc_html_e( 'Format: SSORole=wp_role (satu per baris). Contoh: Admin=administrator', 'unpatti-academic' ); ?></p>
+                    <p class="description"><?php esc_html_e( 'Format: SSORole=wp_role (satu per baris). Contoh: Admin=administrator', 'campusos-academic' ); ?></p>
                 </td>
             </tr>
             <tr>
-                <th><?php esc_html_e( 'Fallback Admin', 'unpatti-academic' ); ?></th>
+                <th><?php esc_html_e( 'Fallback Admin', 'campusos-academic' ); ?></th>
                 <td><input type="text" name="<?php echo $this->option_name; ?>[sso_fallback_admin]" value="<?php echo esc_attr( $this->get_option('sso_fallback_admin') ); ?>" class="regular-text" />
-                <p class="description"><?php esc_html_e( 'Username admin lokal untuk emergency login (akses via ?fallback=1)', 'unpatti-academic' ); ?></p></td>
+                <p class="description"><?php esc_html_e( 'Username admin lokal untuk emergency login (akses via ?fallback=1)', 'campusos-academic' ); ?></p></td>
             </tr>
         </table>
         <?php
@@ -242,77 +242,77 @@ class Admin_Settings {
 
     private function render_tab_api() {
         ?>
-        <h3><?php esc_html_e( 'SIAKAD (Sistem Informasi Akademik)', 'unpatti-academic' ); ?></h3>
+        <h3><?php esc_html_e( 'SIAKAD (Sistem Informasi Akademik)', 'campusos-academic' ); ?></h3>
         <table class="form-table">
             <tr>
-                <th><?php esc_html_e( 'Base URL', 'unpatti-academic' ); ?></th>
+                <th><?php esc_html_e( 'Base URL', 'campusos-academic' ); ?></th>
                 <td><input type="url" name="<?php echo $this->option_name; ?>[api_siakad_url]" value="<?php echo esc_attr( $this->get_option('api_siakad_url') ); ?>" class="regular-text" /></td>
             </tr>
             <tr>
-                <th><?php esc_html_e( 'API Key', 'unpatti-academic' ); ?></th>
+                <th><?php esc_html_e( 'API Key', 'campusos-academic' ); ?></th>
                 <td><input type="text" name="<?php echo $this->option_name; ?>[api_siakad_key]" value="<?php echo esc_attr( $this->get_option('api_siakad_key') ); ?>" class="regular-text" /></td>
             </tr>
         </table>
-        <h3><?php esc_html_e( 'SIGAP (Sistem Informasi Kepegawaian)', 'unpatti-academic' ); ?></h3>
+        <h3><?php esc_html_e( 'SIGAP (Sistem Informasi Kepegawaian)', 'campusos-academic' ); ?></h3>
         <table class="form-table">
             <tr>
-                <th><?php esc_html_e( 'Base URL', 'unpatti-academic' ); ?></th>
+                <th><?php esc_html_e( 'Base URL', 'campusos-academic' ); ?></th>
                 <td><input type="url" name="<?php echo $this->option_name; ?>[api_sigap_url]" value="<?php echo esc_attr( $this->get_option('api_sigap_url') ); ?>" class="regular-text" /></td>
             </tr>
             <tr>
-                <th><?php esc_html_e( 'API Key', 'unpatti-academic' ); ?></th>
+                <th><?php esc_html_e( 'API Key', 'campusos-academic' ); ?></th>
                 <td><input type="text" name="<?php echo $this->option_name; ?>[api_sigap_key]" value="<?php echo esc_attr( $this->get_option('api_sigap_key') ); ?>" class="regular-text" /></td>
             </tr>
         </table>
-        <h3><?php esc_html_e( 'Cache', 'unpatti-academic' ); ?></h3>
+        <h3><?php esc_html_e( 'Cache', 'campusos-academic' ); ?></h3>
         <table class="form-table">
             <tr>
-                <th><?php esc_html_e( 'Cache TTL (detik)', 'unpatti-academic' ); ?></th>
+                <th><?php esc_html_e( 'Cache TTL (detik)', 'campusos-academic' ); ?></th>
                 <td><input type="number" name="<?php echo $this->option_name; ?>[api_cache_ttl]" value="<?php echo esc_attr( $this->get_option('api_cache_ttl', 3600) ); ?>" class="small-text" /></td>
             </tr>
         </table>
-        <p class="description"><em><?php esc_html_e( 'Integrasi API akan tersedia setelah endpoint SIAKAD dan SIGAP siap.', 'unpatti-academic' ); ?></em></p>
+        <p class="description"><em><?php esc_html_e( 'Integrasi API akan tersedia setelah endpoint SIAKAD dan SIGAP siap.', 'campusos-academic' ); ?></em></p>
         <?php
     }
 
     private function render_tab_export() {
         if ( ! empty( $_GET['import_success'] ) ) {
-            echo '<div class="notice notice-success"><p>' . sprintf( esc_html__( 'Import berhasil! %d item diproses.', 'unpatti-academic' ), absint( $_GET['import_success'] ) ) . '</p></div>';
+            echo '<div class="notice notice-success"><p>' . sprintf( esc_html__( 'Import berhasil! %d item diproses.', 'campusos-academic' ), absint( $_GET['import_success'] ) ) . '</p></div>';
         }
         if ( ! empty( $_GET['import_error'] ) ) {
             $errors = [
-                'no_file'      => __( 'Tidak ada file yang diupload.', 'unpatti-academic' ),
-                'invalid_file' => __( 'File harus berformat JSON.', 'unpatti-academic' ),
-                'empty_file'   => __( 'File kosong.', 'unpatti-academic' ),
+                'no_file'      => __( 'Tidak ada file yang diupload.', 'campusos-academic' ),
+                'invalid_file' => __( 'File harus berformat JSON.', 'campusos-academic' ),
+                'empty_file'   => __( 'File kosong.', 'campusos-academic' ),
             ];
-            $msg = $errors[ $_GET['import_error'] ] ?? __( 'Terjadi kesalahan.', 'unpatti-academic' );
+            $msg = $errors[ $_GET['import_error'] ] ?? __( 'Terjadi kesalahan.', 'campusos-academic' );
             echo '<div class="notice notice-error"><p>' . esc_html( $msg ) . '</p></div>';
         }
         ?>
-        <h3><?php esc_html_e( 'Export Data Situs', 'unpatti-academic' ); ?></h3>
-        <p><?php esc_html_e( 'Export semua data situs (settings, CPT data, pages, menu) ke file JSON.', 'unpatti-academic' ); ?></p>
-        <p><a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=unpatti_export' ), 'unpatti_export' ) ); ?>" class="button button-secondary"><?php esc_html_e( 'Export JSON', 'unpatti-academic' ); ?></a></p>
+        <h3><?php esc_html_e( 'Export Data Situs', 'campusos-academic' ); ?></h3>
+        <p><?php esc_html_e( 'Export semua data situs (settings, CPT data, pages, menu) ke file JSON.', 'campusos-academic' ); ?></p>
+        <p><a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=campusos_export' ), 'campusos_export' ) ); ?>" class="button button-secondary"><?php esc_html_e( 'Export JSON', 'campusos-academic' ); ?></a></p>
 
         <hr/>
-        <h3><?php esc_html_e( 'Import Data Situs', 'unpatti-academic' ); ?></h3>
-        <p><?php esc_html_e( 'Import data dari file JSON yang sebelumnya di-export.', 'unpatti-academic' ); ?></p>
+        <h3><?php esc_html_e( 'Import Data Situs', 'campusos-academic' ); ?></h3>
+        <p><?php esc_html_e( 'Import data dari file JSON yang sebelumnya di-export.', 'campusos-academic' ); ?></p>
         </form>
         <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" enctype="multipart/form-data">
-            <?php wp_nonce_field( 'unpatti_import' ); ?>
-            <input type="hidden" name="action" value="unpatti_import" />
+            <?php wp_nonce_field( 'campusos_import' ); ?>
+            <input type="hidden" name="action" value="campusos_import" />
             <p><input type="file" name="import_file" accept=".json" /></p>
-            <p><?php submit_button( __( 'Import JSON', 'unpatti-academic' ), 'secondary', 'submit', false ); ?></p>
+            <p><?php submit_button( __( 'Import JSON', 'campusos-academic' ), 'secondary', 'submit', false ); ?></p>
         </form>
         <form method="post" action="options.php">
-            <?php settings_fields( 'unpatti_settings_group' ); ?>
+            <?php settings_fields( 'campusos_settings_group' ); ?>
 
         <hr/>
-        <h3><?php esc_html_e( 'Update Server', 'unpatti-academic' ); ?></h3>
+        <h3><?php esc_html_e( 'Update Server', 'campusos-academic' ); ?></h3>
         <table class="form-table">
             <tr>
-                <th><?php esc_html_e( 'Update Server URL', 'unpatti-academic' ); ?></th>
+                <th><?php esc_html_e( 'Update Server URL', 'campusos-academic' ); ?></th>
                 <td><input type="url" name="<?php echo $this->option_name; ?>[update_server_url]" value="<?php echo esc_attr( $this->get_option('update_server_url') ); ?>" class="regular-text" />
-                <p class="description"><?php esc_html_e( 'URL server untuk auto-update tema dan plugin.', 'unpatti-academic' ); ?></p></td>
+                <p class="description"><?php esc_html_e( 'URL server untuk auto-update tema dan plugin.', 'campusos-academic' ); ?></p></td>
             </tr>
         </table>
         <?php

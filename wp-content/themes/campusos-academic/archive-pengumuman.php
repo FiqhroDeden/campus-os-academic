@@ -8,7 +8,7 @@ get_header();
     <div class="container">
         <h1><?php post_type_archive_title(); ?></h1>
         <div class="breadcrumb">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'unpatti-academic' ); ?></a> &raquo;
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'campusos-academic' ); ?></a> &raquo;
             <?php post_type_archive_title(); ?>
         </div>
     </div>
@@ -31,17 +31,17 @@ get_header();
                         <?php if ( $tanggal_berlaku ) : ?>
                             <p class="pengumuman-meta">
                                 <span class="dashicons dashicons-clock"></span>
-                                <?php esc_html_e( 'Berlaku sampai:', 'unpatti-academic' ); ?> <?php echo esc_html( date_i18n( 'j F Y', strtotime( $tanggal_berlaku ) ) ); ?>
+                                <?php esc_html_e( 'Berlaku sampai:', 'campusos-academic' ); ?> <?php echo esc_html( date_i18n( 'j F Y', strtotime( $tanggal_berlaku ) ) ); ?>
                             </p>
                         <?php endif; ?>
                         <?php if ( get_the_excerpt() ) : ?>
                             <p class="pengumuman-excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 30 ) ); ?></p>
                         <?php endif; ?>
                         <div class="pengumuman-actions">
-                            <a href="<?php the_permalink(); ?>" class="btn btn-outline btn-sm"><?php esc_html_e( 'Baca Selengkapnya', 'unpatti-academic' ); ?></a>
+                            <a href="<?php the_permalink(); ?>" class="btn btn-outline btn-sm"><?php esc_html_e( 'Baca Selengkapnya', 'campusos-academic' ); ?></a>
                             <?php if ( $file_lampiran ) : ?>
                                 <a href="<?php echo esc_url( wp_get_attachment_url( $file_lampiran ) ); ?>" class="btn btn-primary btn-sm" target="_blank">
-                                    <span class="dashicons dashicons-download"></span> <?php esc_html_e( 'Download', 'unpatti-academic' ); ?>
+                                    <span class="dashicons dashicons-download"></span> <?php esc_html_e( 'Download', 'campusos-academic' ); ?>
                                 </a>
                             <?php endif; ?>
                         </div>
@@ -55,7 +55,7 @@ get_header();
                 'next_text' => '&raquo;',
             ) ); ?>
         <?php else : ?>
-            <p class="no-content"><?php esc_html_e( 'Belum ada pengumuman.', 'unpatti-academic' ); ?></p>
+            <p class="no-content"><?php esc_html_e( 'Belum ada pengumuman.', 'campusos-academic' ); ?></p>
         <?php endif; ?>
     </div>
 </main>
