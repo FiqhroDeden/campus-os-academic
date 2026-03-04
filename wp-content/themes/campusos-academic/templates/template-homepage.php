@@ -6,9 +6,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 get_header();
 
-$sections_raw = get_theme_mod( 'campusos_homepage_sections', 'hero,news,announcement,agenda,gallery,stats,faq,partner' );
+$sections_raw = get_theme_mod( 'campusos_homepage_sections', 'hero,news,announcement,agenda,gallery,staff,stats,faq,partner' );
 $sections     = array_map( 'trim', explode( ',', $sections_raw ) );
-$allowed      = [ 'hero', 'news', 'announcement', 'agenda', 'gallery', 'stats', 'faq', 'partner' ];
+$allowed      = [ 'hero', 'news', 'announcement', 'agenda', 'gallery', 'staff', 'stats', 'faq', 'partner' ];
 
 foreach ( $sections as $section ) {
     $section = sanitize_file_name( $section );

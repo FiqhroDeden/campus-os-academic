@@ -199,13 +199,73 @@ add_action( 'customize_register', function( $wp_customize ) {
     ] );
 
     $wp_customize->add_setting( 'campusos_homepage_sections', [
-        'default'           => 'hero,news,announcement,agenda,gallery,stats,faq,partner',
+        'default'           => 'hero,news,announcement,agenda,gallery,staff,stats,faq,partner',
         'sanitize_callback' => 'sanitize_text_field',
     ] );
     $wp_customize->add_control( 'campusos_homepage_sections', [
         'label'       => __( 'Urutan Bagian Beranda', 'campusos-academic' ),
-        'description' => __( 'Pisahkan dengan koma. Bagian tersedia: hero, news, announcement, agenda, gallery, stats, faq, partner', 'campusos-academic' ),
+        'description' => __( 'Pisahkan dengan koma. Bagian tersedia: hero, news, announcement, agenda, gallery, staff, stats, faq, partner', 'campusos-academic' ),
         'section'     => 'campusos_homepage',
         'type'        => 'text',
     ] );
+
+    // --- Section: Statistik Beranda ---
+    $wp_customize->add_section( 'campusos_stats_homepage', [
+        'title' => __( 'Statistik Beranda', 'campusos-academic' ),
+        'panel' => 'campusos_settings',
+    ] );
+
+    $wp_customize->add_setting( 'campusos_stats_bg_image', [
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ] );
+    $wp_customize->add_control( new \WP_Customize_Image_Control( $wp_customize, 'campusos_stats_bg_image', [
+        'label'   => __( 'Background Image Statistik', 'campusos-academic' ),
+        'section' => 'campusos_stats_homepage',
+    ] ) );
+
+    $wp_customize->add_setting( 'campusos_stat_mhs_baru', [
+        'default'           => 0,
+        'sanitize_callback' => 'absint',
+    ] );
+    $wp_customize->add_control( 'campusos_stat_mhs_baru', [
+        'label'   => __( 'Jumlah Mahasiswa Baru', 'campusos-academic' ),
+        'section' => 'campusos_stats_homepage',
+        'type'    => 'number',
+    ] );
+
+    $wp_customize->add_setting( 'campusos_stat_mhs_terdaftar', [
+        'default'           => 0,
+        'sanitize_callback' => 'absint',
+    ] );
+    $wp_customize->add_control( 'campusos_stat_mhs_terdaftar', [
+        'label'   => __( 'Jumlah Mahasiswa Terdaftar', 'campusos-academic' ),
+        'section' => 'campusos_stats_homepage',
+        'type'    => 'number',
+    ] );
+
+    $wp_customize->add_setting( 'campusos_stat_beasiswa', [
+        'default'           => 0,
+        'sanitize_callback' => 'absint',
+    ] );
+    $wp_customize->add_control( 'campusos_stat_beasiswa', [
+        'label'   => __( 'Jumlah Beasiswa', 'campusos-academic' ),
+        'section' => 'campusos_stats_homepage',
+        'type'    => 'number',
+    ] );
+
+    // --- Section: Tenaga Pendidik Beranda ---
+    $wp_customize->add_section( 'campusos_staff_homepage', [
+        'title' => __( 'Tenaga Pendidik Beranda', 'campusos-academic' ),
+        'panel' => 'campusos_settings',
+    ] );
+
+    $wp_customize->add_setting( 'campusos_staff_bg_image', [
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ] );
+    $wp_customize->add_control( new \WP_Customize_Image_Control( $wp_customize, 'campusos_staff_bg_image', [
+        'label'   => __( 'Background Image Tenaga Pendidik', 'campusos-academic' ),
+        'section' => 'campusos_staff_homepage',
+    ] ) );
 } );

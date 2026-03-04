@@ -125,4 +125,84 @@
     } else {
         initFaqAccordion();
     }
+
+    // Stats V2 - Animated counters
+    function initStatsV2Counters() {
+        var counters = document.querySelectorAll('.stats-number-v2[data-count]');
+        if (!counters.length) return;
+
+        counters.forEach(function(el) {
+            if (el.dataset.counterInit) return;
+            el.dataset.counterInit = '1';
+            var end = parseInt(el.getAttribute('data-count'), 10);
+            if (!end) { el.textContent = '0'; return; }
+            var animated = false;
+
+            function animate() {
+                if (animated) return;
+                animated = true;
+                var duration = 2000;
+                var startTime = null;
+                function step(timestamp) {
+                    if (!startTime) startTime = timestamp;
+                    var progress = Math.min((timestamp - startTime) / duration, 1);
+                    var eased = 1 - Math.pow(1 - progress, 3);
+                    el.textContent = Math.floor(eased * end);
+                    if (progress < 1) requestAnimationFrame(step);
+                    else el.textContent = end;
+                }
+                requestAnimationFrame(step);
+            }
+
+            if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            animate();
+                            observer.disconnect();
+                        }
+                    });
+                }, { threshold: 0.1 });
+                observer.observe(el);
+            } else {
+                animate();
+            }
+        });
+    }
+
+    // Staff Carousel navigation
+    function initStaffCarousel() {
+        var wrapper = document.querySelector('.staff-carousel-wrapper');
+        if (!wrapper) return;
+        var track = wrapper.querySelector('.staff-carousel-track');
+        var prevBtn = wrapper.querySelector('.staff-carousel-prev');
+        var nextBtn = wrapper.querySelector('.staff-carousel-next');
+        if (!track || !prevBtn || !nextBtn) return;
+
+        function getScrollAmount() {
+            var card = track.querySelector('.staff-card');
+            if (!card) return 300;
+            var style = window.getComputedStyle(track);
+            var gap = parseFloat(style.gap) || parseFloat(style.columnGap) || 20;
+            return card.offsetWidth + gap;
+        }
+
+        prevBtn.addEventListener('click', function() {
+            track.scrollBy({ left: -getScrollAmount() * 2, behavior: 'smooth' });
+        });
+        nextBtn.addEventListener('click', function() {
+            track.scrollBy({ left: getScrollAmount() * 2, behavior: 'smooth' });
+        });
+    }
+
+    // Init on load
+    function initHomepage() {
+        initStatsV2Counters();
+        initStaffCarousel();
+    }
+    if (document.readyState === 'complete') {
+        initHomepage();
+    } else {
+        window.addEventListener('load', initHomepage);
+    }
 })();
