@@ -201,4 +201,29 @@
     } else {
         window.addEventListener('load', initHomepage);
     }
+
+    // Scroll fade-in animation
+    function initScrollAnimations() {
+        var elements = document.querySelectorAll('.homepage-section > .container, .profile-grid, .posts-grid, .error-404-content');
+        if (!elements.length || !('IntersectionObserver' in window)) return;
+
+        elements.forEach(function(el) { el.classList.add('fade-in-up'); });
+
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        elements.forEach(function(el) { observer.observe(el); });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initScrollAnimations);
+    } else {
+        initScrollAnimations();
+    }
 })();
