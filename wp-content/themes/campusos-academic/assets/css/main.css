@@ -729,10 +729,13 @@ button:focus-visible,
 
 /* --- Homepage Sections --- */
 .homepage-section {
-    padding: 3rem 0;
+    padding: var(--space-8) 0;
+}
+.homepage-section:nth-child(even):not(.homepage-hero):not(.homepage-stats-v2):not(.homepage-staff) {
+    background: var(--campusos-bg-alt);
 }
 .homepage-section h2 {
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--space-5);
 }
 
 /* --- Homepage Hero Fallback --- */
@@ -1889,66 +1892,66 @@ body.page-template-template-fullwidth.home .site-main {
 
 /* --- FAQ Styles --- */
 .faq-container {
-    margin-top: 1.5rem;
+    margin-top: var(--space-5);
 }
 .faq-category {
-    margin-bottom: 2rem;
+    margin-bottom: var(--space-6);
 }
 .faq-category-title {
     font-size: 1.25rem;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-2);
     border-bottom: 2px solid var(--campusos-primary);
 }
 .faq-accordion {
     border: 1px solid var(--campusos-border);
-    border-radius: 6px;
+    border-radius: var(--radius-md);
     overflow: hidden;
 }
 .faq-item {
     border-bottom: 1px solid var(--campusos-border);
 }
-.faq-item:last-child {
-    border-bottom: none;
-}
+.faq-item:last-child { border-bottom: none; }
 .faq-question {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 1rem 1.25rem;
-    background: #fff;
+    padding: var(--space-4) var(--space-5);
+    background: var(--campusos-surface);
     border: none;
     cursor: pointer;
     text-align: left;
     font-size: 0.9375rem;
     font-weight: 500;
-    transition: background 0.2s;
+    transition: background var(--transition-fast);
+    color: var(--campusos-text);
 }
-.faq-question:hover {
-    background: var(--campusos-bg-alt);
-}
+.faq-question:hover { background: var(--campusos-bg-alt); }
 .faq-question[aria-expanded="true"] {
     background: var(--campusos-bg-alt);
+    color: var(--campusos-primary);
 }
 .faq-question-text {
     flex: 1;
-    padding-right: 1rem;
+    padding-right: var(--space-4);
 }
+.faq-toggle img,
 .faq-toggle .dashicons {
-    transition: transform 0.2s;
+    transition: transform var(--transition-normal);
 }
+.faq-question[aria-expanded="true"] .faq-toggle img,
 .faq-question[aria-expanded="true"] .faq-toggle .dashicons {
-    transform: rotate(45deg);
+    transform: rotate(180deg);
 }
 .faq-answer {
-    background: #fff;
+    background: var(--campusos-surface);
 }
 .faq-answer-content {
-    padding: 0 1.25rem 1.25rem;
+    padding: 0 var(--space-5) var(--space-5);
     font-size: 0.9375rem;
     line-height: 1.7;
-    color: var(--campusos-text-light);
+    color: var(--campusos-text-secondary);
 }
 
 /* --- Mitra Industri Styles --- */
