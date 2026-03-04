@@ -425,26 +425,50 @@ button:focus-visible,
 
 /* --- Buttons --- */
 .btn {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
     padding: 0.625rem 1.25rem;
+    font-family: inherit;
     font-size: 0.875rem;
     font-weight: 600;
-    border: none;
-    border-radius: 4px;
+    line-height: 1.5;
+    border: 2px solid transparent;
+    border-radius: var(--radius-sm);
     cursor: pointer;
-    transition: background-color 0.2s, color 0.2s;
+    transition: all var(--transition-fast);
     text-align: center;
+}
+.btn:active {
+    transform: translateY(1px);
+}
+.btn:disabled,
+.btn[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
 }
 .btn-primary {
     background: var(--campusos-primary);
+    border-color: var(--campusos-primary);
     color: #fff;
 }
-.btn-primary:hover { opacity: 0.9; color: #fff; }
+.btn-primary:hover {
+    background: var(--campusos-primary-dark);
+    border-color: var(--campusos-primary-dark);
+    color: #fff;
+}
 .btn-secondary {
     background: var(--campusos-secondary);
+    border-color: var(--campusos-secondary);
     color: #fff;
 }
-.btn-secondary:hover { opacity: 0.9; color: #fff; }
+.btn-secondary:hover {
+    background: var(--campusos-secondary-dark);
+    border-color: var(--campusos-secondary-dark);
+    color: #fff;
+}
 .btn-outline {
     background: transparent;
     border: 2px solid var(--campusos-primary);
@@ -454,6 +478,35 @@ button:focus-visible,
     background: var(--campusos-primary);
     color: #fff;
 }
+.btn-outline-white {
+    background: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+}
+.btn-outline-white:hover {
+    background: #fff;
+    color: var(--campusos-primary);
+}
+
+/* --- Badges --- */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+    line-height: 1.4;
+}
+.badge--primary { background: var(--campusos-primary-light); color: var(--campusos-primary); }
+.badge--secondary { background: var(--campusos-secondary-light); color: var(--campusos-secondary-dark); }
+.badge--success { background: #d1fae5; color: #065f46; }
+.badge--warning { background: #fef3c7; color: #92400e; }
+.badge--error { background: #fee2e2; color: #991b1b; }
+.badge--neutral { background: var(--campusos-bg-alt); color: var(--campusos-text-light); }
+.badge--sm { font-size: 0.6875rem; padding: 0.125rem 0.375rem; }
+.badge--lg { font-size: 0.8125rem; padding: 0.3rem 0.625rem; }
 
 /* --- Cards --- */
 .card {
