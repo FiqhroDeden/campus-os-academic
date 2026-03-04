@@ -12,7 +12,7 @@ $staff_query = new WP_Query( [
 if ( ! $staff_query->have_posts() ) return;
 
 $bg_image = get_theme_mod( 'campusos_staff_bg_image', '' );
-$bg_style = $bg_image ? 'background-image:url(' . esc_url( $bg_image ) . ');background-size:cover;background-position:center;' : 'background:#001432;';
+$bg_style = $bg_image ? 'background-image:url(' . esc_url( $bg_image ) . ');background-size:cover;background-position:center;' : '';
 $archive_url = get_post_type_archive_link( 'tenaga_pendidik' );
 ?>
 <section class="homepage-section homepage-staff" style="<?php echo esc_attr( $bg_style . 'padding:0;position:relative;' ); ?>">

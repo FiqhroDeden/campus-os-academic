@@ -664,35 +664,30 @@ button:focus-visible,
 
 /* --- Page Hero (Interior Page Header) --- */
 .page-hero {
-    background: linear-gradient(135deg, var(--campusos-primary), var(--campusos-primary-dark));
-    color: #fff;
+    background: var(--campusos-bg-alt);
+    border-bottom: 3px solid var(--campusos-primary);
+    color: var(--campusos-text);
     padding: 3rem 0 2.5rem;
     position: relative;
     overflow: hidden;
 }
 .page-hero::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -10%;
-    width: 400px;
-    height: 400px;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 50%;
+    display: none;
 }
 .page-hero h1 {
-    color: #fff;
+    color: var(--campusos-primary);
     font-size: clamp(1.5rem, 3vw, 2rem);
     margin-bottom: var(--space-2);
 }
 .page-hero .breadcrumb,
 .page-hero-subtitle {
     font-size: 0.9375rem;
-    opacity: 0.85;
+    opacity: 1;
+    color: var(--campusos-text-secondary);
     margin-top: var(--space-2);
 }
-.page-hero .breadcrumb a { color: #fff; opacity: 0.8; }
-.page-hero .breadcrumb a:hover { opacity: 1; }
+.page-hero .breadcrumb a { color: var(--campusos-primary); opacity: 1; }
+.page-hero .breadcrumb a:hover { opacity: 0.8; }
 
 /* --- Breadcrumbs --- */
 .campusos-breadcrumbs {
@@ -740,8 +735,8 @@ button:focus-visible,
 
 /* --- Homepage Hero Fallback --- */
 .hero-fallback {
-    background: linear-gradient(135deg, var(--campusos-primary), var(--campusos-primary-dark));
-    color: #fff;
+    background: var(--campusos-bg-alt);
+    color: var(--campusos-text);
     padding: 6rem 0 5rem;
     text-align: center;
     position: relative;
@@ -750,38 +745,23 @@ button:focus-visible,
     display: flex;
     align-items: center;
 }
-.hero-fallback::before {
-    content: '';
-    position: absolute;
-    top: -200px;
-    right: -100px;
-    width: 500px;
-    height: 500px;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 50%;
-}
+.hero-fallback::before,
 .hero-fallback::after {
-    content: '';
-    position: absolute;
-    bottom: -150px;
-    left: -80px;
-    width: 350px;
-    height: 350px;
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 50%;
+    display: none;
 }
 .hero-subtitle {
     font-size: 1rem;
-    opacity: 0.8;
+    opacity: 1;
+    color: var(--campusos-primary);
     margin-bottom: var(--space-3);
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    font-weight: 500;
+    font-weight: 600;
 }
 .hero-title {
     font-size: clamp(2rem, 5vw, 3.5rem);
     font-weight: 700;
-    color: #fff;
+    color: var(--campusos-text);
     margin-bottom: var(--space-4);
     max-width: 700px;
     margin-left: auto;
@@ -790,7 +770,8 @@ button:focus-visible,
 }
 .hero-desc {
     font-size: 1.125rem;
-    opacity: 0.85;
+    opacity: 1;
+    color: var(--campusos-text-secondary);
     max-width: 550px;
     margin: 0 auto var(--space-6);
     line-height: 1.7;
@@ -2319,10 +2300,10 @@ body.page-template-template-fullwidth.home .site-main {
 .section-header-centered {
     text-align: center;
     margin-bottom: 2.5rem;
-    color: #fff;
+    color: var(--campusos-text);
 }
 .section-header-centered h2 {
-    color: #fff;
+    color: var(--campusos-text);
     font-size: 1.75rem;
     font-weight: 700;
     margin-bottom: 0.25rem;
@@ -2330,14 +2311,14 @@ body.page-template-template-fullwidth.home .site-main {
     letter-spacing: 0.05em;
 }
 .section-header-centered p {
-    color: rgba(255,255,255,0.8);
+    color: var(--campusos-text-secondary);
     font-size: 1.125rem;
     font-weight: 400;
 }
 .section-decorator {
     width: 50px;
     height: 4px;
-    background: var(--campusos-primary);
+    background: var(--campusos-secondary);
     margin: 0 auto 1rem;
     border-radius: 2px;
 }
@@ -2348,9 +2329,10 @@ body.page-template-template-fullwidth.home .site-main {
 .homepage-stats-v2 {
     position: relative;
     overflow: hidden;
+    background: var(--campusos-bg-alt);
 }
 .stats-overlay {
-    background: linear-gradient(135deg, rgba(0, 20, 50, 0.92), rgba(0, 40, 85, 0.88));
+    background: transparent;
     padding: var(--space-8) 0;
 }
 .stats-grid-v2 {
@@ -2371,12 +2353,12 @@ body.page-template-template-fullwidth.home .site-main {
     top: 20%;
     height: 60%;
     width: 1px;
-    background: rgba(255, 255, 255, 0.15);
+    background: var(--campusos-border);
 }
 .stats-icon-circle {
     width: 70px;
     height: 70px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    border: 2px solid var(--campusos-primary);
     border-radius: var(--radius-full);
     display: flex;
     align-items: center;
@@ -2386,7 +2368,7 @@ body.page-template-template-fullwidth.home .site-main {
 }
 .stats-item-v2:hover .stats-icon-circle {
     border-color: var(--campusos-secondary);
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--campusos-primary-light);
     transform: scale(1.08);
 }
 .stats-icon-circle svg {
@@ -2396,13 +2378,13 @@ body.page-template-template-fullwidth.home .site-main {
 .stats-number-v2 {
     font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 700;
-    color: #fff;
+    color: var(--campusos-primary);
     line-height: 1.2;
     margin-bottom: var(--space-1);
 }
 .stats-label-v2 {
     font-size: 0.8125rem;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--campusos-text-secondary);
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -2433,9 +2415,10 @@ body.page-template-template-fullwidth.home .site-main {
 .homepage-staff {
     position: relative;
     overflow: hidden;
+    background: var(--campusos-bg-alt);
 }
 .homepage-staff-overlay {
-    background: rgba(0, 20, 50, 0.85);
+    background: transparent;
     padding: 4rem 0;
 }
 .staff-carousel-wrapper {
@@ -2852,6 +2835,33 @@ body.page-template-template-fullwidth.home .site-main {
     }
     .staff-carousel-btn:hover {
         background: var(--campusos-surface);
+    }
+
+    /* --- Page Hero (light → dark mode) --- */
+    .page-hero {
+        background: var(--campusos-surface);
+        border-bottom-color: var(--campusos-border);
+    }
+    .page-hero h1 {
+        color: var(--campusos-primary-light);
+    }
+
+    /* --- Hero Fallback (light → dark mode) --- */
+    .hero-fallback {
+        background: var(--campusos-bg-alt);
+    }
+
+    /* --- Stats (light → dark mode) --- */
+    .homepage-stats-v2 {
+        background: var(--campusos-bg-alt);
+    }
+    .stats-icon-circle {
+        border-color: var(--campusos-primary);
+    }
+
+    /* --- Staff (light → dark mode) --- */
+    .homepage-staff {
+        background: var(--campusos-bg-alt);
     }
 
     /* --- Images --- */

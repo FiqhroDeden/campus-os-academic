@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
             <p class="hero-desc"><?php esc_html_e( 'Membangun generasi unggul, kompeten, dan berakhlak mulia untuk kemajuan bangsa.', 'campusos-academic' ); ?></p>
             <div class="hero-actions">
                 <a href="<?php echo esc_url( home_url( '/penerimaan/' ) ); ?>" class="btn btn-primary btn-lg"><?php esc_html_e( 'Daftar Sekarang', 'campusos-academic' ); ?></a>
-                <a href="<?php echo esc_url( home_url( '/profil/' ) ); ?>" class="btn btn-outline-white btn-lg"><?php esc_html_e( 'Profil', 'campusos-academic' ); ?></a>
+                <a href="<?php echo esc_url( home_url( '/profil/' ) ); ?>" class="btn btn-outline btn-lg"><?php esc_html_e( 'Profil', 'campusos-academic' ); ?></a>
             </div>
         </div>
     </div>

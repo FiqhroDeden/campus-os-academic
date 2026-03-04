@@ -1,7 +1,7 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'CAMPUSOS_THEME_VERSION', '1.2.0' );
+define( 'CAMPUSOS_THEME_VERSION', '1.2.1' );
 define( 'CAMPUSOS_THEME_PATH', get_template_directory() );
 define( 'CAMPUSOS_THEME_URI', get_template_directory_uri() );
 
