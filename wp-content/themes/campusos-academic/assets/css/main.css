@@ -510,16 +510,29 @@ button:focus-visible,
 
 /* --- Cards --- */
 .card {
-    background: #fff;
+    background: var(--campusos-surface);
     border: 1px solid var(--campusos-border);
-    border-radius: 6px;
+    border-radius: var(--radius-md);
     overflow: hidden;
-    transition: box-shadow 0.2s;
+    transition: box-shadow var(--transition-normal), transform var(--transition-normal);
 }
-.card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
-.card-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
-.card-body { padding: 1rem; }
-.card-title { font-size: 1rem; margin-bottom: 0.5rem; }
+.card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+.card-img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+}
+.card:hover .card-img {
+    transform: scale(1.03);
+}
+.card-body { padding: var(--space-4); }
+.card-title { font-size: 1rem; margin-bottom: var(--space-2); }
+.card-title a { color: var(--campusos-text); transition: color var(--transition-fast); }
+.card-title a:hover { color: var(--campusos-primary); }
 .card-text { font-size: 0.875rem; color: var(--campusos-text-light); }
 
 /* --- Main Content --- */
@@ -951,7 +964,7 @@ body.page-template-template-fullwidth.home .site-main {
 .kerjasama-placeholder {
     width: 100%;
     aspect-ratio: 1;
-    background: var(--campusos-bg-alt, #f9fafb);
+    background: linear-gradient(135deg, var(--campusos-bg-alt), var(--campusos-surface-alt));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2495,14 +2508,14 @@ body.page-template-template-fullwidth.home .site-main {
         border-color: var(--campusos-border);
     }
     .card:hover {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        box-shadow: var(--shadow-lg);
     }
     .profile-card {
         background: var(--campusos-surface);
         border-color: var(--campusos-border);
     }
     .profile-card:hover {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        box-shadow: var(--shadow-lg);
     }
 
     /* --- Header --- */
