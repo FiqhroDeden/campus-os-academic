@@ -43,11 +43,43 @@ add_action( 'wp_enqueue_scripts', function() {
         wp_enqueue_style( 'campusos-google-font', 'https://fonts.googleapis.com/css2?family=' . $font_slug . ':wght@400;500;600;700&display=swap', [], null );
     }
 
-    $primary = get_theme_mod( 'campusos_primary_color', '#003d82' );
+    $primary   = get_theme_mod( 'campusos_primary_color', '#003d82' );
     $secondary = get_theme_mod( 'campusos_secondary_color', '#e67e22' );
+
+    // Compute light/dark variants from hex colors
+    $pr = $pg = $pb = 0;
+    sscanf( $primary, '#%02x%02x%02x', $pr, $pg, $pb );
+    $primary_light = sprintf( '#%02x%02x%02x',
+        $pr + (int) ( ( 255 - $pr ) * 0.9 ),
+        $pg + (int) ( ( 255 - $pg ) * 0.9 ),
+        $pb + (int) ( ( 255 - $pb ) * 0.9 )
+    );
+    $primary_dark = sprintf( '#%02x%02x%02x',
+        max( 0, (int) ( $pr * 0.7 ) ),
+        max( 0, (int) ( $pg * 0.7 ) ),
+        max( 0, (int) ( $pb * 0.7 ) )
+    );
+
+    $sr = $sg = $sb = 0;
+    sscanf( $secondary, '#%02x%02x%02x', $sr, $sg, $sb );
+    $secondary_light = sprintf( '#%02x%02x%02x',
+        $sr + (int) ( ( 255 - $sr ) * 0.9 ),
+        $sg + (int) ( ( 255 - $sg ) * 0.9 ),
+        $sb + (int) ( ( 255 - $sb ) * 0.9 )
+    );
+    $secondary_dark = sprintf( '#%02x%02x%02x',
+        max( 0, (int) ( $sr * 0.7 ) ),
+        max( 0, (int) ( $sg * 0.7 ) ),
+        max( 0, (int) ( $sb * 0.7 ) )
+    );
+
     $css = ":root {
         --campusos-primary: {$primary};
+        --campusos-primary-light: {$primary_light};
+        --campusos-primary-dark: {$primary_dark};
         --campusos-secondary: {$secondary};
+        --campusos-secondary-light: {$secondary_light};
+        --campusos-secondary-dark: {$secondary_dark};
         --campusos-font-family: '{$font_family}', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
     body { font-family: var(--campusos-font-family); }";
