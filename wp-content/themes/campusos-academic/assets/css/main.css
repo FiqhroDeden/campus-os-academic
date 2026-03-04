@@ -2367,3 +2367,200 @@ body.page-template-template-fullwidth.home .site-main {
         height: 34px;
     }
 }
+
+/* ============================================
+   Dark Mode
+   ============================================ */
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* Dark backgrounds */
+        --campusos-bg: #0f172a;
+        --campusos-bg-alt: #1e293b;
+
+        /* Dark surfaces */
+        --campusos-surface: #1e293b;
+        --campusos-surface-alt: #334155;
+
+        /* Light text for dark backgrounds */
+        --campusos-text: #f1f5f9;
+        --campusos-text-secondary: #cbd5e1;
+        --campusos-text-light: #94a3b8;
+        --campusos-text-muted: #64748b;
+
+        /* Dark borders */
+        --campusos-border: #334155;
+        --campusos-border-light: #1e293b;
+
+        /* Adjusted primary-light for dark backgrounds */
+        --campusos-primary-light: rgba(0, 61, 130, 0.25);
+        --campusos-secondary-light: rgba(230, 126, 34, 0.2);
+
+        /* Deeper shadows for dark mode */
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.2);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.35), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
+        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.25);
+    }
+
+    /* --- Cards --- */
+    .card {
+        background: var(--campusos-surface);
+        border-color: var(--campusos-border);
+    }
+    .card:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    .profile-card {
+        background: var(--campusos-surface);
+        border-color: var(--campusos-border);
+    }
+    .profile-card:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    /* --- Header --- */
+    .header-main {
+        background: var(--campusos-surface);
+        border-bottom-color: var(--campusos-border);
+    }
+    .header-top {
+        background: #0c1929;
+    }
+
+    /* --- Breadcrumbs --- */
+    .campusos-breadcrumbs {
+        background: var(--campusos-bg-alt);
+        border-bottom-color: var(--campusos-border);
+    }
+    .breadcrumb-sep {
+        color: var(--campusos-text-muted);
+    }
+
+    /* --- Content --- */
+    .entry-content blockquote {
+        background: var(--campusos-surface-alt);
+        border-left-color: var(--campusos-primary);
+    }
+    .site-main {
+        background: var(--campusos-bg);
+    }
+
+    /* --- Placeholders --- */
+    .profile-placeholder,
+    .card-img-placeholder,
+    .kerjasama-placeholder {
+        background: var(--campusos-surface-alt);
+    }
+    .profile-placeholder .dashicons,
+    .card-img-placeholder .dashicons,
+    .kerjasama-placeholder .dashicons {
+        color: var(--campusos-text-muted);
+    }
+
+    /* --- Tables --- */
+    .ukt-table th,
+    .ukt-table td {
+        border-color: var(--campusos-border);
+    }
+    .ukt-table thead th {
+        background: var(--campusos-primary-dark, #002855);
+    }
+    .ukt-table tbody tr:nth-child(even) {
+        background: var(--campusos-surface);
+    }
+    .publikasi-table th,
+    .publikasi-table td {
+        border-bottom-color: var(--campusos-border);
+    }
+
+    /* --- Forms --- */
+    input[type="text"],
+    input[type="email"],
+    input[type="url"],
+    input[type="password"],
+    input[type="search"],
+    input[type="number"],
+    input[type="tel"],
+    input[type="date"],
+    textarea,
+    select {
+        background-color: var(--campusos-surface);
+        border-color: var(--campusos-border);
+        color: var(--campusos-text);
+    }
+    select {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8.825a.7.7 0 0 1-.5-.206L1.205 4.323a.71.71 0 0 1 0-1.002.71.71 0 0 1 1.002 0L6 7.116l3.793-3.795a.71.71 0 0 1 1.002 0 .71.71 0 0 1 0 1.002L6.5 8.619a.7.7 0 0 1-.5.206Z'/%3E%3C/svg%3E");
+    }
+
+    /* --- Search Results --- */
+    .search-result {
+        border-bottom-color: var(--campusos-border);
+    }
+
+    /* --- Document Table --- */
+    .doc-table {
+        border-color: var(--campusos-border);
+    }
+    .doc-table-header {
+        background: var(--campusos-primary-dark, #002855);
+    }
+    .doc-table-row {
+        border-bottom-color: var(--campusos-border);
+    }
+    .doc-table-row:hover {
+        background: var(--campusos-surface);
+    }
+
+    /* --- Timeline --- */
+    .timeline-content {
+        background: var(--campusos-surface);
+        border-color: var(--campusos-border);
+    }
+
+    /* --- Publikasi --- */
+    .publikasi-item {
+        border-color: var(--campusos-border);
+        background: var(--campusos-surface);
+    }
+    .publikasi-item:hover {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    }
+    .publikasi-icon {
+        background: var(--campusos-surface-alt);
+    }
+    .badge-jurnal { background: rgba(59, 130, 246, 0.2); color: #93bbfd; }
+    .badge-prosiding { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+    .badge-buku { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; }
+    .badge-hki { background: rgba(236, 72, 153, 0.2); color: #f9a8d4; }
+
+    /* --- Pagination --- */
+    .nav-links a,
+    .nav-links span {
+        border-color: var(--campusos-border);
+    }
+
+    /* --- FAQ --- */
+    .faq-category-title,
+    .vmts-section h2,
+    .doc-category h2,
+    .widget-area .widget-title,
+    .publikasi-authors h3,
+    .publikasi-details h3,
+    .publikasi-abstract h3 {
+        border-bottom-color: var(--campusos-primary);
+    }
+
+    /* --- Carousel & staff cards --- */
+    .staff-carousel-btn {
+        background: rgba(30, 41, 59, 0.9);
+        color: var(--campusos-text);
+    }
+    .staff-carousel-btn:hover {
+        background: var(--campusos-surface);
+    }
+
+    /* --- Images --- */
+    img {
+        opacity: 0.9;
+    }
+}
