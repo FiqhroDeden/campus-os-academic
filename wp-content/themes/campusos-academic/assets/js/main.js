@@ -16,7 +16,7 @@
     var menuItems = document.querySelectorAll('.main-navigation .menu-item-has-children > a');
     menuItems.forEach(function(item) {
         item.addEventListener('click', function(e) {
-            if (window.innerWidth <= 1280) {
+            if (window.innerWidth <= 1023) {
                 var parent = this.parentElement;
                 if (!parent.classList.contains('menu-open')) {
                     e.preventDefault();
@@ -33,11 +33,7 @@
     var header = document.querySelector('.header-main');
     if (header) {
         window.addEventListener('scroll', function() {
-            if (window.scrollY > 10) {
-                header.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
-            } else {
-                header.style.boxShadow = 'none';
-            }
+            header.classList.toggle('is-scrolled', window.scrollY > 10);
         });
     }
 
