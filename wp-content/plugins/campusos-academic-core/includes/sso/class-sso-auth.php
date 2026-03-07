@@ -47,6 +47,12 @@ class SSO_Auth {
 
     public function register_rewrite() {
         add_rewrite_rule( '^sso/callback/?$', 'index.php?campusos_sso_callback=1', 'top' );
+
+        // Flush rewrite rules if our rule isn't registered yet
+        $rules = get_option( 'rewrite_rules' );
+        if ( is_array( $rules ) && ! isset( $rules['^sso/callback/?$'] ) ) {
+            flush_rewrite_rules( false );
+        }
     }
 
     public function add_query_vars( $vars ) {
@@ -280,12 +286,13 @@ class SSO_Auth {
                 return;
             }
         }
-        $user->set_role( 'editor' );
+        $user->set_role( 'subscriber' );
     }
 
     private function get_role_mapping(): array {
         $settings = get_option( 'campusos_settings', [] );
-        $raw = $settings['sso_role_mapping'] ?? "Admin=administrator\nEditor=editor";
+        $default = "administrator=administrator\neditor=editor\nauthor=author\ncontributor=contributor\nsubscriber=subscriber";
+        $raw = ! empty( $settings['sso_role_mapping'] ) ? $settings['sso_role_mapping'] : $default;
         $map = [];
         foreach ( explode( "\n", $raw ) as $line ) {
             $line = trim( $line );

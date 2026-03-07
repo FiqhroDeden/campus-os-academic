@@ -30,33 +30,67 @@ class Admin_Settings {
     }
 
     public function sanitize_settings( $input ) {
-        $sanitized = [];
+        // Merge with existing options so saving one tab doesn't wipe other tabs
+        $existing  = get_option( $this->option_name, [] );
+        $sanitized = is_array( $existing ) ? $existing : [];
+        $tab       = $input['_active_tab'] ?? '';
 
-        // Security tab
-        $sanitized['security_xmlrpc_disabled']  = ! empty( $input['security_xmlrpc_disabled'] ) ? 1 : 0;
-        $sanitized['security_user_enum_disabled'] = ! empty( $input['security_user_enum_disabled'] ) ? 1 : 0;
-        $sanitized['security_file_edit_disabled'] = ! empty( $input['security_file_edit_disabled'] ) ? 1 : 0;
-        $sanitized['security_scanner_enabled']  = ! empty( $input['security_scanner_enabled'] ) ? 1 : 0;
-        $sanitized['security_scanner_keywords'] = sanitize_textarea_field( $input['security_scanner_keywords'] ?? '' );
-        $sanitized['security_whitelist_domains'] = sanitize_textarea_field( $input['security_whitelist_domains'] ?? '' );
+        // Remove internal field
+        unset( $sanitized['_active_tab'] );
 
-        // SSO tab
-        $sanitized['sso_enabled']       = ! empty( $input['sso_enabled'] ) ? 1 : 0;
-        $sanitized['sso_base_url']      = esc_url_raw( $input['sso_base_url'] ?? '' );
-        $sanitized['sso_client_id']     = sanitize_text_field( $input['sso_client_id'] ?? '' );
-        $sanitized['sso_client_secret'] = sanitize_text_field( $input['sso_client_secret'] ?? '' );
-        $sanitized['sso_role_mapping']  = sanitize_textarea_field( $input['sso_role_mapping'] ?? '' );
-        $sanitized['sso_fallback_admin'] = sanitize_user( $input['sso_fallback_admin'] ?? '' );
+        switch ( $tab ) {
+            case 'keamanan':
+                $sanitized['security_xmlrpc_disabled']   = ! empty( $input['security_xmlrpc_disabled'] ) ? 1 : 0;
+                $sanitized['security_user_enum_disabled'] = ! empty( $input['security_user_enum_disabled'] ) ? 1 : 0;
+                $sanitized['security_file_edit_disabled'] = ! empty( $input['security_file_edit_disabled'] ) ? 1 : 0;
+                $sanitized['security_scanner_enabled']   = ! empty( $input['security_scanner_enabled'] ) ? 1 : 0;
+                $sanitized['security_scanner_keywords']  = sanitize_textarea_field( $input['security_scanner_keywords'] ?? '' );
+                $sanitized['security_whitelist_domains']  = sanitize_textarea_field( $input['security_whitelist_domains'] ?? '' );
+                break;
 
-        // API tab
-        $sanitized['api_siakad_url']   = esc_url_raw( $input['api_siakad_url'] ?? '' );
-        $sanitized['api_siakad_key']   = sanitize_text_field( $input['api_siakad_key'] ?? '' );
-        $sanitized['api_sigap_url']    = esc_url_raw( $input['api_sigap_url'] ?? '' );
-        $sanitized['api_sigap_key']    = sanitize_text_field( $input['api_sigap_key'] ?? '' );
-        $sanitized['api_cache_ttl']    = absint( $input['api_cache_ttl'] ?? 3600 );
+            case 'sso':
+                $sanitized['sso_enabled']        = ! empty( $input['sso_enabled'] ) ? 1 : 0;
+                $sanitized['sso_base_url']       = esc_url_raw( $input['sso_base_url'] ?? '' );
+                $sanitized['sso_client_id']      = sanitize_text_field( $input['sso_client_id'] ?? '' );
+                $sanitized['sso_client_secret']  = sanitize_text_field( $input['sso_client_secret'] ?? '' );
+                $sanitized['sso_role_mapping']   = sanitize_textarea_field( $input['sso_role_mapping'] ?? '' );
+                $sanitized['sso_fallback_admin'] = sanitize_user( $input['sso_fallback_admin'] ?? '' );
+                break;
 
-        // Update server
-        $sanitized['update_server_url'] = esc_url_raw( $input['update_server_url'] ?? '' );
+            case 'api':
+                $sanitized['api_siakad_url'] = esc_url_raw( $input['api_siakad_url'] ?? '' );
+                $sanitized['api_siakad_key'] = sanitize_text_field( $input['api_siakad_key'] ?? '' );
+                $sanitized['api_sigap_url']  = esc_url_raw( $input['api_sigap_url'] ?? '' );
+                $sanitized['api_sigap_key']  = sanitize_text_field( $input['api_sigap_key'] ?? '' );
+                $sanitized['api_cache_ttl']  = absint( $input['api_cache_ttl'] ?? 3600 );
+                break;
+
+            case 'export':
+                $sanitized['update_server_url'] = esc_url_raw( $input['update_server_url'] ?? '' );
+                break;
+
+            default:
+                // Fallback: sanitize all fields (backwards compat)
+                $sanitized['security_xmlrpc_disabled']   = ! empty( $input['security_xmlrpc_disabled'] ) ? 1 : 0;
+                $sanitized['security_user_enum_disabled'] = ! empty( $input['security_user_enum_disabled'] ) ? 1 : 0;
+                $sanitized['security_file_edit_disabled'] = ! empty( $input['security_file_edit_disabled'] ) ? 1 : 0;
+                $sanitized['security_scanner_enabled']   = ! empty( $input['security_scanner_enabled'] ) ? 1 : 0;
+                $sanitized['security_scanner_keywords']  = sanitize_textarea_field( $input['security_scanner_keywords'] ?? '' );
+                $sanitized['security_whitelist_domains']  = sanitize_textarea_field( $input['security_whitelist_domains'] ?? '' );
+                $sanitized['sso_enabled']        = ! empty( $input['sso_enabled'] ) ? 1 : 0;
+                $sanitized['sso_base_url']       = esc_url_raw( $input['sso_base_url'] ?? '' );
+                $sanitized['sso_client_id']      = sanitize_text_field( $input['sso_client_id'] ?? '' );
+                $sanitized['sso_client_secret']  = sanitize_text_field( $input['sso_client_secret'] ?? '' );
+                $sanitized['sso_role_mapping']   = sanitize_textarea_field( $input['sso_role_mapping'] ?? '' );
+                $sanitized['sso_fallback_admin'] = sanitize_user( $input['sso_fallback_admin'] ?? '' );
+                $sanitized['api_siakad_url'] = esc_url_raw( $input['api_siakad_url'] ?? '' );
+                $sanitized['api_siakad_key'] = sanitize_text_field( $input['api_siakad_key'] ?? '' );
+                $sanitized['api_sigap_url']  = esc_url_raw( $input['api_sigap_url'] ?? '' );
+                $sanitized['api_sigap_key']  = sanitize_text_field( $input['api_sigap_key'] ?? '' );
+                $sanitized['api_cache_ttl']  = absint( $input['api_cache_ttl'] ?? 3600 );
+                $sanitized['update_server_url'] = esc_url_raw( $input['update_server_url'] ?? '' );
+                break;
+        }
 
         return $sanitized;
     }
@@ -92,6 +126,7 @@ class Admin_Settings {
 
             <form method="post" action="options.php">
                 <?php settings_fields( 'campusos_settings_group' ); ?>
+                <input type="hidden" name="<?php echo esc_attr( $this->option_name ); ?>[_active_tab]" value="<?php echo esc_attr( $active_tab ); ?>" />
 
                 <?php
                 switch ( $active_tab ) {
@@ -227,8 +262,9 @@ class Admin_Settings {
             <tr>
                 <th><?php esc_html_e( 'Role Mapping', 'campusos-academic' ); ?></th>
                 <td>
-                    <textarea name="<?php echo $this->option_name; ?>[sso_role_mapping]" rows="4" class="large-text"><?php echo esc_textarea( $this->get_option('sso_role_mapping', "Admin=administrator\nEditor=editor") ); ?></textarea>
-                    <p class="description"><?php esc_html_e( 'Format: SSORole=wp_role (satu per baris). Contoh: Admin=administrator', 'campusos-academic' ); ?></p>
+                    <?php $role_mapping_default = "administrator=administrator\neditor=editor\nauthor=author\ncontributor=contributor\nsubscriber=subscriber"; ?>
+                    <textarea name="<?php echo $this->option_name; ?>[sso_role_mapping]" rows="6" class="large-text"><?php echo esc_textarea( $this->get_option('sso_role_mapping') ?: $role_mapping_default ); ?></textarea>
+                    <p class="description"><?php esc_html_e( 'Format: SSORole=wp_role (satu per baris). Contoh: administrator=administrator', 'campusos-academic' ); ?></p>
                 </td>
             </tr>
             <tr>
@@ -305,6 +341,7 @@ class Admin_Settings {
         </form>
         <form method="post" action="options.php">
             <?php settings_fields( 'campusos_settings_group' ); ?>
+            <input type="hidden" name="<?php echo esc_attr( $this->option_name ); ?>[_active_tab]" value="export" />
 
         <hr/>
         <h3><?php esc_html_e( 'Update Server', 'campusos-academic' ); ?></h3>
