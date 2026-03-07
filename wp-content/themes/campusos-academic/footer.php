@@ -8,17 +8,41 @@
                     <?php if ( has_custom_logo() ) : ?>
                         <div class="footer-logo"><?php the_custom_logo(); ?></div>
                     <?php endif; ?>
-                    <h3 class="footer-title"><?php echo esc_html( campusos_get_institution_name() ); ?></h3>
+                    <?php
+                    $parent_name = get_theme_mod( 'campusos_parent_name', '' );
+                    $inst_name   = campusos_get_institution_name();
+                    ?>
+                    <?php if ( $parent_name ) : ?>
+                        <p class="footer-inst-parent"><?php echo esc_html( $parent_name ); ?></p>
+                    <?php endif; ?>
+                    <h3 class="footer-inst-name"><?php echo esc_html( $inst_name ); ?></h3>
                     <?php if ( $address = get_theme_mod( 'campusos_address' ) ) : ?>
                         <p class="footer-address"><?php echo esc_html( $address ); ?></p>
                     <?php endif; ?>
+                    <div class="footer-info-links">
+                        <?php if ( $parent_url = get_theme_mod( 'campusos_parent_url' ) ) : ?>
+                            <a href="<?php echo esc_url( $parent_url ); ?>" target="_blank" rel="noopener noreferrer" class="footer-info-link">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <?php esc_html_e( 'Peta & Arah', 'campusos-academic' ); ?>
+                            </a>
+                        <?php endif; ?>
+                        <?php
+                        $phone = get_theme_mod( 'campusos_phone' );
+                        $email = get_theme_mod( 'campusos_email' );
+                        if ( $phone || $email ) : ?>
+                            <a href="<?php echo $email ? 'mailto:' . esc_attr( $email ) : ( $phone ? 'tel:' . esc_attr( $phone ) : '#' ); ?>" class="footer-info-link">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+                                <?php esc_html_e( 'Informasi Kontak', 'campusos-academic' ); ?>
+                            </a>
+                        <?php endif; ?>
+                    </div>
                 </div>
 
-                <div class="footer-col footer-links">
-                    <h3 class="footer-title"><?php esc_html_e( 'Tautan', 'campusos-academic' ); ?></h3>
+                <div class="footer-col footer-links-col">
+                    <h3 class="footer-title"><?php esc_html_e( 'Akademik', 'campusos-academic' ); ?></h3>
                     <?php
                     wp_nav_menu( [
-                        'theme_location' => 'footer',
+                        'theme_location' => 'footer-akademik',
                         'menu_class'     => 'footer-menu',
                         'container'      => false,
                         'fallback_cb'    => false,
@@ -27,26 +51,30 @@
                     ?>
                 </div>
 
-                <div class="footer-col footer-contact">
-                    <h3 class="footer-title"><?php esc_html_e( 'Kontak', 'campusos-academic' ); ?></h3>
-                    <?php if ( $phone = get_theme_mod( 'campusos_phone' ) ) : ?>
-                        <p class="footer-contact-item">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-                            <?php echo esc_html( $phone ); ?>
-                        </p>
-                    <?php endif; ?>
-                    <?php if ( $email = get_theme_mod( 'campusos_email' ) ) : ?>
-                        <p class="footer-contact-item">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
-                            <?php echo esc_html( $email ); ?>
-                        </p>
-                    <?php endif; ?>
-                    <?php if ( $parent_url = get_theme_mod( 'campusos_parent_url' ) ) : ?>
-                        <p class="footer-contact-item">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                            <a href="<?php echo esc_url( $parent_url ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( wp_parse_url( $parent_url, PHP_URL_HOST ) ); ?></a>
-                        </p>
-                    <?php endif; ?>
+                <div class="footer-col footer-links-col">
+                    <h3 class="footer-title"><?php esc_html_e( 'Kemahasiswaan', 'campusos-academic' ); ?></h3>
+                    <?php
+                    wp_nav_menu( [
+                        'theme_location' => 'footer-kemahasiswaan',
+                        'menu_class'     => 'footer-menu',
+                        'container'      => false,
+                        'fallback_cb'    => false,
+                        'depth'          => 1,
+                    ] );
+                    ?>
+                </div>
+
+                <div class="footer-col footer-links-col">
+                    <h3 class="footer-title"><?php esc_html_e( 'Alumni', 'campusos-academic' ); ?></h3>
+                    <?php
+                    wp_nav_menu( [
+                        'theme_location' => 'footer-alumni',
+                        'menu_class'     => 'footer-menu',
+                        'container'      => false,
+                        'fallback_cb'    => false,
+                        'depth'          => 1,
+                    ] );
+                    ?>
                 </div>
 
                 <div class="footer-col footer-social">

@@ -43,6 +43,18 @@ add_action( 'customize_register', function( $wp_customize ) {
         'type'    => 'text',
     ] );
 
+    // Parent Name (University / Faculty name shown in footer)
+    $wp_customize->add_setting( 'campusos_parent_name', [
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_text_field',
+    ] );
+    $wp_customize->add_control( 'campusos_parent_name', [
+        'label'       => __( 'Nama Induk (Universitas / Fakultas)', 'campusos-academic' ),
+        'description' => __( 'Ditampilkan di atas nama institusi di footer', 'campusos-academic' ),
+        'section'     => 'campusos_identity',
+        'type'        => 'text',
+    ] );
+
     // Parent URL
     $wp_customize->add_setting( 'campusos_parent_url', [
         'default'           => '',

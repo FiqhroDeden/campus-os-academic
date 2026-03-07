@@ -289,3 +289,19 @@
     font-size: 0.875rem;
     margin-bottom: 0;
 }
+
+@media (prefers-color-scheme: dark) {
+    .campusos-kaprodi {
+        background: #fff;
+        padding: 2rem;
+        border-radius: 12px;
+    }
+    .campusos-kaprodi-title { color: #003d82; }
+    .campusos-kaprodi-nama { color: #b8860b; }
+    .campusos-kaprodi-jabatan { color: #374151; }
+    .campusos-kaprodi-text { color: #1f2937; }
+    .campusos-kaprodi .campusos-btn-primary {
+        background: #003d82;
+        color: #fff;
+    }
+}

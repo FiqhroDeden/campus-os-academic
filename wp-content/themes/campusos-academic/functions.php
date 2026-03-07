@@ -1,7 +1,7 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'CAMPUSOS_THEME_VERSION', '1.2.1' );
+define( 'CAMPUSOS_THEME_VERSION', '1.2.2' );
 define( 'CAMPUSOS_THEME_PATH', get_template_directory() );
 define( 'CAMPUSOS_THEME_URI', get_template_directory_uri() );
 
@@ -21,8 +21,11 @@ add_action( 'after_setup_theme', function() {
     add_theme_support( 'wp-block-styles' );
 
     register_nav_menus( [
-        'primary' => __( 'Menu Utama', 'campusos-academic' ),
-        'footer'  => __( 'Menu Footer', 'campusos-academic' ),
+        'primary'              => __( 'Menu Utama', 'campusos-academic' ),
+        'footer'               => __( 'Menu Footer', 'campusos-academic' ),
+        'footer-akademik'      => __( 'Footer - Akademik', 'campusos-academic' ),
+        'footer-kemahasiswaan' => __( 'Footer - Kemahasiswaan', 'campusos-academic' ),
+        'footer-alumni'        => __( 'Footer - Alumni', 'campusos-academic' ),
     ] );
 
     add_image_size( 'campusos-card', 400, 300, true );
@@ -116,6 +119,63 @@ add_action( 'widgets_init', function() {
         'before_title'  => '<h3 class="widget-title">',
         'after_title'   => '</h3>',
     ] );
+} );
+
+// Create dummy footer menus on first load
+add_action( 'init', function() {
+    if ( get_option( 'campusos_footer_menus_created' ) ) {
+        return;
+    }
+
+    $footer_menus = [
+        'footer-akademik' => [
+            'name'  => 'Footer - Akademik',
+            'items' => [ 'Kurikulum', 'Jadwal Kuliah', 'CPL', 'Kalender Akademik', 'Akreditasi' ],
+        ],
+        'footer-kemahasiswaan' => [
+            'name'  => 'Footer - Kemahasiswaan',
+            'items' => [ 'Organisasi Mahasiswa', 'Beasiswa', 'Prestasi', 'Magang', 'Layanan Mahasiswa' ],
+        ],
+        'footer-alumni' => [
+            'name'  => 'Footer - Alumni',
+            'items' => [ 'Komunitas Alumni', 'Tracer Study', 'Lowongan Kerja', 'Magang & Karir' ],
+        ],
+    ];
+
+    $locations = get_theme_mod( 'nav_menu_locations', [] );
+
+    foreach ( $footer_menus as $location => $config ) {
+        // Skip if menu location already assigned
+        if ( ! empty( $locations[ $location ] ) ) {
+            continue;
+        }
+
+        $menu_id = wp_create_nav_menu( $config['name'] );
+        if ( is_wp_error( $menu_id ) ) {
+            // Menu might already exist, try to get it
+            $existing = wp_get_nav_menu_object( $config['name'] );
+            if ( $existing ) {
+                $menu_id = $existing->term_id;
+            } else {
+                continue;
+            }
+        }
+
+        foreach ( $config['items'] as $position => $title ) {
+            wp_update_nav_menu_item( $menu_id, 0, [
+                'menu-item-title'  => $title,
+                'menu-item-url'    => '#',
+                'menu-item-status' => 'publish',
+                'menu-item-position' => $position + 1,
+                'menu-item-type'   => 'custom',
+            ] );
+        }
+
+        $locations[ $location ] = $menu_id;
+    }
+
+    set_theme_mod( 'nav_menu_locations', $locations );
+    update_option( 'campusos_footer_menus_created', true );
 } );
 
 // Redirect pimpinan archive to sambutan page
