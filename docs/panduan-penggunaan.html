@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panduan Penggunaan - CampusOS Academic v1.2.2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:2rem}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:16px;line-height:1.7;color:#1e293b;background:#f8fafc}
+.page-wrapper{display:flex;min-height:100vh}
+.sidebar{position:sticky;top:0;width:300px;min-width:300px;height:100vh;overflow-y:auto;background:#003d82;color:#fff;padding:2rem 0;z-index:100}
+.sidebar-header{padding:0 1.5rem 1.5rem;border-bottom:1px solid rgba(255,255,255,.15);margin-bottom:1rem}
+.sidebar-header h1{font-size:1.15rem;font-weight:700;letter-spacing:-.02em;line-height:1.3}
+.sidebar-header .version{display:inline-block;margin-top:.5rem;font-size:.75rem;font-weight:600;background:rgba(255,255,255,.18);padding:.15rem .6rem;border-radius:99px}
+.sidebar-nav{list-style:none;padding:0 .75rem}
+.sidebar-nav li a{display:block;padding:.5rem .75rem;color:rgba(255,255,255,.8);text-decoration:none;font-size:.875rem;font-weight:500;border-radius:6px;transition:background .15s,color .15s}
+.sidebar-nav li a:hover,.sidebar-nav li a.active{background:rgba(255,255,255,.12);color:#fff}
+.sidebar-nav li a .nav-number{display:inline-block;width:1.75rem;font-size:.8rem;font-weight:600;color:rgba(255,255,255,.5)}
+.main-content{flex:1;min-width:0;padding:3rem 4rem;max-width:900px}
+h2{font-size:1.75rem;font-weight:800;color:#003d82;margin-top:3.5rem;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:3px solid #003d82;letter-spacing:-.02em}
+h2:first-of-type{margin-top:0}
+h3{font-size:1.2rem;font-weight:700;color:#0f172a;margin-top:2rem;margin-bottom:.75rem}
+p{margin-bottom:1rem;color:#334155}
+a{color:#003d82;text-decoration:underline;text-decoration-color:rgba(0,61,130,.3);text-underline-offset:2px}
+a:hover{text-decoration-color:#003d82}
+strong{font-weight:600;color:#1e293b}
+ul,ol{margin-bottom:1rem;padding-left:1.5rem}
+li{margin-bottom:.4rem;color:#334155}
+li strong{color:#003d82}
+.screenshot{display:block;margin:1.5rem 0;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.screenshot img{display:block;width:100%;height:auto}
+.screenshot-caption{padding:.6rem 1rem;font-size:.8rem;color:#64748b;background:#f8fafc;border-top:1px solid #e2e8f0;text-align:center}
+code{font-family:'SF Mono','Fira Code','Consolas',monospace;font-size:.875em;background:#eef2ff;color:#003d82;padding:.15em .4em;border-radius:4px}
+pre{background:#0f172a;color:#e2e8f0;padding:1.25rem 1.5rem;border-radius:8px;overflow-x:auto;margin-bottom:1.5rem;font-size:.875rem;line-height:1.6}
+pre code{background:none;color:inherit;padding:0;font-size:inherit}
+.table-wrapper{overflow-x:auto;margin-bottom:1.5rem;border-radius:8px;border:1px solid #e2e8f0}
+table{width:100%;border-collapse:collapse;font-size:.875rem}
+thead th{background:#003d82;color:#fff;padding:.75rem 1rem;text-align:left;font-weight:600;white-space:nowrap}
+tbody td{padding:.65rem 1rem;border-bottom:1px solid #e2e8f0;vertical-align:top}
+tbody tr:nth-child(even){background:#f8fafc}
+tbody tr:hover{background:#eef2ff}
+.info-box{padding:1rem 1.25rem;border-radius:8px;margin-bottom:1.5rem;font-size:.9rem}
+.info-box.tip{background:#ecfdf5;border-left:4px solid #10b981;color:#065f46}
+.info-box.warning{background:#fffbeb;border-left:4px solid #f59e0b;color:#92400e}
+.info-box.note{background:#eef2ff;border-left:4px solid #003d82;color:#1e3a5f}
+.info-box strong{display:block;margin-bottom:.25rem;color:inherit}
+.steps{list-style:none;padding-left:0;counter-reset:step-counter}
+.steps li{counter-increment:step-counter;position:relative;padding-left:3rem;margin-bottom:1rem;min-height:2rem}
+.steps li::before{content:counter(step-counter);position:absolute;left:0;top:0;width:2rem;height:2rem;background:#003d82;color:#fff;border-radius:50%;font-size:.85rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+.doc-hero{background:linear-gradient(135deg,#003d82 0%,#0059b3 100%);color:#fff;padding:2.5rem 2rem;border-radius:12px;margin-bottom:3rem}
+.doc-hero h2{color:#fff;border:none;margin:0 0 .5rem;padding:0;font-size:2rem}
+.doc-hero p{color:rgba(255,255,255,.85);margin:0;font-size:1.05rem}
+.sidebar-toggle{display:none;position:fixed;bottom:1.5rem;right:1.5rem;width:52px;height:52px;border-radius:50%;background:#003d82;color:#fff;border:none;font-size:1.5rem;cursor:pointer;z-index:200;box-shadow:0 4px 12px rgba(0,61,130,.4);align-items:center;justify-content:center}
+.back-to-top{display:none;position:fixed;bottom:1.5rem;right:5rem;width:42px;height:42px;border-radius:50%;background:#003d82;color:#fff;border:none;font-size:1.2rem;cursor:pointer;z-index:150;box-shadow:0 2px 8px rgba(0,61,130,.3);transition:opacity .2s}
+.back-to-top.visible{display:flex;align-items:center;justify-content:center}
+@media(max-width:1024px){.main-content{padding:2rem}}
+@media(max-width:768px){
+.sidebar{position:fixed;left:-300px;transition:left .3s ease}
+.sidebar.open{left:0;box-shadow:4px 0 20px rgba(0,0,0,.3)}
+.sidebar-toggle{display:flex}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:99}
+.sidebar-overlay.show{display:block}
+.main-content{padding:1.5rem 1rem}
+h2{font-size:1.4rem}
+.doc-hero{padding:1.5rem}
+.doc-hero h2{font-size:1.5rem}
+.back-to-top{right:5rem}
+}
+@media print{
+.sidebar,.sidebar-toggle,.sidebar-overlay{display:none!important}
+.page-wrapper{display:block}
+.main-content{max-width:100%;padding:0}
+body{font-size:11pt;color:#000;background:#fff}
+h2{page-break-after:avoid;color:#000;border-bottom-color:#000}
+.screenshot{break-inside:avoid;box-shadow:none}
+pre{background:#f0f0f0;color:#000;border:1px solid #ccc}
+.doc-hero{background:#003d82!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+a{color:#000;text-decoration:none}
+a[href]::after{content:" (" attr(href) ")";font-size:.8em;color:#555}
+.sidebar-nav a[href]::after{content:none}
+}
+.sidebar::-webkit-scrollbar{width:6px}
+.sidebar::-webkit-scrollbar-track{background:transparent}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:3px}
+.sidebar::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.35)}
+</style>
+</head>
+<body>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle navigasi">&#9776;</button>
+<button class="back-to-top" id="backToTop" aria-label="Kembali ke atas">&#8593;</button>
+
+<div class="page-wrapper">
+
+<!-- Sidebar Navigation -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h1>Panduan Penggunaan<br>CampusOS Academic</h1>
+        <span class="version">v1.2.2</span>
+    </div>
+    <nav>
+        <ul class="sidebar-nav">
+            <li><a href="#pendahuluan"><span class="nav-number">1.</span> Pendahuluan</a></li>
+            <li><a href="#persyaratan"><span class="nav-number">2.</span> Persyaratan Sistem</a></li>
+            <li><a href="#instalasi"><span class="nav-number">3.</span> Instalasi</a></li>
+            <li><a href="#lisensi"><span class="nav-number">4.</span> Aktivasi Lisensi</a></li>
+            <li><a href="#konfigurasi"><span class="nav-number">5.</span> Konfigurasi Awal</a></li>
+            <li><a href="#konten"><span class="nav-number">6.</span> Manajemen Konten</a></li>
+            <li><a href="#halaman"><span class="nav-number">7.</span> Halaman Statis</a></li>
+            <li><a href="#pimpinan"><span class="nav-number">8.</span> Pengaturan Pimpinan</a></li>
+            <li><a href="#shortcodes"><span class="nav-number">9.</span> Shortcodes</a></li>
+            <li><a href="#elementor"><span class="nav-number">10.</span> Elementor Widgets</a></li>
+            <li><a href="#keamanan"><span class="nav-number">11.</span> Pengaturan Keamanan</a></li>
+            <li><a href="#sso"><span class="nav-number">12.</span> SSO (Single Sign-On)</a></li>
+            <li><a href="#api"><span class="nav-number">13.</span> Integrasi API</a></li>
+            <li><a href="#export-import"><span class="nav-number">14.</span> Export / Import</a></li>
+            <li><a href="#troubleshooting"><span class="nav-number">15.</span> Troubleshooting</a></li>
+            <li><a href="#support"><span class="nav-number">16.</span> Kontak Support</a></li>
+        </ul>
+    </nav>
+</aside>
+
+<!-- Main Content -->
+<main class="main-content">
+
+<div class="doc-hero">
+    <h2>Panduan Penggunaan CampusOS Academic</h2>
+    <p>Dokumentasi lengkap untuk membangun website Fakultas dan Program Studi berbasis WordPress.</p>
+</div>
+
+<!-- 1. Pendahuluan -->
+<section id="pendahuluan">
+<h2>1. Pendahuluan</h2>
+<p><strong>CampusOS Academic v1.2.2</strong> adalah sistem tema dan plugin WordPress yang dirancang khusus untuk membangun website Fakultas dan Program Studi di perguruan tinggi Indonesia. Sistem ini menyediakan semua fitur yang dibutuhkan untuk mengelola informasi akademik, data dosen, pengumuman, agenda, dan berbagai konten lainnya secara profesional.</p>
+
+<div class="screenshot">
+    <img src="images/homepage.png" alt="Tampilan homepage CampusOS Academic">
+    <div class="screenshot-caption">Contoh tampilan homepage website Program Studi menggunakan CampusOS Academic</div>
+</div>
+
+<h3>Arsitektur Sistem</h3>
+<p>CampusOS Academic terdiri dari dua komponen utama:</p>
+<ul>
+    <li><strong>Tema (campusos-academic)</strong> &mdash; Mengatur tampilan visual: layout, warna, tipografi, template halaman, dan elemen desain. Bertanggung jawab untuk <em>presentasi</em>.</li>
+    <li><strong>Plugin (campusos-academic-core)</strong> &mdash; Mengatur logika bisnis: Custom Post Types, meta box, shortcodes, keamanan, SSO, integrasi API, dan fitur fungsional lainnya.</li>
+</ul>
+
+<div class="info-box note">
+    <strong>Mengapa dipisah?</strong>
+    Pemisahan tema dan plugin memastikan data Anda tetap aman meskipun Anda mengganti tema di kemudian hari. Semua data disimpan oleh plugin dan tidak terikat pada tema tertentu.
+</div>
+
+<h3>Fitur Utama</h3>
+<ul>
+    <li>17 Custom Post Type untuk berbagai jenis konten akademik</li>
+    <li>19 shortcode siap pakai</li>
+    <li>11 widget Elementor kustom</li>
+    <li>Setup Wizard untuk konfigurasi awal yang mudah</li>
+    <li>Integrasi SSO via OAuth2 (Laravel Passport)</li>
+    <li>Integrasi API SIAKAD dan SIGAP</li>
+    <li>Sistem keamanan bawaan (anti brute force, content scanner)</li>
+    <li>Auto-update untuk tema dan plugin</li>
+    <li>Export/Import data antar instalasi</li>
+    <li>Desain responsif dan ramah perangkat mobile</li>
+</ul>
+</section>
+
+<!-- 2. Persyaratan Sistem -->
+<section id="persyaratan">
+<h2>2. Persyaratan Sistem</h2>
+<p>Pastikan server Anda memenuhi persyaratan minimum berikut sebelum melakukan instalasi:</p>
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Komponen</th><th>Minimum</th><th>Direkomendasikan</th></tr></thead>
+<tbody>
+<tr><td>WordPress</td><td>6.0+</td><td>6.9+</td></tr>
+<tr><td>PHP</td><td>8.0+</td><td>8.2+</td></tr>
+<tr><td>MySQL</td><td>5.7+</td><td>8.0+</td></tr>
+<tr><td>MariaDB (alternatif)</td><td>10.3+</td><td>10.6+</td></tr>
+<tr><td>PHP Memory Limit</td><td>256 MB</td><td>512 MB</td></tr>
+<tr><td>Max Upload Size</td><td>32 MB</td><td>64 MB</td></tr>
+</tbody>
+</table>
+</div>
+<h3>Plugin Tambahan (Opsional)</h3>
+<ul>
+    <li><strong>Elementor</strong> &mdash; Diperlukan jika Anda ingin menggunakan 11 widget kustom CampusOS Academic. Tanpa Elementor, Anda tetap bisa menggunakan shortcode dan template bawaan.</li>
+</ul>
+<div class="info-box tip">
+    <strong>Tips:</strong>
+    Cek informasi server melalui menu <strong>Tools &rarr; Site Health</strong> di dashboard WordPress untuk memastikan server memenuhi persyaratan.
+</div>
+</section>
+
+<!-- 3. Instalasi -->
+<section id="instalasi">
+<h2>3. Instalasi</h2>
+<h3>Instalasi Tema</h3>
+<ol class="steps">
+    <li>Login ke dashboard WordPress Anda (<code>https://domain-anda.ac.id/wp-admin</code>).</li>
+    <li>Buka menu <strong>Appearance &rarr; Themes</strong>.</li>
+    <li>Klik <strong>Add New</strong>, lalu klik <strong>Upload Theme</strong>.</li>
+    <li>Pilih file <code>campusos-academic-theme-v1.2.2.zip</code>, klik <strong>Install Now</strong>.</li>
+    <li>Klik <strong>Activate</strong> untuk mengaktifkan tema.</li>
+</ol>
+<h3>Instalasi Plugin</h3>
+<ol class="steps">
+    <li>Buka menu <strong>Plugins &rarr; Add New &rarr; Upload Plugin</strong>.</li>
+    <li>Pilih file <code>campusos-academic-core-v1.2.2.zip</code>.</li>
+    <li>Klik <strong>Install Now</strong>, lalu <strong>Activate Plugin</strong>.</li>
+</ol>
+<div class="screenshot">
+    <img src="images/dashboard.png" alt="Dashboard WordPress setelah instalasi">
+    <div class="screenshot-caption">Tampilan dashboard WordPress setelah tema dan plugin berhasil diinstal</div>
+</div>
+<div class="info-box note">
+    <strong>Catatan:</strong>
+    Setelah mengaktifkan tema dan plugin, <strong>Setup Wizard</strong> akan muncul otomatis untuk membantu konfigurasi awal.
+</div>
+<div class="info-box warning">
+    <strong>Perhatian:</strong>
+    Instal tema terlebih dahulu, baru kemudian plugin. Plugin membutuhkan tema yang aktif agar beberapa fitur dapat berfungsi optimal.
+</div>
+</section>
+
+<!-- 4. Aktivasi Lisensi -->
+<section id="lisensi">
+<h2>4. Aktivasi Lisensi</h2>
+<p>Aktivasi lisensi diperlukan untuk mendapatkan akses ke fitur auto-update.</p>
+<ol class="steps">
+    <li>Buka menu <strong>CampusOS Academic</strong> di sidebar admin WordPress.</li>
+    <li>Klik tab <strong>Lisensi</strong>.</li>
+    <li>Masukkan <strong>License Key</strong> yang Anda dapatkan saat pembelian.</li>
+    <li>Klik tombol <strong>Aktifkan Lisensi</strong>.</li>
+    <li>Status lisensi akan berubah menjadi <strong>"Aktif"</strong> dengan informasi tanggal kadaluarsa.</li>
+</ol>
+<div class="screenshot">
+    <img src="images/settings-lisensi.png" alt="Halaman pengaturan lisensi">
+    <div class="screenshot-caption">Halaman aktivasi lisensi CampusOS Academic</div>
+</div>
+<h3>Informasi Penting tentang Lisensi</h3>
+<ul>
+    <li>Lisensi berlaku selama <strong>1 tahun</strong> sejak tanggal aktivasi.</li>
+    <li>Selama aktif, Anda akan menerima pembaruan otomatis (auto-update) untuk tema dan plugin.</li>
+    <li>Setelah expired, tema dan plugin <strong>tetap berjalan normal</strong>, tetapi auto-update berhenti.</li>
+    <li>Anda dapat memperpanjang lisensi kapan saja melalui dashboard akun Anda.</li>
+</ul>
+<div class="info-box tip">
+    <strong>Tips:</strong>
+    Simpan License Key Anda di tempat yang aman. Jika kehilangan, hubungi tim support untuk mendapatkan kembali.
+</div>
+</section>
+
+<!-- 5. Konfigurasi Awal -->
+<section id="konfigurasi">
+<h2>5. Konfigurasi Awal</h2>
+<h3>Setup Wizard</h3>
+<p>Setelah instalasi, Setup Wizard akan muncul otomatis dan membantu mengkonfigurasi:</p>
+<ul>
+    <li>Nama Fakultas/Program Studi</li>
+    <li>Warna utama dan sekunder website</li>
+    <li>Pembuatan halaman-halaman default (Beranda, Profil, Sambutan, dll.)</li>
+    <li>Pengaturan menu navigasi</li>
+</ul>
+<h3>Customizer (Kustomisasi Tampilan)</h3>
+<p>Buka menu <strong>Appearance &rarr; Customize</strong> untuk mengatur tampilan secara detail:</p>
+<ul>
+    <li><strong>Warna Primer dan Sekunder</strong> &mdash; Atur warna utama yang digunakan di seluruh website.</li>
+    <li><strong>Font Family</strong> &mdash; Pilih jenis font yang sesuai dengan identitas kampus.</li>
+    <li><strong>Logo dan Favicon</strong> &mdash; Upload logo universitas/prodi dan ikon favicon.</li>
+    <li><strong>Hero Section</strong> &mdash; Atur gambar latar, judul, dan deskripsi di bagian hero homepage.</li>
+    <li><strong>Statistik</strong> &mdash; Atur angka-angka statistik yang ditampilkan di homepage.</li>
+</ul>
+<h3>Pengaturan Umum</h3>
+<p>Buka menu <strong>CampusOS Academic &rarr; tab Umum</strong> untuk mengatur preferensi umum plugin.</p>
+<div class="info-box note">
+    <strong>Catatan:</strong>
+    Anda bisa mengakses Customizer kapan saja untuk mengubah tampilan tanpa mengedit kode. Perubahan langsung terlihat di preview sebelum disimpan.
+</div>
+</section>
+
+<!-- 6. Manajemen Konten (CPT) -->
+<section id="konten">
+<h2>6. Manajemen Konten</h2>
+<p>CampusOS Academic menyediakan <strong>17 Custom Post Type (CPT)</strong> yang dirancang khusus untuk kebutuhan website perguruan tinggi.</p>
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Custom Post Type</th><th>Fungsi</th><th>Field Khusus</th></tr></thead>
+<tbody>
+<tr><td><strong>Tenaga Pendidik</strong></td><td>Data dosen dan staf pengajar</td><td>Nama, NIDN, jabatan, bidang keahlian, riwayat pendidikan</td></tr>
+<tr><td><strong>Agenda</strong></td><td>Kegiatan dan event</td><td>Tanggal, lokasi, waktu mulai/selesai</td></tr>
+<tr><td><strong>Pengumuman</strong></td><td>Pengumuman resmi</td><td>Tanggal berlaku, prioritas</td></tr>
+<tr><td><strong>FAQ</strong></td><td>Pertanyaan yang sering ditanyakan</td><td>Pertanyaan, jawaban</td></tr>
+<tr><td><strong>Galeri</strong></td><td>Album foto kegiatan</td><td>Galeri gambar, keterangan</td></tr>
+<tr><td><strong>Dokumen</strong></td><td>File dokumen (SK, pedoman, formulir)</td><td>File attachment, kategori dokumen</td></tr>
+<tr><td><strong>Prestasi</strong></td><td>Prestasi mahasiswa dan dosen</td><td>Peraih, tingkat kompetisi, tahun</td></tr>
+<tr><td><strong>Kerjasama</strong></td><td>MoU/kerjasama dengan institusi lain</td><td>Mitra, jenis kerjasama, periode</td></tr>
+<tr><td><strong>Fasilitas</strong></td><td>Fasilitas laboratorium dan ruangan</td><td>Lokasi, kapasitas, deskripsi</td></tr>
+<tr><td><strong>Mitra Industri</strong></td><td>Partner dan mitra industri</td><td>Nama perusahaan, logo, deskripsi</td></tr>
+<tr><td><strong>Mata Kuliah</strong></td><td>Daftar mata kuliah</td><td>SKS, semester, deskripsi, prasyarat</td></tr>
+<tr><td><strong>Publikasi</strong></td><td>Jurnal, paper, dan karya ilmiah</td><td>Penulis, jurnal, tahun, DOI</td></tr>
+<tr><td><strong>Beasiswa</strong></td><td>Informasi beasiswa</td><td>Penyelenggara, deadline, persyaratan</td></tr>
+<tr><td><strong>Testimonial</strong></td><td>Testimoni alumni dan mahasiswa</td><td>Nama, angkatan, foto, kutipan</td></tr>
+<tr><td><strong>Video</strong></td><td>Video YouTube/embed</td><td>URL video, thumbnail</td></tr>
+<tr><td><strong>Organisasi Mahasiswa</strong></td><td>Organisasi dan UKM mahasiswa</td><td>Ketua, deskripsi, kontak</td></tr>
+<tr><td><strong>Pimpinan</strong></td><td>Data pimpinan prodi/fakultas</td><td>Dikelola via halaman khusus (lihat Bagian 8)</td></tr>
+</tbody>
+</table>
+</div>
+<div class="screenshot">
+    <img src="images/cpt-tenaga-pendidik.png" alt="Halaman admin Tenaga Pendidik">
+    <div class="screenshot-caption">Contoh halaman admin untuk mengelola data Tenaga Pendidik</div>
+</div>
+<h3>Cara Menambahkan Konten Baru</h3>
+<ol class="steps">
+    <li>Buka menu CPT yang diinginkan di sidebar admin (misalnya <strong>Tenaga Pendidik</strong>).</li>
+    <li>Klik <strong>Add New</strong> (Tambah Baru).</li>
+    <li>Isi semua field yang tersedia sesuai kebutuhan.</li>
+    <li>Upload gambar/foto melalui <strong>Featured Image</strong> jika diperlukan.</li>
+    <li>Klik <strong>Publish</strong> untuk mempublikasikan konten.</li>
+</ol>
+<div class="info-box tip">
+    <strong>Tips:</strong>
+    Gunakan fitur <strong>Kategori</strong> dan <strong>Tag</strong> (jika tersedia) untuk mengorganisir konten agar lebih mudah ditemukan.
+</div>
+</section>
+
+<!-- 7. Halaman Statis -->
+<section id="halaman">
+<h2>7. Halaman Statis</h2>
+<p>CampusOS Academic menyediakan beberapa halaman statis dengan meta box khusus untuk informasi terstruktur:</p>
+<ul>
+    <li><strong>Sambutan</strong> &mdash; Halaman sambutan pimpinan Fakultas/Program Studi. Terhubung langsung dengan data Pimpinan (lihat Bagian 8).</li>
+    <li><strong>Profil</strong> &mdash; Visi, misi, tujuan, dan sasaran program studi dengan meta box khusus untuk setiap komponen.</li>
+    <li><strong>Penerimaan</strong> &mdash; Informasi PMB termasuk jalur masuk, persyaratan, dan jadwal pendaftaran.</li>
+    <li><strong>Kurikulum</strong> &mdash; Struktur kurikulum, Capaian Pembelajaran Lulusan (CPL), dan distribusi mata kuliah per semester.</li>
+</ul>
+<div class="info-box note">
+    <strong>Catatan:</strong>
+    Halaman-halaman di atas dibuat otomatis oleh Setup Wizard. Jika Anda melewatkan wizard, buat halaman baru dan tetapkan template melalui <strong>Page Attributes &rarr; Template</strong>.
+</div>
+</section>
+
+<!-- 8. Pengaturan Pimpinan -->
+<section id="pimpinan">
+<h2>8. Pengaturan Pimpinan</h2>
+<p>Data pimpinan Fakultas/Program Studi dikelola melalui menu khusus di sidebar admin.</p>
+<ol class="steps">
+    <li>Buka menu <strong>Pimpinan</strong> di sidebar admin WordPress.</li>
+    <li>Isi data: foto, nama lengkap beserta gelar, NIP, jabatan, email, dan periode jabatan.</li>
+    <li>Tulis <strong>bio singkat</strong> tentang pimpinan.</li>
+    <li>Tulis <strong>teks sambutan lengkap</strong> menggunakan editor visual.</li>
+    <li>Klik <strong>Simpan</strong> untuk menyimpan data.</li>
+</ol>
+<div class="screenshot">
+    <img src="images/pimpinan-settings.png" alt="Halaman pengaturan pimpinan">
+    <div class="screenshot-caption">Formulir pengisian data pimpinan</div>
+</div>
+<div class="info-box tip">
+    <strong>Tips:</strong>
+    Data pimpinan otomatis ditampilkan di halaman <strong>Sambutan</strong> dan dapat digunakan melalui shortcode <code>[campusos_pimpinan]</code> serta <code>[campusos_sambutan_kaprodi]</code>.
+</div>
+</section>
+
+<!-- 9. Shortcodes -->
+<section id="shortcodes">
+<h2>9. Shortcodes</h2>
+<p>CampusOS Academic menyediakan <strong>19 shortcode</strong> yang dapat digunakan di halaman, post, atau widget teks mana pun. Semua shortcode menggunakan format <code>[campusos_nama]</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Shortcode</th><th>Fungsi</th><th>Atribut</th></tr></thead>
+<tbody>
+<tr><td><code>[campusos_tenaga_pendidik]</code></td><td>Menampilkan daftar dosen</td><td><code>limit</code>, <code>layout</code></td></tr>
+<tr><td><code>[campusos_pimpinan]</code></td><td>Data pimpinan</td><td>&mdash;</td></tr>
+<tr><td><code>[campusos_sambutan_kaprodi]</code></td><td>Sambutan ketua prodi</td><td>&mdash;</td></tr>
+<tr><td><code>[campusos_agenda]</code></td><td>Daftar agenda</td><td><code>limit</code></td></tr>
+<tr><td><code>[campusos_pengumuman]</code></td><td>Daftar pengumuman</td><td><code>limit</code></td></tr>
+<tr><td><code>[campusos_faq]</code></td><td>Daftar FAQ</td><td><code>limit</code></td></tr>
+<tr><td><code>[campusos_galeri]</code></td><td>Galeri foto</td><td><code>limit</code>, <code>columns</code></td></tr>
+<tr><td><code>[campusos_dokumen]</code></td><td>Daftar dokumen</td><td><code>limit</code>, <code>kategori</code></td></tr>
+<tr><td><code>[campusos_prestasi]</code></td><td>Daftar prestasi</td><td><code>limit</code></td></tr>
+<tr><td><code>[campusos_kerjasama]</code></td><td>Daftar kerjasama</td><td><code>limit</code></td></tr>
+<tr><td><code>[campusos_fasilitas]</code></td><td>Daftar fasilitas</td><td><code>limit</code></td></tr>
+<tr><td><code>[campusos_mitra_industri]</code></td><td>Daftar mitra industri</td><td><code>limit</code></td></tr>
+<tr><td><code>[campusos_mata_kuliah]</code></td><td>Daftar mata kuliah</td><td><code>semester</code>, <code>limit</code></td></tr>
+<tr><td><code>[campusos_publikasi]</code></td><td>Daftar publikasi</td><td><code>limit</code></td></tr>
+<tr><td><code>[campusos_beasiswa]</code></td><td>Daftar beasiswa</td><td><code>limit</code></td></tr>
+<tr><td><code>[campusos_testimonial]</code></td><td>Daftar testimonial</td><td><code>limit</code></td></tr>
+<tr><td><code>[campusos_video]</code></td><td>Daftar video</td><td><code>limit</code></td></tr>
+<tr><td><code>[campusos_organisasi_mhs]</code></td><td>Organisasi mahasiswa</td><td><code>limit</code></td></tr>
+<tr><td><code>[campusos_staff_carousel]</code></td><td>Carousel dosen</td><td>&mdash;</td></tr>
+</tbody>
+</table>
+</div>
+<h3>Contoh Penggunaan</h3>
+<pre><code>&lt;!-- Menampilkan 8 dosen dalam layout grid --&gt;
+[campusos_tenaga_pendidik limit="8" layout="grid"]
+
+&lt;!-- Menampilkan 5 agenda terbaru --&gt;
+[campusos_agenda limit="5"]
+
+&lt;!-- Menampilkan 10 FAQ --&gt;
+[campusos_faq limit="10"]
+
+&lt;!-- Menampilkan mata kuliah semester 3 --&gt;
+[campusos_mata_kuliah semester="3"]
+
+&lt;!-- Menampilkan galeri dengan 3 kolom --&gt;
+[campusos_galeri limit="12" columns="3"]
+
+&lt;!-- Menampilkan dokumen kategori tertentu --&gt;
+[campusos_dokumen limit="10" kategori="sk-dekan"]</code></pre>
+<div class="info-box tip">
+    <strong>Tips:</strong>
+    Shortcode bisa disisipkan di mana saja: halaman, post, widget teks, atau di dalam template Elementor menggunakan widget <strong>Shortcode</strong>.
+</div>
+</section>
+
+<!-- 10. Elementor Widgets -->
+<section id="elementor">
+<h2>10. Elementor Widgets</h2>
+<p>Jika Anda menggunakan plugin <strong>Elementor</strong>, CampusOS Academic menyediakan <strong>11 widget kustom</strong> untuk website akademik:</p>
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Widget</th><th>Fungsi</th></tr></thead>
+<tbody>
+<tr><td><strong>CampusOS Hero Section</strong></td><td>Banner utama dengan gambar latar, judul, dan tombol CTA</td></tr>
+<tr><td><strong>CampusOS Quick Links</strong></td><td>Tautan cepat dengan ikon untuk navigasi penting</td></tr>
+<tr><td><strong>CampusOS Sambutan</strong></td><td>Bagian sambutan pimpinan dengan foto dan teks</td></tr>
+<tr><td><strong>CampusOS News</strong></td><td>Daftar berita/post terbaru</td></tr>
+<tr><td><strong>CampusOS Stats Counter</strong></td><td>Penghitung angka statistik dengan animasi</td></tr>
+<tr><td><strong>CampusOS Agenda</strong></td><td>Tampilan agenda/event mendatang</td></tr>
+<tr><td><strong>CampusOS Pengumuman</strong></td><td>Daftar pengumuman terbaru</td></tr>
+<tr><td><strong>CampusOS Prestasi</strong></td><td>Showcase prestasi mahasiswa dan dosen</td></tr>
+<tr><td><strong>CampusOS FAQ</strong></td><td>Accordion FAQ yang interaktif</td></tr>
+<tr><td><strong>CampusOS Akreditasi</strong></td><td>Informasi status akreditasi program studi</td></tr>
+<tr><td><strong>CampusOS CTA Section</strong></td><td>Call-to-Action untuk pendaftaran atau informasi</td></tr>
+</tbody>
+</table>
+</div>
+<h3>Cara Menggunakan Widget Elementor</h3>
+<ol class="steps">
+    <li>Buka halaman yang ingin diedit, klik <strong>Edit with Elementor</strong>.</li>
+    <li>Di panel widget sebelah kiri, cari kata kunci <strong>"CampusOS"</strong>.</li>
+    <li>Semua 11 widget kustom muncul dalam kategori <strong>CampusOS Academic</strong>.</li>
+    <li><strong>Drag &amp; drop</strong> widget yang diinginkan ke area konten halaman.</li>
+    <li>Sesuaikan pengaturan melalui panel kiri, lalu klik <strong>Publish</strong> atau <strong>Update</strong>.</li>
+</ol>
+<div class="info-box note">
+    <strong>Catatan:</strong>
+    Widget Elementor hanya tersedia jika plugin <strong>Elementor</strong> (gratis atau Pro) sudah terinstal dan aktif. Tanpa Elementor, gunakan shortcode sebagai alternatif.
+</div>
+</section>
+
+<!-- 11. Pengaturan Keamanan -->
+<section id="keamanan">
+<h2>11. Pengaturan Keamanan</h2>
+<p>Pengaturan keamanan diakses melalui <strong>CampusOS Academic &rarr; tab Keamanan</strong>.</p>
+<h3>Fitur Keamanan yang Tersedia</h3>
+<ul>
+    <li><strong>Disable XML-RPC</strong> &mdash; Menonaktifkan protokol XML-RPC untuk mencegah serangan brute force melalui <code>xmlrpc.php</code>.</li>
+    <li><strong>Disable User Enumeration</strong> &mdash; Memblokir listing pengguna melalui REST API, mencegah penyerang mengetahui username terdaftar.</li>
+    <li><strong>Disable File Editor</strong> &mdash; Menonaktifkan editor file bawaan WordPress di admin untuk mencegah modifikasi berbahaya.</li>
+    <li><strong>Content Scanner</strong> &mdash; Scanner otomatis yang memeriksa konten dari kata kunci judi online, spam, dan konten berbahaya.</li>
+    <li><strong>Keyword Tambahan</strong> &mdash; Tambahkan kata kunci kustom untuk memperluas cakupan content scanner.</li>
+    <li><strong>Domain Whitelist</strong> &mdash; Daftar domain yang diizinkan untuk outbound links. Link ke domain di luar whitelist akan ditandai.</li>
+</ul>
+<div class="screenshot">
+    <img src="images/settings-keamanan.png" alt="Pengaturan keamanan">
+    <div class="screenshot-caption">Pengaturan fitur keamanan CampusOS Academic</div>
+</div>
+<div class="info-box warning">
+    <strong>Perhatian:</strong>
+    Mengaktifkan <strong>Disable XML-RPC</strong> dapat mempengaruhi plugin atau aplikasi pihak ketiga yang menggunakan XML-RPC (misalnya WordPress mobile app). Pastikan Anda tidak memerlukan fitur tersebut sebelum menonaktifkannya.
+</div>
+</section>
+
+<!-- 12. SSO -->
+<section id="sso">
+<h2>12. SSO (Single Sign-On)</h2>
+<p>CampusOS Academic mendukung SSO melalui protokol <strong>OAuth2</strong> menggunakan <strong>Laravel Passport</strong>. Fitur ini memungkinkan login menggunakan akun SSO kampus.</p>
+<h3>Konfigurasi SSO</h3>
+<p>Buka <strong>CampusOS Academic &rarr; tab SSO</strong> dan isi pengaturan berikut:</p>
+<ol class="steps">
+    <li><strong>Aktifkan SSO</strong> &mdash; Centang opsi ini untuk mengaktifkan fitur Single Sign-On.</li>
+    <li>Masukkan <strong>Client ID</strong> yang diperoleh dari server OAuth2 kampus.</li>
+    <li>Masukkan <strong>Client Secret</strong> yang sesuai.</li>
+    <li>Konfigurasi <strong>Role Mapping</strong> &mdash; Petakan role SSO ke role WordPress (dosen &rarr; Editor, mahasiswa &rarr; Subscriber).</li>
+    <li>Atur <strong>Fallback Admin</strong> &mdash; Tentukan akun admin yang dapat login tanpa SSO untuk keperluan darurat.</li>
+</ol>
+<div class="screenshot">
+    <img src="images/settings-sso.png" alt="Pengaturan SSO">
+    <div class="screenshot-caption">Konfigurasi SSO dengan OAuth2 (Laravel Passport)</div>
+</div>
+<div class="info-box warning">
+    <strong>Perhatian:</strong>
+    Selalu atur <strong>Fallback Admin</strong> sebelum mengaktifkan SSO. Ini adalah akun darurat jika server SSO mengalami gangguan.
+</div>
+</section>
+
+<!-- 13. Integrasi API -->
+<section id="api">
+<h2>13. Integrasi API</h2>
+<p>CampusOS Academic dapat terhubung dengan sistem informasi kampus melalui API. Pengaturan tersedia di <strong>CampusOS Academic &rarr; tab Integrasi API</strong>.</p>
+<h3>SIAKAD API</h3>
+<p>Integrasi dengan Sistem Informasi Akademik (SIAKAD) untuk sinkronisasi data mahasiswa:</p>
+<ul>
+    <li><strong>API Endpoint</strong> &mdash; URL endpoint SIAKAD kampus Anda.</li>
+    <li><strong>API Key</strong> &mdash; Kunci autentikasi untuk mengakses API.</li>
+</ul>
+<h3>SIGAP API</h3>
+<p>Integrasi dengan Sistem Informasi Gabungan Administrasi dan Pelaporan (SIGAP):</p>
+<ul>
+    <li><strong>API Endpoint</strong> &mdash; URL endpoint SIGAP.</li>
+    <li><strong>API Key</strong> &mdash; Kunci autentikasi API SIGAP.</li>
+</ul>
+<div class="info-box note">
+    <strong>Catatan:</strong>
+    Hubungi tim IT kampus Anda untuk mendapatkan API endpoint dan API key. Pastikan server WordPress dapat mengakses endpoint tersebut (tidak diblokir firewall).
+</div>
+</section>
+
+<!-- 14. Export / Import -->
+<section id="export-import">
+<h2>14. Export / Import</h2>
+<p>Fitur export/import memungkinkan pemindahan data dan pengaturan antar instalasi WordPress &mdash; berguna saat migrasi server atau menduplikasi konfigurasi.</p>
+<h3>Export Data</h3>
+<p>Buka <strong>CampusOS Academic &rarr; tab Export / Import</strong>, klik <strong>Export</strong>. Data yang diekspor (format JSON):</p>
+<ul>
+    <li>Semua pengaturan plugin (settings)</li>
+    <li>Data Custom Post Types</li>
+    <li>Halaman dan konten</li>
+    <li>Menu navigasi</li>
+</ul>
+<h3>Import Data</h3>
+<ol class="steps">
+    <li>Buka tab <strong>Export / Import</strong>.</li>
+    <li>Klik <strong>Import</strong>, pilih file JSON yang telah diekspor.</li>
+    <li>Konfirmasi proses import dan tunggu hingga selesai.</li>
+</ol>
+<h3>Update Server URL</h3>
+<p>Di tab ini juga terdapat pengaturan <strong>Update Server URL</strong> untuk mengatur alamat server auto-update tema dan plugin.</p>
+<div class="screenshot">
+    <img src="images/settings-export.png" alt="Halaman export import">
+    <div class="screenshot-caption">Halaman Export / Import data CampusOS Academic</div>
+</div>
+<div class="info-box warning">
+    <strong>Perhatian:</strong>
+    Proses import akan <strong>menimpa</strong> data yang sudah ada. Pastikan Anda telah melakukan backup sebelum melakukan import.
+</div>
+</section>
+
+<!-- 15. Troubleshooting -->
+<section id="troubleshooting">
+<h2>15. Troubleshooting</h2>
+<p>Beberapa masalah umum beserta solusinya:</p>
+<div class="table-wrapper">
+<table>
+<thead><tr><th style="width:30%">Masalah</th><th>Penyebab &amp; Solusi</th></tr></thead>
+<tbody>
+<tr><td><strong>Tema tidak muncul</strong></td><td>Pastikan folder tema bernama persis <code>campusos-academic</code> di dalam <code>wp-content/themes/</code>.</td></tr>
+<tr><td><strong>Plugin error saat aktivasi</strong></td><td>Periksa versi PHP. Plugin membutuhkan <strong>PHP 8.0+</strong>. Cek melalui <strong>Tools &rarr; Site Health &rarr; Info &rarr; Server</strong>.</td></tr>
+<tr><td><strong>Shortcode tidak tampil</strong></td><td>Pastikan plugin <strong>CampusOS Academic Core</strong> sudah aktif. Shortcode disediakan oleh plugin, bukan tema.</td></tr>
+<tr><td><strong>SSO error</strong></td><td>Periksa <strong>Client ID</strong>, <strong>Client Secret</strong>, dan <strong>Redirect URI</strong>. Pastikan URL callback sesuai dengan yang terdaftar di server OAuth2.</td></tr>
+<tr><td><strong>Update tidak tersedia</strong></td><td>Pastikan lisensi masih <strong>aktif</strong>. Cek di <strong>CampusOS Academic &rarr; tab Lisensi</strong>.</td></tr>
+<tr><td><strong>Gambar tidak muncul</strong></td><td>Periksa izin folder <code>wp-content/uploads</code>. Pastikan permission <code>755</code> untuk folder.</td></tr>
+<tr><td><strong>Halaman 404</strong></td><td>Buka <strong>Settings &rarr; Permalinks</strong> dan klik <strong>Save Changes</strong> untuk flush rewrite rules.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="info-box tip">
+    <strong>Tips Debug:</strong>
+    Aktifkan WordPress Debug Mode untuk melihat detail error:
+</div>
+<pre><code>define( 'WP_DEBUG', true );
+define( 'WP_DEBUG_LOG', true );
+define( 'WP_DEBUG_DISPLAY', false );</code></pre>
+<p>Log error tersimpan di <code>wp-content/debug.log</code>. <strong>Matikan debug mode setelah selesai troubleshooting.</strong></p>
+</section>
+
+<!-- 16. Kontak Support -->
+<section id="support">
+<h2>16. Kontak Support</h2>
+<p>Jika membutuhkan bantuan atau menemukan bug, hubungi tim support:</p>
+<ul>
+    <li><strong>Email:</strong> <a href="mailto:support@campusos.id">support@campusos.id</a></li>
+    <li><strong>Website:</strong> <a href="https://campusos.id" target="_blank" rel="noopener">campusos.id</a></li>
+</ul>
+<div class="info-box note">
+    <strong>Jam Layanan Support:</strong>
+    Senin &ndash; Jumat, pukul 08.00 &ndash; 17.00 WIB. Pengguna dengan lisensi aktif mendapat respon maksimal 1x24 jam kerja.
+</div>
+<p style="margin-top:3rem;padding-top:2rem;border-top:1px solid #e2e8f0;color:#94a3b8;font-size:.85rem;text-align:center">
+    &copy; 2026 CampusOS Academic &middot; Versi 1.2.2 &middot; Terakhir diperbarui 8 Maret 2026.
+</p>
+</section>
+
+</main>
+</div>
+
+<script>
+var sidebar=document.getElementById('sidebar'),sidebarToggle=document.getElementById('sidebarToggle'),sidebarOverlay=document.getElementById('sidebarOverlay');
+function openSidebar(){sidebar.classList.add('open');sidebarOverlay.classList.add('show');sidebarToggle.innerHTML='\u2715'}
+function closeSidebar(){sidebar.classList.remove('open');sidebarOverlay.classList.remove('show');sidebarToggle.innerHTML='\u2630'}
+sidebarToggle.addEventListener('click',function(){sidebar.classList.contains('open')?closeSidebar():openSidebar()});
+sidebarOverlay.addEventListener('click',closeSidebar);
+document.querySelectorAll('.sidebar-nav a').forEach(function(l){l.addEventListener('click',function(){if(window.innerWidth<=768)closeSidebar()})});
+var sections=document.querySelectorAll('section[id]'),navLinks=document.querySelectorAll('.sidebar-nav a');
+function highlightNav(){var c='';sections.forEach(function(s){if(window.scrollY>=s.offsetTop-80)c=s.getAttribute('id')});navLinks.forEach(function(l){l.classList.toggle('active',l.getAttribute('href')==='#'+c)})}
+window.addEventListener('scroll',highlightNav);highlightNav();
+var backToTop=document.getElementById('backToTop');
+window.addEventListener('scroll',function(){backToTop.classList.toggle('visible',window.scrollY>500)});
+backToTop.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
+</script>
+</body>
+</html>
