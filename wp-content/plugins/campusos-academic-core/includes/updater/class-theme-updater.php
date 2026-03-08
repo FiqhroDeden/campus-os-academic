@@ -13,6 +13,9 @@ class Theme_Updater {
         $this->update_url = $settings['update_server_url'] ?? '';
         if ( empty( $this->update_url ) ) return;
 
+        $license_client = new \CampusOS\Core\License\License_Client();
+        if ( ! $license_client->is_valid() ) return;
+
         add_filter( 'pre_set_site_transient_update_themes', [ $this, 'check_update' ] );
     }
 
@@ -20,10 +23,12 @@ class Theme_Updater {
         if ( empty( $transient->checked ) ) return $transient;
 
         $current_version = $transient->checked[ $this->theme_slug ] ?? '';
+        $license = ( new \CampusOS\Core\License\License_Client() )->get_license();
         $response = wp_remote_get( add_query_arg( [
-            'slug'    => $this->theme_slug,
-            'version' => $current_version,
-            'type'    => 'theme',
+            'slug'        => $this->theme_slug,
+            'version'     => $current_version,
+            'type'        => 'theme',
+            'license_key' => $license['key'] ?? '',
         ], trailingslashit( $this->update_url ) . 'api/check' ), [ 'timeout' => 15 ] );
 
         if ( is_wp_error( $response ) ) return $transient;
