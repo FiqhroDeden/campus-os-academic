@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
             ?>
             <div class="card">
                 <?php if ( has_post_thumbnail() ) : ?>
-                    <img class="card-img" src="<?php echo esc_url( get_the_post_thumbnail_url( null, 'campusos-card' ) ); ?>" alt="<?php the_title_attribute(); ?>" />
+                    <img class="card-img" src="<?php echo esc_url( get_the_post_thumbnail_url( null, 'campusos-card' ) ); ?>" alt="<?php the_title_attribute(); ?>" loading="lazy" decoding="async" />
                 <?php endif; ?>
                 <div class="card-body">
                     <h3 class="card-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
