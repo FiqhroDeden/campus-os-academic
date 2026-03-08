@@ -47,7 +47,7 @@ JS_OUTPUT="${THEME_DIR}/assets/js/main.min.js"
 
 php -r "
 \$js = file_get_contents('${JS_INPUT}');
-\$js = preg_replace('#(?<!:)//(?!/).*$#m', '', \$js);
+\$js = preg_replace('#(?<!:)//(?!/).*\$#m', '', \$js);
 \$js = preg_replace('!/\*.*?\*/!s', '', \$js);
 \$js = preg_replace('/\\s+/', ' ', \$js);
 \$js = trim(\$js);
