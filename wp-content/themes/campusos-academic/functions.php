@@ -35,9 +35,11 @@ add_action( 'after_setup_theme', function() {
 
 // Enqueue styles and scripts
 add_action( 'wp_enqueue_scripts', function() {
+    $suffix = ( defined( 'WP_DEBUG' ) && WP_DEBUG ) ? '' : '.min';
+
     wp_enqueue_style( 'dashicons' ); // Load dashicons for frontend icons
-    wp_enqueue_style( 'campusos-academic', CAMPUSOS_THEME_URI . '/assets/css/main.css', [], CAMPUSOS_THEME_VERSION );
-    wp_enqueue_script( 'campusos-academic', CAMPUSOS_THEME_URI . '/assets/js/main.js', [], CAMPUSOS_THEME_VERSION, true );
+    wp_enqueue_style( 'campusos-academic', CAMPUSOS_THEME_URI . '/assets/css/main' . $suffix . '.css', [], CAMPUSOS_THEME_VERSION );
+    wp_enqueue_script( 'campusos-academic', CAMPUSOS_THEME_URI . '/assets/js/main' . $suffix . '.js', [], CAMPUSOS_THEME_VERSION, [ 'in_footer' => true, 'strategy' => 'defer' ] );
 
     // Google Font
     $font_family = get_theme_mod( 'campusos_font_family', 'Inter' );
@@ -88,6 +90,15 @@ add_action( 'wp_enqueue_scripts', function() {
     body { font-family: var(--campusos-font-family); }";
     wp_add_inline_style( 'campusos-academic', $css );
 } );
+
+// Preconnect for Google Fonts
+add_action( 'wp_head', function() {
+    $font_family = get_theme_mod( 'campusos_font_family', 'Inter' );
+    if ( $font_family !== 'Inter' ) {
+        echo '<link rel="preconnect" href="https://fonts.googleapis.com" />' . "\n";
+        echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />' . "\n";
+    }
+}, 1 );
 
 // Setup wizard
 require_once CAMPUSOS_THEME_PATH . '/inc/setup-wizard/class-setup-wizard.php';
