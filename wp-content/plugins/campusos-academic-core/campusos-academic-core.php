@@ -35,6 +35,7 @@ register_deactivation_hook( __FILE__, function() {
     wp_clear_scheduled_hook( 'campusos_content_scan' );
     wp_clear_scheduled_hook( 'campusos_file_integrity_check' );
     wp_clear_scheduled_hook( 'campusos_activity_log_cleanup' );
+    wp_clear_scheduled_hook( 'campusos_license_revalidate' );
 } );
 
 /**
