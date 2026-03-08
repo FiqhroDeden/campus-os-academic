@@ -114,6 +114,10 @@ final class Plugin {
         require_once CAMPUSOS_CORE_PATH . 'includes/sso/class-sso-auth.php';
         ( new \CampusOS\Core\SSO\SSO_Auth() )->init();
 
+        // License
+        require_once CAMPUSOS_CORE_PATH . 'includes/license/class-license-client.php';
+        ( new \CampusOS\Core\License\License_Client() )->init();
+
         // Security
         require_once CAMPUSOS_CORE_PATH . 'includes/security/class-hardening.php';
         require_once CAMPUSOS_CORE_PATH . 'includes/security/class-content-scanner.php';
