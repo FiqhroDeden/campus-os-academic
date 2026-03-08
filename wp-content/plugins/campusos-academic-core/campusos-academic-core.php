@@ -2,7 +2,7 @@
 /**
  * Plugin Name: CampusOS Academic Core
  * Description: Core data and functionality for CampusOS Academic theme
- * Version: 1.1.0
+ * Version: 1.2.2
  * Author: CampusOS Team
  * Text Domain: campusos-academic
  * Domain Path: /languages
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'CAMPUSOS_CORE_VERSION', '1.1.0' );
+define( 'CAMPUSOS_CORE_VERSION', '1.2.2' );
 define( 'CAMPUSOS_CORE_PATH', plugin_dir_path( __FILE__ ) );
 define( 'CAMPUSOS_CORE_URL', plugin_dir_url( __FILE__ ) );
 
