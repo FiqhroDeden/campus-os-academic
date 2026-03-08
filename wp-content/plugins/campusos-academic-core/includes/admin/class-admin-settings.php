@@ -9,6 +9,8 @@ class Admin_Settings {
     public function register() {
         add_action( 'admin_menu', [ $this, 'add_menu' ] );
         add_action( 'admin_init', [ $this, 'register_settings' ] );
+        add_action( 'wp_ajax_campusos_license_activate', [ $this, 'ajax_license_activate' ] );
+        add_action( 'wp_ajax_campusos_license_deactivate', [ $this, 'ajax_license_deactivate' ] );
     }
 
     public function add_menu() {
@@ -39,6 +41,10 @@ class Admin_Settings {
         unset( $sanitized['_active_tab'] );
 
         switch ( $tab ) {
+            case 'lisensi':
+                $sanitized['license_server_url'] = esc_url_raw( $input['license_server_url'] ?? '' );
+                break;
+
             case 'keamanan':
                 $sanitized['security_xmlrpc_disabled']   = ! empty( $input['security_xmlrpc_disabled'] ) ? 1 : 0;
                 $sanitized['security_user_enum_disabled'] = ! empty( $input['security_user_enum_disabled'] ) ? 1 : 0;
@@ -101,8 +107,9 @@ class Admin_Settings {
     }
 
     public function render_page() {
-        $active_tab = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : 'umum';
+        $active_tab = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : 'lisensi';
         $tabs = [
+            'lisensi'   => __( 'Lisensi', 'campusos-academic' ),
             'umum'      => __( 'Umum', 'campusos-academic' ),
             'pages'     => __( 'Halaman', 'campusos-academic' ),
             'tools'     => __( 'Tools', 'campusos-academic' ),
@@ -130,6 +137,9 @@ class Admin_Settings {
 
                 <?php
                 switch ( $active_tab ) {
+                    case 'lisensi':
+                        $this->render_tab_lisensi();
+                        break;
                     case 'umum':
                         $this->render_tab_umum();
                         break;
@@ -353,5 +363,129 @@ class Admin_Settings {
             </tr>
         </table>
         <?php
+    }
+
+    private function render_tab_lisensi() {
+        $license_client = new \CampusOS\Core\License\License_Client();
+        $license = $license_client->get_license();
+        $is_active = $license_client->is_valid();
+        ?>
+        <table class="form-table">
+            <tr>
+                <th><?php esc_html_e( 'Status Lisensi', 'campusos-academic' ); ?></th>
+                <td>
+                    <?php if ( $is_active ) : ?>
+                        <span style="color:#46b450;font-weight:bold;">&#10003; <?php esc_html_e( 'Aktif', 'campusos-academic' ); ?></span>
+                        <?php if ( ! empty( $license['expires_at'] ) ) : ?>
+                            &mdash; <?php printf( esc_html__( 'berlaku hingga %s', 'campusos-academic' ), esc_html( date_i18n( get_option( 'date_format' ), strtotime( $license['expires_at'] ) ) ) ); ?>
+                        <?php endif; ?>
+                    <?php elseif ( $license['status'] === 'expired' ) : ?>
+                        <span style="color:#dc3232;font-weight:bold;">&#10007; <?php esc_html_e( 'Expired', 'campusos-academic' ); ?></span>
+                        <?php if ( ! empty( $license['expires_at'] ) ) : ?>
+                            &mdash; <?php echo esc_html( date_i18n( get_option( 'date_format' ), strtotime( $license['expires_at'] ) ) ); ?>
+                        <?php endif; ?>
+                    <?php else : ?>
+                        <span style="color:#826200;font-weight:bold;"><?php esc_html_e( 'Belum Diaktifkan', 'campusos-academic' ); ?></span>
+                    <?php endif; ?>
+                </td>
+            </tr>
+            <tr>
+                <th><?php esc_html_e( 'License Key', 'campusos-academic' ); ?></th>
+                <td>
+                    <input type="text" id="campusos-license-key" value="<?php echo esc_attr( $license['key'] ); ?>"
+                        class="regular-text" placeholder="XXXX-XXXX-XXXX-XXXX"
+                        <?php echo $is_active ? 'readonly' : ''; ?> />
+                    <?php if ( ! $is_active ) : ?>
+                        <button type="button" id="campusos-license-activate" class="button button-primary"><?php esc_html_e( 'Aktifkan', 'campusos-academic' ); ?></button>
+                    <?php else : ?>
+                        <button type="button" id="campusos-license-deactivate" class="button"><?php esc_html_e( 'Nonaktifkan', 'campusos-academic' ); ?></button>
+                    <?php endif; ?>
+                    <span id="license-spinner" class="spinner" style="float:none;"></span>
+                    <div id="license-message" style="display:none;margin-top:8px;" class="notice inline"></div>
+                </td>
+            </tr>
+            <?php if ( ! empty( $license['domain'] ) ) : ?>
+            <tr>
+                <th><?php esc_html_e( 'Domain Terdaftar', 'campusos-academic' ); ?></th>
+                <td><code><?php echo esc_html( $license['domain'] ); ?></code></td>
+            </tr>
+            <?php endif; ?>
+            <tr>
+                <th><?php esc_html_e( 'URL Server Lisensi', 'campusos-academic' ); ?></th>
+                <td>
+                    <input type="url" name="<?php echo esc_attr( $this->option_name ); ?>[license_server_url]"
+                        value="<?php echo esc_attr( $this->get_option( 'license_server_url' ) ); ?>" class="regular-text" />
+                    <p class="description"><?php esc_html_e( 'URL server untuk validasi lisensi.', 'campusos-academic' ); ?></p>
+                </td>
+            </tr>
+        </table>
+
+        <script>
+        jQuery(function($) {
+            $('#campusos-license-activate').on('click', function() {
+                var key = $('#campusos-license-key').val().trim();
+                if (!key) { alert('Masukkan license key.'); return; }
+                var $btn = $(this), $spinner = $('#license-spinner');
+                $btn.prop('disabled', true);
+                $spinner.addClass('is-active');
+                $.post(ajaxurl, {
+                    action: 'campusos_license_activate',
+                    license_key: key,
+                    _wpnonce: '<?php echo esc_js( wp_create_nonce( "campusos_license_action" ) ); ?>'
+                }, function(res) {
+                    $spinner.removeClass('is-active');
+                    $btn.prop('disabled', false);
+                    var $msg = $('#license-message');
+                    $msg.show().removeClass('notice-success notice-error')
+                        .addClass(res.success ? 'notice-success' : 'notice-error')
+                        .html('<p>' + (res.data || '') + '</p>');
+                    if (res.success) { setTimeout(function(){ location.reload(); }, 1000); }
+                });
+            });
+            $('#campusos-license-deactivate').on('click', function() {
+                if (!confirm('<?php echo esc_js( __( "Yakin ingin menonaktifkan lisensi?", "campusos-academic" ) ); ?>')) return;
+                var $btn = $(this), $spinner = $('#license-spinner');
+                $btn.prop('disabled', true);
+                $spinner.addClass('is-active');
+                $.post(ajaxurl, {
+                    action: 'campusos_license_deactivate',
+                    _wpnonce: '<?php echo esc_js( wp_create_nonce( "campusos_license_action" ) ); ?>'
+                }, function(res) {
+                    $spinner.removeClass('is-active');
+                    $btn.prop('disabled', false);
+                    if (res.success) { location.reload(); }
+                });
+            });
+        });
+        </script>
+        <?php
+    }
+
+    public function ajax_license_activate() {
+        check_ajax_referer( 'campusos_license_action' );
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( __( 'Akses ditolak.', 'campusos-academic' ) );
+        }
+        $key = sanitize_text_field( $_POST['license_key'] ?? '' );
+        if ( empty( $key ) ) {
+            wp_send_json_error( __( 'License key tidak boleh kosong.', 'campusos-academic' ) );
+        }
+        $client = new \CampusOS\Core\License\License_Client();
+        $result = $client->activate( $key );
+        if ( $result['success'] ) {
+            wp_send_json_success( $result['message'] );
+        } else {
+            wp_send_json_error( $result['message'] );
+        }
+    }
+
+    public function ajax_license_deactivate() {
+        check_ajax_referer( 'campusos_license_action' );
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( __( 'Akses ditolak.', 'campusos-academic' ) );
+        }
+        $client = new \CampusOS\Core\License\License_Client();
+        $result = $client->deactivate();
+        wp_send_json_success( $result['message'] );
     }
 }
