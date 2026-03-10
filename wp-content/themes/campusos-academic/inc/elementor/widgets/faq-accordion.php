@@ -1,12 +1,11 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class CampusOS_FAQ_Accordion extends \Elementor\Widget_Base {
+class CampusOS_FAQ_Accordion extends CampusOS_Widget_Base {
 
     public function get_name() { return 'campusos_faq_accordion'; }
     public function get_title() { return __( 'FAQ Accordion', 'campusos-academic' ); }
     public function get_icon() { return 'eicon-accordion'; }
-    public function get_categories() { return [ 'campusos-academic' ]; }
 
     protected function register_controls() {
         $this->start_controls_section( 'content_section', [
@@ -29,6 +28,11 @@ class CampusOS_FAQ_Accordion extends \Elementor\Widget_Base {
         ] );
 
         $this->end_controls_section();
+
+        // Style Tabs
+        $this->register_style_card_section();
+        $this->register_style_typography_section();
+        $this->register_style_spacing_section();
     }
 
     protected function render() {
@@ -74,7 +78,13 @@ class CampusOS_FAQ_Accordion extends \Elementor\Widget_Base {
             <?php if ( $query->have_posts() ) : while ( $query->have_posts() ) : $query->the_post(); ?>
                 <details>
                     <summary><?php the_title(); ?></summary>
-                    <div class="campusos-faq-answer"><?php the_content(); ?></div>
+                    <?php
+                    $jawaban = get_post_meta( get_the_ID(), '_faq_jawaban_faq', true );
+                    if ( empty( $jawaban ) ) {
+                        $jawaban = get_post_field( 'post_content', get_the_ID() );
+                    }
+                    ?>
+                    <div class="campusos-faq-answer"><?php echo wp_kses_post( wpautop( $jawaban ) ); ?></div>
                 </details>
             <?php endwhile; wp_reset_postdata(); else : ?>
                 <p><?php esc_html_e( 'No FAQs found.', 'campusos-academic' ); ?></p>

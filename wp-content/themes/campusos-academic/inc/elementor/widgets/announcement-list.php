@@ -1,12 +1,11 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class CampusOS_Announcement_List extends \Elementor\Widget_Base {
+class CampusOS_Announcement_List extends CampusOS_Widget_Base {
 
     public function get_name() { return 'campusos_announcement_list'; }
     public function get_title() { return __( 'Announcement List', 'campusos-academic' ); }
     public function get_icon() { return 'eicon-post-list'; }
-    public function get_categories() { return [ 'campusos-academic' ]; }
 
     protected function register_controls() {
         $this->start_controls_section( 'content_section', [
@@ -29,6 +28,12 @@ class CampusOS_Announcement_List extends \Elementor\Widget_Base {
         ] );
 
         $this->end_controls_section();
+
+        // Style Tabs
+        $this->register_style_card_section();
+        $this->register_style_typography_section();
+        $this->register_style_badge_section();
+        $this->register_style_spacing_section();
     }
 
     protected function render() {

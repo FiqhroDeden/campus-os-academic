@@ -1,12 +1,11 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class CampusOS_Gallery_Grid extends \Elementor\Widget_Base {
+class CampusOS_Gallery_Grid extends CampusOS_Widget_Base {
 
     public function get_name() { return 'campusos_gallery_grid'; }
     public function get_title() { return __( 'Gallery Grid', 'campusos-academic' ); }
     public function get_icon() { return 'eicon-gallery-masonry'; }
-    public function get_categories() { return [ 'campusos-academic' ]; }
 
     protected function register_controls() {
         $this->start_controls_section( 'content_section', [
@@ -36,6 +35,10 @@ class CampusOS_Gallery_Grid extends \Elementor\Widget_Base {
         ] );
 
         $this->end_controls_section();
+
+        // Style Tabs
+        $this->register_style_image_section();
+        $this->register_style_spacing_section();
     }
 
     protected function render() {
