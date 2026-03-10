@@ -13,6 +13,16 @@ class CampusOS_Announcement_List extends CampusOS_Widget_Base {
             'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
         ] );
 
+        $this->add_control( 'source', [
+            'label'   => __( 'Source', 'campusos-academic' ),
+            'type'    => \Elementor\Controls_Manager::SELECT,
+            'default' => 'pengumuman',
+            'options' => [
+                'pengumuman' => __( 'Pengumuman (CPT)', 'campusos-academic' ),
+                'post'       => __( 'Blog Posts', 'campusos-academic' ),
+            ],
+        ] );
+
         $this->add_control( 'count', [
             'label'   => __( 'Count', 'campusos-academic' ),
             'type'    => \Elementor\Controls_Manager::NUMBER,
@@ -22,9 +32,10 @@ class CampusOS_Announcement_List extends CampusOS_Widget_Base {
         ] );
 
         $this->add_control( 'category_slug', [
-            'label'   => __( 'Category Slug', 'campusos-academic' ),
-            'type'    => \Elementor\Controls_Manager::TEXT,
-            'default' => 'pengumuman',
+            'label'     => __( 'Category Slug', 'campusos-academic' ),
+            'type'      => \Elementor\Controls_Manager::TEXT,
+            'default'   => '',
+            'condition' => [ 'source' => 'post' ],
         ] );
 
         $this->end_controls_section();
@@ -40,12 +51,14 @@ class CampusOS_Announcement_List extends CampusOS_Widget_Base {
         $settings = $this->get_settings_for_display();
         $id       = 'campusos-announce-' . $this->get_id();
 
+        $source = ! empty( $settings['source'] ) ? $settings['source'] : 'pengumuman';
+
         $args = [
-            'post_type'      => 'post',
+            'post_type'      => $source === 'pengumuman' ? 'pengumuman' : 'post',
             'posts_per_page' => intval( $settings['count'] ),
             'post_status'    => 'publish',
         ];
-        if ( ! empty( $settings['category_slug'] ) ) {
+        if ( $source === 'post' && ! empty( $settings['category_slug'] ) ) {
             $args['category_name'] = sanitize_text_field( $settings['category_slug'] );
         }
 

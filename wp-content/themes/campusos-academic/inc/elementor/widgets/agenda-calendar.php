@@ -38,8 +38,7 @@ class CampusOS_Agenda_Calendar extends CampusOS_Widget_Base {
             'post_type'      => 'agenda',
             'posts_per_page' => intval( $settings['count'] ),
             'post_status'    => 'publish',
-            'meta_key'       => '_agenda_tanggal_mulai_agenda',
-            'orderby'        => 'meta_value',
+            'orderby'        => 'date',
             'order'          => 'DESC',
         ] );
         ?>

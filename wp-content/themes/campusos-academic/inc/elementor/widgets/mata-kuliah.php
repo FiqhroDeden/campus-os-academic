@@ -44,8 +44,7 @@ class CampusOS_Mata_Kuliah_Widget extends CampusOS_Widget_Base {
             'post_type'      => 'mata_kuliah',
             'posts_per_page' => intval( $settings['count'] ),
             'post_status'    => 'publish',
-            'orderby'        => 'meta_value_num',
-            'meta_key'       => '_mata_kuliah_semester',
+            'orderby'        => 'title',
             'order'          => 'ASC',
         ];
 

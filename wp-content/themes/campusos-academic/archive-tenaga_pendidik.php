@@ -25,12 +25,12 @@ $jabatan_labels = [
         <?php if ( have_posts() ) : ?>
             <div class="profile-grid">
                 <?php while ( have_posts() ) : the_post();
-                    $nidn      = get_post_meta( get_the_ID(), 'tenaga_pendidik_nidn', true );
-                    $jabatan   = get_post_meta( get_the_ID(), 'tenaga_pendidik_jabatan_fungsional', true );
-                    $keahlian  = get_post_meta( get_the_ID(), 'tenaga_pendidik_bidang_keahlian', true );
-                    $email     = get_post_meta( get_the_ID(), 'tenaga_pendidik_email_dosen', true );
+                    $nidn      = get_post_meta( get_the_ID(), '_tenaga_pendidik_nidn', true );
+                    $jabatan   = get_post_meta( get_the_ID(), '_tenaga_pendidik_jabatan_fungsional', true );
+                    $keahlian  = get_post_meta( get_the_ID(), '_tenaga_pendidik_bidang_keahlian', true );
+                    $email     = get_post_meta( get_the_ID(), '_tenaga_pendidik_email_dosen', true );
                 ?>
-                <div class="profile-card">
+                <a href="<?php the_permalink(); ?>" class="profile-card profile-card-link">
                     <div class="profile-photo">
                         <?php if ( has_post_thumbnail() ) : ?>
                             <?php the_post_thumbnail( 'medium' ); ?>
@@ -51,11 +51,11 @@ $jabatan_labels = [
                                 <p class="meta-keahlian"><?php echo esc_html( $keahlian ); ?></p>
                             <?php endif; ?>
                             <?php if ( $email ) : ?>
-                                <p class="meta-email"><a href="mailto:<?php echo esc_attr( $email ); ?>"><?php echo esc_html( $email ); ?></a></p>
+                                <p class="meta-email"><?php echo esc_html( $email ); ?></p>
                             <?php endif; ?>
                         </div>
                     </div>
-                </div>
+                </a>
                 <?php endwhile; ?>
             </div>
             <?php the_posts_pagination( array(

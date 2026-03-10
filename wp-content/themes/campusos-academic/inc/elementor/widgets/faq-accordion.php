@@ -43,8 +43,7 @@ class CampusOS_FAQ_Accordion extends CampusOS_Widget_Base {
             'post_type'      => 'faq',
             'posts_per_page' => intval( $settings['count'] ),
             'post_status'    => 'publish',
-            'meta_key'       => '_faq_urutan_faq',
-            'orderby'        => 'meta_value_num',
+            'orderby'        => 'menu_order',
             'order'          => 'ASC',
         ];
         if ( ! empty( $settings['kategori'] ) ) {

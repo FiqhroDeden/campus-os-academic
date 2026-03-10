@@ -365,7 +365,7 @@ class Admin_Settings {
         <?php
     }
 
-    private function render_tab_lisensi() {
+    public function render_tab_lisensi() {
         $license_client = new \CampusOS\Core\License\License_Client();
         $license = $license_client->get_license();
         $is_active = $license_client->is_valid();

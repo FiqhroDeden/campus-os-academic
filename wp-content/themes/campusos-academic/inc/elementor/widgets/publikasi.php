@@ -49,8 +49,7 @@ class CampusOS_Publikasi_Widget extends CampusOS_Widget_Base {
             'post_type'      => 'publikasi',
             'posts_per_page' => intval( $settings['count'] ),
             'post_status'    => 'publish',
-            'orderby'        => 'meta_value_num',
-            'meta_key'       => '_publikasi_tahun_pub',
+            'orderby'        => 'date',
             'order'          => 'DESC',
         ];
 

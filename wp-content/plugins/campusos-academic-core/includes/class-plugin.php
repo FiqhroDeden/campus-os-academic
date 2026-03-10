@@ -14,8 +14,87 @@ final class Plugin {
     }
 
     private function __construct() {
-        $this->load_dependencies();
-        $this->init_hooks();
+        $this->load_license_core();
+
+        if ( \CampusOS\Core\License\License_Client::is_license_active() ) {
+            $this->load_dependencies();
+            $this->init_hooks();
+        } else {
+            $this->init_unlicensed();
+        }
+    }
+
+    private function load_license_core() {
+        require_once CAMPUSOS_CORE_PATH . 'includes/license/class-license-client.php';
+        ( new \CampusOS\Core\License\License_Client() )->init();
+
+        require_once CAMPUSOS_CORE_PATH . 'includes/admin/class-admin-settings.php';
+    }
+
+    private function init_unlicensed() {
+        add_action( 'init', [ $this, 'load_textdomain' ] );
+
+        add_action( 'admin_menu', function() {
+            add_menu_page(
+                __( 'CampusOS Academic', 'campusos-academic' ),
+                __( 'CampusOS Academic', 'campusos-academic' ),
+                'manage_options',
+                'campusos-academic',
+                [ $this, 'render_license_page' ],
+                'dashicons-university',
+                3
+            );
+        } );
+
+        add_action( 'admin_init', function() {
+            register_setting( 'campusos_settings_group', 'campusos_settings', [
+                'sanitize_callback' => [ ( new \CampusOS\Core\Admin\Admin_Settings() ), 'sanitize_settings' ],
+            ] );
+        } );
+
+        add_action( 'wp_ajax_campusos_license_activate', function() {
+            ( new \CampusOS\Core\Admin\Admin_Settings() )->ajax_license_activate();
+        } );
+
+        add_action( 'wp_ajax_campusos_license_deactivate', function() {
+            ( new \CampusOS\Core\Admin\Admin_Settings() )->ajax_license_deactivate();
+        } );
+
+        add_action( 'admin_notices', function() {
+            if ( ! current_user_can( 'manage_options' ) ) return;
+            echo '<div class="notice notice-error"><p>';
+            printf(
+                esc_html__( 'CampusOS Academic: Lisensi belum diaktifkan. Semua fitur dinonaktifkan. %sAktifkan sekarang%s', 'campusos-academic' ),
+                '<a href="' . esc_url( admin_url( 'admin.php?page=campusos-academic' ) ) . '">',
+                '</a>'
+            );
+            echo '</p></div>';
+        } );
+
+        add_action( 'template_redirect', function() {
+            if ( is_admin() || wp_doing_ajax() || wp_doing_cron() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
+                return;
+            }
+            require CAMPUSOS_CORE_PATH . 'includes/license/template-license-required.php';
+        } );
+    }
+
+    public function render_license_page() {
+        $admin_settings = new \CampusOS\Core\Admin\Admin_Settings();
+        ?>
+        <div class="wrap">
+            <h1><?php esc_html_e( 'CampusOS Academic — Aktivasi Lisensi', 'campusos-academic' ); ?></h1>
+            <div class="notice notice-warning inline" style="margin: 15px 0;">
+                <p><?php esc_html_e( 'Lisensi belum diaktifkan. Aktifkan lisensi untuk menggunakan semua fitur tema dan plugin.', 'campusos-academic' ); ?></p>
+            </div>
+            <form method="post" action="options.php">
+                <?php settings_fields( 'campusos_settings_group' ); ?>
+                <input type="hidden" name="campusos_settings[_active_tab]" value="lisensi" />
+                <?php $admin_settings->render_tab_lisensi(); ?>
+                <?php submit_button(); ?>
+            </form>
+        </div>
+        <?php
     }
 
     private function load_dependencies() {
@@ -86,8 +165,7 @@ final class Plugin {
         ( new \CampusOS\Core\Admin\MetaBoxes\MB_Statistik() )->register();
         ( new \CampusOS\Core\Admin\MetaBoxes\MB_Tracer_Study() )->register();
 
-        // Admin settings
-        require_once CAMPUSOS_CORE_PATH . 'includes/admin/class-admin-settings.php';
+        // Admin settings (class already loaded in load_license_core)
         ( new \CampusOS\Core\Admin\Admin_Settings() )->register();
 
         // Page Updater
@@ -114,9 +192,7 @@ final class Plugin {
         require_once CAMPUSOS_CORE_PATH . 'includes/sso/class-sso-auth.php';
         ( new \CampusOS\Core\SSO\SSO_Auth() )->init();
 
-        // License
-        require_once CAMPUSOS_CORE_PATH . 'includes/license/class-license-client.php';
-        ( new \CampusOS\Core\License\License_Client() )->init();
+        // License (class already loaded and init'd in load_license_core)
 
         // Security
         require_once CAMPUSOS_CORE_PATH . 'includes/security/class-hardening.php';

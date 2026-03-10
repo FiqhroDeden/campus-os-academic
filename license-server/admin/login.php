@@ -9,7 +9,7 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
     if ( $user && password_verify( $password, $user['password_hash'] ) ) {
         $_SESSION['admin_logged_in'] = true;
         $_SESSION['admin_user']      = $username;
-        header( 'Location: /admin' );
+        header( 'Location: /admin/index.php' );
         exit;
     }
     $error = 'Username atau password salah.';

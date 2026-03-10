@@ -1144,6 +1144,7 @@ body.page-template-template-fullwidth.home .site-main {
     transition: box-shadow 0.2s;
 }
 .profile-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+a.profile-card-link { text-decoration: none; color: inherit; }
 .profile-photo img {
     width: 100%;
     aspect-ratio: 1;
@@ -1545,11 +1546,6 @@ body.page-template-template-fullwidth.home .site-main {
     gap: 2rem;
     margin-top: 1.5rem;
 }
-.agenda-poster img {
-    width: 100%;
-    border-radius: 6px;
-    margin-bottom: 1.5rem;
-}
 .agenda-info-box {
     background: var(--campusos-bg-alt, #f9fafb);
     border: 1px solid var(--campusos-border);
@@ -1605,6 +1601,99 @@ body.page-template-template-fullwidth.home .site-main {
 .related-list .related-date {
     font-size: 0.75rem;
     color: var(--campusos-text-light);
+}
+
+/* Agenda Detail Enhancements */
+.agenda-poster {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+.agenda-poster img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.1);
+}
+.agenda-status-badge {
+    display: inline-block;
+    padding: 0.3rem 0.85rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+.agenda-poster .agenda-status-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: #fff;
+}
+.agenda-status-badge.upcoming {
+    background: #16a34a;
+}
+.agenda-status-badge.ongoing {
+    background: var(--campusos-primary, #003d82);
+    animation: badge-pulse 2s ease-in-out infinite;
+}
+.agenda-status-badge.past {
+    background: #6b7280;
+}
+.agenda-status-badge.sidebar-badge {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.65rem;
+    color: #fff;
+}
+@keyframes badge-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .7; }
+}
+.agenda-countdown {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.65rem 1rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+.agenda-countdown .dashicons {
+    font-size: 1rem;
+    width: 1rem;
+    height: 1rem;
+}
+.agenda-countdown.upcoming {
+    background: #dcfce7;
+    color: #166534;
+}
+.agenda-countdown.ongoing {
+    background: #dbeafe;
+    color: #1e40af;
+}
+.agenda-countdown.past {
+    display: none;
+}
+.agenda-content {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--campusos-text, #333);
+    margin-bottom: 2rem;
+}
+.info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--campusos-primary, #003d82);
+    flex-shrink: 0;
+}
+.info-icon .dashicons {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    color: #fff;
 }
 
 /* --- Pengumuman Styles --- */
@@ -2321,7 +2410,6 @@ body.page-template-template-fullwidth.home .site-main {
     .beasiswa-detail-grid {
         grid-template-columns: 1fr;
     }
-    .agenda-sidebar,
     .beasiswa-sidebar {
         order: -1;
     }
@@ -2386,6 +2474,128 @@ body.page-template-template-fullwidth.home .site-main {
     .video-grid-small,
     .organisasi-grid-small {
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ============================================
+   Single: Tenaga Pendidik Profile
+   ============================================ */
+.single-tenaga-pendidik {
+    padding: var(--space-7) 0;
+}
+.tp-profile-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: var(--space-7);
+    margin-bottom: var(--space-7);
+}
+.tp-photo img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 3px solid var(--campusos-border);
+}
+.tp-photo-placeholder {
+    width: 100%;
+    aspect-ratio: 1;
+    background: var(--campusos-surface-alt);
+    border-radius: 8px;
+    border: 3px solid var(--campusos-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tp-photo-placeholder .dashicons {
+    font-size: 80px;
+    width: 80px;
+    height: 80px;
+    color: var(--campusos-text-muted);
+}
+.tp-email,
+.tp-link {
+    margin-top: var(--space-3);
+    text-align: center;
+}
+.tp-email a,
+.tp-link a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--campusos-primary);
+    font-size: 0.875rem;
+    text-decoration: none;
+    word-break: break-all;
+}
+.tp-email a:hover,
+.tp-link a:hover {
+    text-decoration: underline;
+}
+.tp-info-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.tp-info-table th,
+.tp-info-table td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--campusos-border);
+    text-align: left;
+    vertical-align: top;
+    font-size: 0.9375rem;
+}
+.tp-info-table th {
+    width: 180px;
+    color: var(--campusos-text-secondary);
+    font-weight: 600;
+    white-space: nowrap;
+}
+.tp-info-table td {
+    color: var(--campusos-text);
+}
+.tp-section {
+    margin-bottom: var(--space-6);
+}
+.tp-section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--campusos-primary);
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-2);
+    border-bottom: 2px solid var(--campusos-primary);
+}
+.tp-riwayat-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.tp-riwayat-list li {
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--campusos-border-light);
+    font-size: 0.9375rem;
+    color: var(--campusos-text);
+}
+.tp-riwayat-list li:last-child {
+    border-bottom: none;
+}
+.tp-riwayat-prodi {
+    color: var(--campusos-text-light);
+}
+.tp-custom-value {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--campusos-text);
+}
+@media (max-width: 768px) {
+    .tp-profile-grid {
+        grid-template-columns: 1fr;
+    }
+    .tp-photo img {
+        max-width: 250px;
+        margin: 0 auto;
+        display: block;
+    }
+    .tp-info-table th {
+        width: auto;
     }
 }
 
@@ -2510,104 +2720,96 @@ body.page-template-template-fullwidth.home .site-main {
 .homepage-staff {
     position: relative;
     overflow: hidden;
-    background: var(--campusos-bg-alt);
-}
-.homepage-staff-overlay {
-    background: transparent;
+    background: linear-gradient(160deg, #002855 0%, #003d82 50%, #001a3d 100%);
     padding: 4rem 0;
+}
+.homepage-staff::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(230, 126, 34, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+}
+.homepage-staff .section-header-centered h2 {
+    color: #fff;
+}
+.homepage-staff .section-decorator {
+    background: #e67e22;
 }
 .staff-carousel-wrapper {
     position: relative;
 }
 .staff-carousel-track {
     display: flex;
-    gap: 1.25rem;
+    gap: 1.5rem;
     overflow-x: auto;
     scroll-behavior: smooth;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    padding: 0.5rem 0;
+    padding: 1rem 0;
 }
 .staff-carousel-track::-webkit-scrollbar {
     display: none;
 }
 .staff-card {
-    flex: 0 0 calc((100% - 5rem) / 5);
-    min-width: 180px;
-    background: #fff;
-    border-radius: 8px;
-    overflow: hidden;
+    flex: 0 0 160px;
     text-align: center;
-    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
 }
-.staff-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+.staff-card-photo-ring {
+    width: 128px;
+    height: 128px;
+    margin: 0 auto 0.75rem;
+    border-radius: 12px;
+    padding: 3px;
+    background: linear-gradient(135deg, #e67e22, #f5a623, #c96b1b);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.staff-card:hover .staff-card-photo-ring {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(230, 126, 34, 0.4), 0 0 40px rgba(230, 126, 34, 0.15);
 }
 .staff-card-photo {
     width: 100%;
-    aspect-ratio: 1;
+    height: 100%;
+    border-radius: 10px;
     overflow: hidden;
+    background: #002855;
 }
 .staff-card-photo img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.3s ease;
+}
+.staff-card:hover .staff-card-photo img {
+    transform: scale(1.08);
 }
 .staff-card-placeholder {
     width: 100%;
     height: 100%;
-    background: var(--campusos-bg-alt, #f0f2f5);
     display: flex;
     align-items: center;
     justify-content: center;
+    background: rgba(255,255,255,0.05);
 }
 .staff-card-placeholder svg {
-    width: 48px;
-    height: 48px;
-    opacity: 0.3;
-}
-.staff-card-body {
-    padding: 0.875rem 0.75rem;
+    width: 40px;
+    height: 40px;
+    color: rgba(255,255,255,0.25);
 }
 .staff-card-name {
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     font-weight: 600;
-    color: var(--campusos-text, #1a1a1a);
-    margin-bottom: 0.25rem;
+    color: #fff;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-.staff-card-role {
-    font-size: 0.75rem;
-    color: var(--campusos-primary);
-    font-weight: 500;
-    margin-bottom: 0.625rem;
-}
-.staff-card-contacts {
-    display: flex;
-    justify-content: center;
-    gap: 0.625rem;
-}
-.staff-card-contacts a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: var(--campusos-bg-alt, #f0f2f5);
-    color: var(--campusos-text-light, #6b7280);
-    transition: background 0.2s, color 0.2s;
-}
-.staff-card-contacts a:hover {
-    background: var(--campusos-primary);
-    color: #fff;
-}
-.staff-card-contacts a svg {
-    width: 14px;
-    height: 14px;
+    line-height: 1.4;
 }
 .staff-carousel-btn {
     position: absolute;
@@ -2615,20 +2817,22 @@ body.page-template-template-fullwidth.home .site-main {
     transform: translateY(-50%);
     width: 40px;
     height: 40px;
-    border: none;
+    border: 1px solid rgba(255,255,255,0.2);
     border-radius: 50%;
-    background: rgba(255,255,255,0.9);
-    color: var(--campusos-text, #1a1a1a);
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: #fff;
     cursor: pointer;
     z-index: 2;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    transition: background 0.2s, transform 0.2s;
+    transition: background 0.2s, transform 0.2s, border-color 0.2s;
 }
 .staff-carousel-btn:hover {
-    background: #fff;
+    background: rgba(255,255,255,0.2);
+    border-color: rgba(255,255,255,0.4);
     transform: translateY(-50%) scale(1.1);
 }
 .staff-carousel-btn svg {
@@ -2646,35 +2850,42 @@ body.page-template-template-fullwidth.home .site-main {
     margin-top: 2rem;
 }
 .staff-view-all .btn {
-    border: 2px solid #fff;
+    border: 2px solid rgba(255,255,255,0.6);
     color: #fff;
     background: transparent;
     padding: 0.5rem 1.75rem;
     font-size: 0.875rem;
     border-radius: 4px;
-    transition: background 0.2s, color 0.2s;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
 .staff-view-all .btn:hover {
     background: #fff;
-    color: var(--campusos-text, #1a1a1a);
+    color: var(--campusos-primary-dark, #002855);
+    border-color: #fff;
 }
 
-@media (max-width: 1280px) {
-    .staff-card {
-        flex: 0 0 calc((100% - 3.75rem) / 4);
-    }
-}
 @media (max-width: 1024px) {
+    .staff-card-photo-ring {
+        width: 112px;
+        height: 112px;
+    }
     .staff-card {
-        flex: 0 0 calc((100% - 2.5rem) / 3);
+        flex: 0 0 140px;
     }
 }
 @media (max-width: 640px) {
-    .staff-card {
-        flex: 0 0 calc((100% - 1.25rem) / 2);
-    }
-    .homepage-staff-overlay {
+    .homepage-staff {
         padding: 3rem 0;
+    }
+    .staff-card-photo-ring {
+        width: 96px;
+        height: 96px;
+    }
+    .staff-card {
+        flex: 0 0 120px;
+    }
+    .staff-card-name {
+        font-size: 0.75rem;
     }
     .staff-carousel-prev { left: -4px; }
     .staff-carousel-next { right: -4px; }
@@ -2818,17 +3029,18 @@ body.page-template-template-fullwidth.home .site-main {
     .breadcrumb-list li:last-child { color: #1a1a1a; }
 
     /* --- Content (forced light) --- */
+    /* Use :where() for low specificity so Elementor inline/class styles win */
     .site-main {
         background: #fff;
         color: #1a1a1a;
     }
-    .site-main h1, .site-main h2, .site-main h3, .site-main h4, .site-main h5, .site-main h6 {
+    :where(.site-main) h1, :where(.site-main) h2, :where(.site-main) h3, :where(.site-main) h4, :where(.site-main) h5, :where(.site-main) h6 {
         color: #1a1a1a;
     }
-    .site-main p, .site-main li, .site-main span, .site-main td, .site-main th {
+    :where(.site-main) p, :where(.site-main) li, :where(.site-main) span, :where(.site-main) td, :where(.site-main) th {
         color: #374151;
     }
-    .site-main a { color: #003d82; }
+    :where(.site-main) a { color: #003d82; }
     .entry-content blockquote {
         background: #f8fafc;
         border-left-color: #003d82;
@@ -2950,13 +3162,13 @@ body.page-template-template-fullwidth.home .site-main {
         color: #1a1a1a;
     }
 
-    /* --- Carousel & staff cards (forced light) --- */
+    /* --- Carousel buttons: keep glass-morphism on dark staff section --- */
     .staff-carousel-btn {
-        background: rgba(255, 255, 255, 0.9);
-        color: #1a1a1a;
+        background: rgba(255,255,255,0.1);
+        color: #fff;
     }
     .staff-carousel-btn:hover {
-        background: #fff;
+        background: rgba(255,255,255,0.2);
     }
 
     /* --- Page Hero (forced light) --- */
@@ -2982,9 +3194,9 @@ body.page-template-template-fullwidth.home .site-main {
         border-color: #003d82;
     }
 
-    /* --- Staff (forced light) --- */
+    /* --- Staff: keep dark gradient even in dark-mode override --- */
     .homepage-staff {
-        background: #f8fafc;
+        background: linear-gradient(160deg, #002855 0%, #003d82 50%, #001a3d 100%);
     }
 
     /* --- Images (no dimming) --- */
@@ -2992,36 +3204,4 @@ body.page-template-template-fullwidth.home .site-main {
         opacity: 1;
     }
 
-}
-
-/* ============================================================
-   Force light backgrounds on Elementor sections (except hero)
-   Applies in ALL color schemes to override Elementor-generated CSS
-   ============================================================ */
-.site-main .elementor > .elementor-top-section:not(:first-child) {
-    background-color: #fff !important;
-    background-image: none !important;
-}
-.site-main .elementor > .elementor-top-section:not(:first-child) > .elementor-background-overlay {
-    display: none !important;
-}
-
-/* Fix text colors: white text was designed for dark backgrounds */
-.site-main .elementor > .elementor-top-section:not(:first-child) .elementor-heading-title,
-.site-main .elementor > .elementor-top-section:not(:first-child) .elementor-counter-title,
-.site-main .elementor > .elementor-top-section:not(:first-child) .elementor-text-editor,
-.site-main .elementor > .elementor-top-section:not(:first-child) .elementor-text-editor p,
-.site-main .elementor > .elementor-top-section:not(:first-child) h3,
-.site-main .elementor > .elementor-top-section:not(:first-child) h4,
-.site-main .elementor > .elementor-top-section:not(:first-child) p {
-    color: #1a1a1a !important;
-}
-
-/* Akreditasi section: dark blue like footer */
-.site-main .elementor > .elementor-top-section.elementor-element-g9h0i1j2 {
-    background: linear-gradient(180deg, #002855, #001a3d) !important;
-}
-.site-main .elementor > .elementor-top-section.elementor-element-g9h0i1j2 h3,
-.site-main .elementor > .elementor-top-section.elementor-element-g9h0i1j2 p {
-    color: #fff !important;
 }

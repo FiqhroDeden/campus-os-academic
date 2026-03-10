@@ -25,6 +25,17 @@ class License_Client {
         ] );
     }
 
+    public static function is_license_active() {
+        $license = get_option( 'campusos_license', [ 'status' => 'inactive', 'expires_at' => '' ] );
+        if ( $license['status'] !== 'active' ) return false;
+        if ( ! empty( $license['expires_at'] ) && strtotime( $license['expires_at'] ) < time() ) {
+            $license['status'] = 'expired';
+            update_option( 'campusos_license', $license );
+            return false;
+        }
+        return true;
+    }
+
     public function is_valid() {
         $license = $this->get_license();
         if ( $license['status'] !== 'active' ) {
@@ -150,7 +161,7 @@ class License_Client {
 
     private function get_server_url() {
         $settings = get_option( 'campusos_settings', [] );
-        return $settings['license_server_url'] ?? '';
+        return $settings['license_server_url'] ?? 'https://campusos.devlecta.com';
     }
 
     private function get_site_domain() {

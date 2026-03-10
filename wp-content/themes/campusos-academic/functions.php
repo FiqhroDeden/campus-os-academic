@@ -5,6 +5,31 @@ define( 'CAMPUSOS_THEME_VERSION', '1.2.2' );
 define( 'CAMPUSOS_THEME_PATH', get_template_directory() );
 define( 'CAMPUSOS_THEME_URI', get_template_directory_uri() );
 
+// Block frontend if CampusOS Academic Core plugin is not active
+add_action( 'template_redirect', function() {
+    if ( defined( 'CAMPUSOS_CORE_PATH' ) ) return;
+    if ( is_admin() || wp_doing_ajax() || wp_doing_cron() ) return;
+    if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) return;
+    if ( defined( 'WP_CLI' ) && WP_CLI ) return;
+
+    wp_die(
+        '<h1>' . esc_html__( 'Situs Tidak Tersedia', 'campusos-academic' ) . '</h1>' .
+        '<p>' . esc_html__( 'Plugin CampusOS Academic Core harus diaktifkan untuk menggunakan tema ini.', 'campusos-academic' ) . '</p>' .
+        '<p><a href="' . esc_url( wp_login_url() ) . '">' . esc_html__( 'Login Administrator', 'campusos-academic' ) . '</a></p>',
+        esc_html__( 'Plugin Diperlukan', 'campusos-academic' ),
+        [ 'response' => 503 ]
+    );
+}, 1 );
+
+// Admin notice if plugin is not active
+add_action( 'admin_notices', function() {
+    if ( defined( 'CAMPUSOS_CORE_PATH' ) ) return;
+    if ( ! current_user_can( 'manage_options' ) ) return;
+    echo '<div class="notice notice-error"><p>';
+    esc_html_e( 'CampusOS Academic: Plugin CampusOS Academic Core harus diaktifkan untuk menggunakan tema ini.', 'campusos-academic' );
+    echo '</p></div>';
+} );
+
 // Theme setup
 add_action( 'after_setup_theme', function() {
     add_theme_support( 'title-tag' );

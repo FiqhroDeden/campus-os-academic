@@ -1,13 +1,13 @@
 <?php
 session_start();
 if ( empty( $_SESSION['admin_logged_in'] ) ) {
-    header( 'Location: /admin/login' );
+    header( 'Location: /admin/login.php' );
     exit;
 }
 
 if ( isset( $_GET['logout'] ) ) {
     session_destroy();
-    header( 'Location: /admin/login' );
+    header( 'Location: /admin/login.php' );
     exit;
 }
 
@@ -19,6 +19,7 @@ $expired  = DB::fetch( "SELECT COUNT(*) as c FROM licenses WHERE status = 'expir
 $inactive = DB::fetch( "SELECT COUNT(*) as c FROM licenses WHERE status = 'inactive'" )['c'];
 
 $success = '';
+$error   = '';
 if ( $_SERVER['REQUEST_METHOD'] === 'POST' && !empty( $_POST['action'] ) ) {
     if ( $_POST['action'] === 'generate' ) {
         $key = strtoupper( implode( '-', str_split( bin2hex( random_bytes(16) ), 4 ) ) );
@@ -30,6 +31,21 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' && !empty( $_POST['action'] ) ) {
     } elseif ( $_POST['action'] === 'revoke' && !empty( $_POST['license_id'] ) ) {
         DB::query( 'UPDATE licenses SET status = "revoked" WHERE id = ?', [ (int)$_POST['license_id'] ] );
         $success = 'License dicabut.';
+    } elseif ( $_POST['action'] === 'change_password' ) {
+        $current  = $_POST['current_password'] ?? '';
+        $new_pass = $_POST['new_password'] ?? '';
+        $confirm  = $_POST['confirm_password'] ?? '';
+        $admin    = DB::fetch( 'SELECT * FROM admin_users WHERE username = ?', [ $_SESSION['admin_user'] ] );
+        if ( ! $admin || ! password_verify( $current, $admin['password_hash'] ) ) {
+            $error = 'Password lama salah.';
+        } elseif ( strlen( $new_pass ) < 6 ) {
+            $error = 'Password baru minimal 6 karakter.';
+        } elseif ( $new_pass !== $confirm ) {
+            $error = 'Konfirmasi password tidak cocok.';
+        } else {
+            DB::query( 'UPDATE admin_users SET password_hash = ? WHERE id = ?', [ password_hash( $new_pass, PASSWORD_DEFAULT ), $admin['id'] ] );
+            $success = 'Password berhasil diubah.';
+        }
     }
 }
 
@@ -70,6 +86,8 @@ $licenses = DB::fetchAll( 'SELECT * FROM licenses ORDER BY created_at DESC LIMIT
         .btn-danger:hover{background:#c82333}
         .btn-sm{padding:.2rem .5rem;font-size:.8rem}
         .success{background:#d4edda;color:#155724;padding:.75rem 1rem;border-radius:4px;margin-bottom:1rem}
+        .error-msg{background:#f8d7da;color:#721c24;padding:.75rem 1rem;border-radius:4px;margin-bottom:1rem}
+        input[type="password"]{padding:.4rem .6rem;border:1px solid #ccc;border-radius:4px;font-size:.9rem}
         .form-row{display:flex;gap:.5rem;align-items:end;flex-wrap:wrap}
         .form-group{display:flex;flex-direction:column;gap:.25rem}
         .form-group label{font-size:.8rem;font-weight:500}
@@ -79,10 +97,11 @@ $licenses = DB::fetchAll( 'SELECT * FROM licenses ORDER BY created_at DESC LIMIT
 <body>
     <div class="header">
         <h1>CampusOS License Server</h1>
-        <a href="?logout=1">Logout (<?=htmlspecialchars($_SESSION['admin_user'])?>)</a>
+        <a href="/admin/index.php?logout=1">Logout (<?=htmlspecialchars($_SESSION['admin_user'])?>)</a>
     </div>
     <div class="container">
         <?php if($success):?><div class="success"><?=htmlspecialchars($success)?></div><?php endif;?>
+        <?php if($error):?><div class="error-msg"><?=htmlspecialchars($error)?></div><?php endif;?>
         <div class="stats">
             <div class="stat-card"><div class="number"><?=$total?></div><div class="label">Total Lisensi</div></div>
             <div class="stat-card"><div class="number"><?=$active?></div><div class="label">Aktif</div></div>
@@ -126,6 +145,18 @@ $licenses = DB::fetchAll( 'SELECT * FROM licenses ORDER BY created_at DESC LIMIT
                 <?php endforeach;?>
                 </tbody>
             </table>
+        </div>
+        <div class="card">
+            <h2>Ganti Password</h2>
+            <form method="POST">
+                <input type="hidden" name="action" value="change_password" />
+                <div class="form-row">
+                    <div class="form-group"><label>Password Lama</label><input type="password" name="current_password" required /></div>
+                    <div class="form-group"><label>Password Baru</label><input type="password" name="new_password" required minlength="6" /></div>
+                    <div class="form-group"><label>Konfirmasi Password</label><input type="password" name="confirm_password" required /></div>
+                    <div class="form-group"><label>&nbsp;</label><button type="submit">Ubah Password</button></div>
+                </div>
+            </form>
         </div>
     </div>
 </body>

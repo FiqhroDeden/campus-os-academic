@@ -33,6 +33,13 @@ abstract class CPT_Base {
             CAMPUSOS_CORE_VERSION,
             true
         );
+        wp_enqueue_script(
+            'campusos-admin-repeater',
+            CAMPUSOS_CORE_URL . 'assets/js/admin-repeater.js',
+            [ 'jquery' ],
+            CAMPUSOS_CORE_VERSION,
+            true
+        );
     }
 
     public function add_meta_boxes() {
@@ -110,12 +117,50 @@ abstract class CPT_Base {
                 $val = esc_attr( $value );
                 echo "<input type='date' id='{$id}' name='{$id}' value='{$val}' class='widefat' />";
                 break;
+
+            case 'repeater':
+                $this->render_repeater( $field, $value ?: [] );
+                break;
         }
 
         if ( $desc ) {
             echo "<p class='description'>{$desc}</p>";
         }
         echo '</div>';
+    }
+
+    protected function render_repeater( array $field, $rows ) {
+        $id = esc_attr( $field['id'] );
+        if ( ! is_array( $rows ) ) $rows = [];
+        echo "<div class='campusos-repeater' data-field='{$id}'>";
+        echo "<div class='campusos-repeater-rows'>";
+        foreach ( $rows as $i => $row ) {
+            $this->render_repeater_row( $field, $id, $i, $row );
+        }
+        echo "</div>";
+        echo "<button type='button' class='button campusos-repeater-add' data-field='{$id}'>" . esc_html__( 'Tambah Baris', 'campusos-academic' ) . "</button>";
+        echo "<div class='campusos-repeater-template' style='display:none;'>";
+        $this->render_repeater_row( $field, $id, '__INDEX__', [] );
+        echo "</div>";
+        echo "</div>";
+    }
+
+    protected function render_repeater_row( array $field, string $id, $index, array $row ) {
+        echo "<div class='campusos-repeater-row' style='border:1px solid #ddd;padding:10px;margin-bottom:8px;background:#fafafa;'>";
+        foreach ( $field['sub_fields'] as $sub ) {
+            $name  = $id . '[' . $index . '][' . $sub['id'] . ']';
+            $value = $row[ $sub['id'] ] ?? '';
+            echo "<div style='margin-bottom:8px;'>";
+            echo "<label style='font-weight:500;font-size:13px;'>" . esc_html( $sub['label'] ) . "</label><br/>";
+            if ( $sub['type'] === 'textarea' ) {
+                echo "<textarea name='" . esc_attr($name) . "' rows='2' class='widefat'>" . esc_textarea( $value ) . "</textarea>";
+            } else {
+                echo "<input type='text' name='" . esc_attr($name) . "' value='" . esc_attr( $value ) . "' class='widefat' />";
+            }
+            echo "</div>";
+        }
+        echo "<button type='button' class='button campusos-repeater-remove' style='color:#a00;'>" . esc_html__( 'Hapus Baris', 'campusos-academic' ) . "</button>";
+        echo "</div>";
     }
 
     public function save_meta( $post_id, $post ) {
@@ -126,7 +171,26 @@ abstract class CPT_Base {
         if ( ! current_user_can( 'edit_post', $post_id ) ) return;
 
         foreach ( $this->get_meta_fields() as $field ) {
-            $key   = '_' . $field['id'];
+            $key = '_' . $field['id'];
+
+            if ( $field['type'] === 'repeater' ) {
+                $raw = isset( $_POST[ $field['id'] ] ) ? $_POST[ $field['id'] ] : [];
+                $sanitized = [];
+                if ( is_array( $raw ) ) {
+                    foreach ( $raw as $row ) {
+                        if ( ! is_array( $row ) ) continue;
+                        $clean = [];
+                        foreach ( $field['sub_fields'] as $sub ) {
+                            $val = $row[ $sub['id'] ] ?? '';
+                            $clean[ $sub['id'] ] = ( $sub['type'] === 'textarea' ) ? sanitize_textarea_field( $val ) : sanitize_text_field( $val );
+                        }
+                        $sanitized[] = $clean;
+                    }
+                }
+                update_post_meta( $post_id, $key, $sanitized );
+                continue;
+            }
+
             $value = isset( $_POST[ $field['id'] ] ) ? $_POST[ $field['id'] ] : '';
 
             switch ( $field['type'] ) {

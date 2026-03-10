@@ -40,6 +40,7 @@ add_action( 'elementor/widgets/register', function( $widgets_manager ) {
     require_once $widgets_dir . 'video-grid.php';
     require_once $widgets_dir . 'organisasi-mhs.php';
     require_once $widgets_dir . 'sambutan.php';
+    require_once $widgets_dir . 'tenaga-pendidik-carousel.php';
 
     // Register existing widgets
     $widgets_manager->register( new \CampusOS_Hero_Slider() );
@@ -66,4 +67,5 @@ add_action( 'elementor/widgets/register', function( $widgets_manager ) {
     $widgets_manager->register( new \CampusOS_Video_Grid_Widget() );
     $widgets_manager->register( new \CampusOS_Organisasi_Mhs_Widget() );
     $widgets_manager->register( new \CampusOS_Sambutan_Widget() );
+    $widgets_manager->register( new \CampusOS_Tenaga_Pendidik_Carousel() );
 } );
