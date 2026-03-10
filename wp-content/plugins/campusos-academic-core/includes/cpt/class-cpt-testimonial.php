@@ -37,6 +37,7 @@ class CPT_Testimonial extends CPT_Base {
             [ 'id' => 'testimonial_jabatan', 'label' => 'Jabatan', 'type' => 'text' ],
             [ 'id' => 'testimonial_instansi', 'label' => 'Instansi', 'type' => 'text' ],
             [ 'id' => 'testimonial_rating', 'label' => 'Rating', 'type' => 'number' ],
+            [ 'id' => 'testimonial_teks', 'label' => 'Testimonial', 'type' => 'textarea' ],
         ];
     }
 }

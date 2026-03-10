@@ -26,7 +26,7 @@ class CPT_Mitra_Industri extends CPT_Base {
             'public'       => true,
             'has_archive'  => true,
             'show_in_rest' => true,
-            'supports'     => [ 'title', 'editor' ],
+            'supports'     => [ 'title' ],
             'menu_icon'    => 'dashicons-store',
             'rewrite'      => [ 'slug' => 'mitra-industri' ],
         ];
@@ -36,6 +36,7 @@ class CPT_Mitra_Industri extends CPT_Base {
         return [
             [ 'id' => 'mitra_industri_logo_mitra_di', 'label' => 'Logo Mitra', 'type' => 'image' ],
             [ 'id' => 'mitra_industri_jenis_kerjasama_di', 'label' => 'Jenis Kerjasama', 'type' => 'text' ],
+            [ 'id' => 'mitra_industri_deskripsi_mitra_di', 'label' => 'Deskripsi', 'type' => 'textarea' ],
         ];
     }
 }

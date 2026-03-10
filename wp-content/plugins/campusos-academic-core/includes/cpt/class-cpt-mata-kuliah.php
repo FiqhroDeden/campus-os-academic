@@ -26,7 +26,7 @@ class CPT_Mata_Kuliah extends CPT_Base {
             'public'       => true,
             'has_archive'  => true,
             'show_in_rest' => true,
-            'supports'     => [ 'title', 'editor' ],
+            'supports'     => [ 'title' ],
             'menu_icon'    => 'dashicons-book',
             'rewrite'      => [ 'slug' => 'mata-kuliah' ],
         ];
@@ -40,6 +40,7 @@ class CPT_Mata_Kuliah extends CPT_Base {
             [ 'id' => 'mata_kuliah_konsentrasi', 'label' => 'Konsentrasi', 'type' => 'text' ],
             [ 'id' => 'mata_kuliah_link_rps', 'label' => 'Link RPS', 'type' => 'url' ],
             [ 'id' => 'mata_kuliah_link_silabus', 'label' => 'Link Silabus', 'type' => 'url' ],
+            [ 'id' => 'mata_kuliah_deskripsi_mk', 'label' => 'Deskripsi', 'type' => 'textarea' ],
         ];
     }
 }

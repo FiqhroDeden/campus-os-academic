@@ -26,7 +26,7 @@ class CPT_Kerjasama extends CPT_Base {
             'public'       => true,
             'has_archive'  => true,
             'show_in_rest' => true,
-            'supports'     => [ 'title', 'editor', 'thumbnail' ],
+            'supports'     => [ 'title', 'thumbnail' ],
             'menu_icon'    => 'dashicons-networking',
             'rewrite'      => [ 'slug' => 'kerjasama' ],
         ];
@@ -39,6 +39,7 @@ class CPT_Kerjasama extends CPT_Base {
             [ 'id' => 'kerjasama_tanggal_mulai', 'label' => 'Tanggal Mulai', 'type' => 'date' ],
             [ 'id' => 'kerjasama_tanggal_akhir', 'label' => 'Tanggal Akhir', 'type' => 'date' ],
             [ 'id' => 'kerjasama_dokumen_mou', 'label' => 'Dokumen MOU', 'type' => 'file' ],
+            [ 'id' => 'kerjasama_deskripsi_kerjasama', 'label' => 'Deskripsi', 'type' => 'textarea' ],
         ];
     }
 }

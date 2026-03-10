@@ -26,7 +26,7 @@ class CPT_Prestasi extends CPT_Base {
             'public'       => true,
             'has_archive'  => true,
             'show_in_rest' => true,
-            'supports'     => [ 'title', 'editor', 'thumbnail' ],
+            'supports'     => [ 'title', 'thumbnail' ],
             'menu_icon'    => 'dashicons-awards',
             'rewrite'      => [ 'slug' => 'prestasi' ],
         ];
@@ -38,6 +38,7 @@ class CPT_Prestasi extends CPT_Base {
             [ 'id' => 'prestasi_kategori_prestasi', 'label' => 'Kategori Prestasi', 'type' => 'select', 'options' => [ 'mahasiswa' => 'Mahasiswa', 'dosen' => 'Dosen' ] ],
             [ 'id' => 'prestasi_tingkat_prestasi', 'label' => 'Tingkat Prestasi', 'type' => 'select', 'options' => [ 'lokal' => 'Lokal', 'nasional' => 'Nasional', 'internasional' => 'Internasional' ] ],
             [ 'id' => 'prestasi_nama_peraih', 'label' => 'Nama Peraih', 'type' => 'text' ],
+            [ 'id' => 'prestasi_deskripsi_prestasi', 'label' => 'Deskripsi', 'type' => 'textarea' ],
         ];
     }
 }

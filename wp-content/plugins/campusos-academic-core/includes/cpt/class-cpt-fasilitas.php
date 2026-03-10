@@ -26,7 +26,7 @@ class CPT_Fasilitas extends CPT_Base {
             'public'       => true,
             'has_archive'  => true,
             'show_in_rest' => true,
-            'supports'     => [ 'title', 'editor', 'thumbnail' ],
+            'supports'     => [ 'title', 'thumbnail' ],
             'menu_icon'    => 'dashicons-building',
             'rewrite'      => [ 'slug' => 'fasilitas' ],
         ];
@@ -36,6 +36,7 @@ class CPT_Fasilitas extends CPT_Base {
         return [
             [ 'id' => 'fasilitas_kapasitas', 'label' => 'Kapasitas', 'type' => 'text' ],
             [ 'id' => 'fasilitas_lokasi', 'label' => 'Lokasi', 'type' => 'text' ],
+            [ 'id' => 'fasilitas_deskripsi_fasilitas', 'label' => 'Deskripsi', 'type' => 'textarea' ],
         ];
     }
 }

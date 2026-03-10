@@ -26,7 +26,7 @@ class CPT_Agenda extends CPT_Base {
             'public'       => true,
             'has_archive'  => true,
             'show_in_rest' => true,
-            'supports'     => [ 'title', 'editor' ],
+            'supports'     => [ 'title' ],
             'menu_icon'    => 'dashicons-calendar-alt',
             'rewrite'      => [ 'slug' => 'agenda' ],
         ];
@@ -38,6 +38,7 @@ class CPT_Agenda extends CPT_Base {
             [ 'id' => 'agenda_tanggal_akhir_agenda', 'label' => 'Tanggal Akhir', 'type' => 'date' ],
             [ 'id' => 'agenda_lokasi_agenda', 'label' => 'Lokasi', 'type' => 'text' ],
             [ 'id' => 'agenda_poster_agenda', 'label' => 'Poster Agenda', 'type' => 'image' ],
+            [ 'id' => 'agenda_deskripsi_agenda', 'label' => 'Deskripsi', 'type' => 'textarea' ],
         ];
     }
 }

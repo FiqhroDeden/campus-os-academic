@@ -26,7 +26,7 @@ class CPT_Organisasi_Mhs extends CPT_Base {
             'public'       => true,
             'has_archive'  => true,
             'show_in_rest' => true,
-            'supports'     => [ 'title', 'editor' ],
+            'supports'     => [ 'title' ],
             'menu_icon'    => 'dashicons-groups',
             'rewrite'      => [ 'slug' => 'organisasi-mahasiswa' ],
         ];
@@ -38,6 +38,7 @@ class CPT_Organisasi_Mhs extends CPT_Base {
             [ 'id' => 'organisasi_mhs_struktur_org', 'label' => 'Struktur Organisasi', 'type' => 'image', 'desc' => 'Bagan struktur organisasi' ],
             [ 'id' => 'organisasi_mhs_tupoksi', 'label' => 'Tupoksi', 'type' => 'textarea' ],
             [ 'id' => 'organisasi_mhs_program_kerja', 'label' => 'Program Kerja', 'type' => 'textarea' ],
+            [ 'id' => 'organisasi_mhs_deskripsi_org', 'label' => 'Deskripsi', 'type' => 'textarea' ],
         ];
     }
 }

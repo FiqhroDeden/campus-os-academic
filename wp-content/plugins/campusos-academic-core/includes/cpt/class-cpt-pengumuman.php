@@ -26,7 +26,7 @@ class CPT_Pengumuman extends CPT_Base {
             'public'       => true,
             'has_archive'  => true,
             'show_in_rest' => true,
-            'supports'     => [ 'title', 'editor', 'thumbnail' ],
+            'supports'     => [ 'title', 'thumbnail' ],
             'menu_icon'    => 'dashicons-megaphone',
             'rewrite'      => [ 'slug' => 'pengumuman' ],
         ];
@@ -36,6 +36,7 @@ class CPT_Pengumuman extends CPT_Base {
         return [
             [ 'id' => 'pengumuman_tanggal_berlaku', 'label' => 'Tanggal Berlaku', 'type' => 'date' ],
             [ 'id' => 'pengumuman_file_lampiran', 'label' => 'File Lampiran', 'type' => 'file' ],
+            [ 'id' => 'pengumuman_deskripsi_pengumuman', 'label' => 'Deskripsi', 'type' => 'textarea' ],
         ];
     }
 }

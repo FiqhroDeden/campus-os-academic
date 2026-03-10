@@ -26,7 +26,7 @@ class CPT_Beasiswa extends CPT_Base {
             'public'       => true,
             'has_archive'  => true,
             'show_in_rest' => true,
-            'supports'     => [ 'title', 'editor' ],
+            'supports'     => [ 'title' ],
             'menu_icon'    => 'dashicons-money-alt',
             'rewrite'      => [ 'slug' => 'beasiswa' ],
         ];
@@ -37,6 +37,7 @@ class CPT_Beasiswa extends CPT_Base {
             [ 'id' => 'beasiswa_persyaratan_beasiswa', 'label' => 'Persyaratan', 'type' => 'textarea' ],
             [ 'id' => 'beasiswa_deadline_beasiswa', 'label' => 'Deadline', 'type' => 'date' ],
             [ 'id' => 'beasiswa_link_pendaftaran', 'label' => 'Link Pendaftaran', 'type' => 'url' ],
+            [ 'id' => 'beasiswa_deskripsi_beasiswa', 'label' => 'Deskripsi', 'type' => 'textarea' ],
         ];
     }
 }

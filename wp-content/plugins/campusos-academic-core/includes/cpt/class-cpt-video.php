@@ -26,7 +26,7 @@ class CPT_Video extends CPT_Base {
             'public'       => true,
             'has_archive'  => true,
             'show_in_rest' => true,
-            'supports'     => [ 'title', 'editor', 'thumbnail' ],
+            'supports'     => [ 'title', 'thumbnail' ],
             'menu_icon'    => 'dashicons-format-video',
             'rewrite'      => [ 'slug' => 'video' ],
         ];
@@ -36,6 +36,7 @@ class CPT_Video extends CPT_Base {
         return [
             [ 'id' => 'video_youtube_url', 'label' => 'URL YouTube', 'type' => 'url' ],
             [ 'id' => 'video_video_duration', 'label' => 'Durasi Video', 'type' => 'text' ],
+            [ 'id' => 'video_deskripsi_video', 'label' => 'Deskripsi', 'type' => 'textarea' ],
         ];
     }
 }
