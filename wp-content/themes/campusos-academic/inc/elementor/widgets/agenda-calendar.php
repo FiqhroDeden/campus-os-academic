@@ -38,7 +38,7 @@ class CampusOS_Agenda_Calendar extends CampusOS_Widget_Base {
             'post_type'      => 'agenda',
             'posts_per_page' => intval( $settings['count'] ),
             'post_status'    => 'publish',
-            'meta_key'       => '_tanggal_mulai_agenda',
+            'meta_key'       => '_agenda_tanggal_mulai_agenda',
             'orderby'        => 'meta_value',
             'order'          => 'DESC',
         ] );
@@ -64,19 +64,19 @@ class CampusOS_Agenda_Calendar extends CampusOS_Widget_Base {
         </style>
         <ul id="<?php echo esc_attr( $id ); ?>">
             <?php if ( $query->have_posts() ) : while ( $query->have_posts() ) : $query->the_post();
-                $tanggal  = get_post_meta( get_the_ID(), '_tanggal_mulai_agenda', true );
-                $lokasi   = get_post_meta( get_the_ID(), '_lokasi_agenda', true );
+                $tanggal  = get_post_meta( get_the_ID(), '_agenda_tanggal_mulai_agenda', true );
+                $lokasi   = get_post_meta( get_the_ID(), '_agenda_lokasi_agenda', true );
                 $ts       = strtotime( $tanggal );
             ?>
                 <li>
-                    <div class="campusos-agenda-date">
+                    <div class="campusos-agenda-date campusos-w-badge">
                         <span class="day"><?php echo $ts ? date_i18n( 'j', $ts ) : '--'; ?></span>
                         <span class="month"><?php echo $ts ? date_i18n( 'M', $ts ) : '--'; ?></span>
                     </div>
                     <div class="campusos-agenda-info">
-                        <h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
+                        <h4 class="campusos-w-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
                         <?php if ( $lokasi ) : ?>
-                            <div class="campusos-agenda-location">📍 <?php echo esc_html( $lokasi ); ?></div>
+                            <div class="campusos-agenda-location campusos-w-body">📍 <?php echo esc_html( $lokasi ); ?></div>
                         <?php endif; ?>
                     </div>
                 </li>

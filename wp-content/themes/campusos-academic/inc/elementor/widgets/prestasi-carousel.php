@@ -87,20 +87,20 @@ class CampusOS_Prestasi_Carousel extends CampusOS_Widget_Base {
         </style>
         <div id="<?php echo esc_attr( $id ); ?>">
             <?php if ( $query->have_posts() ) : while ( $query->have_posts() ) : $query->the_post();
-                $nama_peraih = get_post_meta( get_the_ID(), '_nama_peraih', true );
-                $tingkat     = get_post_meta( get_the_ID(), '_tingkat_prestasi', true );
+                $nama_peraih = get_post_meta( get_the_ID(), '_prestasi_nama_peraih', true );
+                $tingkat     = get_post_meta( get_the_ID(), '_prestasi_tingkat_prestasi', true );
             ?>
-                <div class="campusos-prestasi-card">
+                <div class="campusos-prestasi-card campusos-w-card">
                     <?php if ( has_post_thumbnail() ) : ?>
                         <a href="<?php the_permalink(); ?>"><?php the_post_thumbnail( 'campusos-card' ); ?></a>
                     <?php endif; ?>
-                    <div class="campusos-prestasi-body">
-                        <h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
+                    <div class="campusos-prestasi-body campusos-w-card-content">
+                        <h4 class="campusos-w-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
                         <?php if ( $nama_peraih ) : ?>
-                            <div class="campusos-prestasi-meta"><?php echo esc_html( $nama_peraih ); ?></div>
+                            <div class="campusos-prestasi-meta campusos-w-body"><?php echo esc_html( $nama_peraih ); ?></div>
                         <?php endif; ?>
                         <?php if ( $tingkat ) : ?>
-                            <span class="campusos-prestasi-badge"><?php echo esc_html( $tingkat ); ?></span>
+                            <span class="campusos-prestasi-badge campusos-w-badge"><?php echo esc_html( $tingkat ); ?></span>
                         <?php endif; ?>
                     </div>
                 </div>

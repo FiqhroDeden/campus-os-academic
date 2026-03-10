@@ -84,12 +84,14 @@ class CampusOS_Gallery_Grid extends CampusOS_Widget_Base {
                 #<?php echo esc_attr( $id ); ?> { grid-template-columns: repeat(2, 1fr); }
             }
         </style>
-        <div id="<?php echo esc_attr( $id ); ?>">
+        <div id="<?php echo esc_attr( $id ); ?>" class="campusos-w-grid">
             <?php if ( $query->have_posts() ) : while ( $query->have_posts() ) : $query->the_post(); ?>
                 <a href="<?php the_permalink(); ?>" class="campusos-gallery-item">
+                    <div class="campusos-w-image">
                     <?php if ( has_post_thumbnail() ) : ?>
                         <?php the_post_thumbnail( 'campusos-card' ); ?>
                     <?php endif; ?>
+                    </div>
                     <div class="campusos-gallery-overlay">
                         <span><?php the_title(); ?></span>
                     </div>

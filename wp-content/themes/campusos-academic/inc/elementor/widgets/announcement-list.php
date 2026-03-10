@@ -72,11 +72,11 @@ class CampusOS_Announcement_List extends CampusOS_Widget_Base {
         <ul id="<?php echo esc_attr( $id ); ?>">
             <?php if ( $query->have_posts() ) : while ( $query->have_posts() ) : $query->the_post(); ?>
                 <li>
-                    <div class="campusos-announce-date">
+                    <div class="campusos-announce-date campusos-w-badge">
                         <span class="day"><?php echo get_the_date( 'j' ); ?></span>
                         <span><?php echo get_the_date( 'M Y' ); ?></span>
                     </div>
-                    <div class="campusos-announce-title">
+                    <div class="campusos-announce-title campusos-w-title">
                         <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                     </div>
                 </li>

@@ -43,7 +43,7 @@ class CampusOS_FAQ_Accordion extends CampusOS_Widget_Base {
             'post_type'      => 'faq',
             'posts_per_page' => intval( $settings['count'] ),
             'post_status'    => 'publish',
-            'meta_key'       => '_urutan_faq',
+            'meta_key'       => '_faq_urutan_faq',
             'orderby'        => 'meta_value_num',
             'order'          => 'ASC',
         ];
@@ -76,15 +76,15 @@ class CampusOS_FAQ_Accordion extends CampusOS_Widget_Base {
         </style>
         <div id="<?php echo esc_attr( $id ); ?>">
             <?php if ( $query->have_posts() ) : while ( $query->have_posts() ) : $query->the_post(); ?>
-                <details>
-                    <summary><?php the_title(); ?></summary>
+                <details class="campusos-w-card">
+                    <summary class="campusos-w-title"><?php the_title(); ?></summary>
                     <?php
                     $jawaban = get_post_meta( get_the_ID(), '_faq_jawaban_faq', true );
                     if ( empty( $jawaban ) ) {
                         $jawaban = get_post_field( 'post_content', get_the_ID() );
                     }
                     ?>
-                    <div class="campusos-faq-answer"><?php echo wp_kses_post( wpautop( $jawaban ) ); ?></div>
+                    <div class="campusos-faq-answer campusos-w-body"><?php echo wp_kses_post( wpautop( $jawaban ) ); ?></div>
                 </details>
             <?php endwhile; wp_reset_postdata(); else : ?>
                 <p><?php esc_html_e( 'No FAQs found.', 'campusos-academic' ); ?></p>

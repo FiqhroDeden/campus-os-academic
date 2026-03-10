@@ -78,21 +78,28 @@ class CampusOS_Team_Grid extends CampusOS_Widget_Base {
                 #<?php echo esc_attr( $id ); ?> { grid-template-columns: repeat(2, 1fr); }
             }
         </style>
-        <div id="<?php echo esc_attr( $id ); ?>">
+        <div id="<?php echo esc_attr( $id ); ?>" class="campusos-w-grid">
             <?php if ( $query->have_posts() ) : while ( $query->have_posts() ) : $query->the_post();
-                $jabatan = get_post_meta( get_the_ID(), '_jabatan', true );
-                $nip     = get_post_meta( get_the_ID(), '_nip', true );
+                if ( $settings['source'] === 'pimpinan' ) {
+                    $jabatan = get_post_meta( get_the_ID(), '_pimpinan_jabatan', true );
+                    $nip     = get_post_meta( get_the_ID(), '_pimpinan_nip', true );
+                } else {
+                    $jabatan = get_post_meta( get_the_ID(), '_tenaga_pendidik_jabatan_fungsional', true );
+                    $nip     = get_post_meta( get_the_ID(), '_tenaga_pendidik_nidn', true );
+                }
             ?>
-                <div class="campusos-team-card">
+                <div class="campusos-team-card campusos-w-card">
+                    <div class="campusos-w-image">
                     <?php if ( has_post_thumbnail() ) : ?>
                         <?php the_post_thumbnail( 'campusos-profile' ); ?>
                     <?php else : ?>
                         <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/placeholder-profile.png' ); ?>" alt="<?php the_title_attribute(); ?>">
                     <?php endif; ?>
-                    <div class="campusos-team-info">
-                        <h4><?php the_title(); ?></h4>
-                        <?php if ( $jabatan ) : ?><p><?php echo esc_html( $jabatan ); ?></p><?php endif; ?>
-                        <?php if ( $nip ) : ?><p>NIP: <?php echo esc_html( $nip ); ?></p><?php endif; ?>
+                    </div>
+                    <div class="campusos-team-info campusos-w-card-content">
+                        <h4 class="campusos-w-title"><?php the_title(); ?></h4>
+                        <?php if ( $jabatan ) : ?><p class="campusos-w-body"><?php echo esc_html( $jabatan ); ?></p><?php endif; ?>
+                        <?php if ( $nip ) : ?><p class="campusos-w-body">NIP: <?php echo esc_html( $nip ); ?></p><?php endif; ?>
                     </div>
                 </div>
             <?php endwhile; wp_reset_postdata(); else : ?>

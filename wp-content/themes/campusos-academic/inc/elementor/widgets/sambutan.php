@@ -101,8 +101,11 @@ class CampusOS_Sambutan_Widget extends CampusOS_Widget_Base {
         $show_button = $settings['show_button'] === 'yes';
         $button_text = $settings['button_text'];
         $button_url  = ! empty( $settings['button_url']['url'] ) ? $settings['button_url']['url'] : '';
-        $btn_target  = ! empty( $settings['button_url']['is_external'] ) ? ' target="_blank"' : '';
-        $btn_nofollow = ! empty( $settings['button_url']['nofollow'] ) ? ' rel="nofollow"' : '';
+        $btn_target = ! empty( $settings['button_url']['is_external'] ) ? ' target="_blank"' : '';
+        $rel_parts  = [];
+        if ( ! empty( $settings['button_url']['is_external'] ) ) $rel_parts[] = 'noopener';
+        if ( ! empty( $settings['button_url']['nofollow'] ) ) $rel_parts[] = 'nofollow';
+        $btn_rel    = $rel_parts ? ' rel="' . implode( ' ', $rel_parts ) . '"' : '';
 
         $this->render_base_card_css( $id );
         ?>
@@ -155,7 +158,7 @@ class CampusOS_Sambutan_Widget extends CampusOS_Widget_Base {
                                     <div class="campusos-sambutan-text"><?php echo esc_html( $sambutan ); ?></div>
                                 <?php endif; ?>
                                 <?php if ( $show_button && $button_url ) : ?>
-                                    <a href="<?php echo esc_url( $button_url ); ?>" class="campusos-w-btn"<?php echo $btn_target . $btn_nofollow; ?>>
+                                    <a href="<?php echo esc_url( $button_url ); ?>" class="campusos-w-btn"<?php echo $btn_target . $btn_rel; ?>>
                                         <?php echo esc_html( $button_text ); ?>
                                     </a>
                                 <?php endif; ?>
