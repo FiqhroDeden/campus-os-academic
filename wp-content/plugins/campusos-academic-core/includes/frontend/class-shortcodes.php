@@ -26,6 +26,9 @@ class Shortcodes {
         add_shortcode( 'campusos_video', [ $this, 'video' ] );
         add_shortcode( 'campusos_organisasi_mhs', [ $this, 'organisasi_mhs' ] );
 
+        // Template Part Shortcodes
+        add_shortcode( 'campusos_staff_carousel', [ $this, 'staff_carousel' ] );
+
         // Enqueue styles
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_styles' ] );
     }
@@ -37,6 +40,17 @@ class Shortcodes {
             [],
             CAMPUSOS_CORE_VERSION
         );
+    }
+
+    /**
+     * Get description from meta field, falling back to post_content.
+     */
+    private function get_description( $post_id, $meta_key, $word_count = 20 ) {
+        $desc = get_post_meta( $post_id, $meta_key, true );
+        if ( empty( $desc ) ) {
+            $desc = get_post_field( 'post_content', $post_id );
+        }
+        return $desc ? wp_trim_words( wp_strip_all_tags( $desc ), $word_count ) : '';
     }
 
     /**
@@ -331,8 +345,9 @@ class Shortcodes {
             if ( $lokasi ) {
                 echo '<p class="campusos-agenda-lokasi"><span class="dashicons dashicons-location"></span> ' . esc_html( $lokasi ) . '</p>';
             }
-            if ( has_excerpt() || get_the_content() ) {
-                echo '<p class="campusos-excerpt">' . esc_html( wp_trim_words( get_the_excerpt() ?: get_the_content(), 15 ) ) . '</p>';
+            $desc = $this->get_description( $id, '_agenda_deskripsi_agenda', 15 );
+            if ( $desc ) {
+                echo '<p class="campusos-excerpt">' . esc_html( $desc ) . '</p>';
             }
             echo '</div>';
             echo '</div>';
@@ -382,8 +397,9 @@ class Shortcodes {
             echo '<span class="campusos-date">' . esc_html( get_the_date( 'd M Y' ) ) . '</span>';
             echo '</div>';
             echo '<h4 class="campusos-card-title"><a href="' . esc_url( get_permalink() ) . '">' . esc_html( get_the_title() ) . '</a></h4>';
-            if ( has_excerpt() || get_the_content() ) {
-                echo '<p class="campusos-excerpt">' . esc_html( wp_trim_words( get_the_excerpt() ?: get_the_content(), 20 ) ) . '</p>';
+            $desc = $this->get_description( $id, '_pengumuman_deskripsi_pengumuman', 20 );
+            if ( $desc ) {
+                echo '<p class="campusos-excerpt">' . esc_html( $desc ) . '</p>';
             }
             if ( $lampiran_url ) {
                 echo '<p><a href="' . esc_url( $lampiran_url ) . '" class="campusos-btn-sm" target="_blank"><span class="dashicons dashicons-download"></span> Unduh Lampiran</a></p>';
@@ -433,7 +449,11 @@ class Shortcodes {
             echo '<span class="campusos-faq-icon">+</span>';
             echo '</button>';
             echo '<div class="campusos-faq-answer"' . ( $i === 0 ? ' style="display:block;"' : '' ) . '>';
-            echo '<div class="campusos-faq-content">' . wp_kses_post( get_the_content() ) . '</div>';
+            $jawaban = get_post_meta( get_the_ID(), '_faq_jawaban_faq', true );
+            if ( empty( $jawaban ) ) {
+                $jawaban = get_post_field( 'post_content', get_the_ID() );
+            }
+            echo '<div class="campusos-faq-content">' . wp_kses_post( wpautop( $jawaban ) ) . '</div>';
             echo '</div>';
             echo '</div>';
             $i++;
@@ -770,8 +790,9 @@ class Shortcodes {
             }
             echo '<div class="campusos-card-content">';
             echo '<h4 class="campusos-card-title">' . esc_html( get_the_title() ) . '</h4>';
-            if ( has_excerpt() || get_the_content() ) {
-                echo '<p class="campusos-fasilitas-desc">' . esc_html( wp_trim_words( get_the_excerpt() ?: get_the_content(), 15 ) ) . '</p>';
+            $desc = $this->get_description( $id, '_fasilitas_deskripsi_fasilitas', 15 );
+            if ( $desc ) {
+                echo '<p class="campusos-fasilitas-desc">' . esc_html( $desc ) . '</p>';
             }
             if ( $lokasi ) {
                 echo '<p class="campusos-fasilitas-lokasi"><span class="dashicons dashicons-location"></span> ' . esc_html( $lokasi ) . '</p>';
@@ -1004,8 +1025,9 @@ class Shortcodes {
             if ( $deadline ) {
                 echo '<p class="campusos-beasiswa-deadline"><span class="dashicons dashicons-calendar-alt"></span> Deadline: ' . esc_html( date_i18n( 'd M Y', strtotime( $deadline ) ) ) . '</p>';
             }
-            if ( has_excerpt() || get_the_content() ) {
-                echo '<p class="campusos-excerpt">' . esc_html( wp_trim_words( get_the_excerpt() ?: get_the_content(), 20 ) ) . '</p>';
+            $desc = $this->get_description( $id, '_beasiswa_deskripsi_beasiswa', 20 );
+            if ( $desc ) {
+                echo '<p class="campusos-excerpt">' . esc_html( $desc ) . '</p>';
             }
             if ( $link ) {
                 echo '<p><a href="' . esc_url( $link ) . '" class="campusos-btn-sm" target="_blank">Daftar Sekarang</a></p>';
@@ -1054,7 +1076,11 @@ class Shortcodes {
 
             echo '<div class="campusos-card campusos-testimonial-card">';
             echo '<div class="campusos-testimonial-content">';
-            echo '<p class="campusos-testimonial-text">"' . esc_html( wp_trim_words( get_the_content(), 40 ) ) . '"</p>';
+            $teks = get_post_meta( $id, '_testimonial_teks', true );
+            if ( empty( $teks ) ) {
+                $teks = get_post_field( 'post_content', $id );
+            }
+            echo '<p class="campusos-testimonial-text">"' . esc_html( wp_trim_words( wp_strip_all_tags( $teks ), 40 ) ) . '"</p>';
             echo '</div>';
             echo '<div class="campusos-testimonial-author">';
             if ( $foto ) {
@@ -1177,8 +1203,9 @@ class Shortcodes {
             }
             echo '<div class="campusos-card-content">';
             echo '<h4 class="campusos-card-title">' . esc_html( get_the_title() ) . '</h4>';
-            if ( has_excerpt() || get_the_content() ) {
-                echo '<p class="campusos-excerpt">' . esc_html( wp_trim_words( get_the_excerpt() ?: get_the_content(), 20 ) ) . '</p>';
+            $desc = $this->get_description( $id, '_organisasi_mhs_deskripsi_org', 20 );
+            if ( $desc ) {
+                echo '<p class="campusos-excerpt">' . esc_html( $desc ) . '</p>';
             }
             echo '</div>';
             echo '</div>';
@@ -1187,6 +1214,16 @@ class Shortcodes {
         echo '</div>';
         wp_reset_postdata();
 
+        return ob_get_clean();
+    }
+
+    /**
+     * Staff Carousel (homepage staff section)
+     * Renders the homepage-staff template part.
+     */
+    public function staff_carousel( $atts ) {
+        ob_start();
+        get_template_part( 'template-parts/homepage', 'staff' );
         return ob_get_clean();
     }
 }
