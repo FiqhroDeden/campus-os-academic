@@ -15,11 +15,6 @@ while ( have_posts() ) : the_post();
 <div class="page-hero">
     <div class="container">
         <h1><?php the_title(); ?></h1>
-        <div class="breadcrumb">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'campusos-academic' ); ?></a> &raquo;
-            <a href="<?php echo esc_url( get_post_type_archive_link( 'beasiswa' ) ); ?>"><?php esc_html_e( 'Beasiswa', 'campusos-academic' ); ?></a> &raquo;
-            <?php the_title(); ?>
-        </div>
     </div>
 </div>
 <main id="primary" class="site-main">

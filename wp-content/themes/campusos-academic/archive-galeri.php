@@ -7,10 +7,6 @@ get_header();
 <div class="page-hero">
     <div class="container">
         <h1><?php post_type_archive_title(); ?></h1>
-        <div class="breadcrumb">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'campusos-academic' ); ?></a> &raquo;
-            <?php post_type_archive_title(); ?>
-        </div>
     </div>
 </div>
 <main id="primary" class="site-main">

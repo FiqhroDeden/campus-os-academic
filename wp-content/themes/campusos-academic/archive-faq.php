@@ -15,10 +15,6 @@ $faq_query = new WP_Query( array(
 <div class="page-hero">
     <div class="container">
         <h1><?php esc_html_e( 'Frequently Asked Questions', 'campusos-academic' ); ?></h1>
-        <div class="breadcrumb">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Beranda', 'campusos-academic' ); ?></a> &raquo;
-            FAQ
-        </div>
     </div>
 </div>
 <main id="primary" class="site-main">

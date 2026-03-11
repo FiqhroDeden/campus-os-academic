@@ -80,7 +80,20 @@ body {
 }
 img { max-width: 100%; height: auto; display: block; }
 a { color: var(--campusos-primary); text-decoration: none; transition: color var(--transition-fast); }
-a:hover { color: var(--campusos-secondary); }
+a:hover { color: var(--campusos-secondary); text-decoration: underline; }
+/* Opt-out underline on UI elements (nav, buttons, cards, footer, logo) */
+.main-navigation a:hover,
+.btn:hover,
+.card a:hover,
+.card-title a:hover,
+.site-title a:hover,
+.site-branding a:hover,
+.footer-main a:hover,
+.social-link:hover,
+.page-hero a:hover,
+.pagination a:hover,
+.nav-links a:hover,
+.wp-block-navigation a:hover { text-decoration: none; }
 ul, ol { list-style: none; }
 h1, h2, h3, h4, h5, h6 {
     color: var(--campusos-text);
@@ -307,7 +320,7 @@ button:focus-visible,
     line-height: 1.2;
 }
 .site-title a { color: var(--campusos-primary); }
-.site-title a:hover { color: var(--campusos-secondary); }
+.site-title a:hover { color: var(--campusos-primary-dark); }
 .site-description {
     font-size: 0.8125rem;
     color: var(--campusos-text-light, #6b7280);
@@ -352,6 +365,7 @@ button:focus-visible,
 .main-navigation .primary-menu > li.current-menu-item > a,
 .main-navigation .primary-menu > li.current-menu-ancestor > a {
     color: var(--campusos-primary);
+    text-decoration: none;
 }
 
 /* --- Dropdown menus --- */
@@ -388,6 +402,7 @@ button:focus-visible,
 .main-navigation .sub-menu li a:hover {
     background: var(--campusos-bg-alt, #f9fafb);
     color: var(--campusos-primary);
+    text-decoration: none;
 }
 /* Nested submenu */
 .main-navigation .sub-menu .sub-menu {
@@ -426,7 +441,7 @@ button:focus-visible,
         font-weight: 500;
     }
     .main-navigation .primary-menu > .menu-item-has-children:has(> .sub-menu > li:nth-child(2)) > .sub-menu > li > a:hover {
-        color: var(--campusos-secondary);
+        color: var(--campusos-primary-dark);
     }
     /* Nested sub-menu: inline within column */
     .main-navigation .primary-menu > .menu-item-has-children:has(> .sub-menu > li:nth-child(2)) > .sub-menu .sub-menu {
@@ -449,7 +464,7 @@ button:focus-visible,
         border-bottom: none;
     }
     .main-navigation .primary-menu > .menu-item-has-children:has(> .sub-menu > li:nth-child(2)) > .sub-menu .sub-menu li a:hover {
-        color: var(--campusos-secondary);
+        color: var(--campusos-primary);
         background: transparent;
     }
 }
@@ -619,7 +634,7 @@ button:focus-visible,
 }
 .footer-grid {
     display: grid;
-    grid-template-columns: 1.8fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1.8fr 1fr 1fr 1fr;
     gap: var(--space-6);
 }
 /* Footer About / Institution Info */
@@ -645,22 +660,20 @@ button:focus-visible,
     opacity: 0.9;
     line-height: 1.7;
 }
-.footer-info-links {
+.footer-contact-item {
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-.footer-info-link {
-    display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    color: #fff;
+    color: rgba(255, 255, 255, 0.9);
     font-size: 0.875rem;
-    opacity: 0.9;
-    transition: opacity 0.2s, color 0.2s;
+    margin-bottom: 0.4rem;
 }
-.footer-info-link:hover { opacity: 1; color: var(--campusos-secondary); }
-.footer-info-link svg { flex-shrink: 0; opacity: 0.8; }
+.footer-contact-item svg { flex-shrink: 0; opacity: 0.8; }
+.footer-contact-item a {
+    color: rgba(255, 255, 255, 0.9);
+    transition: color 0.2s;
+}
+.footer-contact-item a:hover { color: var(--campusos-secondary); }
 
 /* Footer column titles */
 .footer-title {
@@ -691,7 +704,7 @@ button:focus-visible,
 /* Social media */
 .social-links {
     display: grid;
-    grid-template-columns: repeat(4, 32px);
+    grid-template-columns: repeat(5, 32px);
     gap: 0.5rem;
 }
 .social-link {
@@ -716,6 +729,19 @@ button:focus-visible,
     border-color: var(--campusos-secondary);
     color: #fff;
     transform: translateY(-2px);
+}
+.footer-about .social-links { margin-top: var(--space-4); }
+
+/* Footer map */
+.footer-map {
+    margin-top: var(--space-4);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+.footer-map iframe {
+    width: 100%;
+    height: 180px;
+    border: 0;
 }
 
 /* Footer bottom */
@@ -743,13 +769,8 @@ button:focus-visible,
 
 /* Footer responsive */
 @media (max-width: 1024px) {
-    .footer-grid { grid-template-columns: 1.5fr 1fr 1fr; gap: var(--space-5); }
-    .footer-about { grid-column: 1 / -1; padding-right: 0; }
-    .social-links { grid-template-columns: repeat(5, 32px); }
-}
-@media (max-width: 768px) {
     .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--space-5); }
-    .footer-social { grid-column: 1 / -1; }
+    .footer-about { grid-column: 1 / -1; padding-right: 0; }
     .social-links { grid-template-columns: repeat(5, 32px); }
 }
 @media (max-width: 480px) {
@@ -809,7 +830,7 @@ button:focus-visible,
     color: var(--campusos-primary);
     transition: color var(--transition-fast);
 }
-.breadcrumb-list li a:hover { color: var(--campusos-secondary); }
+.breadcrumb-list li a:hover { color: var(--campusos-primary-dark); text-decoration: underline; }
 .breadcrumb-list li:last-child { font-weight: 600; color: var(--campusos-text); }
 .breadcrumb-sep {
     margin: 0 0.4rem;

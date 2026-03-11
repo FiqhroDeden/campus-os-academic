@@ -1,7 +1,7 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'CAMPUSOS_THEME_VERSION', '1.2.2' );
+define( 'CAMPUSOS_THEME_VERSION', '1.2.3' );
 define( 'CAMPUSOS_THEME_PATH', get_template_directory() );
 define( 'CAMPUSOS_THEME_URI', get_template_directory_uri() );
 
@@ -48,9 +48,9 @@ add_action( 'after_setup_theme', function() {
     register_nav_menus( [
         'primary'              => __( 'Menu Utama', 'campusos-academic' ),
         'footer'               => __( 'Menu Footer', 'campusos-academic' ),
-        'footer-akademik'      => __( 'Footer - Akademik', 'campusos-academic' ),
-        'footer-kemahasiswaan' => __( 'Footer - Kemahasiswaan', 'campusos-academic' ),
-        'footer-alumni'        => __( 'Footer - Alumni', 'campusos-academic' ),
+        'footer-akademik'      => __( 'Footer - Kolom 2', 'campusos-academic' ),
+        'footer-kemahasiswaan' => __( 'Footer - Kolom 3', 'campusos-academic' ),
+        'footer-alumni'        => __( 'Footer - Kolom 4', 'campusos-academic' ),
     ] );
 
     add_image_size( 'campusos-card', 400, 300, true );
@@ -165,16 +165,16 @@ add_action( 'init', function() {
 
     $footer_menus = [
         'footer-akademik' => [
-            'name'  => 'Footer - Akademik',
-            'items' => [ 'Kurikulum', 'Jadwal Kuliah', 'CPL', 'Kalender Akademik', 'Akreditasi' ],
+            'name'  => 'Sistem Terkait',
+            'items' => [ 'SIAKAD', 'PMB', 'E-Learning', 'Repository', 'Jurnal' ],
         ],
         'footer-kemahasiswaan' => [
-            'name'  => 'Footer - Kemahasiswaan',
-            'items' => [ 'Organisasi Mahasiswa', 'Beasiswa', 'Prestasi', 'Magang', 'Layanan Mahasiswa' ],
+            'name'  => 'Unit Penunjang',
+            'items' => [ 'Perpustakaan', 'Laboratorium', 'UPT Bahasa', 'UPT TIK', 'Pusat Karir' ],
         ],
         'footer-alumni' => [
-            'name'  => 'Footer - Alumni',
-            'items' => [ 'Komunitas Alumni', 'Tracer Study', 'Lowongan Kerja', 'Magang & Karir' ],
+            'name'  => 'Lembaga Terkait',
+            'items' => [ 'LPPM', 'LPM', 'LP3M', 'BPM', 'Senat' ],
         ],
     ];
 

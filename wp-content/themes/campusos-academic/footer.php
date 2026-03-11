@@ -19,66 +19,20 @@
                     <?php if ( $address = get_theme_mod( 'campusos_address' ) ) : ?>
                         <p class="footer-address"><?php echo esc_html( $address ); ?></p>
                     <?php endif; ?>
-                    <div class="footer-info-links">
-                        <?php if ( $parent_url = get_theme_mod( 'campusos_parent_url' ) ) : ?>
-                            <a href="<?php echo esc_url( $parent_url ); ?>" target="_blank" rel="noopener noreferrer" class="footer-info-link">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                                <?php esc_html_e( 'Peta & Arah', 'campusos-academic' ); ?>
-                            </a>
-                        <?php endif; ?>
-                        <?php
-                        $phone = get_theme_mod( 'campusos_phone' );
-                        $email = get_theme_mod( 'campusos_email' );
-                        if ( $phone || $email ) : ?>
-                            <a href="<?php echo $email ? 'mailto:' . esc_attr( $email ) : ( $phone ? 'tel:' . esc_attr( $phone ) : '#' ); ?>" class="footer-info-link">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
-                                <?php esc_html_e( 'Informasi Kontak', 'campusos-academic' ); ?>
-                            </a>
-                        <?php endif; ?>
-                    </div>
-                </div>
-
-                <div class="footer-col footer-links-col">
-                    <h3 class="footer-title"><?php esc_html_e( 'Akademik', 'campusos-academic' ); ?></h3>
-                    <?php
-                    wp_nav_menu( [
-                        'theme_location' => 'footer-akademik',
-                        'menu_class'     => 'footer-menu',
-                        'container'      => false,
-                        'fallback_cb'    => false,
-                        'depth'          => 1,
-                    ] );
-                    ?>
-                </div>
-
-                <div class="footer-col footer-links-col">
-                    <h3 class="footer-title"><?php esc_html_e( 'Kemahasiswaan', 'campusos-academic' ); ?></h3>
-                    <?php
-                    wp_nav_menu( [
-                        'theme_location' => 'footer-kemahasiswaan',
-                        'menu_class'     => 'footer-menu',
-                        'container'      => false,
-                        'fallback_cb'    => false,
-                        'depth'          => 1,
-                    ] );
-                    ?>
-                </div>
-
-                <div class="footer-col footer-links-col">
-                    <h3 class="footer-title"><?php esc_html_e( 'Alumni', 'campusos-academic' ); ?></h3>
-                    <?php
-                    wp_nav_menu( [
-                        'theme_location' => 'footer-alumni',
-                        'menu_class'     => 'footer-menu',
-                        'container'      => false,
-                        'fallback_cb'    => false,
-                        'depth'          => 1,
-                    ] );
-                    ?>
-                </div>
-
-                <div class="footer-col footer-social">
-                    <h3 class="footer-title"><?php esc_html_e( 'Media Sosial', 'campusos-academic' ); ?></h3>
+                    <?php $phone = get_theme_mod( 'campusos_phone' ); ?>
+                    <?php $email = get_theme_mod( 'campusos_email' ); ?>
+                    <?php if ( $phone ) : ?>
+                        <div class="footer-contact-item">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                            <a href="tel:<?php echo esc_attr( $phone ); ?>"><?php echo esc_html( $phone ); ?></a>
+                        </div>
+                    <?php endif; ?>
+                    <?php if ( $email ) : ?>
+                        <div class="footer-contact-item">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+                            <a href="mailto:<?php echo esc_attr( $email ); ?>"><?php echo esc_html( $email ); ?></a>
+                        </div>
+                    <?php endif; ?>
                     <div class="social-links">
                         <?php
                         $socials = [
@@ -96,6 +50,69 @@
                         <?php endif; endforeach; ?>
                     </div>
                 </div>
+
+                <?php if ( has_nav_menu( 'footer-akademik' ) ) : ?>
+                <div class="footer-col footer-links-col">
+                    <h3 class="footer-title"><?php echo esc_html( campusos_get_menu_title( 'footer-akademik', 'Sistem Terkait' ) ); ?></h3>
+                    <?php
+                    wp_nav_menu( [
+                        'theme_location' => 'footer-akademik',
+                        'menu_class'     => 'footer-menu',
+                        'container'      => false,
+                        'fallback_cb'    => false,
+                        'depth'          => 1,
+                    ] );
+                    ?>
+                </div>
+                <?php endif; ?>
+
+                <?php if ( has_nav_menu( 'footer-kemahasiswaan' ) ) : ?>
+                <div class="footer-col footer-links-col">
+                    <h3 class="footer-title"><?php echo esc_html( campusos_get_menu_title( 'footer-kemahasiswaan', 'Unit Penunjang' ) ); ?></h3>
+                    <?php
+                    wp_nav_menu( [
+                        'theme_location' => 'footer-kemahasiswaan',
+                        'menu_class'     => 'footer-menu',
+                        'container'      => false,
+                        'fallback_cb'    => false,
+                        'depth'          => 1,
+                    ] );
+                    ?>
+                </div>
+                <?php endif; ?>
+
+                <?php if ( has_nav_menu( 'footer-alumni' ) ) : ?>
+                <div class="footer-col footer-links-col">
+                    <h3 class="footer-title"><?php echo esc_html( campusos_get_menu_title( 'footer-alumni', 'Lembaga Terkait' ) ); ?></h3>
+                    <?php
+                    wp_nav_menu( [
+                        'theme_location' => 'footer-alumni',
+                        'menu_class'     => 'footer-menu',
+                        'container'      => false,
+                        'fallback_cb'    => false,
+                        'depth'          => 1,
+                    ] );
+                    ?>
+                    <?php
+                    $map_embed = get_theme_mod( 'campusos_footer_map_embed', '' );
+                    if ( $map_embed ) : ?>
+                        <div class="footer-map">
+                            <?php echo wp_kses( $map_embed, [
+                                'iframe' => [
+                                    'src'              => true,
+                                    'width'            => true,
+                                    'height'           => true,
+                                    'style'            => true,
+                                    'allowfullscreen'  => true,
+                                    'loading'          => true,
+                                    'referrerpolicy'   => true,
+                                    'frameborder'      => true,
+                                ],
+                            ] ); ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>

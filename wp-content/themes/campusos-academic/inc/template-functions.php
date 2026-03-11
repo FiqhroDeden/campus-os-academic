@@ -20,3 +20,18 @@ function campusos_primary_color() {
 function campusos_secondary_color() {
     return get_theme_mod( 'campusos_secondary_color', '#e67e22' );
 }
+
+function campusos_get_menu_title( $location, $default = '' ) {
+    $locations = get_nav_menu_locations();
+    if ( ! empty( $locations[ $location ] ) ) {
+        $menu = wp_get_nav_menu_object( $locations[ $location ] );
+        if ( $menu ) {
+            $name = $menu->name;
+            if ( strpos( $name, 'Footer - ' ) === 0 ) {
+                $name = substr( $name, 9 );
+            }
+            return $name;
+        }
+    }
+    return $default;
+}

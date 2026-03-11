@@ -175,6 +175,31 @@ add_action( 'customize_register', function( $wp_customize ) {
         'type'    => 'textarea',
     ] );
 
+    // Google Maps Embed
+    $wp_customize->add_setting( 'campusos_footer_map_embed', [
+        'default'           => '',
+        'sanitize_callback' => function( $val ) {
+            return wp_kses( $val, [
+                'iframe' => [
+                    'src'              => true,
+                    'width'            => true,
+                    'height'           => true,
+                    'style'            => true,
+                    'allowfullscreen'  => true,
+                    'loading'          => true,
+                    'referrerpolicy'   => true,
+                    'frameborder'      => true,
+                ],
+            ] );
+        },
+    ] );
+    $wp_customize->add_control( 'campusos_footer_map_embed', [
+        'label'       => __( 'Google Maps Embed', 'campusos-academic' ),
+        'description' => __( 'Tempel kode iframe dari Google Maps', 'campusos-academic' ),
+        'section'     => 'campusos_footer',
+        'type'        => 'textarea',
+    ] );
+
     // --- Section: Tipografi ---
     $wp_customize->add_section( 'campusos_typography', [
         'title' => __( 'Tipografi', 'campusos-academic' ),
