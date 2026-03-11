@@ -11,6 +11,7 @@ class Admin_Settings {
         add_action( 'admin_init', [ $this, 'register_settings' ] );
         add_action( 'wp_ajax_campusos_license_activate', [ $this, 'ajax_license_activate' ] );
         add_action( 'wp_ajax_campusos_license_deactivate', [ $this, 'ajax_license_deactivate' ] );
+        add_action( 'upgrader_process_complete', [ $this, 'log_update' ], 10, 2 );
     }
 
     public function add_menu() {
@@ -71,7 +72,7 @@ class Admin_Settings {
                 $sanitized['api_cache_ttl']  = absint( $input['api_cache_ttl'] ?? 3600 );
                 break;
 
-            case 'export':
+            case 'update':
                 $sanitized['update_server_url'] = esc_url_raw( $input['update_server_url'] ?? '' );
                 break;
 
@@ -116,6 +117,7 @@ class Admin_Settings {
             'keamanan'  => __( 'Keamanan', 'campusos-academic' ),
             'sso'       => __( 'SSO', 'campusos-academic' ),
             'api'       => __( 'Integrasi API', 'campusos-academic' ),
+            'update'    => __( 'Pembaruan', 'campusos-academic' ),
             'export'    => __( 'Export / Import', 'campusos-academic' ),
         ];
         ?>
@@ -157,6 +159,9 @@ class Admin_Settings {
                         break;
                     case 'api':
                         $this->render_tab_api();
+                        break;
+                    case 'update':
+                        $this->render_tab_update();
                         break;
                     case 'export':
                         $this->render_tab_export();
@@ -349,20 +354,126 @@ class Admin_Settings {
             <p><input type="file" name="import_file" accept=".json" /></p>
             <p><?php submit_button( __( 'Import JSON', 'campusos-academic' ), 'secondary', 'submit', false ); ?></p>
         </form>
-        <form method="post" action="options.php">
-            <?php settings_fields( 'campusos_settings_group' ); ?>
-            <input type="hidden" name="<?php echo esc_attr( $this->option_name ); ?>[_active_tab]" value="export" />
+        <?php
+    }
 
-        <hr/>
+    private function render_tab_update() {
+        $options    = get_option( $this->option_name, [] );
+        $server_url = $options['update_server_url'] ?? $options['license_server_url'] ?? '';
+        ?>
+
+        <!-- Section 1: Update Server URL -->
         <h3><?php esc_html_e( 'Update Server', 'campusos-academic' ); ?></h3>
         <table class="form-table">
             <tr>
                 <th><?php esc_html_e( 'Update Server URL', 'campusos-academic' ); ?></th>
-                <td><input type="url" name="<?php echo $this->option_name; ?>[update_server_url]" value="<?php echo esc_attr( $this->get_option('update_server_url') ); ?>" class="regular-text" />
-                <p class="description"><?php esc_html_e( 'URL server untuk auto-update tema dan plugin.', 'campusos-academic' ); ?></p></td>
+                <td>
+                    <input type="url" name="<?php echo esc_attr( $this->option_name ); ?>[update_server_url]" value="<?php echo esc_attr( $this->get_option( 'update_server_url' ) ); ?>" class="regular-text" />
+                    <p class="description"><?php esc_html_e( 'URL server untuk auto-update tema dan plugin. Jika kosong, menggunakan URL Server Lisensi.', 'campusos-academic' ); ?></p>
+                </td>
             </tr>
         </table>
+
+        <!-- Section 2: Versi Terpasang -->
+        <hr/>
+        <h3><?php esc_html_e( 'Versi Terpasang', 'campusos-academic' ); ?></h3>
+        <table class="widefat striped" style="max-width:500px;">
+            <tbody>
+                <tr>
+                    <td><strong><?php esc_html_e( 'Tema', 'campusos-academic' ); ?></strong></td>
+                    <td><?php echo esc_html( defined( 'CAMPUSOS_THEME_VERSION' ) ? CAMPUSOS_THEME_VERSION : '-' ); ?></td>
+                </tr>
+                <tr>
+                    <td><strong><?php esc_html_e( 'Plugin', 'campusos-academic' ); ?></strong></td>
+                    <td><?php echo esc_html( defined( 'CAMPUSOS_CORE_VERSION' ) ? CAMPUSOS_CORE_VERSION : '-' ); ?></td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="margin-top:12px;">
+            <a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin.php?page=campusos-academic&tab=update&check_updates=1' ), 'campusos_check_updates' ) ); ?>" class="button button-secondary">
+                <?php esc_html_e( 'Periksa Pembaruan', 'campusos-academic' ); ?>
+            </a>
+        </p>
         <?php
+        // Handle check updates button
+        if ( ! empty( $_GET['check_updates'] ) && wp_verify_nonce( $_GET['_wpnonce'] ?? '', 'campusos_check_updates' ) ) {
+            delete_site_transient( 'update_themes' );
+            delete_site_transient( 'update_plugins' );
+            echo '<script>window.location.href = "' . esc_url( admin_url( 'update-core.php' ) ) . '";</script>';
+            return;
+        }
+        ?>
+
+        <!-- Section 3: Changelog -->
+        <hr/>
+        <h3><?php esc_html_e( 'Changelog', 'campusos-academic' ); ?></h3>
+        <?php
+        if ( ! empty( $server_url ) ) {
+            $this->render_changelog_section( $server_url, 'campusos-academic', __( 'Tema', 'campusos-academic' ) );
+            $this->render_changelog_section( $server_url, 'campusos-academic-core', __( 'Plugin', 'campusos-academic' ) );
+        } else {
+            echo '<p><em>' . esc_html__( 'Tidak tersedia — URL server belum dikonfigurasi.', 'campusos-academic' ) . '</em></p>';
+        }
+        ?>
+
+        <!-- Section 4: Riwayat Pembaruan -->
+        <hr/>
+        <h3><?php esc_html_e( 'Riwayat Pembaruan', 'campusos-academic' ); ?></h3>
+        <?php
+        $history = get_option( 'campusos_update_history', [] );
+        if ( empty( $history ) ) {
+            echo '<p><em>' . esc_html__( 'Belum ada riwayat pembaruan.', 'campusos-academic' ) . '</em></p>';
+        } else {
+            $history = array_reverse( $history );
+            $history = array_slice( $history, 0, 20 );
+            ?>
+            <table class="widefat striped" style="max-width:600px;">
+                <thead>
+                    <tr>
+                        <th><?php esc_html_e( 'Tanggal', 'campusos-academic' ); ?></th>
+                        <th><?php esc_html_e( 'Produk', 'campusos-academic' ); ?></th>
+                        <th><?php esc_html_e( 'Versi', 'campusos-academic' ); ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ( $history as $entry ) : ?>
+                        <tr>
+                            <td><?php echo esc_html( $entry['date'] ?? '-' ); ?></td>
+                            <td><?php echo esc_html( $entry['product'] ?? '-' ); ?></td>
+                            <td><?php echo esc_html( ( $entry['old_version'] ?? '?' ) . ' → ' . ( $entry['new_version'] ?? '?' ) ); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+            <?php
+        }
+    }
+
+    private function render_changelog_section( $server_url, $slug, $label ) {
+        $transient_key = 'campusos_changelog_' . $slug;
+        $changelog     = get_transient( $transient_key );
+
+        if ( false === $changelog ) {
+            $url      = trailingslashit( $server_url ) . 'api/info?slug=' . urlencode( $slug );
+            $response = wp_remote_get( $url, [ 'timeout' => 10 ] );
+
+            if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
+                $changelog = '';
+            } else {
+                $body = json_decode( wp_remote_retrieve_body( $response ), true );
+                $changelog = $body['sections']['changelog'] ?? $body['changelog'] ?? '';
+            }
+            set_transient( $transient_key, $changelog, HOUR_IN_SECONDS );
+        }
+
+        echo '<h4>' . esc_html( $label ) . '</h4>';
+        if ( ! empty( $changelog ) ) {
+            echo '<div style="max-height:200px;overflow-y:auto;padding:10px 15px;background:#f9f9f9;border:1px solid #ddd;border-radius:4px;">';
+            echo wp_kses_post( $changelog );
+            echo '</div>';
+        } else {
+            echo '<p><em>' . esc_html__( 'Tidak tersedia.', 'campusos-academic' ) . '</em></p>';
+        }
     }
 
     public function render_tab_lisensi() {
@@ -487,5 +598,48 @@ class Admin_Settings {
         $client = new \CampusOS\Core\License\License_Client();
         $result = $client->deactivate();
         wp_send_json_success( $result['message'] );
+    }
+
+    public function log_update( $upgrader, $options ) {
+        if ( ( $options['action'] ?? '' ) !== 'update' ) {
+            return;
+        }
+
+        $type = $options['type'] ?? '';
+        $entries = [];
+
+        if ( $type === 'theme' && ! empty( $options['themes'] ) && in_array( 'campusos-academic', $options['themes'], true ) ) {
+            $theme       = wp_get_theme( 'campusos-academic' );
+            $new_version = $theme->exists() ? $theme->get( 'Version' ) : '?';
+            $entries[]   = [
+                'date'        => current_time( 'mysql' ),
+                'product'     => 'campusos-academic',
+                'old_version' => defined( 'CAMPUSOS_THEME_VERSION' ) ? CAMPUSOS_THEME_VERSION : '?',
+                'new_version' => $new_version,
+            ];
+        }
+
+        if ( $type === 'plugin' && ! empty( $options['plugins'] ) && in_array( 'campusos-academic-core/campusos-academic-core.php', $options['plugins'], true ) ) {
+            $plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/campusos-academic-core/campusos-academic-core.php', false, false );
+            $new_version = $plugin_data['Version'] ?? '?';
+            $entries[]   = [
+                'date'        => current_time( 'mysql' ),
+                'product'     => 'campusos-academic-core',
+                'old_version' => defined( 'CAMPUSOS_CORE_VERSION' ) ? CAMPUSOS_CORE_VERSION : '?',
+                'new_version' => $new_version,
+            ];
+        }
+
+        if ( empty( $entries ) ) {
+            return;
+        }
+
+        $history = get_option( 'campusos_update_history', [] );
+        if ( ! is_array( $history ) ) {
+            $history = [];
+        }
+        $history = array_merge( $history, $entries );
+        $history = array_slice( $history, -50 );
+        update_option( 'campusos_update_history', $history, false );
     }
 }

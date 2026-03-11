@@ -11,6 +11,9 @@ class Theme_Updater {
     public function init() {
         $settings = get_option( 'campusos_settings', [] );
         $this->update_url = $settings['update_server_url'] ?? '';
+        if ( empty( $this->update_url ) ) {
+            $this->update_url = $settings['license_server_url'] ?? '';
+        }
         if ( empty( $this->update_url ) ) return;
 
         $license_client = new \CampusOS\Core\License\License_Client();
