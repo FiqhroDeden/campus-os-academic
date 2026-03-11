@@ -17,6 +17,8 @@ $routes = [
     'POST /api/deactivate'    => 'api/deactivate.php',
     'GET /api/check-update'   => 'api/check-update.php',
     'GET /api/check'          => 'api/check-update.php',
+    'GET /api/download'       => 'api/download.php',
+    'GET /api/info'           => 'api/info.php',
 ];
 
 $route_key = $method . ' ' . $uri;
@@ -29,6 +31,8 @@ if ( isset( $routes[ $route_key ] ) ) {
         require __DIR__ . '/admin/index.php';
     } elseif ( $uri === '/admin/login' ) {
         require __DIR__ . '/admin/login.php';
+    } elseif ( $uri === '/admin/releases' ) {
+        require __DIR__ . '/admin/releases.php';
     } else {
         http_response_code( 404 );
         echo '<h1>404 Not Found</h1>';

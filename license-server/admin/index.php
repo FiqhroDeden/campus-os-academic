@@ -1,13 +1,13 @@
 <?php
 session_start();
 if ( empty( $_SESSION['admin_logged_in'] ) ) {
-    header( 'Location: /admin/login.php' );
+    header( 'Location: /admin/login' );
     exit;
 }
 
 if ( isset( $_GET['logout'] ) ) {
     session_destroy();
-    header( 'Location: /admin/login.php' );
+    header( 'Location: /admin/login' );
     exit;
 }
 
@@ -97,7 +97,11 @@ $licenses = DB::fetchAll( 'SELECT * FROM licenses ORDER BY created_at DESC LIMIT
 <body>
     <div class="header">
         <h1>CampusOS License Server</h1>
-        <a href="/admin/index.php?logout=1">Logout (<?=htmlspecialchars($_SESSION['admin_user'])?>)</a>
+        <div style="display:flex;gap:1.5rem;align-items:center">
+            <a href="/admin" style="color:#fff;text-decoration:none;opacity:1;border-bottom:2px solid #fff;padding-bottom:2px;font-size:.9rem">Lisensi</a>
+            <a href="/admin/releases" style="color:#fff;text-decoration:none;opacity:.8;font-size:.9rem">Releases</a>
+            <a href="/admin/index.php?logout=1" style="color:#fff;text-decoration:none;opacity:.8">Logout (<?=htmlspecialchars($_SESSION['admin_user'])?>)</a>
+        </div>
     </div>
     <div class="container">
         <?php if($success):?><div class="success"><?=htmlspecialchars($success)?></div><?php endif;?>

@@ -1,3 +1,30 @@
+# Build
 dist/
-*.min.css
-*.min.js
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# WordPress core (managed by WP updates, not git)
+wp-admin/
+wp-includes/
+wp-content/upgrade-temp-backup/
+wp-content/uploads/
+wp-content/upgrade/
+
+# WordPress plugins (managed by plugin updates)
+wp-content/plugins/elementor/
+wp-content/plugins/elementor-pro/
+
+# Binary releases (too large for git)
+*.zip
+license-server/releases/*.zip
+
+# Screenshots (debug/verification artifacts)
+screenshots/
+*.png
+!wp-content/themes/**/*.png
+!license-server/**/*.png
+
+# Misc
+*.log
